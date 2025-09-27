@@ -16,23 +16,18 @@
     .menu a{margin-left:18px;color:#46526b;text-decoration:none;font-weight:600}
     .menu a:hover{color:#0f254b}
     /* HERO */
-    header{display:flex;gap:24px;align-items:center;background:#fff;padding:40px 20px;border-bottom:1px solid #e6ecf5}
-    header .hero-copy{flex:1}
-    header img{width:360px;max-width:100%;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+    header{background:#fff;padding:50px 20px;text-align:left;border-bottom:1px solid #e6ecf5}
     h1{margin:0 0 12px;font-size:34px}
     h2{margin-top:36px;font-size:26px}
     h3{margin-top:20px;font-size:20px}
     p{margin:10px 0}
     ul{padding-left:20px;margin:8px 0}
-    .btn{display:inline-block;margin-top:10px;padding:10px 16px;border-radius:8px;background:#1565ff;color:#fff;text-decoration:none;font-weight:600;box-shadow:0 4px 12px rgba(21,101,255,.25)}
+    .btn{display:inline-block;margin-top:12px;padding:10px 16px;border-radius:8px;background:#1565ff;color:#fff;text-decoration:none;font-weight:600;box-shadow:0 4px 12px rgba(21,101,255,.25)}
     .btn:hover{background:#0d47a1}
+    .backlink{display:inline-block;margin-bottom:16px;color:#1565ff;text-decoration:none;font-weight:600}
+    .backlink:hover{text-decoration:underline}
     /* FOOTER */
     .footer{background:#fff;border-top:1px solid #e6ecf5;padding:16px;color:#555;text-align:center;margin-top:40px}
-    /* RESPONSIVE */
-    @media (max-width:900px){
-      header{flex-direction:column}
-      header img{width:100%}
-    }
   </style>
 </head>
 <body>
@@ -53,14 +48,14 @@
     </div>
   </nav>
 
-  <!-- HERO (text left, image right) -->
+  <!-- HERO -->
   <header>
-    <div class="hero-copy">
+    <div class="container">
+      <a href="index.html#journals" class="backlink">← Back to Journals Home</a>
       <h1>Book Publications</h1>
       <p><b>We publish every kind of book.</b> From fiction and non-fiction to cross-disciplinary works in education, culture, science, and technology — each title is selected for clarity, craft, and lasting reader value. Books are not just products to us; they are companions for thought, imagination, and transformation.</p>
       <a href="https://amazon.com/author/shunya_" class="btn">📚 Explore Our Amazon Catalogue</a>
     </div>
-    <img src="boogimg.png" alt="Books showcase">
   </header>
 
   <!-- CONTENT -->
