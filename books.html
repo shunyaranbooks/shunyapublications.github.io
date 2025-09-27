@@ -4,41 +4,85 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shunya Publications — Books</title>
-  <meta name="description" content="Shunya Publications publishes every kind of book — fiction, non-fiction, and cross-disciplinary works — with editorial care, thoughtful design, and global distribution." />
+  <meta name="description" content="Shunya Publications publishes every kind of book — fiction, non‑fiction, and cross‑disciplinary works — with editorial care, thoughtful design, and global distribution." />
+  <link rel="icon" href="/favicon.ico" />
   <style>
-    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;line-height:1.75;color:#15223a;background:#fafafa}
-    .container{max-width:1100px;margin:auto;padding:20px}
-    /* NAV */
-    .nav{background:#fff;border-bottom:1px solid #e6ecf5;position:sticky;top:0;z-index:50}
-    .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 0}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
-    .brand img{height:40px;width:40px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
-    .menu a{margin-left:18px;color:#46526b;text-decoration:none;font-weight:600}
-    .menu a:hover{color:#0f254b}
-    /* HERO */
-    header{background:#fff;padding:50px 20px;text-align:left;border-bottom:1px solid #e6ecf5}
-    h1{margin:0 0 12px;font-size:34px}
-    h2{margin-top:36px;font-size:26px}
-    h3{margin-top:20px;font-size:20px}
-    p{margin:10px 0}
-    ul{padding-left:20px;margin:8px 0}
-    .btn{display:inline-block;margin-top:12px;padding:10px 16px;border-radius:8px;background:#1565ff;color:#fff;text-decoration:none;font-weight:600;box-shadow:0 4px 12px rgba(21,101,255,.25)}
-    .btn:hover{background:#0d47a1}
-    .backlink{display:inline-block;margin-bottom:16px;color:#1565ff;text-decoration:none;font-weight:600}
-    .backlink:hover{text-decoration:underline}
-    /* FOOTER */
-    .footer{background:#fff;border-top:1px solid #e6ecf5;padding:16px;color:#555;text-align:center;margin-top:40px}
+    /* ============ Shunya UI (shared with index) ============ */
+    :root{
+      --bg:#ffffff; --bg-1:#fff9f1; --bg-2:#f3f9ff; --bg-3:#eef9f5;
+      --text:#142036; --muted:#5a6b88; --line:#e6ecf5; --line-strong:#cfd8e6;
+      --brand:#1565ff; --brand-2:#ff7a3d; --brand-3:#15a085; --accent:#7d4dff; --gold:#f6b73c;
+      --shadow:0 12px 30px rgba(21,101,255,.10);
+      --shadow-soft:0 10px 24px rgba(20,32,54,.10);
+      --ring:0 0 0 4px rgba(21,101,255,.16);
+      --radius:16px; --radius-lg:20px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      --fs-hero: clamp(2rem, 3.2vw, 2.6rem);
+      --fs-h2: clamp(1.5rem, 1.8vw, 1.9rem);
+      --fs-h3: 1.12rem;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:var(--font); color:var(--text);
+      background:
+        radial-gradient(1100px 620px at 10% -10%, var(--bg-1) 0%, #fff 60%),
+        radial-gradient(1200px 720px at 110% 110%, var(--bg-2) 0%, #fff 55%),
+        radial-gradient(1000px 650px at -10% 120%, var(--bg-3) 0%, #fff 50%);
+    }
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1180px;margin:auto;padding:0 20px}
+    .section{padding:64px 0;border-top:1px solid var(--line)}
+    .section:first-of-type{border-top:none}
+    .stack{display:flex;flex-direction:column;gap:14px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow-soft)}
+    .card-lg{padding:20px;border-radius:var(--radius-lg)}
+    .eyebrow{font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+
+    /* Nav */
+    .nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand img{height:42px;width:42px;border-radius:10px;box-shadow:var(--shadow-soft)}
+    .brand span{font-weight:800}
+    .menu a{margin-left:18px;color:var(--muted);font-weight:600}
+    .menu a:hover{color:var(--text)}
+
+    /* Hero */
+    header{padding:72px 0 36px}
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
+    .title{font-size:var(--fs-hero);line-height:1.12;margin:6px 0}
+    .title .rainbow{background:linear-gradient(90deg,var(--brand),var(--accent),var(--gold),var(--brand-3));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .subtitle{color:#2a3b5c;opacity:.95;max-width:70ch}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600}
+    .btn:hover{box-shadow:var(--ring)}
+    .btn.primary{background:linear-gradient(180deg,#f7fbff,#eaf2ff); border-color:#dbe7ff}
+
+    /* Grids */
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .feature{transition:transform .25s ease}
+    .feature:hover{transform:translateY(-2px)}
+
+    /* Footer */
+    footer .footer-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted)}
+
+    /* Responsive */
+    @media(max-width:980px){.hero{grid-template-columns:1fr}.features{grid-template-columns:1fr 1fr}}
+    @media(max-width:720px){.features{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
   <!-- NAV -->
-  <nav class="nav">
+  <nav class="nav" aria-label="Global">
     <div class="container nav-inner">
       <div class="brand">
-        <img src="Logosh.png" alt="Shunya Publications Logo">
+        <img src="Logosh.png" alt="Shunya Publications Logo" />
         <span>Shunya Publications</span>
       </div>
-      <div class="menu">
+      <div class="menu" role="navigation">
         <a href="index.html">Home</a>
         <a href="books.html">Books</a>
         <a href="ijcsetf.html">IJCSETF</a>
@@ -49,69 +93,68 @@
   </nav>
 
   <!-- HERO -->
-  <header>
-    <div class="container">
-      <a href="index.html#journals" class="backlink">← Back to Journals Home</a>
-      <h1>Book Publications</h1>
-      <p><b>We publish every kind of book.</b> From fiction and non-fiction to cross-disciplinary works in education, culture, science, and technology — each title is selected for clarity, craft, and lasting reader value. Books are not just products to us; they are companions for thought, imagination, and transformation.</p>
-    <a href="https://amazon.com/author/shunya_" target="_blank" class="amazon-link">
-  <span>📖 Browse All Books on Amazon</span>
-</a>
-
-<style>
-  .amazon-link {
-    display:inline-block;
-    padding:12px 20px;
-    background:linear-gradient(135deg,#ff9900,#ff6600);
-    color:#fff;
-    font-weight:600;
-    border-radius:10px;
-    text-decoration:none;
-    box-shadow:0 6px 14px rgba(0,0,0,.15);
-    transition:all .2s ease;
-  }
-  .amazon-link:hover {
-    background:linear-gradient(135deg,#ff6600,#cc5200);
-    box-shadow:0 8px 18px rgba(0,0,0,.25);
-    transform:translateY(-2px);
-  }
-  .amazon-link span {
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-</style>
+  <header class="section" id="top">
+    <div class="container hero">
+      <div>
+        <p class="eyebrow">Books</p>
+        <h1 class="title">Shunya Publications — <span class="rainbow">Books</span></h1>
+        <p class="subtitle"><b>We publish every kind of book.</b> From fiction and non‑fiction to cross‑disciplinary works in education, culture, science, and technology — each title is selected for clarity, craft, and lasting reader value. Books are companions for thought, imagination, and transformation.</p>
+        <div class="stack" style="flex-direction:row; gap:12px; flex-wrap:wrap">
+          <a class="btn primary" href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">📖 Browse All Books on Amazon</a>
+          <a class="btn" href="#vision">Our Editorial Vision</a>
+        </div>
+      </div>
+      <aside class="card card-lg" aria-label="Production notes">
+        <h3 style="margin:0 0 .4rem; font-size:var(--fs-h3)">Formats & Distribution</h3>
+        <ul style="margin:.2rem 0 0 1rem">
+          <li>Kindle / eBook for global reach</li>
+          <li>Print‑on‑demand paperback</li>
+          <li>Hardcover for flagship editions</li>
+          <li>Digital supplements where licensed</li>
+        </ul>
+      </aside>
     </div>
   </header>
 
   <!-- CONTENT -->
-  <div class="container">
-    <h2>Editorial Vision</h2>
-    <p>Every manuscript receives collaborative development, precise copyediting, and subject-aware review so the work reads like a guided conversation with its audience.</p>
-
-    <h2>Design &amp; Production</h2>
-    <p>Readable typography, balanced layouts, purposeful whitespace, and memorable covers — designed to invite reading and endure in both print and digital.</p>
-
-    <h2>Formats &amp; Distribution</h2>
-    <ul>
-      <li>Kindle/eBook for global reach</li>
-      <li>Print-on-demand paperback for everyday access</li>
-      <li>Hardcover for flagship and collector editions</li>
-      <li>Digital supplements (where licensing permits)</li>
-    </ul>
-    <p>All titles carry full bibliographic metadata and are distributed via major retail channels for libraries, classrooms, and catalogues.</p>
-
-    <h2>Marketing &amp; Discoverability</h2>
-    <p>Clear positioning, sample chapters, newsletters, and structured metadata (ISBNs, keywords, schema) ensure that books reach the right readers — by design, not by chance.</p>
-
-    <h2>Ethics &amp; Rights</h2>
-    <p>Authors retain copyright for agreed editions. We clear permissions diligently and uphold citation standards. Flexible licensing options are available for digital components.</p>
-
-    <p><b>Submissions:</b> opening soon. Guidelines and templates will be published here.</p>
-  </div>
+  <section class="section" id="vision">
+    <div class="container">
+      <div class="stack">
+        <div class="card">
+          <h2 style="margin:.2rem 0 .6rem; font-size:var(--fs-h2)">Editorial Vision</h2>
+          <p>Every manuscript receives collaborative development, precise copyediting, and subject‑aware review so the work reads like a guided conversation with its audience.</p>
+        </div>
+        <div class="features">
+          <div class="card feature">
+            <h3 style="margin:0 0 .4rem; font-size:var(--fs-h3)">Design & Production</h3>
+            <p style="margin:0">Readable typography, balanced layouts, purposeful whitespace, and memorable covers — designed to invite reading and endure in both print and digital.</p>
+          </div>
+          <div class="card feature">
+            <h3 style="margin:0 0 .4rem; font-size:var(--fs-h3)">Marketing & Discoverability</h3>
+            <p style="margin:0">Clear positioning, sample chapters, newsletters, and structured metadata (ISBNs, keywords, schema) ensure that books reach the right readers — by design, not by chance.</p>
+          </div>
+          <div class="card feature">
+            <h3 style="margin:0 0 .4rem; font-size:var(--fs-h3)">Ethics & Rights</h3>
+            <p style="margin:0">Authors retain copyright for agreed editions. We clear permissions diligently and uphold citation standards. Flexible licensing options are available for digital components.</p>
+          </div>
+        </div>
+        <div class="card">
+          <p style="margin:0"><b>Submissions:</b> opening soon. Guidelines and templates will be published here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- FOOTER -->
-  <div class="footer">© <span id="y"></span> Shunya Publications. All rights reserved.</div>
-  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+  <footer class="section" style="padding:24px 0">
+    <div class="container footer-bar">
+      <div>© <span id="y"></span> Shunya Publications. All rights reserved.</div>
+      <a class="btn" href="#top" aria-label="Back to top">↑ Top</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
