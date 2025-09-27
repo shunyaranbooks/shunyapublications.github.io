@@ -1,136 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Shunya Publications | Official Website</title>
-  <meta name="description" content="Shunya Publications — founded by Dr. Mohammad Amir Khusru Akhtar (Shunya). Business-focused publishing house for books in philosophy, literature, science, education, and culture." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shunya Publications — Home</title>
+  <meta name="description" content="Shunya Publications — a publisher of depth & discovery. Book publications, journals (open access, in process), and the vision of Dr. Mohammad Amir Khusru Akhtar (Shunya). Manuscript submissions pending and will open soon." />
+  <link rel="canonical" href="https://www.shunyapublications.com/" />
+  <link rel="icon" href="/favicon.ico" />
   <style>
     :root{
-      --bg:#f9fafb; --text:#1f2937; --muted:#6b7280; --brand:#e67e22; --brand-dark:#d35400; --ink:#111827; --card:#ffffff;
+      --bg1:#fff9f1; --bg2:#f3f9ff; --bg3:#eef9f5; --surface:#ffffff; --line:#e6ecf5;
+      --text:#15223a; --muted:#5a6b88; --brand:#1565ff; --brand2:#ff7a3d; --brand3:#15a085; --accent:#7d4dff; --gold:#f6b73c;
+      --shadow:0 12px 30px rgba(21,101,255,.12); --shadow-soft:0 10px 24px rgba(21,34,58,.08); --ring:0 0 0 4px rgba(21,101,255,.16)
     }
     *{box-sizing:border-box}
-    body{margin:0; font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background:var(--bg); color:var(--text); line-height:1.7;}
-    header{background:var(--ink); color:#fff; padding:46px 20px; text-align:center;}
-    header h1{margin:0; font-size:2.4rem; font-weight:700;}
-    header p{margin:10px 0 0; color:#e5e7eb; font-size:1.1rem;}
-    .container{max-width:1100px; margin:0 auto; padding:0 20px;}
-    section{padding:50px 0;}
-    h2{margin:0 0 16px; color:var(--ink); font-size:1.8rem; border-bottom:3px solid var(--brand); display:inline-block; padding-bottom:6px;}
-    p{margin:10px 0;}
-    .lead{font-size:1.1rem; color:var(--muted);}
-    .card{background:var(--card); border:1px solid #e5e7eb; border-radius:10px; padding:26px; box-shadow:0 1px 2px rgba(0,0,0,.04);}
-    a.button{display:inline-block; margin-top:18px; padding:12px 22px; background:var(--brand); color:#fff; text-decoration:none; border-radius:8px; font-weight:600; transition:background .25s;}
-    a.button:hover{background:var(--brand-dark);}
-    a.link{color:var(--brand); text-decoration:none; font-weight:600;}
-    a.link:hover{text-decoration:underline;}
-    .grid{display:grid; gap:20px;}
-    @media(min-width:880px){ .grid.cols-2{grid-template-columns:1fr 1fr;} .grid.cols-3{grid-template-columns:1fr 1fr 1fr;} }
-    footer{background:var(--ink); color:#fff; text-align:center; padding:18px; margin-top:40px; font-size:.95rem;}
-    footer a{color:#ffd7b0; text-decoration:none;}
-    footer a:hover{text-decoration:underline;}
-    .note{background:#fff8f2; border:1px solid #ffe0c7; padding:14px; border-radius:8px; color:#8a4500; margin-top:12px;}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);
+      background:
+        radial-gradient(1300px 700px at 15% -10%, var(--bg1) 0%, #fff 60%),
+        radial-gradient(1200px 720px at 120% 110%, var(--bg2) 0%, #fff 55%),
+        radial-gradient(1000px 650px at -10% 120%, var(--bg3) 0%, #fff 50%)}
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1180px;margin:auto;padding:0 20px}
+
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand img{height:42px;width:42px;border-radius:10px;box-shadow:var(--shadow-soft)}
+    .brand span{font-weight:800}
+    .menu a{margin-left:18px;color:var(--muted);font-weight:600}
+    .menu a:hover{color:var(--text)}
+
+    /* HERO */
+    header{padding:72px 0 36px}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+    .title{font-size:44px;line-height:1.12;margin:8px 0}
+    .title .rainbow{background:linear-gradient(90deg,var(--brand),var(--accent),var(--gold),var(--brand3));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .subtitle{color:#2a3b5c;opacity:.95;max-width:68ch}
+    .cta{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text)}
+    .btn:hover{box-shadow:var(--ring)}
+    .hero-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow-soft)}
+    .hero-card img{width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:var(--shadow-soft)}
+    .stat b{font-size:22px}
+
+    /* SECTIONS */
+    section{padding:56px 0;border-top:1px solid var(--line)}
+    h2{font-size:30px;margin:0 0 12px}
+    p{line-height:1.85}
+
+    /* GRID CARDS */
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .feature,.series,.box,.mile,.quote-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow-soft)}
+    .milestones{display:grid;grid-template-columns:1fr;gap:16px}
+
+    /* JOURNAL COLOR BLOCKS (text-only, no images) */
+    .journals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .jcard{border-radius:18px;border:1px solid var(--line);padding:18px;box-shadow:var(--shadow-soft);color:#0f254b}
+    .jst{background:linear-gradient(180deg,rgba(21,101,255,.07),#fff)}
+    .jss{background:linear-gradient(180deg,rgba(255,122,61,.08),#fff)}
+    .jeld{background:linear-gradient(180deg,rgba(21,160,133,.08),#fff)}
+    .jcard h3{margin:0 0 8px}
+    .jmeta{font-size:13px;color:#4c5f82;margin:8px 0}
+
+    /* CONTACT / NEWSLETTER */
+    .newsletter{display:grid;grid-template-columns:2fr 1fr;gap:10px}
+    .newsletter input{padding:12px;border-radius:12px;border:1px solid var(--line)}
+
+    /* RESPONSIVE */
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .journals-grid{grid-template-columns:1fr 1fr}
+      .features{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:720px){
+      .journals-grid,.features{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <img src="Logosh.png" alt="Shunya Publications Logo" />
+        <span>Shunya Publications</span>
+      </div>
+      <div class="menu">
+        <a href="#home">Home</a>
+        <a href="#books">Book Publications</a>
+        <a href="#journals">Journal Publications</a>
+        <a href="#aboutus">About Us</a>
+        <a href="#owner">Owner & Author</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
 
   <!-- HERO -->
-  <header>
-    <div class="container">
-      <h1>Shunya Publications</h1>
-      <p>Founded & Led by Dr. Mohammad Amir Khusru Akhtar (<em>Shunya</em>) — Author • Proprietor • Publisher</p>
+  <header id="home">
+    <div class="container hero">
+      <div>
+        <h1 class="title">Shunya Publications — <span class="rainbow">Home</span></h1>
+        <p class="subtitle"><b>Welcome to a Publisher of Depth & Discovery.</b> Shunya Publications stands at the intersection of inquiry and imagination. Our mission is to publish works that do not simply inform or persuade, but <em>transform</em> the way one sees, thinks, and lives. We embrace literature, philosophy, science, education, and cultural writing — always rooted in rigor, always open to wonder. Here’s how we build our craft, and invite readers, thinkers, and institutions into a shared journey.</p>
+        <div class="cta">
+          <a class="btn" href="#books">📚 Explore Book Publications</a>
+          <a class="btn" href="#journals">📰 Journal Publications</a>
+        </div>
+        <div class="stats">
+          <!-- 400+ and 10+ stats removed as requested -->
+          <div class="stat"><b>Reader‑First</b><br/>Elegant design & clear prose</div>
+          <div class="stat"><b>Open Access</b><br/>Journals in preparation</div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img src="photo.jpg" alt="Dr. Mohammad Amir Khusru Akhtar (Shunya)" />
+        <p style="margin-top:10px"><b>Owner & Author: </b> Dr. Mohammad Amir Khusru Akhtar (Shunya) — Associate Professor & Dean of Research at Usha Martin University, Ranchi. Supervises PhD work in AI, optimization, and networks.</p>
+      </div>
     </div>
   </header>
 
-  <main class="container">
+  <!-- BOOK PUBLICATIONS -->
+  <section id="books">
+    <div class="container">
+      <h2>Book Publications</h2>
+      <p><b>A Catalogue with Intention.</b> At Shunya Publications, every book we publish is a statement — in voice, in structure, in intent. We do not simply release titles. We curate series, refine design, and ask — <em>How does this book become a companion for the reader’s inner world?</em></p>
+      <h3>Editorial Vision</h3>
+      <p>Each manuscript enters a collaborative studio process. Development editors work alongside authors to deepen conceptual arcs and sharpen the music of sentences; copyeditors tune clarity and consistency; sensitivity and technical reviewers steer accuracy in fields like metaphysics, AI, education, and culture. We prototype structures — re‑sequencing chapters, adding maps and diagrams, or weaving reflective interludes — until the book reads like a guided conversation with the reader.</p>
+      <h3>Design & Typesetting</h3>
+      <p>Books must breathe. Our typography and layouts favor legibility, warmth, and calm. We use whitespace purposely, select typefaces that carry nuance, and compose pages that guide attention with epigraphs, marginal notes, and structural signals. Covers are designed to be memorable without shouting, echoing a visual logic that lets individual titles keep their voice.</p>
+      <h3>Formats & Distribution</h3>
+      <p>We release titles as Kindle/eBook, print‑on‑demand paperback for everyday reach, hardcover for flagship or collector editions, and — where licensing permits — digital supplements. Titles are distributed through major retail channels and indexed with full bibliographic metadata so that libraries, classrooms, and catalogs can find and reference them easily.</p>
+      <h3>Metadata, SEO & Discoverability</h3>
+      <p>We assign ISBNs, maintain subject classification and keywords, write succinct but evocative blurbs, and publish contributor bios and series descriptions. Structured data and schema markup help search engines understand how titles connect across themes. Discoverability is not an accident; it is designed.</p>
+      <h3>Marketing & Positioning</h3>
+      <p>Launch plans include honest positioning statements, sample chapters, press kits, and excerpt releases. We communicate directly with readers via newsletters and site updates, and we spotlight titles within their thematic families to encourage exploratory reading. Our north star is reader value — clear promises kept by the content itself.</p>
+      <h3>Ethics & Rights</h3>
+      <p>Authors retain copyright with us, licensed non‑exclusively for the agreed edition(s). We respect moral rights and support revision pathways for developing ideas. Open licensing (e.g., CC BY) is encouraged for digital supplements. We clear third‑party permissions and uphold fair citation.</p>
+      <p><b>Manuscript submissions are currently pending and will open soon.</b></p>
+    </div>
+  </section>
 
-    <!-- ABOUT / AUTHOR -->
-    <section id="about">
-      <div class="grid cols-2">
-        <div class="card">
-          <h2>About Us</h2>
-          <p class="lead">
-            <strong>Shunya Publications</strong> is a business-focused publishing house dedicated to creating
-            high-quality books in philosophy, literature, science & technology, education, and culture.
-            With a blend of academic depth and creative spirit, we aim to build bridges between ideas, businesses,
-            and readers.
-          </p>
-          <div class="note">📌 Manuscript submissions are currently pending and will open soon.</div>
-        </div>
+  <!-- JOURNAL PUBLICATIONS (TEXT-ONLY, COLORFUL) -->
+  <section id="journals">
+    <div class="container">
+      <h2>Journal Publications (In Process)</h2>
+      <p><b>Vision.</b> We are launching an <em>Open Access Journal Programme</em> spanning science & technology, social sciences, and education & learning design. These journals center reproducibility, clarity, and access — a home for careful thinking that is readable beyond narrow silos.</p>
 
-        <div class="card">
-          <h2>The Author & Proprietor</h2>
-          <p>
-            <strong>
-              <a class="link" href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">
-                Dr. Mohammad Amir Khusru Akhtar (Shunya)
-              </a>
-            </strong>
-            is the creative force behind Shunya Publications. An Associate Professor at Usha Martin University (Ranchi),
-            he teaches Artificial Intelligence, Machine Learning, and the Metaverse, while authoring hundreds of books that
-            merge rigor with wonder.
-          </p>
-          <p>
-            Writing as <em>Shunya</em>, he treats literature as presence: words that soften and open rather than instruct.
-            His work reminds us that beauty is not just observed — it transforms the one who truly sees.
-          </p>
-          <a class="button" href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">Explore Books on Amazon</a>
+      <div class="journals-grid" aria-live="polite">
+        <article class="jcard jst">
+          <h3>Journal of Science and Technology (JST)</h3>
+          <div class="jmeta">Applied AI • Data Science • Computational Modeling • Smart Systems • Networks • Cybersecurity • HCI • Robotics • Energy • Materials • Environmental Tech</div>
+          <p>JST publishes full research articles, rapid communications, registered reports, replication studies, method notes, and reproducibility packages. With structured abstracts and clarity‑first typesetting, the journal invites both rigor and readability.</p>
+          <p><b>Manuscript submissions are currently pending and will open soon.</b></p>
+        </article>
+        <article class="jcard jss">
+          <h3>Journal of Social Sciences (JSS)</h3>
+          <div class="jmeta">Sociology of Technology • Cultural Studies • Economics of Innovation • Ethics & Policy • Education Systems • Urban Studies • Public Health Interfaces • Digital Humanities</div>
+          <p>JSS welcomes empirical and theoretical work, field reports, and policy analyses. Applications across networks, logistics, governance, civic tech, platform economies, and media ecologies are especially encouraged.</p>
+          <p><b>Manuscript submissions are currently pending and will open soon.</b></p>
+        </article>
+        <article class="jcard jeld">
+          <h3>Journal of Education & Learning Design (JELD)</h3>
+          <div class="jmeta">Pedagogy • AI in Learning • Curriculum Design • Classroom Evidence • Assessment • Educational Philosophy</div>
+          <p>JELD publishes empirical studies, design experiments, practitioner reports, and open lesson‑kits. Registered reports and replication packets are welcome to strengthen evidence in classrooms and training environments.</p>
+          <p><b>Manuscript submissions are currently pending and will open soon.</b></p>
+        </article>
+      </div>
+
+      <h3>Editorial Structure & Peer Review</h3>
+      <p>Double‑blind review by default, with an option for open identities. Associate Editors, an Editorial Board, and an international reviewer pool will ensure rigor with dignity. We publish reviewer guidelines, conflict‑of‑interest policies, and decision SLAs. Data and code availability statements are standard; registered reports and replication studies are encouraged.</p>
+      <h3>Publishing Models & Licensing</h3>
+      <p>Gold Open Access with initial article processing charges subsidized or waived during pilot issues. Creative Commons licensing (CC BY / CC BY‑SA) preserves author rights and enables reuse. We will assign DOIs, pursue indexing and long‑term archiving, and provide supplementary materials (datasets, notebooks, open reviews) alongside accepted articles.</p>
+      <h3>Submission & Launch Plan</h3>
+      <ul>
+        <li>Manuscript submissions are currently pending and will open soon.</li>
+        <li>Pilot issues (invited) will precede general submissions.</li>
+        <li>Author guidelines and templates (LaTeX, Word) will be published here.</li>
+      </ul>
+      <h3>Community & Outreach</h3>
+      <ul>
+        <li>Calls for papers via workshops, conferences, and research networks</li>
+        <li>Special issues co‑edited with laboratories and institutes</li>
+        <li>Transparency reports (reviewer stats, timelines, acceptance rates)</li>
+        <li>Mentorship for early‑career scholars and underrepresented regions</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ABOUT US (BUSINESS-FOCUSED) & MILESTONE SUMMARY -->
+  <section id="aboutus">
+    <div class="container">
+      <h2>About Us</h2>
+      <p>Shunya Publications is a business‑focused publishing house dedicated to creating high‑quality books in philosophy, literature, science & technology, education, and culture. With a blend of academic depth and creative spirit, we build bridges between ideas, businesses, and readers.</p>
+      <p><b>Manuscript submissions are currently pending and will open soon.</b></p>
+      <div class="features" style="margin-top:12px">
+        <div class="feature"><h4>Publishing</h4><p>End‑to‑end editorial, design, and production for books across disciplines. We balance elegance and clarity from proposal to print.</p></div>
+        <div class="feature"><h4>Partnerships</h4><p>Collaboration with institutions, businesses, and educators for custom editions, course packs, and bulk publishing projects.</p></div>
+        <div class="feature"><h4>Innovation</h4><p>Integrating technology with creativity — AI‑assisted editing, data‑informed design, reproducibility tooling for research titles.</p></div>
+      </div>
+      <div class="milestones" style="margin-top:16px">
+        <div class="mile">
+          <b>1993–2025</b><br/>
+          400+ books authored; recognition by India Book of Records.<br/>
+          Public launch of Shunya Publications site; journals program planning.
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SERVICES -->
-    <section id="services">
-      <h2>Our Focus</h2>
-      <div class="grid cols-3">
-        <div class="card">
-          <h3>Publishing</h3>
-          <p>Complete editorial, design, and production services for books across multiple fields.</p>
-        </div>
-        <div class="card">
-          <h3>Partnerships</h3>
-          <p>Collaboration with institutions, businesses, and educators for custom editions and bulk publishing projects.</p>
-        </div>
-        <div class="card">
-          <h3>Innovation</h3>
-          <p>Integrating technology with creativity — using AI, data, and design tools to enhance modern publishing.</p>
-        </div>
+  <!-- OWNER & AUTHOR -->
+  <section id="owner">
+    <div class="container">
+      <h2>Owner & Author</h2>
+      <p><b>Dr. Mohammad Amir Khusru Akhtar (Shunya)</b> is more than the proprietor — he is the animating spirit behind every project. He serves as <a href="https://www.umu.ac.in/message-from-the-dean-of-research/">Dean of Research & IQAC Coordinator at UMU</a> and Associate Professor in the Faculty of Computing & IT, supervises PhD scholars in AI, optimization, and networks, and continues a research arc spanning novel metaheuristics and dimensionality reduction.</p>
+      <ul>
+        <li><b>Research:</b> AI, Metaverse, optimization, MANET.</li>
+        <li><b>Catalog:</b> Explore the complete list of books in the <a href="https://amazon.com/author/shunya_">Amazon Author Catalog</a>.</li>
+        <li><b>Recognition:</b> Documented by the <a href="https://indiabookofrecords.in/maximum-e-books-authored-by-an-individual/">India Book of Records</a> for authoring 400+ Kindle e‑books.</li>
+      </ul>
+      <p>He does not use words to decorate — he uses them to disarm, to soften, to open. And sometimes, to say nothing at all. Born with an unshakable love for reading and writing, he began writing in 1993 and has since created a vast body of work that dances between silence and wonder. <i>“I do not write to be read. I write because love has nowhere else to go.”</i></p>
+    </div>
+  </section>
+
+  <!-- CONTACT / NEWSLETTER -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <div class="features">
+        <div class="box"><b>Email</b><p><a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a><br/><a href="mailto:shunya.ran.books@gmail.com">shunya.ran.books@gmail.com</a></p></div>
+        <div class="box"><b>Mobile / WhatsApp</b><p>+91 9798476769</p></div>
+        <div class="box"><b>Amazon Catalog</b><p><a href="https://amazon.com/author/shunya_">Amazon Author Catalog</a></p></div>
       </div>
-    </section>
-
-    <!-- NEWS -->
-    <section id="news">
-      <div class="card">
-        <h2>Updates</h2>
-        <p>📖 New publishing programs are in preparation. Stay tuned for announcements on upcoming books and collaborations.</p>
-        <p>✍️ Manuscript submission portal will launch soon for authors interested in publishing with Shunya Publications.</p>
+      <div style="margin-top:18px">
+        <h3>Newsletter</h3>
+        <p>Get announcements about new books, journal calls, and submission timelines. (We only write when it matters.)</p>
+        <form class="newsletter" onsubmit="event.preventDefault(); alert('Thank you! You\'re on our early announcements list.');">
+          <input type="email" placeholder="Your email address" aria-label="Email address" required />
+          <button class="btn" type="submit">Subscribe</button>
+        </form>
       </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="card">
-        <h2>Contact</h2>
-        <p>
-          For publishing inquiries, collaborations, or business discussions, reach out directly:<br/>
-          <strong>Email:</strong>
-          <a class="link" href="mailto:editor@shunyapublications.com">editor@shunyapublications.com </a>,
-<a class="link" href="mailto:shunya.ran.books@gmail.com">shunya.ran.books@gmail.com </a><br/>
-          <strong>Mobile:</strong> +91 9798476769
-        </p>
-      </div>
-    </section>
-
-  </main>
+    </div>
+  </section>
 
   <footer>
-    <p>
-      &copy; 2025 Shunya Publications | Proprietor: Dr. Mohammad Amir Khusru Akhtar (Shunya) |
-      <a href="mailto: editor@shunyapublications.com"> editor@shunyapublications.com</a>, 
-   <a href="mailto: shunya.ran.books@gmail.com"> shunya.ran.books@gmail.com</a>
-
-    </p>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <div>© <span id="y"></span> Shunya Publications. All rights reserved.</div>
+      <div style="color:var(--muted)">Designed for readers • Built on GitHub Pages</div>
+    </div>
   </footer>
 
+  <a class="btn" id="btt" style="position:fixed;right:16px;bottom:16px;display:none" href="#home">↑ Top</a>
+
+  <script>
+    // Footer year & Back-to-top
+    document.getElementById('y').textContent=new Date().getFullYear();
+    const btt=document.getElementById('btt');
+    window.addEventListener('scroll',()=>{btt.style.display=window.scrollY>600?'inline-flex':'none'});
+  </script>
 </body>
 </html>
