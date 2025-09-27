@@ -118,7 +118,7 @@
       </div>
       <div class="hero-card">
         <img src="photo.png" alt="Shunya Publications hero image" />
-        <p style="margin-top:10px"><b>Publisher Note: </b> Manuscript submissions are currently pending and will open soon. We are preparing author guidelines, templates, and review policies to ensure clarity and fairness from day one.</p>
+        <p style="margin-top:10px"><b>Publisher Note: </b> Manuscript submissions are not yet open. Author guidelines, templates, and review policies are being prepared to ensure clarity and fairness from day one.</p>
       </div>
     </div>
   </header>
@@ -127,7 +127,7 @@
   <section id="books">
     <div class="container">
       <h2>Book Publications</h2>
-      <p><b>A Catalogue with Intention.</b> At Shunya Publications, every book we publish is a statement — in voice, in structure, in intent. We do not simply release titles. We curate series, refine design, and ask — <em>How does this book become a companion for the reader’s inner world?</em></p>
+      <p><b>A Catalogue with Intention.</b> Shunya Publications began by publishing the works of its founder, Dr. Mohammad Amir Khusru Akhtar (Shunya). Future titles — both his and those of other authors — will continue to be statements in voice, structure, and intent. We do not simply release titles; we curate series, refine design, and ask — <em>How does this book become a companion for the reader’s inner world?</em></p>
       <h3>Editorial Vision</h3>
       <p>Each manuscript enters a collaborative studio process. Development editors work alongside authors to deepen conceptual arcs and sharpen the music of sentences; copyeditors tune clarity and consistency; sensitivity and technical reviewers steer accuracy in fields like metaphysics, AI, education, and culture. We prototype structures — re‑sequencing chapters, adding maps and diagrams, or weaving reflective interludes — until the book reads like a guided conversation with the reader.</p>
       <h3>Design & Typesetting</h3>
@@ -195,8 +195,8 @@
   <section id="aboutus">
     <div class="container">
       <h2>About Us</h2>
-      <p>Shunya Publications is a business‑focused publishing house dedicated to creating high‑quality books in philosophy, literature, science & technology, education, and culture. With a blend of academic depth and creative spirit, we build bridges between ideas, businesses, and readers.</p>
-      <p><b>Manuscript submissions are currently pending and will open soon.</b></p>
+<p>Shunya Publications, founded in 1993, has so far published the works of its founder, Dr. Mohammad Amir Khusru Akhtar (Shunya), across philosophy, literature, science & technology, education, and culture. With a blend of academic depth and creative spirit, we now prepare to expand into publishing works by other authors — building bridges between ideas, scholars, and readers.</p>
+<p><b>Manuscript submissions are not yet open; guidelines and policies will be announced soon.</b></p>
       <div class="features" style="margin-top:12px">
         <div class="feature"><h4>Publishing</h4><p>End‑to‑end editorial, design, and production for books across disciplines. We balance elegance and clarity from proposal to print.</p></div>
         <div class="feature"><h4>Partnerships</h4><p>Collaboration with institutions, businesses, and educators for custom editions, course packs, and bulk publishing projects.</p></div>
