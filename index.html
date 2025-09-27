@@ -303,55 +303,28 @@
     </div>
   </section>
 
-<!-- CONTACT / NEWSLETTER -->
-<section id="contact" class="section">
-  <div class="container">
-    <div class="stack">
-      <div>
-        <p class="eyebrow">Get in touch</p>
-        <h2 style="font-size:var(--fs-h2); margin:0 0 6px">Contact</h2>
-      </div>
+<!-- NEWSLETTER SUBSCRIPTION -->
+<section id="newsletter" class="section" style="padding:60px 0; background:linear-gradient(135deg,#f7fbff,#eef9f5);">
+  <div class="container" style="max-width:720px; text-align:center;">
+    <h2 style="margin-bottom:8px; font-size:clamp(1.6rem,2vw,2rem); color:#142036;">📬 Newsletter</h2>
+    <p style="margin:0 auto 20px; max-width:560px; color:#4c5f82; font-size:1rem;">
+      Get announcements about new books, journal calls, and submission timelines.  
+      <br><em>(We only write when it matters.)</em>
+    </p>
 
-      <div class="features">
-        <div class="card">
-          <b>Email</b>
-          <p style="margin:.4rem 0 0">
-            <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a><br/>
-            <a href="mailto:shunya.ran.books@gmail.com">shunya.ran.books@gmail.com</a>
-          </p>
-        </div>
-        <div class="card">
-          <b>Mobile &amp; WhatsApp</b>
-          <p style="margin:.4rem 0 0">+91 9798476769</p>
-        </div>
-        <div class="card">
-          <b>Amazon Catalog</b>
-          <p style="margin:.4rem 0 0">
-            <a href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">Amazon Author Catalog</a>
-          </p>
-        </div>
-      </div>
+    <form id="nl" action="https://formspree.io/f/mblzdzgz" method="POST" 
+          style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+      <input name="email" type="email" placeholder="Your email address" required
+             style="flex:1; min-width:240px; padding:14px 16px; border:1px solid #cfd8e6; border-radius:12px; font-size:1rem;" />
+      <button class="btn" type="submit" 
+              style="padding:14px 22px; border:none; border-radius:12px; background:#1565ff; color:#fff; font-weight:600; cursor:pointer;">
+        Subscribe
+      </button>
+    </form>
 
-      <div class="card">
-        <h3 style="margin:0 0 .4rem">Newsletter</h3>
-        <p style="margin:.2rem 0 1rem">
-          Get announcements about new books, journal calls, and submission timelines. (We only write when it matters.)
-        </p>
-
-        <form id="nl" action="https://formspree.io/f/mblzdzgz" method="POST" class="newsletter">
-          <label class="sr-only" for="nl-email">Email address</label>
-          <input id="nl-email" name="email" type="email" placeholder="Your email address" aria-label="Email address" required />
-          <button class="btn" type="submit">Subscribe</button>
-        </form>
-
-        <p id="nl-msg" style="display:none; color:green; margin-top:.6rem">
-          ✅ Thanks! Please check your inbox.
-        </p>
-        <p id="nl-err" style="display:none; color:crimson; margin-top:.6rem">
-          ⚠️ Subscription failed. Please try again.
-        </p>
-      </div>
-    </div>
+    <p id="nl-msg" style="display:none; margin-top:14px; font-weight:600; color:#15a085;">
+      ✅ Thanks! Please check your inbox.
+    </p>
   </div>
 </section>
 
@@ -359,25 +332,11 @@
 document.getElementById('nl').addEventListener('submit', async (e) => {
   e.preventDefault();
   const form = e.target;
-  try {
-    const res = await fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    });
-    if (res.ok) {
-      form.reset();
-      document.getElementById('nl-msg').style.display = 'block';
-      document.getElementById('nl-err').style.display = 'none';
-    } else {
-      document.getElementById('nl-err').style.display = 'block';
-    }
-  } catch {
-    document.getElementById('nl-err').style.display = 'block';
-  }
+  const res = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{ 'Accept':'application/json' }});
+  if (res.ok) { form.reset(); document.getElementById('nl-msg').style.display='block'; }
+  else { alert('Subscription failed. Please try again.'); }
 });
 </script>
-
 
   <footer class="section" style="padding:24px 0">
     <div class="container footer-bar">
