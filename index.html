@@ -324,7 +324,6 @@
         <div class="card"><b>Amazon Catalog</b><p style="margin:.4rem 0 0"><a href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">Amazon Author Catalog</a></p></div>
       </div>
 
-      <!-- Newsletter -->
       <div class="card" style="padding:24px; text-align:center;">
         <h3 style="margin:0 0 .6rem; font-size:1.2rem;">📬 Newsletter</h3>
         <p style="margin:.2rem 0 1.2rem; color:#4c5f82;">
@@ -350,23 +349,65 @@
   </div>
 </section>
 
+<footer class="section" style="padding:24px 0">
+  <div class="container footer-bar">
+    <div>© <span id="y"></span> Shunya Publications. All rights reserved.</div>
+    <div>Designed for readers • Hosted on GitHub Pages</div>
+  </div>
+</footer>
+
+<a class="btn" id="btt" href="#home" aria-label="Back to top">↑ Top</a>
+
 <script>
-document.getElementById('nl').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const res = await fetch(form.action, { 
-    method:'POST', 
-    body:new FormData(form), 
-    headers:{ 'Accept':'application/json' }
+  // Newsletter submit
+  document.getElementById('nl').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const res = await fetch(form.action, { 
+      method:'POST', 
+      body:new FormData(form), 
+      headers:{ 'Accept':'application/json' }
+    });
+    if (res.ok) { 
+      form.reset(); 
+      document.getElementById('nl-msg').style.display='block'; 
+    } else { 
+      alert('Subscription failed. Please try again.'); 
+    }
   });
-  if (res.ok) { 
-    form.reset(); 
-    document.getElementById('nl-msg').style.display='block'; 
-  } else { 
-    alert('Subscription failed. Please try again.'); 
-  }
-});
+
+  // Footer year & Back-to-top
+  document.getElementById('y').textContent=new Date().getFullYear();
+  const btt=document.getElementById('btt');
+  const onScroll=()=>{btt.style.display=window.scrollY>600?'inline-flex':'none'};
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Accessibility: focus styles for keyboard users
+  document.body.addEventListener('keydown', (e)=>{
+    if(e.key==='Tab') document.body.classList.add('show-focus');
+  }, {once:true});
 </script>
 
+ <footer class="section" style="padding:24px 0">
+    <div class="container footer-bar">
+      <div>© <span id="y"></span> Shunya Publications. All rights reserved.</div>
+      <div>Designed for readers • Hosted on GitHub Pages</div>
+    </div>
+  </footer>
+
+  <a class="btn" id="btt" href="#home" aria-label="Back to top">↑ Top</a>
+
+  <script>
+    // Footer year & Back-to-top
+    document.getElementById('y').textContent=new Date().getFullYear();
+    const btt=document.getElementById('btt');
+    const onScroll=()=>{btt.style.display=window.scrollY>600?'inline-flex':'none'};
+    window.addEventListener('scroll', onScroll, {passive:true});
+
+    // Accessibility: focus styles for keyboard users
+    document.body.addEventListener('keydown', (e)=>{
+      if(e.key==='Tab') document.body.classList.add('show-focus');
+    }, {once:true});
+  </script>
 </body>
 </html>
