@@ -11,6 +11,7 @@
       --bg:#f9fbff; --surface:#ffffff; --line:#e6ecf5;
       --text:#0f254b; --muted:#4c5f82; --brand:#1565ff; --accent:#15a085; --warm:#ff7a3d;
       --shadow:0 10px 26px rgba(21,34,58,.08);
+      --radius:16px;
     }
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);
@@ -24,23 +25,18 @@
     .brand img{height:40px;width:40px;border-radius:10px;box-shadow:var(--shadow)}
     .brand span{font-weight:800}
     .menu a{margin-left:16px;color:var(--muted);font-weight:600}
-    header{padding:56px 0 28px}
+    header{padding:56px 0 28px;text-align:center}
     h1{font-size:36px;margin:0 0 8px}
     h2{font-size:26px;margin:0 0 10px}
     p{line-height:1.8}
-    .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .pill{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow);font-size:13px}
-    .footer{border-top:1px solid var(--line);padding:18px 0;color:var(--muted);margin-top:32px}
+    .footer{border-top:1px solid var(--line);padding:18px 0;color:var(--muted);margin-top:32px;text-align:center}
     .back{display:inline-flex;align-items:center;gap:8px;margin:8px 0}
     @media(max-width:980px){.grid{grid-template-columns:1fr 1fr}}
     @media(max-width:720px){.grid{grid-template-columns:1fr} h1{font-size:30px}}
-    /* Journal page accents */
-    .jst{background:linear-gradient(180deg,rgba(21,101,255,.06),#fff)}
-    .jss{background:linear-gradient(180deg,rgba(255,122,61,.08),#fff)}
-    .jeld{background:linear-gradient(180deg,rgba(21,160,133,.08),#fff)}
-    .meta{font-size:13px;color:var(--muted);margin:10px 0}
     .section{margin:20px 0}
+    .meta{font-size:13px;color:var(--muted);margin:10px 0}
     ul{padding-left:18px}
     li{margin:6px 0}
   </style>
@@ -60,53 +56,57 @@
       </div>
     </div>
   </nav>
-  
-<header>
-  <div class="container">
-    <a class="back" href="index.html">← Back to Journals Home</a>
-    <h1>IJLDEF — International Journal of Learning Design and Educational Futures</h1>
-    <p class="meta">Research and practice shaping the futures of teaching and learning — linking learning design, empirical evidence, and emerging technologies.</p>
-  </div>
-</header>
-<section class="container card jeld">
-  <h2>Aim &amp; Scope</h2>
-  <p>IJLDEF focuses on research and practice that shape the futures of teaching and learning — linking learning design, empirical evidence, and emerging technologies to improve outcomes in classrooms, training, and lifelong learning.</p>
-  <div class="section">
-    <h3>Domains</h3>
-    <p class="meta">
-      Pedagogy • AI in Learning &amp; Learning Analytics • Curriculum &amp; Assessment • Classroom Evidence •
-      Instructional/Experience Design • EdTech &amp; XR • Teacher Education • Open Educational Resources &amp; Open Pedagogy • Educational Philosophy
-    </p>
-  </div>
-  <div class="section">
-    <h3>Article Types</h3>
-    <ul>
-      <li>Empirical Studies (RCTs, quasi‑experimental, observational)</li>
-      <li>Design‑Based Research</li>
-      <li>Practitioner Reports</li>
-      <li>Systematic/Scoping Reviews</li>
-      <li>Replication &amp; Registered Reports</li>
-      <li>Open Lesson‑Kits, Rubrics, and Implementation Guides</li>
-      <li>Dataset/Code Notes for education research</li>
-    </ul>
-  </div>
-</section>
 
-<section class="container">
-  <div class="grid">
-    <div class="card"><h3>Editorial &amp; Review</h3><p>Double‑blind by default; reviewer guidance and decision SLAs published; ethical guidance for studies in educational settings.</p></div>
-    <div class="card"><h3>Openness</h3><p>Gold OA; CC licensing; DOIs, indexing and archiving pursued; open materials strongly encouraged.</p></div>
-    <div class="card"><h3>Evidence &amp; Design</h3><p>Alignment between outcomes, instruments, and theory; usability and classroom transfer emphasized.</p></div>
-  </div>
-  <div class="card" style="margin-top:16px">
-    <h3>Submission &amp; Launch</h3>
-    <ul>
-      <li>Submissions will open soon.</li>
-      <li>Pilot issue (invited) precedes general calls.</li>
-      <li>Author guidelines &amp; templates (LaTeX/Word) will be provided.</li>
-    </ul>
-  </div>
-</section>
+  <header>
+    <div class="container">
+      <a class="back" href="index.html">← Back to Journals Home</a>
+      <h1>IJLDEF — International Journal of Learning Design and Educational Futures</h1>
+      <p class="meta">Research and practice shaping the futures of teaching and learning — linking learning design, empirical evidence, and emerging technologies.</p>
+      <div style="margin-top:20px">
+        <img src="IJLDEF.png" alt="IJLDEF Journal Cover" style="max-width:280px; border-radius:12px; box-shadow:var(--shadow)" />
+      </div>
+    </div>
+  </header>
+
+  <section class="container card">
+    <h2>Aim &amp; Scope</h2>
+    <p>IJLDEF focuses on research and practice that shape the futures of teaching and learning — linking learning design, empirical evidence, and emerging technologies to improve outcomes in classrooms, training, and lifelong learning.</p>
+    <div class="section">
+      <h3>Domains</h3>
+      <p class="meta">
+        Pedagogy • AI in Learning &amp; Learning Analytics • Curriculum &amp; Assessment • Classroom Evidence •
+        Instructional/Experience Design • EdTech &amp; XR • Teacher Education • Open Educational Resources &amp; Open Pedagogy • Educational Philosophy
+      </p>
+    </div>
+    <div class="section">
+      <h3>Article Types</h3>
+      <ul>
+        <li>Empirical Studies (RCTs, quasi‑experimental, observational)</li>
+        <li>Design‑Based Research</li>
+        <li>Practitioner Reports</li>
+        <li>Systematic/Scoping Reviews</li>
+        <li>Replication &amp; Registered Reports</li>
+        <li>Open Lesson‑Kits, Rubrics, and Implementation Guides</li>
+        <li>Dataset/Code Notes for education research</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="grid">
+      <div class="card"><h3>Editorial &amp; Review</h3><p>Double‑blind by default; reviewer guidance and decision SLAs published; ethical guidance for studies in educational settings.</p></div>
+      <div class="card"><h3>Openness</h3><p>Gold OA; CC licensing; DOIs, indexing and archiving pursued; open materials strongly encouraged.</p></div>
+      <div class="card"><h3>Evidence &amp; Design</h3><p>Alignment between outcomes, instruments, and theory; usability and classroom transfer emphasized.</p></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>Submission &amp; Launch</h3>
+      <ul>
+        <li>Submissions will open soon.</li>
+        <li>Pilot issue (invited) precedes general calls.</li>
+        <li>Author guidelines &amp; templates (LaTeX/Word) will be provided.</li>
+      </ul>
+    </div>
+  </section>
 
   <footer class="footer">
     <div class="container">© <span id="y"></span> Shunya Publications • Journals Programme (pilot)</div>
