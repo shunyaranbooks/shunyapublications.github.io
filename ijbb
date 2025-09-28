@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IJBB — International Journal of Being & Beyond</title>
+  <meta name="description" content="IJBB: A journal for philosophy, metaphysics, spirituality, religion, and interdisciplinary explorations of existence, meaning, and transcendence." />
+<!-- Favicon / App Icons -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#ffffff">
+  <style>
+    :root{
+      --bg:#f9fbff; --surface:#ffffff; --line:#e6ecf5;
+      --text:#0f254b; --muted:#4c5f82; --brand:#7b3fe4; --accent:#15a085; --warm:#ff7a3d;
+      --shadow:0 10px 26px rgba(21,34,58,.08);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);
+      background:radial-gradient(1200px 700px at 10% -10%, #fff 0%, var(--bg) 80%)}
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1100px;margin:auto;padding:0 16px}
+    .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .brand{display:flex;gap:10px;align-items:center}
+    .brand img{height:40px;width:40px;border-radius:10px;box-shadow:var(--shadow)}
+    .brand span{font-weight:800}
+    .menu a{margin-left:16px;color:var(--muted);font-weight:600}
+    header{padding:56px 0 28px; text-align:center}
+    h1{font-size:36px;margin:0 0 8px}
+    h2{font-size:26px;margin:0 0 10px}
+    p{line-height:1.8}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .footer{border-top:1px solid var(--line);padding:18px 0;color:var(--muted);margin-top:32px;text-align:center}
+    .back{display:inline-flex;align-items:center;gap:8px;margin:8px 0}
+    @media(max-width:980px){.grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:720px){.grid{grid-template-columns:1fr} h1{font-size:30px}}
+    .section{margin:20px 0}
+    ul{padding-left:18px}
+    li{margin:6px 0}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <img src="Logosh.png" alt="Shunya Publications Logo" />
+        <span>Shunya Publications</span>
+      </div>
+      <div class="menu">
+        <a href="index.html">Home</a>
+        <a href="ijcsetf.html">IJCSETF</a>
+        <a href="ijsscp.html">IJSSCP</a>
+        <a href="ijldef.html">IJLDEF</a>
+        <a href="ijbb.html">IJBB</a>
+      </div>
+    </div>
+  </nav>
+  
+  <header>
+    <div class="container">
+      <a class="back" href="index.html">← Back to Journals Home</a>
+      <h1>IJBB — International Journal of Being &amp; Beyond</h1>
+      <p class="meta">A journal for philosophy, metaphysics, spirituality, religion, and interdisciplinary explorations of existence, meaning, and transcendence.</p>
+      <div style="margin-top:20px">
+        <img src="IJBB.png" alt="IJBB Journal Cover" style="max-width:280px; border-radius:12px; box-shadow:var(--shadow)" />
+      </div>
+    </div>
+  </header>
+
+  <section class="container card">
+    <h2>Aim &amp; Scope</h2>
+    <p>The International Journal of Being &amp; Beyond (IJBB) is a peer-reviewed open access journal exploring fundamental and applied dimensions of philosophy, metaphysics, spirituality, religion, culture, and their dialogues with science and education. IJBB provides a platform for rigorous yet imaginative inquiry into questions of existence, meaning, and transformation.</p>
+    <div class="section">
+      <h3>Domains</h3>
+      <p class="meta">
+        Metaphysics &amp; Ontology • Epistemology &amp; Philosophy of Mind • Consciousness Studies • Comparative Religion &amp; Spirituality • Philosophy of Science &amp; Technology • Ethics &amp; Moral Philosophy • Aesthetics &amp; Philosophy of Art • Culture, Symbolism &amp; Tradition • Dialogue between Philosophy &amp; Education • Interdisciplinary Explorations of Meaning, Truth &amp; Transformation
+      </p>
+    </div>
+    <div class="section">
+      <h3>Article Types</h3>
+      <ul>
+        <li>Research Articles</li>
+        <li>Philosophical Essays</li>
+        <li>Comparative Studies</li>
+        <li>Reflections &amp; Dialogues</li>
+        <li>Reviews &amp; Perspectives</li>
+        <li>Critical Translations &amp; Commentaries</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="grid">
+      <div class="card"><h3>Editorial &amp; Review</h3><p>Peer-reviewed with double-blind process by default; open dialogue formats possible. Ethical and conflict-of-interest policies followed strictly.</p></div>
+      <div class="card"><h3>Openness</h3><p>Gold Open Access; CC BY licensing; DOIs, indexing and long-term digital archiving pursued.</p></div>
+      <div class="card"><h3>Dialogue</h3><p>Encourages cross-disciplinary dialogue bridging philosophy, spirituality, science, and education.</p></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>Submission &amp; Launch</h3>
+      <ul>
+        <li>Submissions open soon.</li>
+        <li>Founding issue to include invited contributions.</li>
+        <li>Author guidelines &amp; templates (LaTeX/Word) will be provided.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">© <span id="y"></span> Shunya Publications • Journals Programme</div>
+  </footer>
+  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body>
+</html>
