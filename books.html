@@ -173,22 +173,45 @@
     <div class="stack">
 
       <!-- September 2025 Books -->
-      <div class="card">
-        <h2 style="margin:.2rem 0 .6rem; font-size:var(--fs-h2)">September 2025 Books</h2>
-        <p style="margin:.4rem 0 1rem;">
-          <b>The Echoveil: A Reverse Memory Device</b><br/>
-          <i>The Device That Deletes Tomorrow’s Pain.</i>
-        </p>
+<div class="card">
+  <h2 style="margin:.2rem 0 .6rem; font-size:var(--fs-h2)">September 2025 Books</h2>
+  <p style="margin:.4rem 0 1rem;">
+    <b>The Echoveil: A Reverse Memory Device</b><br/>
+    <i>The Device That Deletes Tomorrow’s Pain.</i>
+  </p>
 
-        <figure style="margin:0;max-width:260px;">
-          <a href="echo.pdf" target="_blank" rel="noopener">
-            <img src="echo.png" alt="Cover — The Echoveil" style="width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)" />
-          </a>
-          <figcaption class="meta" style="margin-top:.4rem;text-align:center">
-            <a href="echo.pdf" target="_blank" rel="noopener">📖 Preview PDF</a>
-          </figcaption>
-        </figure>
-      </div>
+  <figure style="margin:0;max-width:260px;">
+    <a href="#" onclick="openPreview(); return false;">
+      <img src="echo.png" alt="Cover — The Echoveil"
+           style="width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)" />
+    </a>
+    <figcaption class="meta" style="margin-top:.4rem;text-align:center">
+      <a href="#" onclick="openPreview(); return false;">📖 Preview PDF</a>
+    </figcaption>
+  </figure>
+</div>
+
+<!-- PREVIEW MODAL -->
+<div id="previewModal" style="
+  display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;">
+  <div style="background:#fff; padding:10px; border-radius:12px; max-width:90%; max-height:90%; position:relative;">
+    <button onclick="closePreview()" style="
+      position:absolute; top:8px; right:12px; border:none; background:#ff4d4d; 
+      color:#fff; padding:6px 10px; border-radius:6px; cursor:pointer;">✖</button>
+    <iframe src="echo.pdf" style="width:80vw; height:80vh; border:none;" title="Preview PDF"></iframe>
+  </div>
+</div>
+
+<script>
+function openPreview(){
+  document.getElementById('previewModal').style.display = 'flex';
+}
+function closePreview(){
+  document.getElementById('previewModal').style.display = 'none';
+}
+</script>
+
 
     
 
