@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Horizon Herald – The First Voice of Tomorrow</title>
-  <meta name="description" content="🚧 Coming Soon — Horizon Herald. Currently sharing non-news content (blogs, essays, cultural reflections, book excerpts). PRGI registration in process. Will launch as a bi‑monthly periodical after approval." />
+  <meta name="description" content="🚧 Coming Soon — Horizon Herald. Currently sharing non-news content (blogs, essays, cultural reflections, book excerpts). PRGI registration in process. Will launch as a bi-monthly periodical after approval." />
 
   <!-- Canonical & Favicons -->
   <link rel="canonical" href="https://www.shunyapublications.com/Horizon-Herald.html" />
@@ -23,7 +23,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.shunyapublications.com/Horizon-Herald.html" />
   <meta property="og:title" content="Horizon Herald – The First Voice of Tomorrow" />
-  <meta property="og:description" content="A bi‑monthly digital periodical by Shunya Publications. Currently sharing non‑news essays, reflections, and excerpts. PRGI registration in process." />
+  <meta property="og:description" content="A bi-monthly digital periodical by Shunya Publications. Currently sharing non-news essays, reflections, and excerpts. PRGI registration in process." />
   <meta property="og:image" content="https://www.shunyapublications.com/horizon-herald-og.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
@@ -33,7 +33,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://www.shunyapublications.com/Horizon-Herald.html" />
   <meta name="twitter:title" content="Horizon Herald – The First Voice of Tomorrow" />
-  <meta name="twitter:description" content="A bi‑monthly digital periodical by Shunya Publications. Non‑news essays & excerpts while PRGI registration is in process." />
+  <meta name="twitter:description" content="A bi-monthly digital periodical by Shunya Publications. Non-news essays & excerpts while PRGI registration is in process." />
   <meta name="twitter:image" content="https://www.shunyapublications.com/horizon-herald-og.jpg" />
 
   <style>
@@ -56,6 +56,13 @@
     nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
     nav a{padding:8px 12px;border-radius:10px}
     nav a:hover{background:#f1f5fb}
+
+    /* legal note strip */
+    .legal-note{
+      font-size:12.5px; line-height:1.4; text-align:center;
+      color:#334155; background:#f8fafc; border-top:1px solid #e8eef7; border-bottom:1px solid #e8eef7;
+      padding:6px 8px;
+    }
 
     .hero{padding:72px 0 36px;background:radial-gradient(1200px 420px at 50% -100px,#ffeabc 0,rgba(255,234,188,0) 60%),linear-gradient(180deg,#fff,rgba(255,255,255,.6))}
     .hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
@@ -81,6 +88,16 @@
     @media (max-width:900px){
       .hero .wrap{grid-template-columns:1fr}
     }
+
+    /* mobile menu wrap fix + small optimizations */
+    @media (max-width:600px){
+      nav ul{flex-wrap:wrap; row-gap:6px}
+      nav a{padding:8px 10px}
+      .wordmark span{display:none}
+    }
+    @media (max-width:360px){
+      .wordmark{font-size:15px}
+    }
   </style>
 </head>
 <body id="home">
@@ -103,6 +120,9 @@
         </ul>
       </nav>
     </div>
+    <div class="legal-note" role="status" aria-live="polite">
+      PRGI registration in process — sharing non-news content only. Full periodical launches after approval.
+    </div>
   </header>
 
   <main>
@@ -110,17 +130,17 @@
     <section class="hero">
       <div class="container wrap">
         <div class="masthead">
-          <p class="badge">Bi‑monthly • Digital Edition • Registration in Process</p>
+          <p class="badge">Bi-monthly • Digital Edition • Registration in Process</p>
           <h1 class="title">🚧 Horizon Herald</h1>
           <div class="tag">The First Voice of Tomorrow</div>
-          <p>Currently sharing <strong>non-news content</strong> (blogs, essays, cultural reflections, book excerpts). PRGI registration is in process. Will launch as a bi‑monthly periodical after approval.</p>
+          <p>Currently sharing <strong>non-news content</strong> (blogs, essays, cultural reflections, book excerpts). PRGI registration is in process. Will launch as a bi-monthly periodical after approval.</p>
         </div>
       </div>
     </section>
 
     <section id="latest">
       <div class="container">
-        <h2>From the Blog (Non‑News)</h2>
+        <h2>From the Blog (Non-News)</h2>
         <div class="card">
           <h3>Why Culture Outlasts Headlines</h3>
           <div class="meta">Essay • 5 min read</div>
@@ -137,7 +157,7 @@
 
     <section id="sections">
       <div class="container">
-        <h2>Non‑News</h2>
+        <h2>Non-News</h2>
         
       <div class="card">
   <h3>Essays</h3>
@@ -243,9 +263,9 @@
  
   <footer class="section" style="padding:24px 0">
     <div class="container foot">
-      <div> 🚧 Registration in process. Only non‑news content is being shared.</div>
+      <div> 🚧 Registration in process. Only non-news content is being shared.</div>
       <div class="imprint" style="text-align:right">
-        Will launch as a bi‑monthly periodical after PRGI approval.
+        Will launch as a bi-monthly periodical after PRGI approval.
       </div>
     </div>
   </footer>
