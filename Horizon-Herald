@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Horizon Herald – The First Voice of Tomorrow</title>
+  <meta name="description" content="Horizon Herald is a monthly digital periodical by Shunya Publications — reporting ideas, science, society, and culture with clarity and depth." />
+  <link rel="icon" href="/favicon.ico" />
+  <meta property="og:title" content="Horizon Herald" />
+  <meta property="og:description" content="The First Voice of Tomorrow – a monthly digital periodical by Shunya Publications." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.shunyapublications.com/horizon-herald" />
+  <meta property="og:image" content="/horizon-herald-og.jpg" />
+  <style>
+    :root{
+      --ink:#0b132b;      /* deep navy */
+      --sky:#1c2541;      /* dark horizon */
+      --sun:#f0a202;      /* sunrise accent */
+      --mist:#e6ecf3;     /* soft background */
+      --paper:#ffffff;    /* cards */
+      --muted:#5b6b8c;    /* secondary text */
+      --ok:#0e9f6e;       /* success */
+      --warn:#b45309;     /* warning */
+      --radius:18px;
+      --shadow:0 12px 28px rgba(12,20,43,.08), 0 2px 6px rgba(12,20,43,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--mist),#f9fbff);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+    a{color:var(--sky);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1100px;margin-inline:auto;padding:0 20px}
+    header.site{
+      position:sticky;top:0;z-index:40;background:#ffffffcc;backdrop-filter:saturate(1.2) blur(12px);
+      border-bottom:1px solid #e8eef7
+    }
+    .topbar{display:flex;align-items:center;gap:18px;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 40% 35%, #ffd77a, var(--sun) 60%, #e28c00 61%);
+      box-shadow:inset 0 -10px 24px rgba(0,0,0,.12), 0 3px 12px rgba(240,162,2,.35)}
+    .wordmark{font-weight:800;letter-spacing:.3px}
+    .wordmark span{display:block;font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.6px;margin-top:-2px}
+    nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
+    nav a{padding:8px 12px;border-radius:10px}
+    nav a:hover{background:#f1f5fb}
+
+    /* hero */
+    .hero{padding:72px 0 36px;background:
+      radial-gradient(1200px 420px at 50% -100px, #ffeabc 0, rgba(255,234,188,0) 60%),
+      linear-gradient(180deg,#fff,rgba(255,255,255,.6))}
+    .hero .wrap{display:grid;grid-template-columns:1.3fr .9fr;gap:28px;align-items:center}
+    .masthead{background:var(--paper);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border:1px solid #edf2fb}
+    .title{font-size:48px;line-height:1.1;margin:0 0 8px}
+    .tag{color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.12em}
+    .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:12px;padding:10px 14px;font-weight:700;border:1px solid #dfe7f7;background:#fff}
+    .btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .btn.primary:hover{filter:brightness(1.08)}
+    .btn.secondary:hover{background:#f6f9ff}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e5eefc;color:var(--muted);border-radius:999px;padding:8px 12px;font-size:13px}
+
+    /* sections */
+    section{padding:36px 0}
+    h2{font-size:28px;margin:0 0 14px}
+    .grid{display:grid;gap:18px}
+    .grid.cards{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .card{background:var(--paper);border-radius:var(--radius);border:1px solid #eaf0fb;box-shadow:var(--shadow);padding:18px}
+    .card h3{margin:.2rem 0 .4rem;font-size:20px}
+    .meta{font-size:13px;color:var(--muted)}
+
+    /* article list */
+    .post{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:center}
+    .post img{width:120px;height:80px;object-fit:cover;border-radius:12px;border:1px solid #eaf0fb}
+
+    /* newsletter */
+    .sub{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:center}
+    .sub form{display:flex;gap:8px}
+    .sub input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid #cfd9ee;outline:none}
+    .sub button{padding:12px 16px;border:none;border-radius:12px;background:var(--sun);color:#1b1b1b;font-weight:800;cursor:pointer}
+    .sub button:hover{filter:brightness(1.05)}
+
+    /* footer */
+    footer{padding:34px 0 60px;color:var(--muted)}
+    .foot{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .imprint{font-size:14px}
+
+    @media (max-width:900px){
+      .hero .wrap{grid-template-columns:1fr}
+      .sub{grid-template-columns:1fr}
+      .post{grid-template-columns:1fr}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"NewsMediaOrganization",
+    "name":"Horizon Herald",
+    "alternateName":"Horizon Herald – The First Voice of Tomorrow",
+    "url":"https://www.shunyapublications.com/horizon-herald",
+    "logo":"https://www.shunyapublications.com/horizon-herald/logo.png",
+    "parentOrganization": {"@type":"Organization","name":"Shunya Publications"},
+    "founder":"Neha Akhtar",
+    "foundingLocation":"Ranchi, Jharkhand, India",
+    "publishingPrinciples":"https://www.shunyapublications.com/policies/editorial-ethics",
+    "sameAs":["https://www.facebook.com/","https://twitter.com/"]
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="container topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="wordmark">Horizon Herald <span>The First Voice of Tomorrow</span></div>
+      </div>
+      <nav aria-label="Primary Navigation">
+        <ul>
+          <li><a href="#latest">Latest</a></li>
+          <li><a href="#sections">Sections</a></li>
+          <li><a href="#issues">Issues</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#subscribe" class="btn secondary">Subscribe</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container wrap">
+        <div class="masthead">
+          <p class="badge" aria-label="periodicity">Monthly • Digital Edition</p>
+          <h1 class="title">Horizon Herald</h1>
+          <div class="tag">The First Voice of Tomorrow</div>
+          <p style="margin-top:10px;max-width:60ch">Reporting ideas, science, society, and culture — with clarity, craft, and context. A monthly e‑paper by Shunya Publications, Ranchi.</p>
+          <div class="cta">
+            <a class="btn primary" href="#latest">Read Latest</a>
+            <a class="btn secondary" href="#issues">Browse Issues</a>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h3>October 2025 Issue</h3>
+            <div class="meta">Vol. 1 • No. 1 • Ranchi</div>
+            <ul>
+              <li><strong>Editorial:</strong> Why the Future Needs a First Voice</li>
+              <li><strong>Cover Story:</strong> The Learning Machines We Can Trust</li>
+              <li><strong>Society:</strong> Public Health at the Edge of Climate</li>
+              <li><strong>Culture:</strong> The New Indian Non‑Fiction Renaissance</li>
+            </ul>
+            <div class="cta">
+              <a class="btn primary" href="#" aria-label="Read the current issue PDF">Read Issue (PDF)</a>
+              <a class="btn secondary" href="#" aria-label="Web version of current issue">Web Version</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="latest">
+      <div class="container">
+        <h2>Latest Articles</h2>
+        <div class="grid">
+          <article class="post card">
+            <img src="/images/sample-1.jpg" alt="Sunrise over a city skyline" />
+            <div>
+              <h3><a href="#">Announcing Tomorrow, Today: Our Editorial Standard</a></h3>
+              <div class="meta">Editorial • 5 min read</div>
+              <p>Our promise: verify facts, add context, explain consequences — and publish with humility and clarity.</p>
+            </div>
+          </article>
+          <article class="post card">
+            <img src="/images/sample-2.jpg" alt="Circuit board macro" />
+            <div>
+              <h3><a href="#">AI in Classrooms: A Practical Charter for 2026</a></h3>
+              <div class="meta">Education • 7 min read</div>
+              <p>A step‑by‑step framework administrators can adopt to bring responsible AI into schools without chaos.</p>
+            </div>
+          </article>
+          <article class="post card">
+            <img src="/images/sample-3.jpg" alt="People reading in a library" />
+            <div>
+              <h3><a href="#">Reading India: 10 Non‑Fiction Titles That Moved Us</a></h3>
+              <div class="meta">Culture • 6 min read</div>
+              <p>From history to policy, a curated shelf for anyone charting the country’s next decade.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="sections">
+      <div class="container">
+        <h2>Sections</h2>
+        <div class="grid cards">
+          <div class="card"><h3>Editorial</h3><p>Publisher’s view, standards, and accountability reports.</p></div>
+          <div class="card"><h3>Nation & Policy</h3><p>Policies, public programs, and their impact on everyday lives.</p></div>
+          <div class="card"><h3>Science & Tech</h3><p>Rigorous reporting on research, technology, and their ethics.</p></div>
+          <div class="card"><h3>Society</h3><p>Education, health, gender, labour, and social protection.</p></div>
+          <div class="card"><h3>Culture</h3><p>Books, ideas, arts — reviews and conversations.</p></div>
+          <div class="card"><h3>Opinion</h3><p>Columns and essays from invited voices.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="issues">
+      <div class="container">
+        <h2>Issues & Archive</h2>
+        <div class="grid cards">
+          <div class="card">
+            <div class="meta">Oct 2025 • Vol.1 No.1</div>
+            <h3><a href="#">October 2025</a></h3>
+            <p>Launch issue — Editorial standards, cover story on trustworthy AI, public health, and culture.</p>
+            <div class="cta"><a class="btn secondary" href="#">PDF</a><a class="btn secondary" href="#">Web</a></div>
+          </div>
+          <div class="card">
+            <div class="meta">Nov 2025 • Vol.1 No.2</div>
+            <h3><a href="#">November 2025</a></h3>
+            <p>Theme: Energy & Economy — pricing, grids, and green transitions that work.</p>
+            <div class="cta"><a class="btn secondary" href="#">PDF</a><a class="btn secondary" href="#">Web</a></div>
+          </div>
+          <div class="card">
+            <div class="meta">Dec 2025 • Vol.1 No.3</div>
+            <h3><a href="#">December 2025</a></h3>
+            <p>Theme: Learning — assessments, ed‑tech, and classrooms that include.</p>
+            <div class="cta"><a class="btn secondary" href="#">PDF</a><a class="btn secondary" href="#">Web</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="subscribe">
+      <div class="container sub card">
+        <div>
+          <h2>Subscribe for the Monthly Edition</h2>
+          <p class="meta">Free email edition while registration is under process. You can update imprint details to add PRGI number once issued.</p>
+        </div>
+        <form action="mailto:editor@shunyapublications.com" method="post" enctype="text/plain">
+          <input required name="email" type="email" placeholder="you@example.com" aria-label="Email address" />
+          <button type="submit" aria-label="Subscribe">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2>About</h2>
+        <div class="card">
+          <p><strong>Horizon Herald</strong> is a monthly digital periodical by <strong>Shunya Publications</strong>, Ranchi. We publish rigorously edited reporting and commentary on science, society, policy, and culture for readers who value clarity over noise.</p>
+          <p class="meta">Imprint (temporary): An online periodical published by Shunya Publications, Ranchi. PRGI registration applied/under process. © 2025 Shunya Publications. All rights reserved.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div class="imprint">
+        <strong>Contact</strong><br />
+        editor@shunyapublications.com • +91 7004498071
+      </div>
+      <div class="imprint" style="text-align:right">
+        <div>Delivery of Books Act: deposit e‑copies to National Library when applicable.</div>
+        <div>Update legal line with PRGI Certificate No. once issued.</div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
