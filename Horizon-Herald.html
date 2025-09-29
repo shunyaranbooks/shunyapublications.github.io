@@ -4,9 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Horizon Herald – The First Voice of Tomorrow</title>
-  <meta name="description" content="🚧 Coming Soon — Horizon Herald. Currently sharing non-news content (blogs, essays, cultural reflections, book excerpts). PRGI registration in process. Launch as a bimonthly periodical after approval." />
+  <meta name="description" content="🚧 Coming Soon — Horizon Herald. Currently sharing non-news content (blogs, essays, cultural reflections, book excerpts). PRGI registration in process. Will launch as a bi‑monthly periodical after approval." />
 
-  <!-- Favicon / App Icons -->
+  <!-- Canonical & Favicons -->
+  <link rel="canonical" href="https://www.shunyapublications.com/Horizon-Herald.html" />
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -18,23 +19,22 @@
   <link rel="manifest" href="/site.webmanifest?v=2">
   <meta name="theme-color" content="#1565ff">
 
-  <!-- Open Graph / Facebook / WhatsApp -->
+  <!-- Open Graph / WhatsApp -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.shunyapublications.com/" />
-  <meta property="og:title" content="Shunya Publications — Depth & Discovery" />
-  <meta property="og:description" content="From 400+ authored works to a publishing house — Shunya Publications opens its doors to future voices in books and journals." />
-  <meta property="og:image" content="https://www.shunyapublications.com/Logosh.png" />
-  <meta property="og:image:secure_url" content="https://www.shunyapublications.com/Logosh.png" />
-  <meta property="og:image:type" content="image/png" />
+  <meta property="og:url" content="https://www.shunyapublications.com/Horizon-Herald.html" />
+  <meta property="og:title" content="Horizon Herald – The First Voice of Tomorrow" />
+  <meta property="og:description" content="A bi‑monthly digital periodical by Shunya Publications. Currently sharing non‑news essays, reflections, and excerpts. PRGI registration in process." />
+  <meta property="og:image" content="https://www.shunyapublications.com/horizon-herald-og.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://www.shunyapublications.com/" />
-  <meta name="twitter:title" content="Shunya Publications — Depth & Discovery" />
-  <meta name="twitter:description" content="From 400+ authored works to a publishing house — Shunya Publications opens its doors to future voices in books and journals." />
-  <meta name="twitter:image" content="https://www.shunyapublications.com/Logosh.png" />
+  <meta name="twitter:url" content="https://www.shunyapublications.com/Horizon-Herald.html" />
+  <meta name="twitter:title" content="Horizon Herald – The First Voice of Tomorrow" />
+  <meta name="twitter:description" content="A bi‑monthly digital periodical by Shunya Publications. Non‑news essays & excerpts while PRGI registration is in process." />
+  <meta name="twitter:image" content="https://www.shunyapublications.com/horizon-herald-og.jpg" />
 
   <style>
     :root{
@@ -56,24 +56,31 @@
     nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
     nav a{padding:8px 12px;border-radius:10px}
     nav a:hover{background:#f1f5fb}
+
     .hero{padding:72px 0 36px;background:radial-gradient(1200px 420px at 50% -100px,#ffeabc 0,rgba(255,234,188,0) 60%),linear-gradient(180deg,#fff,rgba(255,255,255,.6))}
     .hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
     .masthead{background:var(--paper);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border:1px solid #edf2fb}
     .title{font-size:48px;line-height:1.1;margin:0 0 8px}
     .tag{color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.12em}
     .badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e5eefc;color:var(--muted);border-radius:999px;padding:8px 12px;font-size:13px}
+
     section{padding:36px 0}
     h2{font-size:28px;margin:0 0 14px}
     .card{background:var(--paper);border-radius:var(--radius);border:1px solid #eaf0fb;box-shadow:var(--shadow);padding:18px}
     .meta{font-size:13px;color:var(--muted)}
+
     footer{padding:34px 0 60px;color:var(--muted)}
     .foot{display:grid;grid-template-columns:1fr 1fr;gap:18px}
     .imprint{font-size:14px}
-    /* minimal grid for contact cards without changing theme */
+
     .flex-cards{display:flex;gap:16px;flex-wrap:wrap}
     .flex-cards .card{flex:1 1 260px}
-    /* back-to-top */
+
     #btt{position:fixed;right:16px;bottom:16px;display:none;padding:10px 14px;border-radius:12px;border:1px solid #dfe7f7;background:#fff;box-shadow:var(--shadow);color:var(--ink);font-weight:700}
+
+    @media (max-width:900px){
+      .hero .wrap{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body id="home">
@@ -82,17 +89,17 @@
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div class="wordmark">
-          <a href="https://www.shunyapublications.com/" style="color:inherit;text-decoration:none">Horizon Herald</a>
+          <a href="/Horizon-Herald.html" style="color:inherit;text-decoration:none">Horizon Herald</a>
           <span>The First Voice of Tomorrow</span>
         </div>
       </div>
       <nav aria-label="Primary Navigation">
         <ul>
-           <li><a href="index.html">Home</a></li>
+          <li><a href="/Horizon-Herald.html">Home</a></li>
           <li><a href="#latest">Latest</a></li>
           <li><a href="#sections">Sections</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#subscribe" class="btn secondary">Subscribe</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -103,53 +110,52 @@
     <section class="hero">
       <div class="container wrap">
         <div class="masthead">
-          <p class="badge">Bimonthly • Digital Edition • Registration in Process</p>
+          <p class="badge">Bi‑monthly • Digital Edition • Registration in Process</p>
           <h1 class="title">🚧 Horizon Herald</h1>
           <div class="tag">The First Voice of Tomorrow</div>
-          <p>Currently sharing <strong>non-news content</strong> (blogs, essays, cultural reflections, book excerpts).  
-          PRGI registration is in process. Launch as a bimonthly periodical after approval.</p>
+          <p>Currently sharing <strong>non-news content</strong> (blogs, essays, cultural reflections, book excerpts). PRGI registration is in process. Will launch as a bi‑monthly periodical after approval.</p>
         </div>
       </div>
     </section>
 
     <section id="latest">
-  <div class="container">
-    <h2>From the Blog (Non-News)</h2>
-    <div class="card">
-      <h3>Why Culture Outlasts Headlines</h3>
-      <div class="meta">Essay • 5 min read</div>
-      <p>Headlines arrive like fireworks: a crackle, a blaze, a rush of noise — and then, ash. They vanish even before the smoke clears. By tomorrow, today’s crisis is yesterday’s boredom, and the next “breaking news” is already breaking under its own weight.</p>
-      <p>But culture… ah, culture is the quiet wine fermenting in the cellar of time. You don’t gulp it in panic. You sip it, unaware, until one day you realize your blood hums with its intoxication. A song hummed by a grandmother, a proverb whispered by a teacher, a painting seen in your childhood — these outlast every headline ever screamed in bold letters.</p>
-      <p>Why? Because headlines report events, but culture rewires memory. Headlines want your attention; culture wants your bloodstream. Headlines chase the moment; culture <em>is</em> the moment, extended, eternal.</p>
-      <p>The real astonishment is this: even when history forgets the wars, the GDP charts, the scandals of ministers, it remembers the lullabies, the rituals, the myths. The crowd that once rioted for bread is faceless, but the poem that rose from their hunger is immortal.</p>
-      <p>Think of it this way: headlines are surface waves, all froth and spray; culture is the current underneath, invisible but unstoppable. Waves impress the shore for a second. The current reshapes the continent.</p>
-      <p>So let the newspapers shout. Let the anchors thunder. The intoxication that lasts is not the flash of news but the slow burn of stories, symbols, and art. That is why, long after the ink has faded, culture still speaks. It does not merely outlast headlines — it outlives them, outloves them, and outshines them.</p>
-      <p>Because when history asks, <em>What truly mattered?</em> the answer is never in the headline font. It is in the song that never died.</p>
-    </div>
-  </div>
-</section>
-
+      <div class="container">
+        <h2>From the Blog (Non‑News)</h2>
+        <div class="card">
+          <h3>Why Culture Outlasts Headlines</h3>
+          <div class="meta">Essay • 5 min read</div>
+          <p>Headlines arrive like fireworks: a crackle, a blaze, a rush of noise — and then, ash. They vanish even before the smoke clears. By tomorrow, today’s crisis is yesterday’s boredom, and the next “breaking news” is already breaking under its own weight.</p>
+          <p>But culture… ah, culture is the quiet wine fermenting in the cellar of time. You don’t gulp it in panic. You sip it, unaware, until one day you realize your blood hums with its intoxication. A song hummed by a grandmother, a proverb whispered by a teacher, a painting seen in your childhood — these outlast every headline ever screamed in bold letters.</p>
+          <p>Why? Because headlines report events, but culture rewires memory. Headlines want your attention; culture wants your bloodstream. Headlines chase the moment; culture <em>is</em> the moment, extended, eternal.</p>
+          <p>The real astonishment is this: even when history forgets the wars, the GDP charts, the scandals of ministers, it remembers the lullabies, the rituals, the myths. The crowd that once rioted for bread is faceless, but the poem that rose from their hunger is immortal.</p>
+          <p>Think of it this way: headlines are surface waves, all froth and spray; culture is the current underneath, invisible but unstoppable. Waves impress the shore for a second. The current reshapes the continent.</p>
+          <p>So let the newspapers shout. Let the anchors thunder. The intoxication that lasts is not the flash of news but the slow burn of stories, symbols, and art. That is why, long after the ink has faded, culture still speaks. It does not merely outlast headlines — it outlives them, outloves them, and outshines them.</p>
+          <p>Because when history asks, <em>What truly mattered?</em> the answer is never in the headline font. It is in the song that never died.</p>
+        </div>
+      </div>
+    </section>
 
     <section id="sections">
       <div class="container">
-        <h2>Non-News</h2>
-        <div class="card"><h3>Essays</h3><p>Long-form reflections and ideas beyond the news cycle.</p></div>  </br>
-        <div class="card"><h3>Culture</h3><p>Books, art, and society — curated insights.</p></div>  </br>
+        <h2>Non‑News</h2>
+        <div class="card"><h3>Essays</h3><p>Long-form reflections and ideas beyond the news cycle.</p></div>
+        <br/>
+        <div class="card"><h3>Culture</h3><p>Books, art, and society — curated insights.</p></div>
+        <br/>
         <div class="card"><h3>Excerpts</h3><p>Selections from Shunya Publications’ books and authors.</p></div>
       </div>
     </section>
-<section id="about">
+
+    <section id="about">
       <div class="container">
         <h2>About</h2>
         <div class="card">
   <p><strong>Horizon Herald</strong> is a bi-monthly digital periodical by <strong>Shunya Publications</strong>, Ranchi. In its launch phase, with PRGI registration in process, it offers carefully crafted essays and commentary on science, society, policy, and culture — written for readers who value depth over distraction and clarity over noise.</p>
-  <p class="meta"><em>Imprint (provisional):</em> Digital periodical published by Shunya Publications, Ranchi. PRGI registration in process. © 2025 Shunya Publications. All rights reserved.</p>
+  <p class="meta"><em>Imprint (provisional):</em> Digital periodical of Shunya Publications, Ranchi. PRGI registration in process. © 2025 Shunya Publications. All rights reserved.</p>
 </div>
 
       </div>
     </section>
-
- 
 
     <!-- CONTACT / NEWSLETTER -->
     <section id="contact" class="section">
@@ -164,7 +170,6 @@
             <b>Email</b>
             <p style="margin:.4rem 0 0">
               <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a><br/>
-              
             </p>
           </div>
           <div class="card">
@@ -179,13 +184,13 @@
           </div>
         </div>
 
+        <!-- Subscribe anchor for menu link -->
+        <span id="subscribe"></span>
         <div class="card" style="padding:24px; text-align:center; margin-top:16px;">
           <h3 style="margin:0 0 .6rem; font-size:1.2rem;">Subscribe</h3>
           <p style="margin:.2rem 0 1.2rem; color:#4c5f82;">
-           Free email edition while registration is under process. You can update imprint details to add PRGI number once issued.<br/>
-            <em> <!-- Keep mailto, as requested earlier --></em>
+            Free email edition while registration is under process. We will update the imprint with the PRGI number once issued.
           </p>
-          <!-- Optional second subscribe via Formspree (nice UX) -->
           <form id="nl" action="https://formspree.io/f/mblzdzgz" method="POST" 
                 style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
             <label class="sr-only" for="nl-email">Email address</label>
@@ -207,10 +212,9 @@
  
   <footer class="section" style="padding:24px 0">
     <div class="container foot">
-     <div> 🚧 Registration in process. Only non-news content is being shared.</div>
-      
+      <div> 🚧 Registration in process. Only non‑news content is being shared.</div>
       <div class="imprint" style="text-align:right">
-        Launch as a bimonthly periodical after PRGI approval.
+        Will launch as a bi‑monthly periodical after PRGI approval.
       </div>
     </div>
   </footer>
