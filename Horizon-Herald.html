@@ -1,120 +1,161 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Horizon Herald – The First Voice of Tomorrow</title>
-  <meta name="description" content="Horizon Herald is a bimonthly digital publication by Shunya Publications — sharing essays, culture, ideas, and reflections while registration is in process." />
-  <link rel="icon" href="/favicon.ico" />
-  <meta property="og:title" content="Horizon Herald" />
-  <meta property="og:description" content="The First Voice of Tomorrow – a bimonthly digital publication by Shunya Publications. Registration in process." />
+  <meta name="description" content="🚧 Coming Soon — Horizon Herald. Currently sharing non-news content (blogs, essays, cultural reflections, book excerpts). PRGI registration in process. Launch as a bimonthly periodical after approval." />
+
+  <!-- Favicon / App Icons -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Shunya">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+  <link rel="manifest" href="/site.webmanifest?v=2">
+  <meta name="theme-color" content="#1565ff">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.shunyapublications.com/horizon-herald" />
-  <meta property="og:image" content="/horizon-herald-og.jpg" />
+  <meta property="og:url" content="https://www.shunyapublications.com/" />
+  <meta property="og:title" content="Shunya Publications — Depth & Discovery" />
+  <meta property="og:description" content="From 400+ authored works to a publishing house — Shunya Publications opens its doors to future voices in books and journals." />
+  <meta property="og:image" content="https://www.shunyapublications.com/Logosh.png" />
+  <meta property="og:image:secure_url" content="https://www.shunyapublications.com/Logosh.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://www.shunyapublications.com/" />
+  <meta name="twitter:title" content="Shunya Publications — Depth & Discovery" />
+  <meta name="twitter:description" content="From 400+ authored works to a publishing house — Shunya Publications opens its doors to future voices in books and journals." />
+  <meta name="twitter:image" content="https://www.shunyapublications.com/Logosh.png" />
+
   <style>
     :root{
-      --ink:#0b132b; --sky:#1c2541; --sun:#f0a202;
-      --mist:#e6ecf3; --paper:#ffffff; --muted:#5b6b8c;
-      --radius:18px; --shadow:0 12px 28px rgba(12,20,43,.08), 0 2px 6px rgba(12,20,43,.06);
+      --ink:#0b132b;--sky:#1c2541;--sun:#f0a202;--mist:#e6ecf3;
+      --paper:#ffffff;--muted:#5b6b8c;--radius:18px;
+      --shadow:0 12px 28px rgba(12,20,43,.08),0 2px 6px rgba(12,20,43,.06);
     }
-    body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,var(--mist),#f9fbff)}
-    .container{max-width:1100px;margin:auto;padding:0 20px}
-    header.site{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid #e8eef7}
-    .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--mist),#f9fbff);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+    a{color:var(--sky);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1100px;margin-inline:auto;padding:0 20px}
+    header.site{position:sticky;top:0;z-index:40;background:#ffffffcc;backdrop-filter:saturate(1.2) blur(12px);border-bottom:1px solid #e8eef7}
+    .topbar{display:flex;align-items:center;gap:18px;justify-content:space-between;padding:14px 0}
     .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 40% 35%, #ffd77a, var(--sun) 60%, #e28c00 61%)}
-    .wordmark{font-weight:800}.wordmark span{display:block;font-size:12px;color:var(--muted)}
-    nav ul{display:flex;gap:14px;list-style:none;padding:0;margin:0}
-    nav a{padding:8px 12px;border-radius:10px;color:var(--sky);text-decoration:none}
+    .logo{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 40% 35%, #ffd77a, var(--sun) 60%, #e28c00 61%);box-shadow:inset 0 -10px 24px rgba(0,0,0,.12),0 3px 12px rgba(240,162,2,.35)}
+    .wordmark{font-weight:800;letter-spacing:.3px}
+    .wordmark span{display:block;font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.6px;margin-top:-2px}
+    nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
+    nav a{padding:8px 12px;border-radius:10px}
     nav a:hover{background:#f1f5fb}
-    .notice{background:#fff6d8;border-bottom:1px solid #f2e3b0;color:#5a4605;font:14px/1.5 system-ui;padding:10px 0}
-    .notice .container{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between}
-    .hero{padding:72px 0;background:linear-gradient(180deg,#fff,rgba(255,255,255,.7))}
-    .masthead{background:var(--paper);padding:28px;border-radius:var(--radius);box-shadow:var(--shadow)}
-    .title{font-size:42px;margin:0}
-    .tag{color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
-    .card{background:var(--paper);padding:18px;border:1px solid #eaf0fb;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero{padding:72px 0 36px;background:radial-gradient(1200px 420px at 50% -100px,#ffeabc 0,rgba(255,234,188,0) 60%),linear-gradient(180deg,#fff,rgba(255,255,255,.6))}
+    .hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+    .masthead{background:var(--paper);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border:1px solid #edf2fb}
+    .title{font-size:48px;line-height:1.1;margin:0 0 8px}
+    .tag{color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.12em}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e5eefc;color:var(--muted);border-radius:999px;padding:8px 12px;font-size:13px}
+    section{padding:36px 0}
+    h2{font-size:28px;margin:0 0 14px}
+    .card{background:var(--paper);border-radius:var(--radius);border:1px solid #eaf0fb;box-shadow:var(--shadow);padding:18px}
     .meta{font-size:13px;color:var(--muted)}
     footer{padding:34px 0 60px;color:var(--muted)}
     .foot{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .imprint{font-size:14px}
   </style>
 </head>
 <body>
-
-<!-- NOTICE BAR -->
-<div class="notice">
-  <div class="container">
-    <strong>🚧 Coming Soon — Horizon Herald</strong>
-    <span>Currently sharing <em>non-news content</em> (blogs, essays, cultural reflections, book excerpts). PRGI registration is in process. Launch as a <b>bimonthly</b> periodical after approval.</span>
-  </div>
-</div>
-
-<header class="site">
-  <div class="container topbar">
-    <div class="brand">
-      <div class="logo"></div>
-      <div class="wordmark">Horizon Herald <span>The First Voice of Tomorrow</span></div>
+  <header class="site">
+    <div class="container topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="wordmark"><a href="https://www.shunyapublications.com/">Horizon Herald</a> <span>The First Voice of Tomorrow</span></div>
+      </div>
+      <nav aria-label="Primary Navigation">
+        <ul>
+          <li><a href="#latest">Latest</a></li>
+          <li><a href="#sections">Sections</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#subscribe" class="btn secondary">Subscribe</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav>
-      <ul>
-        <li><a href="#latest">Latest</a></li>
-        <li><a href="#sections">Sections</a></li>
-        <li><a href="#about">About</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+  </header>
 
-<main>
-  <section class="hero">
-    <div class="container">
-      <div class="masthead">
-        <p class="meta">Bimonthly • Digital Edition • Registration in Process</p>
-        <h1 class="title">Horizon Herald</h1>
-        <div class="tag">The First Voice of Tomorrow</div>
-        <p style="margin-top:10px;max-width:60ch">
-          Until PRGI approval, Horizon Herald publishes <strong>non-news writing</strong> only: blogs, cultural notes, essays, and excerpts. 
-          Public news coverage will begin <em>after registration</em>.
-        </p>
+  <main>
+    <!-- Coming Soon Notice -->
+    <section class="hero">
+      <div class="container wrap">
+        <div class="masthead">
+          <p class="badge">Bimonthly • Digital Edition • Registration in Process</p>
+          <h1 class="title">🚧 Horizon Herald</h1>
+          <div class="tag">The First Voice of Tomorrow</div>
+          <p>Currently sharing <strong>non-news content</strong> (blogs, essays, cultural reflections, book excerpts).  
+          PRGI registration is in process. Launch as a bimonthly periodical after approval.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="latest">
+      <div class="container">
+        <h2>From the Blog (Non-News)</h2>
+        <div class="card">
+          <h3>Sample Post: Why Culture Outlasts Headlines</h3>
+          <div class="meta">Essay • 5 min read</div>
+          <p>Our focus while registration is pending: writing that deepens perspective instead of chasing daily news.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="sections">
+      <div class="container">
+        <h2>Sections (Non-News)</h2>
+        <div class="card"><h3>Essays</h3><p>Long-form reflections and ideas beyond the news cycle.</p></div>
+        <div class="card"><h3>Culture</h3><p>Books, art, and society — curated insights.</p></div>
+        <div class="card"><h3>Excerpts</h3><p>Selections from Shunya Publications’ books and authors.</p></div>
+      </div>
+    </section>
+
+    <section id="subscribe">
+      <div class="container card">
+        <h2>Subscribe</h2>
+        <p class="meta">Get email updates while registration is under process. Only non-news content will be shared until PRGI approval.</p>
+        <form action="mailto:editor@shunyapublications.com" method="post" enctype="text/plain">
+          <input required name="email" type="email" placeholder="you@example.com" />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2>About</h2>
+        <div class="card">
+          <p><strong>Horizon Herald</strong> is a bimonthly digital periodical by <a href="https://www.shunyapublications.com/">Shunya Publications</a>, Ranchi.  
+          Currently in pre-launch phase, it publishes <strong>non-news content only</strong> until PRGI registration is completed.</p>
+          <p class="meta">Imprint: Shunya Publications, Ranchi. UDYAM-JH-20-0114655. Registration with PRGI under process. © 2025 Shunya Publications. All rights reserved.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div class="imprint">
+        <strong>Contact</strong><br />
+        📧 editor@shunyapublications.com • 📞 +91 7004498071
+      </div>
+      <div class="imprint" style="text-align:right">
+        🚧 Registration in process. Only non-news content is being shared. Launch as a bimonthly periodical after PRGI approval.
       </div>
     </div>
-  </section>
-
-  <section id="latest" class="container" style="padding:36px 0">
-    <h2>From the Blog (Non-News)</h2>
-    <div class="card">
-      <h3>Sample Post: Why Culture Outlasts Headlines</h3>
-      <p class="meta">Essay • 5 min read</p>
-      <p>Our focus while registration is pending: writing that deepens perspective instead of chasing daily news.</p>
-    </div>
-  </section>
-
-  <section id="sections" class="container" style="padding:36px 0">
-    <h2>Sections (Non-News)</h2>
-    <div class="card"><h3>Essays</h3><p>Long-form reflections and ideas beyond the news cycle.</p></div>
-    <div class="card"><h3>Culture</h3><p>Books, art, and society — curated insights.</p></div>
-    <div class="card"><h3>Excerpts</h3><p>Selections from Shunya Publications’ books and authors.</p></div>
-  </section>
-
-  <section id="about" class="container" style="padding:36px 0">
-    <h2>About</h2>
-    <div class="card">
-      <p><strong>Horizon Herald</strong> is a bimonthly digital periodical by <strong>Shunya Publications</strong>, Ranchi. 
-      Currently in <em>pre-launch</em> phase, it publishes <strong>non-news content</strong> only until PRGI registration is completed.</p>
-      <p class="meta">Imprint: Shunya Publications, Ranchi. UDYAM-JH-20-0114655. Registration with PRGI under process. © 2025 Shunya Publications. All rights reserved.</p>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="container foot">
-    <div>📧 editor@shunyapublications.com • +91 7004498071</div>
-    <div style="text-align:right">
-      🚧 Registration in process. Only non-news content is being shared.  
-      Launch as a <strong>bimonthly periodical</strong> after PRGI approval.
-    </div>
-  </div>
-</footer>
-
+  </footer>
 </body>
 </html>
