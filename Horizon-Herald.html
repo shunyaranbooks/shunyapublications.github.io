@@ -161,16 +161,74 @@
    
 
         <br/>
+
         <div class="card">
   <h3>Culture</h3>
   <p>Books, art, and society — curated insights that reveal not just what people create, but what those creations mean for how we live, dream, and remember.</p>
-  <ul style="margin-top:12px; padding-left:20px; color:#5b6b8c; font-size:14px; line-height:1.6;">
-    <li><strong>The New Indian Non-Fiction Renaissance:</strong> Why readers are turning from noise to nuance.</li>
-    <li><strong>The Lullaby That Survived Empires:</strong> Songs as cultural memory more lasting than power.</li>
-    <li><strong>When Art Becomes Protest:</strong> The quiet revolutions of brush, stage, and screen.</li>
-    <li><strong>Stories We Inherit:</strong> How forgotten rituals shape the future of nations.</li>
-  </ul>
-</div> </br>
+
+  <div class="culture-list">
+    <a class="culture-card" href="indian-nonfiction-renaissance.html">
+      <span class="culture-title">The New Indian Non-Fiction Renaissance</span>
+      <span class="culture-sub">Why readers are turning from noise to nuance.</span>
+    </a>
+    <a class="culture-card" href="lullaby-that-survived-empires.html">
+      <span class="culture-title">The Lullaby That Survived Empires</span>
+      <span class="culture-sub">Songs as cultural memory more lasting than power.</span>
+    </a>
+    <a class="culture-card" href="art-as-protest.html">
+      <span class="culture-title">When Art Becomes Protest</span>
+      <span class="culture-sub">The quiet revolutions of brush, stage, and screen.</span>
+    </a>
+    <a class="culture-card" href="stories-we-inherit.html">
+      <span class="culture-title">Stories We Inherit</span>
+      <span class="culture-sub">How forgotten rituals shape the future of nations.</span>
+    </a>
+  </div>
+
+  <style>
+    .culture-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .culture-card {
+      display: block;
+      padding: 18px 20px;
+      border: 1px solid #e5eaf5;
+      border-radius: 14px;
+      background: linear-gradient(180deg,#ffffff,#f9fbff);
+      box-shadow: 0 4px 10px rgba(20,32,54,0.05);
+      text-decoration: none;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .culture-card:hover {
+      transform: translateY(-4px);
+      border-color: #1565ff;
+      box-shadow: 0 10px 22px rgba(21,101,255,0.15);
+      text-decoration: none;
+    }
+    .culture-title {
+      display: block;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0b132b;
+      margin-bottom: 4px;
+    }
+    .culture-sub {
+      font-size: 0.9rem;
+      color: #5b6b8c;
+    }
+    @media (min-width:700px) {
+      .culture-list {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</div>
+
+      
+      </br>
 <div class="card">
   <h3>Essays</h3>
   <p>Long-form reflections that step outside the rush of headlines — crafted to linger, provoke, and illuminate beyond the news cycle.</p>
@@ -238,17 +296,74 @@
 </div>
 
         <br/>
-       <div class="card">
+
+<div class="card">
   <h3>Excerpts</h3>
-  <p>Fragments from books and voices — passages that open a door, stir a question, and keep echoing after the page ends.</p>
-  <ul style="margin-top:12px; padding-left:20px; color:#5b6b8c; font-size:14px; line-height:1.6;">
-    <li><strong>The Forgotten Blueprints</strong> — “What if everything you believed had an author?”</li>
-    <li><strong>The World That Flickers</strong> — “Reality is not always what it seems—especially when it feels most familiar.”</li>
-    <li><strong>What Is a Form?</strong> — “What if the things you see are only echoes of what actually exists?”</li>
-    <li><strong>The Math That Doesn’t Change</strong> — “Are numbers more real than apples?”</li>
-  </ul>
+  <p>Fragments from books — not blurbs, but living sparks. Each one a trance, a door half-open, a voice that refuses to stop at the page.</p>
+
+  <div class="excerpt-list">
+    <a class="excerpt-card" href="too-late.html">
+      <span class="excerpt-title">Too Late</span>
+      <span class="excerpt-sub">How humanity slept through its greatest ideas. “History didn’t miss the future. It ignored it on purpose.”</span>
+    </a>
+    <a class="excerpt-card" href="triadism.html">
+      <span class="excerpt-title">Triadism</span>
+      <span class="excerpt-sub">Diagrammatic ontology beyond the binary. “You are not seeking truth. You are composing it — one diagram at a time.”</span>
+    </a>
+    <a class="excerpt-card" href="the-self-that-dies.html">
+      <span class="excerpt-title">The Self That Dies Before You Do</span>
+      <span class="excerpt-sub">“You do not fear death. You fear the quiet truth that you’ve already died many times — and called it ‘growing up.’”</span>
+    </a>
+    <a class="excerpt-card" href="spiral-way.html">
+      <span class="excerpt-title">Learn English the Spiral Way</span>
+      <span class="excerpt-sub">“Fluency isn’t the end. It’s the lens.” A bold, mind-expanding journey through grammar as thought.</span>
+    </a>
+  </div>
+
+  <style>
+    .excerpt-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .excerpt-card {
+      display: block;
+      padding: 18px 20px;
+      border: 1px solid #e5eaf5;
+      border-radius: 14px;
+      background: linear-gradient(180deg,#ffffff,#f9fbff);
+      box-shadow: 0 4px 10px rgba(20,32,54,0.05);
+      text-decoration: none;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .excerpt-card:hover {
+      transform: translateY(-4px);
+      border-color: #1565ff;
+      box-shadow: 0 10px 22px rgba(21,101,255,0.15);
+      text-decoration: none;
+    }
+    .excerpt-title {
+      display: block;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0b132b;
+      margin-bottom: 4px;
+    }
+    .excerpt-sub {
+      font-size: 0.9rem;
+      color: #5b6b8c;
+      font-style: italic;
+    }
+    @media (min-width:700px) {
+      .excerpt-list {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
 </div>
 
+        
       </div>
     </section>
 
