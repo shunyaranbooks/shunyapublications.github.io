@@ -1,21 +1,47 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "id": "/",
+  "name": "Shunya Publications",
+  "short_name": "Shunya",
+  "description": "Books & open-access journals from Shunya Publications — depth, clarity, and discovery.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "window-controls-overlay"],
+  "background_color": "#ffffff",
+  "theme_color": "#1565ff",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/web-app-manifest-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  "shortcuts": [
+    {
+      "name": "Books",
+      "short_name": "Books",
+      "url": "/books.html",
+      "icons": [{ "src": "/icons/shortcut-books.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
+      "name": "Journals",
+      "short_name": "Journals",
+      "url": "/#journals",
+      "icons": [{ "src": "/icons/shortcut-journals.png", "sizes": "96x96", "type": "image/png" }]
+    }
+  ],
+  "prefer_related_applications": false
 }
