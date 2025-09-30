@@ -227,22 +227,27 @@
           </div>
         </div>
 
-        <!-- Submissions -->
-        <div class="card">
-          <h3 style="margin:0 0 .5rem; font-size:var(--fs-h3)">Submissions</h3>
-          <p style="margin:0">If your manuscript carries a voice worth hearing, we invite you to share it. Please use the subject line format: <b>Submission — [Your Name] — [Book Title]</b>.</p>
-          <p style="margin:.6rem 0 0;">Attach:</p>
-          <ul style="margin:.4rem 0 0 1.2rem; padding:0;">
-            <li>Covering letter introducing yourself and the work</li>
-            <li>Synopsis</li>
-            <li>Two sample chapters</li>
-          </ul>
-          <p style="margin:.8rem 0 0;">
-            Email: <a href="mailto:editor@shunyapublications.com?subject=Submission%20%E2%80%94%20%5BYour%20Name%5D%20%E2%80%94%20%5BBook%20Title%5D">editor@shunyapublications.com</a>
-          </p>
-        </div>
+<!-- Submissions -->
+<div class="card">
+  <h3 style="margin:0 0 .5rem; font-size:var(--fs-h3)">Submissions</h3>
+  <p style="margin:0">If your manuscript carries a voice worth hearing, we invite you to share it. Please use the subject line format: <b>Submission — [Your Name] — [Book Title]</b>.</p>
+  <p style="margin:.6rem 0 0;">Attach:</p>
+  <ul style="margin:.4rem 0 0 1.2rem; padding:0;">
+    <li>Covering letter introducing yourself and the work</li>
+    <li>Synopsis</li>
+    <li>Two sample chapters</li>
+  </ul>
+  <p style="margin:.8rem 0 0;">
+    Email:
+    <a
+      href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com&subject=Submission%20%E2%80%94%20%5BYour%20Name%5D%20%E2%80%94%20%5BBook%20Title%5D">
+      editor@shunyapublications.com
+    </a>
+    <span class="meta"> (CC: shunya.ran.books@gmail.com)</span>
+  </p>
+</div>
 
-       <!-- NEW: Conference Proceedings with ISBN -->
+<!-- NEW: Conference Proceedings with ISBN -->
 <div class="card" id="proceedings">
   <h2 style="margin:.2rem 0 .6rem; font-size:var(--fs-h2)">Conference Proceedings (with ISBN)</h2>
   <p style="margin:0">
@@ -262,7 +267,9 @@
   </div>
 
   <p class="meta" style="margin:.6rem 0 0;">
-    Contact the Editor: <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a> • +91 9798476769
+    Contact the Editor:
+    <a href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com">editor@shunyapublications.com</a>
+    • +91 9798476769
   </p>
 </div>
 
@@ -275,7 +282,7 @@
 
     <h2 id="procDialogTitle" style="margin:.2rem 0 .4rem; font-size:var(--fs-h2)">Propose Your Proceedings</h2>
     <p id="procDialogDesc" class="meta" style="margin:.2rem 0 .8rem">
-      Fill the details below—your email app will open with a pre-filled proposal to <b>editor@shunyapublications.com</b>.
+      Fill the details below—your email app will open with a pre-filled proposal to <b>editor@shunyapublications.com</b> (CC: <b>shunya.ran.books@gmail.com</b>).
     </p>
 
     <!-- FORM -->
@@ -346,42 +353,73 @@
   const cancelBtn = document.getElementById('procCancel');
   const form = document.getElementById('procForm');
 
+  // Open/close
   function openDialog(e){ e.preventDefault(); backdrop.style.display='flex'; }
   function closeDialog(){ backdrop.style.display='none'; form.reset(); }
 
-  openBtn.addEventListener('click', openDialog);
-  closeBtn.addEventListener('click', closeDialog);
-  cancelBtn.addEventListener('click', closeDialog);
-  backdrop.addEventListener('click', e=>{ if(e.target===backdrop) closeDialog(); });
+  openBtn?.addEventListener('click', openDialog);
+  closeBtn?.addEventListener('click', closeDialog);
+  cancelBtn?.addEventListener('click', closeDialog);
+  backdrop?.addEventListener('click', e=>{ if(e.target===backdrop) closeDialog(); });
 
-  form.addEventListener('submit', function(e){
+  // Submit
+  form?.addEventListener('submit', async function(e){
     e.preventDefault();
     if(!form.reportValidity()) return;
 
     const data = Object.fromEntries(new FormData(form).entries());
-    const body = [
-      "Conference Proposal",
-      "• Name: " + data.confName,
-      "• Dates: " + data.dates,
-      "• Organizing Institute: " + data.org,
-      "• Tracks: " + data.tracks,
-      "• Paper Count: " + data.paperCount,
-      "• Review Process: " + data.review,
-      "• DOI/Indexing: " + data.doi,
-      "• Contact Email: " + data.contactEmail,
-      "• Notes: " + (data.notes || "")
-    ].join("\n");
+    const clean = s => (s || '').toString().trim();
 
-    const subject = "Proceedings Proposal — " + data.confName;
-    const mailto = "mailto:editor@shunyapublications.com"
-      + "?subject=" + encodeURIComponent(subject)
-      + "&body=" + encodeURIComponent(body);
+    const lines = [
+      "Proceedings Proposal",
+      "",
+      "Conference:",
+      "• Name: " + clean(data.confName),
+      "• Dates: " + clean(data.dates),
+      "• Organizing Institute(s): " + clean(data.org),
+      "• Tracks / Disciplines: " + clean(data.tracks),
+      "• Paper Count: " + clean(data.paperCount),
+      "• Review Process: " + clean(data.review),
+      "• DOI / Indexing Needs: " + clean(data.doi),
+      "",
+      "Contact:",
+      "• Email: " + clean(data.contactEmail),
+      "",
+      "Additional Notes:",
+      clean(data.notes)
+    ];
 
-    window.location.href = mailto; // open email client
-    closeDialog();
+    const subject = "Proceedings Proposal — " + clean(data.confName || "Conference");
+    // Keep body under typical URL limits
+    const body = lines.join("\n").slice(0, 1800);
+
+    // Build mailto with CC (or change 'cc=' to 'bcc=' if you prefer)
+    const to = "editor@shunyapublications.com";
+    const cc = "shunya.ran.books@gmail.com";
+
+    const mailto =
+      "mailto:" + encodeURIComponent(to) +
+      "?cc=" + encodeURIComponent(cc) +
+      "&subject=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(body);
+
+    // Try to open mail client
+    try { window.open(mailto, "_self"); } catch(_) {}
+
+    // Clipboard fallback so nothing is lost
+    setTimeout(async () => {
+      try {
+        await navigator.clipboard.writeText(
+          "To: " + to + "\nCC: " + cc + "\nSubject: " + subject + "\n\n" + body
+        );
+        alert("If your email app didn’t open, the full message (with CC) has been copied. Paste into your mail to send.");
+      } catch (_) {}
+      closeDialog();
+    }, 900);
   });
 })();
 </script>
+
 
 
       </div>
