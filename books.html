@@ -14,6 +14,79 @@
   <link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#ffffff">
+<!-- Canonical & robots -->
+<link rel="canonical" href="https://www.shunyapublications.com/books.html" />
+<meta name="robots" content="index,follow,max-image-preview:large" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.shunyapublications.com/books.html" />
+<meta property="og:title" content="Shunya Publications — Books" />
+<meta property="og:description" content="Publishing across fiction, non-fiction, and cross-disciplinary works with editorial care and global distribution." />
+<meta property="og:image" content="https://www.shunyapublications.com/echo.png" />
+<meta property="og:site_name" content="Shunya Publications" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Shunya Publications — Books" />
+<meta name="twitter:description" content="Publishing across fiction, non-fiction, and cross-disciplinary works with editorial care and global distribution." />
+<meta name="twitter:image" content="https://www.shunyapublications.com/echo.png" />
+
+<!-- Organization / Publisher schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["Organization","Publisher"],
+  "name": "Shunya Publications",
+  "url": "https://www.shunyapublications.com/",
+  "logo": "https://www.shunyapublications.com/Logosh.png",
+  "email": "editor@shunyapublications.com",
+  "telephone": "+91-9798476769",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "Editorial Inquiries",
+    "email": "editor@shunyapublications.com",
+    "telephone": "+91-9798476769",
+    "areaServed": "IN",
+    "availableLanguage": ["en","hi"]
+  },
+  "identifier": {
+    "@type":"PropertyValue",
+    "propertyID":"UDYAM",
+    "value":"UDYAM-JH-20-0114655"
+  },
+  "sameAs": [
+    "https://amazon.com/author/shunya_"
+  ]
+}
+</script>
+
+<!-- WebPage schema -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"Books",
+  "url":"https://www.shunyapublications.com/books.html",
+  "description":"Shunya Publications publishes fiction, non-fiction, and cross-disciplinary works with editorial care and global distribution."
+}
+</script>
+
+<!-- Book schema (example: The Echoveil) -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Book",
+  "name":"The Echoveil: A Reverse Memory Device",
+  "author":{"@type":"Person","name":"Dr. Mohammad Amir Khusru Akhtar"},
+  "publisher":{"@type":"Organization","name":"Shunya Publications"},
+  "datePublished":"2025-09-28",
+  "bookFormat":"https://schema.org/EBook",
+  "image":"https://www.shunyapublications.com/echo.png",
+  "inLanguage":"en",
+  "description":"A future-leaning work exploring the idea of a device that erases tomorrow’s pain."
+}
+</script>
 
   <style>
     /* ============ Shunya UI (shared) ============ */
