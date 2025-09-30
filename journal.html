@@ -1,16 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Shunya Publications — Journals</title>
-  <meta name="description" content="Shunya Publications Open Access Journal Programme" />
-  <link rel="canonical" href="https://www.shunyapublications.com/journal.html" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shunya Publications — Journals</title>
+<meta name="description" content="Shunya Publications — Open Access Journal Programme across science & technology, social sciences, education & learning design, and philosophy." />
+<link rel="canonical" href="https://www.shunyapublications.com/journal.html" />
 
-  <link rel="stylesheet" href="style.css" /> <!-- reuse your site CSS -->
+<!-- Favicon / App Icons -->
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Shunya">
+
+<link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/web-app-manifest-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="images/web-app-manifest-512x512.png">
+
+<link rel="manifest" href="/site.webmanifest?v=2">
+<meta name="theme-color" content="#1565ff">
+
+<!-- Open Graph / Facebook / WhatsApp -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.shunyapublications.com/journal.html" />
+<meta property="og:title" content="Shunya Publications — Journals" />
+<meta property="og:description" content="Explore Shunya Publications' Open Access Journals." />
+<meta property="og:image" content="https://www.shunyapublications.com/images/Logosh.png" />
+<meta property="og:image:secure_url" content="https://www.shunyapublications.com/images/Logosh.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content="https://www.shunyapublications.com/journal.html" />
+<meta name="twitter:title" content="Shunya Publications — Journals" />
+<meta name="twitter:description" content="Explore Shunya Publications' Open Access Journals." />
+<meta name="twitter:image" content="https://www.shunyapublications.com/images/Logosh.png" />
+
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-1:#fff9f1; --bg-2:#f3f9ff; --bg-3:#eef9f5;
+    --text:#142036; --muted:#5a6b88;
+    --line:#e6ecf5; --line-strong:#cfd8e6;
+    --brand:#1565ff; --brand-2:#ff7a3d; --brand-3:#15a085; --accent:#7d4dff; --gold:#f6b73c;
+    --shadow:0 12px 30px rgba(21,101,255,.10);
+    --shadow-soft:0 10px 24px rgba(20, 32, 54, .10);
+    --ring: 0 0 0 4px rgba(21,101,255,.16);
+    --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    --fs-hero: clamp(2rem, 3.2vw, 2.75rem);
+    --fs-h2: clamp(1.5rem, 1.8vw, 1.9rem);
+    --fs-h3: 1.1rem;
+    --radius:16px; --radius-lg:20px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; font-family:var(--font); color:var(--text); background:var(--bg);
+    background:
+      radial-gradient(1100px 620px at 10% -10%, var(--bg-1) 0%, #fff 60%),
+      radial-gradient(1200px 720px at 110% 110%, var(--bg-2) 0%, #fff 55%),
+      radial-gradient(1000px 650px at -10% 120%, var(--bg-3) 0%, #fff 50%);
+  }
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .container{max-width:1180px;margin:auto;padding:0 20px}
+  .section{padding:64px 0; border-top:1px solid var(--line)}
+  .section:first-of-type{border-top:none}
+  .stack{display:flex;flex-direction:column;gap:14px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow-soft)}
+  .card-lg{padding:20px;border-radius:var(--radius-lg)}
+  .eyebrow{font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600}
+  .btn:hover{box-shadow:var(--ring)}
+  .btn:focus-visible{outline:none; box-shadow: var(--ring)}
+  .btn.primary{background:linear-gradient(180deg,#f7fbff,#eaf2ff); border-color:#dbe7ff}
+
+  /* Nav */
+  .nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+  .brand{display:flex;gap:12px;align-items:center}
+  .brand img{height:42px;width:42px;border-radius:10px;box-shadow:var(--shadow-soft)}
+  .brand span{font-weight:800}
+  .menu a{margin-left:18px;color:var(--muted);font-weight:600}
+  .menu a:hover{color:var(--text)}
+
+  /* Journals grid */
+  .journals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .jcard{border-radius:18px;border:1px solid var(--line);padding:18px;box-shadow:var(--shadow-soft);color:#0f254b;transition:transform .25s ease, box-shadow .25s ease}
+  .jcard:hover{transform:translateY(-2px); box-shadow:0 14px 30px rgba(20,32,54,.12)}
+  .jst{background:linear-gradient(180deg,rgba(21,101,255,.07),#fff)}
+  .jss{background:linear-gradient(180deg,rgba(255,122,61,.08),#fff)}
+  .jeld{background:linear-gradient(180deg,rgba(21,160,133,.08),#fff)}
+  .jcard h3{margin:0 0 8px}
+  .jmeta{font-size:13px;color:#4c5f82;margin:8px 0}
+
+  /* Responsive */
+  @media(max-width:1200px){ .journals-grid{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:980px){  }
+  @media(max-width:720px){ .journals-grid{grid-template-columns:1fr} }
+
+  /* Footer & BTT */
+  footer .footer-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted)}
+  #btt{position:fixed;right:16px;bottom:16px;display:none}
+</style>
 </head>
-<body>
 
+<body>
   <!-- NAV -->
   <nav class="nav" aria-label="Global">
     <div class="container nav-inner">
@@ -32,45 +131,41 @@
   </nav>
 
   <!-- HERO -->
-  <header class="section">
+  <header class="section" id="top">
     <div class="container">
-      <h1 style="font-size:var(--fs-hero); margin:0 0 12px;">Journal Publications</h1>
-      <p><b>Vision.</b> We are launching an <em>Open Access Journal Programme</em> spanning science &amp; technology, social sciences, education &amp; learning design, and philosophy/spirituality. These journals center reproducibility, clarity, and access — a home for careful thinking that is readable beyond narrow silos.</p>
+      <p class="eyebrow">Open Access</p>
+      <h1 class="title" style="font-size:var(--fs-hero);line-height:1.12;margin:6px 0">Journal Publications</h1>
+      <p class="subtitle" style="color:#2a3b5c;opacity:.95;max-width:68ch">
+        <b>Vision.</b> We are launching an <em>Open Access Journal Programme</em> spanning science &amp; technology, social sciences, education &amp; learning design, and philosophy/spirituality. These journals center reproducibility, clarity, and access — a home for careful thinking that is readable beyond narrow silos.
+      </p>
     </div>
   </header>
 
-  <!-- JOURNAL LIST -->
+  <!-- JOURNAL CARDS -->
   <section class="section">
-    <div class="container journals-grid">
-
+    <div class="container journals-grid" aria-live="polite">
+      <!-- SCIENCE & TECHNOLOGY -->
       <article class="jcard jst">
         <h3><a href="ijcsetf.html">IJCSETF — International Journal of Convergent Science, Engineering and Technological Futures</a></h3>
         <p><b>Aim &amp; Scope.</b> Convergent research at the interfaces of science &amp; engineering with emphasis on future-oriented technologies.</p>
       </article>
 
+      <!-- SOCIAL SCIENCES -->
       <article class="jcard jss">
         <h3><a href="ijsscp.html">IJSSCP — International Journal of Social Systems, Culture and Policy</a></h3>
         <p><b>Aim &amp; Scope.</b> Studies on how social systems, cultures, and policies co-evolve with technology and institutions.</p>
       </article>
 
+      <!-- EDUCATION & LEARNING DESIGN -->
       <article class="jcard jeld">
         <h3><a href="ijldef.html">IJLDEF — International Journal of Learning Design and Educational Futures</a></h3>
         <p><b>Aim &amp; Scope.</b> Research shaping the futures of teaching and learning through design, evidence, and emerging technologies.</p>
       </article>
 
+      <!-- PHILOSOPHY / METAPHYSICS -->
       <article class="jcard" style="background:linear-gradient(180deg,rgba(123,63,228,.08),#fff)">
         <h3><a href="ijbb.html">IJBB — International Journal of Being &amp; Beyond</a></h3>
         <p><b>Aim &amp; Scope.</b> Explorations in philosophy, metaphysics, spirituality, religion, and interdisciplinary dialogues on existence, meaning, and transcendence.</p>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- DISCOVER LINK -->
-  <section class="section">
-    <div class="container">
-      <article class="jcard jss">
-        <h3><a href="journal.html">📚 Discover Journals</a></h3>
       </article>
     </div>
   </section>
@@ -86,8 +181,15 @@
     </div>
   </footer>
 
+  <a class="btn" id="btt" href="#top" aria-label="Back to top">↑ Top</a>
+
   <script>
+    // Footer year
     document.getElementById('y').textContent = new Date().getFullYear();
+    // Back-to-top visibility
+    const btt = document.getElementById('btt');
+    const onScroll = () => { btt.style.display = window.scrollY > 600 ? 'inline-flex' : 'none'; };
+    window.addEventListener('scroll', onScroll, { passive: true });
   </script>
 </body>
 </html>
