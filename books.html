@@ -246,7 +246,7 @@
   </p>
 </div>
 
-<!-- NEW: Conference Proceedings with ISBN -->
+<!-- NEW: Conference Proceedings with ISBN (simplified: direct email only) -->
 <div class="card" id="proceedings">
   <h2 style="margin:.2rem 0 .6rem; font-size:var(--fs-h2)">Conference Proceedings (with ISBN)</h2>
   <p style="margin:0">
@@ -260,185 +260,20 @@
   </ul>
 
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:.6rem">
-    <!-- BUTTON that opens the dialog -->
-    <a class="btn primary" href="#" id="openProceedingsDialog">✉️ Propose Your Proceedings</a>
+    <!-- Direct email button (To + CC) -->
+    <a
+      class="btn primary"
+      href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com&subject=Proceedings%20Proposal%20%E2%80%94%20%5BConference%20Name%5D&body=Please%20include%20the%20following%20details:%0A%E2%80%A2%20Conference%20name%20and%20dates%0A%E2%80%A2%20Organizing%20institute(s)%0A%E2%80%A2%20Tracks%20and%20approx.%20paper%20count%0A%E2%80%A2%20Review%20process%0A%E2%80%A2%20Timeline%20for%20camera-ready%20papers%0A%E2%80%A2%20DOI/indexing%20requirements%0A%E2%80%A2%20Primary%20contact%20email%0A">
+      ✉️ Propose Your Proceedings
+    </a>
     <a class="btn" href="#published" aria-label="See examples">See Recent Books</a>
   </div>
 
   <p class="meta" style="margin:.6rem 0 0;">
-    Contact the Editor:
-    <a href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com">editor@shunyapublications.com</a>
-    • +91 9798476769
+    Send your proposal to <a href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com">editor@shunyapublications.com</a>
+    and please CC <b>shunya.ran.books@gmail.com</b>. • +91 9798476769
   </p>
 </div>
-
-<!-- ========== DIALOG (hidden until opened) ========== -->
-<div id="procDialogBackdrop" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:1000; align-items:center; justify-content:center;">
-  <div id="procDialog" role="dialog" aria-modal="true" aria-labelledby="procDialogTitle" aria-describedby="procDialogDesc"
-       class="card card-lg" style="width:min(720px,92vw); max-height:88vh; overflow:auto; position:relative">
-    <button type="button" id="procClose" aria-label="Close" title="Close"
-            style="position:absolute; top:10px; right:12px; border:none; background:#ff4d4d; color:#fff; padding:6px 10px; border-radius:8px; cursor:pointer;">✖</button>
-
-    <h2 id="procDialogTitle" style="margin:.2rem 0 .4rem; font-size:var(--fs-h2)">Propose Your Proceedings</h2>
-    <p id="procDialogDesc" class="meta" style="margin:.2rem 0 .8rem">
-      Fill the details below—your email app will open with a pre-filled proposal to <b>editor@shunyapublications.com</b> (CC: <b>shunya.ran.books@gmail.com</b>).
-    </p>
-
-    <!-- FORM -->
-    <form id="procForm">
-      <div class="stack" style="gap:10px">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
-          <label class="stack">
-            <span class="eyebrow">Conference Name *</span>
-            <input required name="confName" type="text" placeholder="e.g., IJCSETF 2026" style="padding:12px;border:1px solid var(--line);border-radius:12px">
-          </label>
-          <label class="stack">
-            <span class="eyebrow">Dates *</span>
-            <input required name="dates" type="text" placeholder="12–14 March 2026" style="padding:12px;border:1px solid var(--line);border-radius:12px">
-          </label>
-        </div>
-
-        <label class="stack">
-          <span class="eyebrow">Organizing Institute(s) *</span>
-          <input required name="org" type="text" placeholder="University / Dept / Society" style="padding:12px;border:1px solid var(--line);border-radius:12px">
-        </label>
-
-        <label class="stack">
-          <span class="eyebrow">Tracks / Disciplines *</span>
-          <input required name="tracks" type="text" placeholder="AI, Data Science, Systems…" style="padding:12px;border:1px solid var(--line);border-radius:12px">
-        </label>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
-          <label class="stack">
-            <span class="eyebrow">Paper Count *</span>
-            <input required name="paperCount" type="number" min="1" placeholder="e.g., 60" style="padding:12px;border:1px solid var(--line);border-radius:12px">
-          </label>
-          <label class="stack">
-            <span class="eyebrow">Review Process *</span>
-            <input required name="review" type="text" placeholder="Single/Double-blind" style="padding:12px;border:1px solid var(--line);border-radius:12px">
-          </label>
-        </div>
-
-        <label class="stack">
-          <span class="eyebrow">DOI / Indexing Needs</span>
-          <input name="doi" type="text" placeholder="e.g., DOI per paper" style="padding:12px;border:1px solid var(--line);border-radius:12px">
-        </label>
-
-        <label class="stack">
-          <span class="eyebrow">Contact Email *</span>
-          <input required name="contactEmail" type="email" placeholder="name@example.com" style="padding:12px;border:1px solid var(--line);border-radius:12px">
-        </label>
-
-        <label class="stack">
-          <span class="eyebrow">Additional Notes</span>
-          <textarea name="notes" rows="3" placeholder="Timeline, sponsors, special issues…" style="padding:12px;border:1px solid var(--line);border-radius:12px"></textarea>
-        </label>
-
-        <div style="display:flex;gap:10px;margin-top:.6rem">
-          <button type="submit" class="btn primary">Send Proposal Email</button>
-          <button type="button" class="btn" id="procCancel">Cancel</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Toast/banner -->
-<div id="procToast" role="status" aria-live="polite" style="display:none; position:fixed; bottom:18px; left:50%; transform:translateX(-50%); background:#0f9d58; color:#fff; padding:10px 14px; border-radius:12px; box-shadow:0 10px 24px rgba(0,0,0,.15); z-index:1100; font-weight:600;"></div>
-
-<!-- ========== SCRIPT ========== -->
-<script>
-(function(){
-  const openBtn = document.getElementById('openProceedingsDialog');
-  const backdrop = document.getElementById('procDialogBackdrop');
-  const dialog  = document.getElementById('procDialog');
-  const closeBtn = document.getElementById('procClose');
-  const cancelBtn = document.getElementById('procCancel');
-  const form   = document.getElementById('procForm');
-  const toast  = document.getElementById('procToast');
-
-  // Helpers
-  const showToast = (msg, ok=true) => {
-    toast.textContent = msg;
-    toast.style.background = ok ? '#0f9d58' : '#e53935';
-    toast.style.display = 'block';
-    clearTimeout(showToast._t);
-    showToast._t = setTimeout(()=>{ toast.style.display='none'; }, 6000);
-  };
-  const clean = s => (s || '').toString().trim();
-
-  // Open/close dialog
-  function openDialog(e){ e.preventDefault(); backdrop.style.display='flex'; setTimeout(()=>{ const f = form.querySelector('input,textarea'); f && f.focus(); }, 0); }
-  function closeDialog(){ backdrop.style.display='none'; form.reset(); }
-
-  openBtn?.addEventListener('click', openDialog);
-  closeBtn?.addEventListener('click', closeDialog);
-  cancelBtn?.addEventListener('click', closeDialog);
-  backdrop?.addEventListener('click', e=>{ if(e.target===backdrop) closeDialog(); });
-  document.addEventListener('keydown', e=>{ if(backdrop.style.display==='flex' && e.key==='Escape') closeDialog(); });
-
-  // Submit → build mailto (To + CC), open client, show confirmation, clipboard fallback
-  form?.addEventListener('submit', async function(e){
-    e.preventDefault();
-    if(!form.reportValidity()) return;
-
-    const data = Object.fromEntries(new FormData(form).entries());
-
-    const lines = [
-      "Proceedings Proposal",
-      "",
-      "Conference:",
-      "• Name: " + clean(data.confName),
-      "• Dates: " + clean(data.dates),
-      "• Organizing Institute(s): " + clean(data.org),
-      "• Tracks / Disciplines: " + clean(data.tracks),
-      "• Paper Count: " + clean(data.paperCount),
-      "• Review Process: " + clean(data.review),
-      "• DOI / Indexing Needs: " + clean(data.doi),
-      "",
-      "Contact:",
-      "• Email: " + clean(data.contactEmail),
-      "",
-      "Additional Notes:",
-      clean(data.notes)
-    ];
-
-    const subject = "Proceedings Proposal — " + clean(data.confName || "Conference");
-    const body = lines.join("\n").slice(0, 1800); // keep under common URL limits
-
-    const to = "editor@shunyapublications.com";
-    const cc = "shunya.ran.books@gmail.com";
-
-    const mailto =
-      "mailto:" + encodeURIComponent(to) +
-      "?cc=" + encodeURIComponent(cc) +
-      "&subject=" + encodeURIComponent(subject) +
-      "&body=" + encodeURIComponent(body);
-
-    // Try to open the user's mail client
-    let opened = false;
-    try { window.open(mailto, "_self"); opened = true; } catch(_) {}
-
-    // Immediate confirmation toast for UX
-    showToast("✅ Proposal drafted to editor@shunyapublications.com (CC: shunya.ran.books@gmail.com). Please press Send in your email app.");
-
-    // Clipboard fallback so nothing is lost if no client is configured
-    setTimeout(async () => {
-      try {
-        await navigator.clipboard.writeText(
-          "To: " + to + "\nCC: " + cc + "\nSubject: " + subject + "\n\n" + body
-        );
-        if (!opened) {
-          showToast("⚠️ Email app not detected. Proposal copied to clipboard — paste into your email and send.", false);
-        }
-      } catch(_) {}
-      closeDialog();
-    }, 900);
-  });
-})();
-</script>
-
-
 
       </div>
     </div>
