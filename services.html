@@ -120,9 +120,9 @@
         <img src="images/Logosh.png" alt="Shunya Publications Logo" />
         <span>Shunya Publications</span>
       </div>
-      <div class="menu" role="navigation">
+      <div class="menu" role="navigation" aria-label="Primary">
         <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
+        <a href="services.html" aria-current="page">Services</a>
         <a href="books.html">Books</a>
         <a href="journal.html">Journals</a>
         <a href="Horizon-Herald.html">Horizon Herald</a>
@@ -142,8 +142,8 @@
   </header>
 
   <!-- SERVICE CARDS -->
-  <section class="section">
-    <div class="container features">
+  <section class="section" aria-labelledby="services">
+    <div class="container features" id="services">
 
       <!-- Editing / Formatting / Publishing -->
       <article class="card card-lg">
@@ -209,11 +209,46 @@
           </ul>
         </div>
         <p style="margin:.6rem 0 0">
-          Start a conversation: <a href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com">editor@shunyapublications.com</a>
-    and please CC shunya.ran.books@gmail.com
+          Start a conversation:
+          <a href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com">editor@shunyapublications.com</a>
+          and please CC <a href="mailto:shunya.ran.books@gmail.com">shunya.ran.books@gmail.com</a>
         </p>
       </article>
 
+    </div>
+  </section>
+
+  <!-- ETHICS / ACADEMIC INTEGRITY -->
+  <section class="section" id="ethics" aria-labelledby="ethics-title">
+    <div class="container" style="max-width:900px">
+      <h2 id="ethics-title" style="margin:0 0 .5rem; font-size:var(--fs-h2)">Academic Integrity &amp; Ethical Publishing</h2>
+      <p style="margin:0 0 1rem">Shunya Publications provides professional editing, formatting, design, and publishing operations. We uphold strict academic integrity: we do <b>not</b> conduct or write undisclosed research, fabricate data, or sell authorship.</p>
+
+      <div class="card" style="border:1px solid var(--line); border-radius:14px; padding:16px; margin:.8rem 0">
+        <h3 class="eyebrow" style="margin:.2rem 0 .6rem">What We Do</h3>
+        <ul style="margin:.2rem 0 0 1.2rem">
+          <li>Manuscript assessment, developmental/line/copy editing, proofreading</li>
+          <li>Templates, references, equations, tables, figure captions, alt text</li>
+          <li>Cover &amp; interior design; ePub/KDP/print-PDF production</li>
+          <li>ISBN assignment, metadata (BISAC/keywords), distribution setup</li>
+          <li>Pre-submission checks: scope/guidelines/ethics/compliance</li>
+          <li>Administrative files (cover letter, declarations) using author-supplied content</li>
+          <li>APC coordination and post-acceptance proof support</li>
+        </ul>
+      </div>
+
+      <div class="card" style="border:1px solid #fee2e2; background:#fff7f7; border-radius:14px; padding:16px; margin:.8rem 0">
+        <h3 class="eyebrow" style="margin:.2rem 0 .6rem">What We Don’t Do</h3>
+        <ul style="margin:.2rem 0 0 1.2rem">
+          <li>Ghost-writing of academic research for credit or authorship</li>
+          <li>Designing experiments, collecting or analyzing data for undisclosed attribution</li>
+          <li>Fabrication, falsification, plagiarism, or duplicate submission</li>
+          <li>Selling or brokering authorship, or promising acceptance</li>
+        </ul>
+      </div>
+
+      <p style="margin:1rem 0 0"><b>Author Responsibilities:</b> Clients warrant that all work is their original research; all data are accurate and lawful to submit; all co-authors approve the final manuscript; and institutional/ethical approvals have been obtained where required.</p>
+      <p style="margin:.4rem 0 0">Questions about ethical scope? Write to <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a> (CC: <a href="mailto:shunya.ran.books@gmail.com">shunya.ran.books@gmail.com</a>).</p>
     </div>
   </section>
 
