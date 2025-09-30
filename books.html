@@ -239,8 +239,7 @@
   </ul>
   <p style="margin:.8rem 0 0;">
     Email:
-    <a
-      href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com&subject=Submission%20%E2%80%94%20%5BYour%20Name%5D%20%E2%80%94%20%5BBook%20Title%5D">
+    <a href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com&subject=Submission%20%E2%80%94%20%5BYour%20Name%5D%20%E2%80%94%20%5BBook%20Title%5D">
       editor@shunyapublications.com
     </a>
     <span class="meta"> (CC: shunya.ran.books@gmail.com)</span>
@@ -344,31 +343,46 @@
   </div>
 </div>
 
+<!-- Toast/banner -->
+<div id="procToast" role="status" aria-live="polite" style="display:none; position:fixed; bottom:18px; left:50%; transform:translateX(-50%); background:#0f9d58; color:#fff; padding:10px 14px; border-radius:12px; box-shadow:0 10px 24px rgba(0,0,0,.15); z-index:1100; font-weight:600;"></div>
+
 <!-- ========== SCRIPT ========== -->
 <script>
 (function(){
   const openBtn = document.getElementById('openProceedingsDialog');
   const backdrop = document.getElementById('procDialogBackdrop');
+  const dialog  = document.getElementById('procDialog');
   const closeBtn = document.getElementById('procClose');
   const cancelBtn = document.getElementById('procCancel');
-  const form = document.getElementById('procForm');
+  const form   = document.getElementById('procForm');
+  const toast  = document.getElementById('procToast');
 
-  // Open/close
-  function openDialog(e){ e.preventDefault(); backdrop.style.display='flex'; }
+  // Helpers
+  const showToast = (msg, ok=true) => {
+    toast.textContent = msg;
+    toast.style.background = ok ? '#0f9d58' : '#e53935';
+    toast.style.display = 'block';
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(()=>{ toast.style.display='none'; }, 6000);
+  };
+  const clean = s => (s || '').toString().trim();
+
+  // Open/close dialog
+  function openDialog(e){ e.preventDefault(); backdrop.style.display='flex'; setTimeout(()=>{ const f = form.querySelector('input,textarea'); f && f.focus(); }, 0); }
   function closeDialog(){ backdrop.style.display='none'; form.reset(); }
 
   openBtn?.addEventListener('click', openDialog);
   closeBtn?.addEventListener('click', closeDialog);
   cancelBtn?.addEventListener('click', closeDialog);
   backdrop?.addEventListener('click', e=>{ if(e.target===backdrop) closeDialog(); });
+  document.addEventListener('keydown', e=>{ if(backdrop.style.display==='flex' && e.key==='Escape') closeDialog(); });
 
-  // Submit
+  // Submit → build mailto (To + CC), open client, show confirmation, clipboard fallback
   form?.addEventListener('submit', async function(e){
     e.preventDefault();
     if(!form.reportValidity()) return;
 
     const data = Object.fromEntries(new FormData(form).entries());
-    const clean = s => (s || '').toString().trim();
 
     const lines = [
       "Proceedings Proposal",
@@ -390,10 +404,8 @@
     ];
 
     const subject = "Proceedings Proposal — " + clean(data.confName || "Conference");
-    // Keep body under typical URL limits
-    const body = lines.join("\n").slice(0, 1800);
+    const body = lines.join("\n").slice(0, 1800); // keep under common URL limits
 
-    // Build mailto with CC (or change 'cc=' to 'bcc=' if you prefer)
     const to = "editor@shunyapublications.com";
     const cc = "shunya.ran.books@gmail.com";
 
@@ -403,17 +415,23 @@
       "&subject=" + encodeURIComponent(subject) +
       "&body=" + encodeURIComponent(body);
 
-    // Try to open mail client
-    try { window.open(mailto, "_self"); } catch(_) {}
+    // Try to open the user's mail client
+    let opened = false;
+    try { window.open(mailto, "_self"); opened = true; } catch(_) {}
 
-    // Clipboard fallback so nothing is lost
+    // Immediate confirmation toast for UX
+    showToast("✅ Proposal drafted to editor@shunyapublications.com (CC: shunya.ran.books@gmail.com). Please press Send in your email app.");
+
+    // Clipboard fallback so nothing is lost if no client is configured
     setTimeout(async () => {
       try {
         await navigator.clipboard.writeText(
           "To: " + to + "\nCC: " + cc + "\nSubject: " + subject + "\n\n" + body
         );
-        alert("If your email app didn’t open, the full message (with CC) has been copied. Paste into your mail to send.");
-      } catch (_) {}
+        if (!opened) {
+          showToast("⚠️ Email app not detected. Proposal copied to clipboard — paste into your email and send.", false);
+        }
+      } catch(_) {}
       closeDialog();
     }, 900);
   });
