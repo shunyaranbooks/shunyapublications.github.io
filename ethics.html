@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shunya Publications — Ethics</title>
+<meta name="description" content="Academic integrity & ethical publishing at Shunya Publications: what we do, what we don’t, author responsibilities, data & AI policy, and misconduct procedures." />
+<link rel="canonical" href="https://www.shunyapublications.com/ethics.html" />
+
+<!-- Favicon / App Icons -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Shunya">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+<link rel="manifest" href="/site.webmanifest?v=2">
+<meta name="theme-color" content="#1565ff">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.shunyapublications.com/ethics.html" />
+<meta property="og:title" content="Shunya Publications — Ethics" />
+<meta property="og:description" content="Our ethics: integrity-first editing and publishing. No ghost-writing, no authorship brokering, no undisclosed research." />
+<meta property="og:image" content="https://www.shunyapublications.com/Logosh.png" />
+<meta property="og:image:secure_url" content="https://www.shunyapublications.com/Logosh.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content="https://www.shunyapublications.com/ethics.html" />
+<meta name="twitter:title" content="Shunya Publications — Ethics" />
+<meta name="twitter:description" content="Integrity-first editing and publishing: what we do, what we don’t, author duties, AI policy, misconduct handling." />
+<meta name="twitter:image" content="https://www.shunyapublications.com/Logosh.png" />
+
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-1:#fff9f1; --bg-2:#f3f9ff; --bg-3:#eef9f5;
+    --text:#142036; --muted:#5a6b88;
+    --line:#e6ecf5; --line-strong:#cfd8e6;
+    --brand:#1565ff; --brand-2:#ff7a3d; --brand-3:#15a085; --accent:#7d4dff; --gold:#f6b73c;
+
+    --shadow:0 12px 30px rgba(21,101,255,.10);
+    --shadow-soft:0 10px 24px rgba(20,32,54,.10);
+    --ring: 0 0 0 4px rgba(21,101,255,.16);
+
+    --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    --fs-hero: clamp(2rem, 3.2vw, 2.75rem);
+    --fs-h2: clamp(1.5rem, 1.8vw, 1.9rem);
+    --fs-h3: 1.1rem;
+    --radius:16px; --radius-lg:20px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; font-family:var(--font); color:var(--text); background:var(--bg);
+    background:
+      radial-gradient(1100px 620px at 10% -10%, var(--bg-1) 0%, #fff 60%),
+      radial-gradient(1200px 720px at 110% 110%, var(--bg-2) 0%, #fff 55%),
+      radial-gradient(1000px 650px at -10% 120%, var(--bg-3) 0%, #fff 50%);
+  }
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  .container{max-width:1180px;margin:auto;padding:0 20px}
+  .section{padding:64px 0; border-top:1px solid var(--line)}
+  .section:first-of-type{border-top:none}
+  .stack{display:flex;flex-direction:column;gap:14px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow-soft)}
+  .card-lg{padding:20px;border-radius:var(--radius-lg)}
+  .eyebrow{font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600}
+  .btn:hover{box-shadow:var(--ring)}
+  .btn.primary{background:linear-gradient(180deg,#f7fbff,#eaf2ff); border-color:#dbe7ff}
+
+  .nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+  .brand{display:flex;gap:12px;align-items:center}
+  .brand img{height:42px;width:42px;border-radius:10px;box-shadow:var(--shadow-soft)}
+  .brand span{font-weight:800}
+  .menu a{margin-left:18px;color:var(--muted);font-weight:600}
+  .menu a:hover{color:var(--text)}
+
+  header{padding:72px 0 36px}
+  .title{font-size:var(--fs-hero);line-height:1.12;margin:6px 0}
+  .title .rainbow{background:linear-gradient(90deg,var(--brand),var(--accent),var(--gold),var(--brand-3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .subtitle{color:#2a3b5c;opacity:.95;max-width:68ch}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media(max-width:980px){
+    .features{grid-template-columns:1fr}
+    .card-lg{padding:18px}
+  }
+
+  footer .footer-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted)}
+  #btt{position:fixed;right:16px;bottom:16px;display:none}
+</style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <nav class="nav" aria-label="Global">
+    <div class="container nav-inner">
+      <div class="brand">
+        <img src="images/Logosh.png" alt="Shunya Publications Logo" />
+        <span>Shunya Publications</span>
+      </div>
+      <div class="menu" role="navigation" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="books.html">Books</a>
+        <a href="journal.html">Journals</a>
+        <a href="ipaas.html">IPaaS</a>
+        <a href="Horizon-Herald.html">Horizon Herald</a>
+        <a href="ethics.html" aria-current="page">Ethics</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="section" id="top">
+    <div class="container">
+      <p class="eyebrow">Integrity & Transparency</p>
+      <h1 class="title">Shunya Publications — <span class="rainbow">Ethics</span></h1>
+      <p class="subtitle">
+        We are an editorial and production partner. <b>We do not create or claim authorship of research.</b>
+        Our role is clarity, compliance, accessibility, and discoverability—while authors remain responsible for the originality, accuracy, and ethics of their work.
+      </p>
+      <div class="stack" style="flex-direction:row;gap:10px;flex-wrap:wrap;margin-top:8px">
+        <a class="btn primary" href="ipaas.html">Explore IPaaS</a>
+        <a class="btn" href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com&subject=Proposal%20Enquiry%20—%20Ethics%20&%20Compliance">
+          ✉️ Request a Proposal
+        </a>
+        <a class="btn" href="#top">Read Our Ethics</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ETHICS CARDS -->
+  <section class="section" aria-labelledby="ethics-cards">
+    <div class="container features" id="ethics-cards">
+
+      <!-- What We Do -->
+      <article class="card card-lg">
+        <h2 style="margin:0 0 8px; font-size:var(--fs-h2)">What We Do</h2>
+        <ul>
+          <li>Manuscript assessment; developmental, line, and copy editing; proofreading</li>
+          <li>Templates, references, equations, tables, figure captions, alt text</li>
+          <li>Cover design & interior typesetting; ePub/Kindle & print-ready PDF production</li>
+          <li>ISBN assignment; metadata (BISAC/keywords/abstracts); distribution setup</li>
+          <li>Pre-submission checks for scope, guidelines, ethics, and permissions</li>
+          <li>Administrative files (cover letter, declarations) using author-supplied content</li>
+          <li>APC coordination and post-acceptance proof support (on request)</li>
+        </ul>
+      </article>
+
+      <!-- What We Don’t Do -->
+      <article class="card card-lg" style="border-color:#fee2e2;background:#fff7f7">
+        <h2 style="margin:0 0 8px; font-size:var(--fs-h2)">What We Don’t Do</h2>
+        <ul>
+          <li>Ghost-writing of academic research for credit or authorship</li>
+          <li>Designing experiments, collecting or analyzing data for undisclosed attribution</li>
+          <li>Fabrication, falsification, plagiarism, or duplicate submission</li>
+          <li>Selling or brokering authorship, or promising acceptance</li>
+        </ul>
+        <p class="eyebrow" style="margin:.6rem 0 0">Ethics-first: no ghost-writing, no authorship brokering, no undisclosed research.</p>
+      </article>
+
+      <!-- Author Responsibilities -->
+      <article class="card card-lg">
+        <h2 style="margin:0 0 8px; font-size:var(--fs-h2)">Author Responsibilities</h2>
+        <ul>
+          <li>All work is original (or properly licensed) and accurately represents data and findings</li>
+          <li>All co-authors approve the final manuscript and authorship order</li>
+          <li>Human/animal ethics approvals and consent statements are complete where required</li>
+          <li>Permissions for third-party materials are secured by the authors</li>
+          <li>Conflicts of interest and funding sources are fully disclosed</li>
+        </ul>
+      </article>
+
+      <!-- Transparency & Compliance -->
+      <article class="card card-lg">
+        <h2 style="margin:0 0 8px; font-size:var(--fs-h2)">Transparency & Compliance</h2>
+        <ul>
+          <li>Clear labeling of editorial assistance and production services</li>
+          <li>No guarantees of acceptance; <b>final decisions rest solely with the venue</b></li>
+          <li>Version control and change-logs available on request</li>
+          <li>Accessibility-minded typography and alt-text practices</li>
+        </ul>
+      </article>
+
+      <!-- Data & AI Use -->
+      <article class="card card-lg">
+        <h2 style="margin:0 0 8px; font-size:var(--fs-h2)">Data & AI Use</h2>
+        <ul>
+          <li>We may use quality-assured AI tools for language suggestions, formatting, and metadata drafting</li>
+          <li>No AI is used to fabricate content or undisclosed analysis</li>
+          <li>Authors must disclose any AI tools used in research or writing per venue policies</li>
+          <li>Sensitive data should be de-identified or excluded by the authors before engagement</li>
+        </ul>
+      </article>
+
+      <!-- Misconduct, Corrections & Appeals -->
+      <article class="card card-lg">
+        <h2 style="margin:0 0 8px; font-size:var(--fs-h2)">Misconduct, Corrections & Appeals</h2>
+        <ul>
+          <li>Suspected misconduct → we pause work and advise contacting the venue or institution</li>
+          <li>Errata & corrections: we support authors in preparing updates post-publication</li>
+          <li>Appeals: process support is limited to documentation and clarity checks</li>
+        </ul>
+      </article>
+
+      <!-- Add-Ons & Upsell -->
+      <article class="card card-lg" id="addons" style="grid-column:1 / -1">
+        <h2 style="margin:0 0 8px; font-size:var(--fs-h2)">Add-Ons &amp; Upsell</h2>
+        <ul>
+          <li>Institutional journals (setup &amp; management), newsletters &amp; bulletins</li>
+          <li>Conference proceedings (rapid post-event packages)</li>
+          <li>APC management/support for faculty submissions to Shunya/partner journals</li>
+          <li>Content hosting / digital repository with DOIs</li>
+          <li>Translations; audiobook narration; accessible ePub / large-print editions</li>
+        </ul>
+        <p class="eyebrow" style="margin:.6rem 0 0">
+          Ethics-first: no ghost-writing, no authorship brokering, no undisclosed research; final acceptance always rests with the venue.
+        </p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:.8rem">
+          <a class="btn primary" href="ipaas.html">Explore IPaaS</a>
+          <a class="btn" href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com&subject=IPaaS%20Proposal%20Request%20—%20Add-ons">
+            ✉️ Request a Proposal
+          </a>
+          <a class="btn" href="#top">Read Our Ethics</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="section" style="padding:24px 0">
+    <div class="container footer-bar">
+      <div>
+        Copyright © <span id="y"></span> Shunya Publications. All rights reserved.<br/>
+        For rights, permissions, and inquiries, please contact:
+        <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <a class="btn" id="btt" href="#top" aria-label="Back to top">↑ Top</a>
+
+  <script>
+    // Footer year & Back-to-top
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const btt = document.getElementById('btt');
+    const onScroll = () => { btt.style.display = window.scrollY > 600 ? 'inline-flex' : 'none'; };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  </script>
+</body>
+</html>
