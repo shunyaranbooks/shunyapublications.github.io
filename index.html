@@ -309,33 +309,83 @@
   </div>
 </section>
 
-  <!-- OFFERS: IPaaS + Services (place before About Us) -->
+ <!-- IPaaS + Services (stacked, before About Us) -->
 <section id="offers" class="section" aria-labelledby="offers-title">
   <div class="container">
     <h2 id="offers-title" style="font-size:var(--fs-h2); margin:0 0 10px">Work With Us</h2>
-    <div class="features">
-      <!-- Card 1: IPaaS -->
-      <article class="card card-lg" id="home-ipaas">
-        <h3 style="margin:0 0 .4rem; font-size:var(--fs-h3)">Institutional Publishing-as-a-Service (IPaaS)</h3>
+
+    <!-- Use a vertical stack so cards appear one after another -->
+    <div class="stack">
+
+      <!-- Card 1: IPaaS (full content) -->
+      <article class="card card-lg" id="ipaas">
+        <h2 style="margin:0 0 8px; font-size:var(--fs-h2)">Institutional Publishing-as-a-Service (IPaaS)</h2>
+
+        <!-- What It Is -->
         <p style="margin:0 0 .6rem">
-          Convert <b>reports, white papers, training manuals, seminar/conference proceedings, departmental compendia,</b> and 
-          <b>institutional histories</b> into published, citable <b>books &amp; eBooks</b> with <b>ISBN</b>, rich metadata, and global distribution.
-          Editorial/production only—research & authorship remain with your institution.
+          We partner with <b>colleges, NGOs, research groups, training institutes, and SMEs</b> to transform
+          <b>reports, white papers, training manuals, seminar/conference proceedings, departmental compendia, and institutional histories</b>
+          into <b>professionally published books &amp; eBooks</b> with <b>ISBN registration</b>, <b>global distribution</b>, and
+          <b>long-term discoverability</b>. Editorial/production support only; <b>research and authorship remain with your institution</b>.
         </p>
-        <ul style="margin:.2rem 0 0 1.2rem">
-          <li>ISBN assignment + complete metadata (BISAC, keywords, abstracts)</li>
-          <li>Professional editing (light to substantive), proofreading</li>
-          <li>Cover design &amp; interior typesetting (print-PDF + ePub/Kindle)</li>
-          <li>Global distribution (Amazon Kindle/Print, Google Books, Ingram)</li>
-          <li>Optional: DOI + repository integration</li>
-        </ul>
+
+        <!-- How It Works -->
+        <div class="card" style="margin-top:10px">
+          <b>How It Works</b>
+          <ol style="margin:.4rem 0 0 1.2rem">
+            <li><b>Content Intake:</b> Share drafts (reports/manuals/proceedings); scope &amp; format assessment.</li>
+            <li><b>Editorial &amp; Design:</b> Language editing, proofreading, layout, accessible typography, figures/tables, alt text.</li>
+            <li><b>Metadata &amp; Compliance:</b> ISBN, BISAC/keywords, abstracts; template adherence; permissions &amp; ethics checks.</li>
+            <li><b>Publishing &amp; Distribution:</b> Digital + print via Amazon Kindle/Print, Google Books, Ingram (and others).</li>
+            <li><b>Deliverables &amp; Handover:</b> Print &amp; digital files, catalogue copy, citation sheet, repository-ready version.</li>
+          </ol>
+        </div>
+
+        <!-- Deliverables -->
+        <div class="card" style="margin-top:10px">
+          <b>Deliverables (Per Title)</b>
+          <ul style="margin:.4rem 0 0 1.2rem">
+            <li>Edited manuscript (copyedited/proofed) + print-ready PDF</li>
+            <li>eBook files (ePub + Kindle-compatible)</li>
+            <li>Custom cover (front/spine/back) aligned to institutional branding</li>
+            <li>Assigned ISBN(s) + metadata sheet (BISAC/keywords)</li>
+            <li>Distribution setup + catalogue listing copy</li>
+            <li>Optional: DOI; repository upload assistance; 10–25 author copies</li>
+          </ul>
+        </div>
+
+        <!-- Packages & Pricing -->
+        <div class="card" style="margin-top:10px">
+          <b>Packages &amp; Pricing</b>
+          <ul style="margin:.4rem 0 0 1.2rem">
+            <li><b>Per-Project:</b> ₹25,000–₹50,000 per title (length/complexity dependent)</li>
+            <li><b>Annual Retainer:</b> ₹2,00,000–₹4,00,000 for 4–6 titles with priority turnaround &amp; ongoing metadata updates</li>
+          </ul>
+        </div>
+
+        <!-- Add-Ons / Upsell -->
+        <div class="card" style="margin-top:10px">
+          <b>Add-Ons &amp; Upsell</b>
+          <ul style="margin:.4rem 0 0 1.2rem">
+            <li>Institutional journals (setup &amp; management), newsletters &amp; bulletins</li>
+            <li>Conference proceedings (rapid post-event packages)</li>
+            <li>APC management/support for faculty submissions to Shunya/partner journals</li>
+            <li>Content hosting / digital repository with DOIs</li>
+            <li>Translations; audiobook narration; accessible ePub / large-print editions</li>
+          </ul>
+        </div>
+
+        <!-- Ethics note -->
+        <p class="eyebrow" style="margin:.8rem 0 0">
+          Ethics-first: no ghost-writing, no authorship brokering, no undisclosed research; final acceptance always rests with the venue.
+        </p>
+
+        <!-- CTAs -->
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:.8rem">
           <a class="btn primary" href="ipaas.html">Explore IPaaS</a>
-          <a class="btn" href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com&subject=IPaaS%20Enquiry%20%E2%80%94%20[Institution%20Name]">
-            ✉️ Request a Proposal
-          </a>
+          <a class="btn" href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com&subject=IPaaS%20Enquiry%20%E2%80%94%20[Institution%20Name]">✉️ Request a Proposal</a>
+          <a class="btn" href="#ethics">Read Our Ethics</a>
         </div>
-        <p class="eyebrow" style="margin:.8rem 0 0">Ethics-first: no ghost-writing, no authorship brokering, no undisclosed research.</p>
       </article>
 
       <!-- Card 2: Services -->
@@ -352,11 +402,10 @@
         </ul>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:.8rem">
           <a class="btn primary" href="services.html">See All Services</a>
-          <a class="btn" href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com&subject=Service%20Enquiry%20%E2%80%94%20[Project%20Name]">
-            ✉️ Start a Conversation
-          </a>
+          <a class="btn" href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com&subject=Service%20Enquiry%20%E2%80%94%20[Project%20Name]">✉️ Start a Conversation</a>
         </div>
       </article>
+
     </div>
   </div>
 </section>
