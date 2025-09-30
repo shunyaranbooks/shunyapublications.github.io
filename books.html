@@ -169,22 +169,147 @@
           </p>
         </div>
 
-        <!-- NEW: Conference Proceedings with ISBN -->
-        <div class="card" id="proceedings">
-          <h2 style="margin:.2rem 0 .6rem; font-size:var(--fs-h2)">Conference Proceedings (with ISBN)</h2>
-          <p style="margin:0">We publish peer-reviewed conference proceedings and provide end-to-end support—editing, layout, cover, metadata, and ISBN assignment—so your event’s scholarship is globally citable and discoverable.</p>
-          <ul style="margin:.6rem 0 0 1.2rem;">
-            <li>Scope: Engineering, Computing, Sciences, Social Sciences, Education, Management, Humanities</li>
-            <li>Deliverables: eBook (PDF/Kindle) and optional print-on-demand</li>
-            <li>Timeline: streamlined production schedule aligned to your conference dates</li>
-            <li>Metadata: ISBN, DOI options (if required), indexing-ready files</li>
-          </ul>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:.6rem">
-            <a class="btn primary" href="mailto:editor@shunyapublications.com?subject=Proceedings%20Proposal%20%E2%80%94%20%5BConference%20Name%5D&body=Please%20share%20the%20following%20details:%0A%E2%80%A2%20Conference%20name%20and%20dates%0A%E2%80%A2%20Organizing%20institute%0A%E2%80%A2%20Tracks%20and%20approx.%20paper%20count%0A%E2%80%A2%20Review%20process%0A%E2%80%A2%20Timeline%20for%20camera-ready%20papers%0A%E2%80%A2%20Any%20indexing/DOI%20requirements">✉️ Propose Your Proceedings</a>
-            <a class="btn" href="#published" aria-label="See examples">See Recent Books</a>
-          </div>
-          <p class="meta" style="margin:.6rem 0 0;">Contact the Editor: <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a> • +91 9798476769</p>
+       <!-- NEW: Conference Proceedings with ISBN -->
+<div class="card" id="proceedings">
+  <h2 style="margin:.2rem 0 .6rem; font-size:var(--fs-h2)">Conference Proceedings (with ISBN)</h2>
+  <p style="margin:0">
+    We publish peer-reviewed conference proceedings and provide end-to-end support—editing, layout, cover, metadata, and ISBN assignment—so your event’s scholarship is globally citable and discoverable.
+  </p>
+  <ul style="margin:.6rem 0 0 1.2rem;">
+    <li>Scope: Engineering, Computing, Sciences, Social Sciences, Education, Management, Humanities</li>
+    <li>Deliverables: eBook (PDF/Kindle) and optional print-on-demand</li>
+    <li>Timeline: streamlined production schedule aligned to your conference dates</li>
+    <li>Metadata: ISBN, DOI options (if required), indexing-ready files</li>
+  </ul>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:.6rem">
+    <!-- BUTTON that opens the dialog -->
+    <a class="btn primary" href="#" id="openProceedingsDialog">✉️ Propose Your Proceedings</a>
+    <a class="btn" href="#published" aria-label="See examples">See Recent Books</a>
+  </div>
+
+  <p class="meta" style="margin:.6rem 0 0;">
+    Contact the Editor: <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a> • +91 9798476769
+  </p>
+</div>
+
+<!-- ========== DIALOG (hidden until opened) ========== -->
+<div id="procDialogBackdrop" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:1000; align-items:center; justify-content:center;">
+  <div id="procDialog" role="dialog" aria-modal="true" aria-labelledby="procDialogTitle" aria-describedby="procDialogDesc"
+       class="card card-lg" style="width:min(720px,92vw); max-height:88vh; overflow:auto; position:relative">
+    <button type="button" id="procClose" aria-label="Close" title="Close"
+            style="position:absolute; top:10px; right:12px; border:none; background:#ff4d4d; color:#fff; padding:6px 10px; border-radius:8px; cursor:pointer;">✖</button>
+
+    <h2 id="procDialogTitle" style="margin:.2rem 0 .4rem; font-size:var(--fs-h2)">Propose Your Proceedings</h2>
+    <p id="procDialogDesc" class="meta" style="margin:.2rem 0 .8rem">
+      Fill the details below—your email app will open with a pre-filled proposal to <b>editor@shunyapublications.com</b>.
+    </p>
+
+    <!-- FORM -->
+    <form id="procForm">
+      <div class="stack" style="gap:10px">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+          <label class="stack">
+            <span class="eyebrow">Conference Name *</span>
+            <input required name="confName" type="text" placeholder="e.g., IJCSETF 2026" style="padding:12px;border:1px solid var(--line);border-radius:12px">
+          </label>
+          <label class="stack">
+            <span class="eyebrow">Dates *</span>
+            <input required name="dates" type="text" placeholder="12–14 March 2026" style="padding:12px;border:1px solid var(--line);border-radius:12px">
+          </label>
         </div>
+
+        <label class="stack">
+          <span class="eyebrow">Organizing Institute(s) *</span>
+          <input required name="org" type="text" placeholder="University / Dept / Society" style="padding:12px;border:1px solid var(--line);border-radius:12px">
+        </label>
+
+        <label class="stack">
+          <span class="eyebrow">Tracks / Disciplines *</span>
+          <input required name="tracks" type="text" placeholder="AI, Data Science, Systems…" style="padding:12px;border:1px solid var(--line);border-radius:12px">
+        </label>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+          <label class="stack">
+            <span class="eyebrow">Paper Count *</span>
+            <input required name="paperCount" type="number" min="1" placeholder="e.g., 60" style="padding:12px;border:1px solid var(--line);border-radius:12px">
+          </label>
+          <label class="stack">
+            <span class="eyebrow">Review Process *</span>
+            <input required name="review" type="text" placeholder="Single/Double-blind" style="padding:12px;border:1px solid var(--line);border-radius:12px">
+          </label>
+        </div>
+
+        <label class="stack">
+          <span class="eyebrow">DOI / Indexing Needs</span>
+          <input name="doi" type="text" placeholder="e.g., DOI per paper" style="padding:12px;border:1px solid var(--line);border-radius:12px">
+        </label>
+
+        <label class="stack">
+          <span class="eyebrow">Contact Email *</span>
+          <input required name="contactEmail" type="email" placeholder="name@example.com" style="padding:12px;border:1px solid var(--line);border-radius:12px">
+        </label>
+
+        <label class="stack">
+          <span class="eyebrow">Additional Notes</span>
+          <textarea name="notes" rows="3" placeholder="Timeline, sponsors, special issues…" style="padding:12px;border:1px solid var(--line);border-radius:12px"></textarea>
+        </label>
+
+        <div style="display:flex;gap:10px;margin-top:.6rem">
+          <button type="submit" class="btn primary">Send Proposal Email</button>
+          <button type="button" class="btn" id="procCancel">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ========== SCRIPT ========== -->
+<script>
+(function(){
+  const openBtn = document.getElementById('openProceedingsDialog');
+  const backdrop = document.getElementById('procDialogBackdrop');
+  const closeBtn = document.getElementById('procClose');
+  const cancelBtn = document.getElementById('procCancel');
+  const form = document.getElementById('procForm');
+
+  function openDialog(e){ e.preventDefault(); backdrop.style.display='flex'; }
+  function closeDialog(){ backdrop.style.display='none'; form.reset(); }
+
+  openBtn.addEventListener('click', openDialog);
+  closeBtn.addEventListener('click', closeDialog);
+  cancelBtn.addEventListener('click', closeDialog);
+  backdrop.addEventListener('click', e=>{ if(e.target===backdrop) closeDialog(); });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!form.reportValidity()) return;
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    const body = [
+      "Conference Proposal",
+      "• Name: " + data.confName,
+      "• Dates: " + data.dates,
+      "• Organizing Institute: " + data.org,
+      "• Tracks: " + data.tracks,
+      "• Paper Count: " + data.paperCount,
+      "• Review Process: " + data.review,
+      "• DOI/Indexing: " + data.doi,
+      "• Contact Email: " + data.contactEmail,
+      "• Notes: " + (data.notes || "")
+    ].join("\n");
+
+    const subject = "Proceedings Proposal — " + data.confName;
+    const mailto = "mailto:editor@shunyapublications.com"
+      + "?subject=" + encodeURIComponent(subject)
+      + "&body=" + encodeURIComponent(body);
+
+    window.location.href = mailto; // open email client
+    closeDialog();
+  });
+})();
+</script>
+
 
       </div>
     </div>
