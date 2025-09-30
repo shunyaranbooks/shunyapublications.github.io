@@ -4,20 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shunya Publications — Books</title>
-  <meta name="description" content="Shunya Publications publishes every kind of book — fiction, non‑fiction, and cross‑disciplinary works — with editorial care, thoughtful design, and global distribution." />
- <!-- Favicon / App Icons -->
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <meta name="description" content="Shunya Publications publishes fiction, non-fiction, and cross-disciplinary works with editorial care, thoughtful design, and global distribution." />
+  <!-- Favicon / App Icons -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
 
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
-
-<link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#ffffff">
   <style>
-    /* ============ Shunya UI (shared with index) ============ */
+    /* ============ Shunya UI (shared) ============ */
     :root{
       --bg:#ffffff; --bg-1:#fff9f1; --bg-2:#f3f9ff; --bg-3:#eef9f5;
       --text:#142036; --muted:#5a6b88; --line:#e6ecf5; --line-strong:#cfd8e6;
@@ -49,6 +48,7 @@
     .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow-soft)}
     .card-lg{padding:20px;border-radius:var(--radius-lg)}
     .eyebrow{font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+    .meta{color:var(--muted);font-size:.95rem}
 
     /* Nav */
     .nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
@@ -89,17 +89,17 @@
   <nav class="nav" aria-label="Global">
     <div class="container nav-inner">
       <div class="brand">
-        <img src="Logosh.png" alt="Shunya Publications Logo" />
+        <img src="Logosh.png" alt="Shunya Publications logo" />
         <span>Shunya Publications</span>
       </div>
-     <div class="menu" role="navigation">
-  <a href="index.html">Home</a>
-  <a href="books.html">Books</a>
-  <a href="ijcsetf.html">IJCSETF</a>
-  <a href="ijsscp.html">IJSSCP</a>
-  <a href="ijldef.html">IJLDEF</a>
-  <a href="ijbb.html">IJBB</a>
-</div>
+      <div class="menu" role="navigation" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="books.html" aria-current="page">Books</a>
+        <a href="ijcsetf.html">IJCSETF</a>
+        <a href="ijsscp.html">IJSSCP</a>
+        <a href="ijldef.html">IJLDEF</a>
+        <a href="ijbb.html">IJBB</a>
+      </div>
     </div>
   </nav>
 
@@ -109,131 +109,127 @@
       <div>
         <p class="eyebrow">Books</p>
         <h1 class="title">Shunya Publications — <span class="rainbow">Books</span></h1>
-        <p class="subtitle"><b>We publish every kind of book.</b> From fiction and non‑fiction to cross‑disciplinary works in education, culture, science, and technology — each title is selected for clarity, craft, and lasting reader value. Books are companions for thought, imagination, and transformation.</p>
+        <p class="subtitle"><b>We publish across genres.</b> From fiction and non-fiction to cross-disciplinary work in education, culture, science, and technology—each title is selected for clarity, craft, and lasting reader value.</p>
         <div class="stack" style="flex-direction:row; gap:12px; flex-wrap:wrap">
           <a class="btn primary" href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">📖 Browse All Books on Amazon</a>
           <a class="btn" href="#vision">Our Editorial Vision</a>
         </div>
       </div>
-      <aside class="card card-lg" aria-label="Production notes">
+
+      <!-- Side Card: Formats -->
+      <aside class="card card-lg" aria-label="Formats and distribution">
         <h3 style="margin:0 0 .4rem; font-size:var(--fs-h3)">Formats & Distribution</h3>
         <ul style="margin:.2rem 0 0 1rem">
-          <li>Kindle / eBook for global reach</li>
-          <li>Print‑on‑demand paperback</li>
-          <li>Hardcover for flagship editions</li>
+          <li>Kindle / eBook (global)</li>
+          <li>Print-on-demand paperback</li>
+          <li>Hardcover (flagship editions)</li>
           <li>Digital supplements where licensed</li>
         </ul>
+        <p class="meta" style="margin:.6rem 0 0;">Registered Micro Enterprise (MSME), Govt. of India: UDYAM-JH-20-0114655</p>
       </aside>
     </div>
   </header>
 
-  <!-- CONTENT -->
+  <!-- VISION + SUBMISSIONS -->
   <section class="section" id="vision">
     <div class="container">
       <div class="stack">
         <div class="card">
           <h2 style="margin:.2rem 0 .6rem; font-size:var(--fs-h2)">Editorial Vision</h2>
-          <p>Every manuscript receives collaborative development, precise copyediting, and subject‑aware review so the work reads like a guided conversation with its audience.</p>
+          <p>Every manuscript receives collaborative development, precise copyediting, and subject-aware review so the work reads like a guided conversation with its audience.</p>
         </div>
-        <div class="features">
-          <div class="card feature">
+
+        <div class="features" role="list">
+          <div class="card feature" role="listitem">
             <h3 style="margin:0 0 .4rem; font-size:var(--fs-h3)">Design & Production</h3>
-            <p style="margin:0">Readable typography, balanced layouts, purposeful whitespace, and memorable covers — designed to invite reading and endure in both print and digital.</p>
+            <p style="margin:0">Readable typography, balanced layouts, purposeful whitespace, and memorable covers—built to endure in both print and digital.</p>
           </div>
-          <div class="card feature">
+          <div class="card feature" role="listitem">
             <h3 style="margin:0 0 .4rem; font-size:var(--fs-h3)">Marketing & Discoverability</h3>
-            <p style="margin:0">Clear positioning, sample chapters, newsletters, and structured metadata (ISBNs, keywords, schema) ensure that books reach the right readers — by design, not by chance.</p>
+            <p style="margin:0">Clear positioning, sample chapters, newsletters, and rich metadata (ISBNs, keywords, schema) so books reach the right readers—by design.</p>
           </div>
-          <div class="card feature">
+          <div class="card feature" role="listitem">
             <h3 style="margin:0 0 .4rem; font-size:var(--fs-h3)">Ethics & Rights</h3>
             <p style="margin:0">Authors retain copyright for agreed editions. We clear permissions diligently and uphold citation standards. Flexible licensing options are available for digital components.</p>
           </div>
         </div>
- <div class="card">
-  <p style="margin:0">
-    <b>Submissions:</b><br/>
-    Every book begins with a voice. If you believe your manuscript carries one worth hearing, we invite you to share it with us.
-    Please ensure the <b>subject line</b> of your email includes your <b>name</b> and <b>book title</b>.
-  </p>
 
-  <p style="margin:.6rem 0 0;">
-    Along with your email, kindly attach:
-  </p>
-  <ul style="margin:.4rem 0 0 1.2rem; padding:0;">
-    <li>A short covering letter introducing yourself and your work</li>
-    <li>A clear synopsis of the book</li>
-    <li>Two sample chapters</li>
-  </ul>
+        <!-- Submissions -->
+        <div class="card">
+          <h3 style="margin:0 0 .5rem; font-size:var(--fs-h3)">Submissions</h3>
+          <p style="margin:0">If your manuscript carries a voice worth hearing, we invite you to share it. Please use the subject line format: <b>Submission — [Your Name] — [Book Title]</b>.</p>
+          <p style="margin:.6rem 0 0;">Attach:</p>
+          <ul style="margin:.4rem 0 0 1.2rem; padding:0;">
+            <li>Covering letter introducing yourself and the work</li>
+            <li>Synopsis</li>
+            <li>Two sample chapters</li>
+          </ul>
+          <p style="margin:.8rem 0 0;">
+            Email: <a href="mailto:editor@shunyapublications.com?subject=Submission%20%E2%80%94%20%5BYour%20Name%5D%20%E2%80%94%20%5BBook%20Title%5D">editor@shunyapublications.com</a>
+          </p>
+        </div>
 
-  <p style="margin:.8rem 0 0;">
-    Send your submission to:
-    <a href="mailto:editor@shunyapublications.com?subject=Submission%3A%20%5BYour%20Name%5D%20—%20%5BBook%20Title%5D">
-      editor@shunyapublications.com
-    </a>
-  </p>
-</div>
-
+        <!-- NEW: Conference Proceedings with ISBN -->
+        <div class="card" id="proceedings">
+          <h2 style="margin:.2rem 0 .6rem; font-size:var(--fs-h2)">Conference Proceedings (with ISBN)</h2>
+          <p style="margin:0">We publish peer-reviewed conference proceedings and provide end-to-end support—editing, layout, cover, metadata, and ISBN assignment—so your event’s scholarship is globally citable and discoverable.</p>
+          <ul style="margin:.6rem 0 0 1.2rem;">
+            <li>Scope: Engineering, Computing, Sciences, Social Sciences, Education, Management, Humanities</li>
+            <li>Deliverables: eBook (PDF/Kindle) and optional print-on-demand</li>
+            <li>Timeline: streamlined production schedule aligned to your conference dates</li>
+            <li>Metadata: ISBN, DOI options (if required), indexing-ready files</li>
+          </ul>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:.6rem">
+            <a class="btn primary" href="mailto:editor@shunyapublications.com?subject=Proceedings%20Proposal%20%E2%80%94%20%5BConference%20Name%5D&body=Please%20share%20the%20following%20details:%0A%E2%80%A2%20Conference%20name%20and%20dates%0A%E2%80%A2%20Organizing%20institute%0A%E2%80%A2%20Tracks%20and%20approx.%20paper%20count%0A%E2%80%A2%20Review%20process%0A%E2%80%A2%20Timeline%20for%20camera-ready%20papers%0A%E2%80%A2%20Any%20indexing/DOI%20requirements">✉️ Propose Your Proceedings</a>
+            <a class="btn" href="#published" aria-label="See examples">See Recent Books</a>
+          </div>
+          <p class="meta" style="margin:.6rem 0 0;">Contact the Editor: <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a> • +91 9798476769</p>
+        </div>
 
       </div>
     </div>
   </section>
 
   <!-- PUBLISHED BOOKS -->
-<section class="section" id="published">
-  <div class="container">
-    <div class="stack">
+  <section class="section" id="published" aria-labelledby="pub-head">
+    <div class="container">
+      <div class="stack">
 
-      <!-- September 2025 Books -->
-<div class="card">
-  <h2 style="margin:.2rem 0 .6rem; font-size:var(--fs-h2)">September 2025 Books</h2>
-  <p style="margin:.4rem 0 1rem;">
-    <b>The Echoveil: A Reverse Memory Device</b><br/>
-    <i>The Device That Deletes Tomorrow’s Pain.</i>
-  </p>
+        <div class="card">
+          <h2 id="pub-head" style="margin:.2rem 0 .6rem; font-size:var(--fs-h2)">September 2025 Books</h2>
+          <div class="stack" style="gap:12px">
+            <div>
+              <p style="margin:.2rem 0 1rem;">
+                <b>The Echoveil: A Reverse Memory Device</b><br/>
+                <i>The device that deletes tomorrow’s pain.</i>
+              </p>
+              <figure style="margin:0;max-width:260px;">
+                <a href="#" onclick="openPreview(); return false;">
+                  <img src="echo.png" alt="Cover of The Echoveil: A Reverse Memory Device" style="width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)" />
+                </a>
+                <figcaption class="meta" style="margin-top:.4rem;text-align:center">
+                  <a href="#" onclick="openPreview(); return false;">📖 Preview PDF</a><br/>
+                  <span style="font-size:.95rem;">
+                    🛒 <b>Buy:</b> In process — write to
+                    <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a>
+                  </span>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
 
-  <figure style="margin:0;max-width:260px;">
-    <a href="#" onclick="openPreview(); return false;">
-      <img src="echo.png" alt="Cover — The Echoveil"
-           style="width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)" />
-    </a>
-    <figcaption class="meta" style="margin-top:.4rem;text-align:center">
-      <a href="#" onclick="openPreview(); return false;">📖 Preview PDF</a><br/>
-      <span style="font-size:.95rem; color:#444;">
-        🛒 <b>Buy:</b> In process — write to 
-        <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a>
-      </span>
-    </figcaption>
-  </figure>
-</div>
+        <!-- PREVIEW MODAL -->
+        <div id="previewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;" role="dialog" aria-modal="true" aria-label="Book preview">
+          <div style="background:#fff; padding:10px; border-radius:12px; max-width:90%; max-height:90%; position:relative;">
+            <button onclick="closePreview()" aria-label="Close preview" style="position:absolute; top:8px; right:12px; border:none; background:#ff4d4d; color:#fff; padding:6px 10px; border-radius:6px; cursor:pointer;">✖</button>
+            <iframe src="echo.pdf" title="Preview — The Echoveil PDF" style="width:80vw; height:80vh; border:none;"></iframe>
+          </div>
+        </div>
 
-<!-- PREVIEW MODAL -->
-<div id="previewModal" style="
-  display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-  background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;">
-  <div style="background:#fff; padding:10px; border-radius:12px; max-width:90%; max-height:90%; position:relative;">
-    <button onclick="closePreview()" style="
-      position:absolute; top:8px; right:12px; border:none; background:#ff4d4d; 
-      color:#fff; padding:6px 10px; border-radius:6px; cursor:pointer;">✖</button>
-    <iframe src="echo.pdf" style="width:80vw; height:80vh; border:none;" title="Preview PDF"></iframe>
-  </div>
-</div>
-
-<script>
-function openPreview(){
-  document.getElementById('previewModal').style.display = 'flex';
-}
-function closePreview(){
-  document.getElementById('previewModal').style.display = 'none';
-}
-</script>
-
-
-
-    
-
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- FOOTER -->
   <footer class="section" style="padding:24px 0">
@@ -244,7 +240,12 @@ function closePreview(){
   </footer>
 
   <script>
+    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Modal
+    function openPreview(){ document.getElementById('previewModal').style.display = 'flex'; }
+    function closePreview(){ document.getElementById('previewModal').style.display = 'none'; }
   </script>
 </body>
 </html>
