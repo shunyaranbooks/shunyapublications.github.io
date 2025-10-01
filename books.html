@@ -310,7 +310,7 @@
     </div>
   </section>
 
- <!-- PUBLISHED BOOKS -->
+<!-- PUBLISHED BOOKS -->
 <section class="section" id="published" aria-labelledby="pub-head">
   <div class="container">
     <div class="stack">
@@ -318,11 +318,11 @@
       <div class="card">
         <h2 id="pub-head" style="margin:.2rem 0 .6rem; font-size:var(--fs-h2)">September 2025 Books</h2>
 
-        <!-- Two-column layout while keeping your style -->
+        <!-- Two-column layout (keeps your visual style) -->
         <div class="stack" style="gap:12px">
           <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
 
-            <!-- Book 1: Echoveil (keeps your original openPreview and modal) -->
+            <!-- Book 1: The Echoveil -->
             <div>
               <p style="margin:.2rem 0 1rem;">
                 <b>The Echoveil: A Reverse Memory Device</b><br/>
@@ -342,11 +342,11 @@
               </figure>
             </div>
 
-            <!-- Book 2: Love in the Time of Dalal Street (separate modal + function) -->
+            <!-- Book 2: Love in the Time of Dalal Street -->
             <div>
               <p style="margin:.2rem 0 1rem;">
-                <b>Love in the Time of Dalal Street: A Romance of Rupees, Rage, and Resistance</b><br/>
-                <i>A poetic slow-burn set in Mumbai’s financial heart and underground art scene.</i>
+                <b>Love in the Time of Dalal Street</b><br/>
+                <i>A Romance of Rupees, Rage, and Resistance</i>
               </p>
               <figure style="margin:0;max-width:260px;">
                 <a href="#" onclick="openPreview2(); return false;">
@@ -366,19 +366,19 @@
         </div>
       </div>
 
-      <!-- PREVIEW MODAL (Echoveil - unchanged structure) -->
+      <!-- PREVIEW MODAL (Echoveil) -->
       <div id="previewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;" role="dialog" aria-modal="true" aria-label="Book preview">
         <div style="background:#fff; padding:10px; border-radius:12px; max-width:90%; max-height:90%; position:relative;">
           <button onclick="closePreview()" aria-label="Close preview" style="position:absolute; top:8px; right:12px; border:none; background:#ff4d4d; color:#fff; padding:6px 10px; border-radius:6px; cursor:pointer;">✖</button>
-          <iframe src="echo.pdf" title="Preview — The Echoveil PDF" style="width:80vw; height:80vh; border:none;"></iframe>
+          <embed src="echo.pdf#view=FitH" type="application/pdf" title="Preview — The Echoveil PDF" style="width:80vw; height:80vh; border:none;" />
         </div>
       </div>
 
-      <!-- PREVIEW MODAL 2 (Dalal Street) -->
+      <!-- PREVIEW MODAL (Dalal Street) -->
       <div id="previewModal2" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;" role="dialog" aria-modal="true" aria-label="Book preview">
         <div style="background:#fff; padding:10px; border-radius:12px; max-width:90%; max-height:90%; position:relative;">
           <button onclick="closePreview2()" aria-label="Close preview" style="position:absolute; top:8px; right:12px; border:none; background:#ff4d4d; color:#fff; padding:6px 10px; border-radius:6px; cursor:pointer;">✖</button>
-          <iframe src="littods.pdf" title="Preview — Love in the Time of Dalal Street PDF" style="width:80vw; height:80vh; border:none;"></iframe>
+          <embed src="littods.pdf#view=FitH" type="application/pdf" title="Preview — Love in the Time of Dalal Street PDF" style="width:80vw; height:80vh; border:none;" />
         </div>
       </div>
 
@@ -387,13 +387,15 @@
 </section>
 
 <script>
-  // Keep your original handlers for Echoveil
+  // Echoveil modal (kept simple like your original)
   function openPreview(){ document.getElementById('previewModal').style.display = 'flex'; }
   function closePreview(){ document.getElementById('previewModal').style.display = 'none'; }
 
-  // Add a second pair for Dalal Street
+  // Dalal Street modal
   function openPreview2(){ document.getElementById('previewModal2').style.display = 'flex'; }
-  function closePreview2(){ document.getElementById('previewMod
+  function closePreview2(){ document.getElementById('previewModal2').style.display = 'none'; }
+</script>
+
 
   <!-- FOOTER -->
   <footer class="section" style="padding:24px 0">
