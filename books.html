@@ -310,63 +310,75 @@
     </div>
   </section>
 
-  <!-- PUBLISHED BOOKS -->
+ <!-- PUBLISHED BOOKS -->
 <section class="section" id="published" aria-labelledby="pub-head">
   <div class="container">
     <div class="stack">
 
       <div class="card">
         <h2 id="pub-head" style="margin:.2rem 0 .6rem; font-size:var(--fs-h2)">September 2025 Books</h2>
+
+        <!-- Two-column layout while keeping your style -->
         <div class="stack" style="gap:12px">
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
 
-          <!-- Book 1 -->
-          <div>
-            <p style="margin:.2rem 0 1rem;">
-              <b>The Echoveil: A Reverse Memory Device</b><br/>
-              <i>The device that deletes tomorrow’s pain.</i>
-            </p>
-            <figure style="margin:0;max-width:260px;">
-              <a href="#" onclick="openPreview('echo.pdf','Preview — The Echoveil PDF'); return false;">
-                <img src="echo.png" alt="Cover of The Echoveil: A Reverse Memory Device" style="width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)" />
-              </a>
-              <figcaption class="meta" style="margin-top:.4rem;text-align:center">
-                <a href="#" onclick="openPreview('echo.pdf','Preview — The Echoveil PDF'); return false;">📖 Preview PDF</a><br/>
-                <span style="font-size:.95rem;">
-                  🛒 <b>Buy:</b> In process — write to
-                  <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a>
-                </span>
-              </figcaption>
-            </figure>
+            <!-- Book 1: Echoveil (keeps your original openPreview and modal) -->
+            <div>
+              <p style="margin:.2rem 0 1rem;">
+                <b>The Echoveil: A Reverse Memory Device</b><br/>
+                <i>The device that deletes tomorrow’s pain.</i>
+              </p>
+              <figure style="margin:0;max-width:260px;">
+                <a href="#" onclick="openPreview(); return false;">
+                  <img src="echo.png" alt="Cover of The Echoveil: A Reverse Memory Device" style="width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)" />
+                </a>
+                <figcaption class="meta" style="margin-top:.4rem;text-align:center">
+                  <a href="echo.pdf" onclick="openPreview(); return false;">📖 Preview PDF</a><br/>
+                  <span style="font-size:.95rem;">
+                    🛒 <b>Buy:</b> In process — write to
+                    <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a>
+                  </span>
+                </figcaption>
+              </figure>
+            </div>
+
+            <!-- Book 2: Love in the Time of Dalal Street (separate modal + function) -->
+            <div>
+              <p style="margin:.2rem 0 1rem;">
+                <b>Love in the Time of Dalal Street: A Romance of Rupees, Rage, and Resistance</b><br/>
+                <i>A poetic slow-burn set in Mumbai’s financial heart and underground art scene.</i>
+              </p>
+              <figure style="margin:0;max-width:260px;">
+                <a href="#" onclick="openPreview2(); return false;">
+                  <img src="images/littods.png" alt="Cover of Love in the Time of Dalal Street" style="width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)" />
+                </a>
+                <figcaption class="meta" style="margin-top:.4rem;text-align:center">
+                  <a href="images/littods.pdf" onclick="openPreview2(); return false;">📖 Preview PDF</a><br/>
+                  <span style="font-size:.95rem;">
+                    🛒 <b>Buy:</b> In process — write to
+                    <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a>
+                  </span>
+                </figcaption>
+              </figure>
+            </div>
+
           </div>
-
-          <!-- Book 2 -->
-          <div>
-            <p style="margin:.2rem 0 1rem;">
-              <b>Love in the Time of Dalal Street: A Romance of Rupees, Rage, and Resistance</b><br/>
-              <i>A poetic slow-burn set in Mumbai’s financial heart and underground art scene.</i>
-            </p>
-            <figure style="margin:0;max-width:260px;">
-              <a href="#" onclick="openPreview('littods.pdf','Preview — Love in the Time of Dalal Street PDF'); return false;">
-                <img src="images/littods.png" alt="Cover of Love in the Time of Dalal Street" style="width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)" />
-              </a>
-              <figcaption class="meta" style="margin-top:.4rem;text-align:center">
-                <a href="#" onclick="openPreview('images/littods.pdf','Preview — Love in the Time of Dalal Street PDF'); return false;">📖 Preview PDF</a><br/>
-                <span style="font-size:.95rem;">
-                  🛒 <b>Buy:</b> In process — write to
-                  <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a>
-                </span>
-              </figcaption>
-            </figure>
-          </div>
-
         </div>
       </div>
 
-      <!-- PREVIEW MODAL -->
+      <!-- PREVIEW MODAL (Echoveil - unchanged structure) -->
       <div id="previewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;" role="dialog" aria-modal="true" aria-label="Book preview">
         <div style="background:#fff; padding:10px; border-radius:12px; max-width:90%; max-height:90%; position:relative;">
           <button onclick="closePreview()" aria-label="Close preview" style="position:absolute; top:8px; right:12px; border:none; background:#ff4d4d; color:#fff; padding:6px 10px; border-radius:6px; cursor:pointer;">✖</button>
-          <iframe id="previewFrame" src="" title="Book Preview PDF" style="width:80vw; height:80vh; border:none;"></iframe>
+          <iframe src="echo.pdf" title="Preview — The Echoveil PDF" style="width:80vw; height:80vh; border:none;"></iframe>
+        </div>
+      </div>
+
+      <!-- PREVIEW MODAL 2 (Dalal Street) -->
+      <div id="previewModal2" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;" role="dialog" aria-modal="true" aria-label="Book preview">
+        <div style="background:#fff; padding:10px; border-radius:12px; max-width:90%; max-height:90%; position:relative;">
+          <button onclick="closePreview2()" aria-label="Close preview" style="position:absolute; top:8px; right:12px; border:none; background:#ff4d4d; color:#fff; padding:6px 10px; border-radius:6px; cursor:pointer;">✖</button>
+          <iframe src="littods.pdf" title="Preview — Love in the Time of Dalal Street PDF" style="width:80vw; height:80vh; border:none;"></iframe>
         </div>
       </div>
 
@@ -375,16 +387,13 @@
 </section>
 
 <script>
-  function openPreview(pdfSrc, titleText) {
-    document.getElementById('previewFrame').src = pdfSrc;
-    document.getElementById('previewFrame').title = titleText;
-    document.getElementById('previewModal').style.display = 'flex';
-  }
-  function closePreview() {
-    document.getElementById('previewModal').style.display = 'none';
-    document.getElementById('previewFrame').src = "";
-  }
-</script>
+  // Keep your original handlers for Echoveil
+  function openPreview(){ document.getElementById('previewModal').style.display = 'flex'; }
+  function closePreview(){ document.getElementById('previewModal').style.display = 'none'; }
+
+  // Add a second pair for Dalal Street
+  function openPreview2(){ document.getElementById('previewModal2').style.display = 'flex'; }
+  function closePreview2(){ document.getElementById('previewMod
 
   <!-- FOOTER -->
   <footer class="section" style="padding:24px 0">
