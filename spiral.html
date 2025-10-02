@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Spiral Question Ladder — See Differently. Think Deeper. Redesign Everything. | Shunya Publications</title>
+<meta name="description" content="The Spiral Question Ladder is a five-layer inquiry framework—Clarifying, Causal, Ethical, Transformational, Meta—to build questions that reframe problems, not just solve them. Templates, rubrics, classroom tools, facilitation kits." />
+<link rel="canonical" href="https://www.shunyapublications.com/spiral.html" />
+
+<!-- Favicons / PWA (kept identical to index.html) -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Shunya">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+<link rel="manifest" href="/site.webmanifest?v=2">
+<meta name="theme-color" content="#1565ff">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.shunyapublications.com/spiral.html" />
+<meta property="og:title" content="Spiral Question Ladder — Depth via Five-Layer Inquiry" />
+<meta property="og:description" content="Clarifying • Causal • Ethical • Transformational • Meta. A practical framework to build questions that change how minds work." />
+<meta property="og:image" content="https://www.shunyapublications.com/images/spiral/spiral-og.png" />
+<meta property="og:image:secure_url" content="https://www.shunyapublications.com/images/spiral/spiral-og.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content="https://www.shunyapublications.com/spiral.html" />
+<meta name="twitter:title" content="Spiral Question Ladder — Depth via Five-Layer Inquiry" />
+<meta name="twitter:description" content="A practical framework to build recursive, layered questions for classrooms, facilitation, leadership and daily practice." />
+<meta name="twitter:image" content="https://www.shunyapublications.com/images/spiral/spiral-og.png" />
+
+<style>
+/* === Shunya UI (copied from index, trimmed only where unused) === */
+:root{
+  --bg:#ffffff; --bg-1:#fff9f1; --bg-2:#f3f9ff; --bg-3:#eef9f5;
+  --text:#142036; --muted:#5a6b88; --line:#e6ecf5; --line-strong:#cfd8e6;
+  --brand:#1565ff; --brand-2:#ff7a3d; --brand-3:#15a085; --accent:#7d4dff; --gold:#f6b73c;
+  --shadow:0 12px 30px rgba(21,101,255,.10); --shadow-soft:0 10px 24px rgba(20, 32, 54, .10); --ring:0 0 0 4px rgba(21,101,255,.16);
+  --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  --fs-hero: clamp(2rem, 3.2vw, 2.75rem); --fs-h2: clamp(1.5rem, 1.8vw, 1.9rem); --fs-h3: 1.1rem;
+  --radius:16px; --radius-lg:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; font-family:var(--font); color:var(--text); background:var(--bg);
+  background:
+    radial-gradient(1100px 620px at 10% -10%, var(--bg-1) 0%, #fff 60%),
+    radial-gradient(1200px 720px at 110% 110%, var(--bg-2) 0%, #fff 55%),
+    radial-gradient(1000px 650px at -10% 120%, var(--bg-3) 0%, #fff 50%);
+}
+a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
+.container{max-width:1180px;margin:auto;padding:0 20px}
+.section{padding:64px 0; border-top:1px solid var(--line)}
+.section:first-of-type{border-top:none}
+.stack{display:flex;flex-direction:column;gap:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow-soft)}
+.card-lg{padding:20px;border-radius:var(--radius-lg)}
+.eyebrow{font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600}
+.btn:hover{box-shadow:var(--ring)} .btn:focus-visible{outline:none; box-shadow:var(--ring)}
+.btn.primary{background:linear-gradient(180deg,#f7fbff,#eaf2ff); border-color:#dbe7ff}
+.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+.brand{display:flex;gap:12px;align-items:center}
+.brand img{height:42px;width:42px;border-radius:10px;box-shadow:var(--shadow-soft)}
+.brand span{font-weight:800}
+.menu a{margin-left:18px;color:var(--muted);font-weight:600}
+.menu a[aria-current="page"]{color:var(--text); text-decoration:underline}
+header{padding:72px 0 36px}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+.title{font-size:var(--fs-hero);line-height:1.12;margin:6px 0}
+.title .rainbow{background:linear-gradient(90deg,var(--brand),var(--accent),var(--gold),var(--brand-3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.subtitle{color:#2a3b5c;opacity:.95;max-width:68ch}
+.hero-card img{width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.kv{display:grid;grid-template-columns:1fr 1fr; gap:16px}
+.quote{font-size:1.2rem; line-height:1.6}
+.table{border:1px solid var(--line); border-radius:16px; overflow:hidden}
+.table table{width:100%; border-collapse:collapse; font-size:.98rem}
+.table th,.table td{padding:12px 14px; border-bottom:1px solid var(--line)}
+.table th{background:#f8fbff; text-align:left}
+@media(max-width:980px){ .hero{grid-template-columns:1fr} .grid-3{grid-template-columns:1fr 1fr} .grid-2,.kv{grid-template-columns:1fr} }
+@media(max-width:720px){ .grid-3{grid-template-columns:1fr} }
+</style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <nav class="nav" aria-label="Global">
+    <div class="container nav-inner">
+      <div class="brand">
+        <img src="images/Logosh.png" alt="Shunya Publications Logo" />
+        <span>Shunya Publications</span>
+      </div>
+      <div class="menu" role="navigation">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="journal.html">Journals</a>
+        <a href="services.html">Services</a>
+        <a href="ipaas.html">IPaaS</a>
+        <a href="memory-journals.html">Memory Journals</a>
+        <a href="Horizon-Herald.html">Horizon Herald</a>
+        <a href="spiral.html" aria-current="page">Spiral</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="section">
+    <div class="container hero">
+      <div>
+        <p class="eyebrow">Inquiry Framework</p>
+        <h1 class="title">Spiral Question Ladder — <span class="rainbow">See Differently. Think Deeper. Redesign Everything.</span></h1>
+        <p class="subtitle"><b>A practical framework to build questions that change how minds work.</b> Spiral isn’t about knowing more; it’s about <em>seeing</em> without bias, illusion, or default — across five recursive layers of inquiry.</p>
+        <div class="stack" style="margin-top:8px">
+          <div style="display:flex; gap:12px; flex-wrap:wrap">
+            <a class="btn primary" href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">📖 View on Amazon (Kindle & Paperback)</a>
+            <a class="btn" href="#five-layers">Explore the Five Layers</a>
+          </div>
+        </div>
+      </div>
+      <aside class="card card-lg hero-card" aria-label="Hero image">
+        <!-- TODO: replace with your actual hero asset -->
+        <img src="images/spiral/hero-banner.png" alt="Spiral Question Ladder hero—five-layer inquiry model" loading="lazy" />
+      </aside>
+    </div>
+  </header>
+
+  <!-- 2) The Five Layers -->
+  <section id="five-layers" class="section">
+    <div class="container stack">
+      <div>
+        <p class="eyebrow">Model</p>
+        <h2 style="font-size:var(--fs-h2); margin:0 0 6px">The Five Layers of Spiral Inquiry</h2>
+        <p>These layers don’t stack — they <em>spiral</em>. Loop back, surface blind spots, and reframe.</p>
+      </div>
+
+      <div class="kv">
+        <figure class="card card-lg" style="min-height:240px">
+          <!-- TODO: drop in a diagram image if available -->
+          <img src="images/spiral/spiral-5layers.png" alt="Clarifying, Causal, Ethical, Transformational, Meta—five-layer spiral" loading="lazy">
+        </figure>
+        <div class="card card-lg">
+          <ul>
+            <li><b>Clarifying</b> — What are we really saying?</li>
+            <li><b>Causal</b> — What’s behind what we see?</li>
+            <li><b>Ethical</b> — Should it be this way?</li>
+            <li><b>Transformational</b> — What could we redesign?</li>
+            <li><b>Meta</b> — What are we not seeing?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3) Comparison -->
+  <section class="section">
+    <div class="container stack">
+      <div>
+        <p class="eyebrow">Comparison</p>
+        <h2 style="font-size:var(--fs-h2); margin:0 0 6px">Spiral vs. Bloom vs. Socratic</h2>
+      </div>
+      <div class="table card">
+        <table aria-label="Comparison of Spiral vs Bloom vs Socratic">
+          <thead>
+            <tr><th></th><th>Spiral</th><th>Bloom</th><th>Socratic</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>Focus</b></td><td>Depth via recursion</td><td>Hierarchical steps</td><td>Open questioning</td></tr>
+            <tr><td><b>Structure</b></td><td>Looping layers</td><td>Linear levels</td><td>Dialogue prompts</td></tr>
+            <tr><td><b>Outcome</b></td><td>Reframe & redesign</td><td>Mastery/recall</td><td>Clarify assumptions</td></tr>
+            <tr><td><b>Use</b></td><td>Complex, real problems</td><td>Curriculum progression</td><td>Philosophical probing</td></tr>
+            <tr><td><b>Learner role</b></td><td>Co-designer of inquiry</td><td>Task receiver</td><td>Respondent</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="eyebrow">Option: swap “Socratic” with DoK in a second row if you prefer.</p>
+    </div>
+  </section>
+
+  <!-- 4) Who It's For -->
+  <section class="section">
+    <div class="container stack">
+      <p class="eyebrow">Fit</p>
+      <h2 style="font-size:var(--fs-h2); margin:0 0 6px">Who It’s For</h2>
+      <div class="grid-4 grid-3">
+        <article class="card"><b>Educators</b><br/>Classroom-ready spirals, rubrics, printables</article>
+        <article class="card"><b>Facilitators</b><br/>Meetings, workshops, retreats that think deeper</article>
+        <article class="card"><b>Strategists / Leaders</b><br/>Reframe problems before solving</article>
+        <article class="card"><b>Coaches / Students</b><br/>Daily spiral habits & journals</article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5) What You Get -->
+  <section class="section">
+    <div class="container stack">
+      <p class="eyebrow">Inside the Book</p>
+      <h2 style="font-size:var(--fs-h2); margin:0 0 6px">Built for Utility, Not Just Understanding</h2>
+      <div class="grid-2">
+        <div class="card">
+          <ul>
+            <li>Fillable templates, rubrics, and a Spiral Question Map</li>
+            <li>Classroom tools for math, science, literature, student-led inquiry</li>
+            <li>Facilitation resources for coaching, meetings, strategy retreats</li>
+            <li>Daily habits & journaling practices to spiral on the fly</li>
+            <li>Appendices: Generator + 100 prompts + toolkits</li>
+          </ul>
+        </div>
+        <aside class="card"><em>“To become truly educated is not to collect answers — it is to sharpen vision.”</em></aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7) From the Preface -->
+  <section class="section">
+    <div class="container stack">
+      <p class="eyebrow">From the Preface</p>
+      <h2 style="font-size:var(--fs-h2); margin:0 0 6px">Beyond Smarter — Toward Seeing</h2>
+      <div class="card">
+        We don’t lack information — we face a crisis of interpretation. Spiral offers structure without rigidity, depth without dogma, motion without collapse. It’s a dashboard for thought in an age of complexity, contradiction, and speed.
+      </div>
+    </div>
+  </section>
+
+  <!-- 8) Quick Example -->
+  <section class="section">
+    <div class="container stack">
+      <p class="eyebrow">Example</p>
+      <h2 style="font-size:var(--fs-h2); margin:0 0 6px">From Yes/No to Multidimensional</h2>
+      <div class="card">
+        <p><b>Prompt:</b> “Should school start later?”</p>
+        <ul>
+          <li><b>Clarifying:</b> Define “school start”; which age group?</li>
+          <li><b>Causal:</b> Why do schools start early? What history set this up?</li>
+          <li><b>Ethical:</b> Is it fair to teens who need more sleep?</li>
+          <li><b>Transformational:</b> What would flex-time school look like?</li>
+          <li><b>Meta:</b> Why do we always adjust time, not curriculum or format?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9) Structure Snapshot -->
+  <section class="section">
+    <div class="container stack">
+      <p class="eyebrow">Contents</p>
+      <h2 style="font-size:var(--fs-h2); margin:0 0 6px">What’s Inside the Book</h2>
+      <div class="grid-2">
+        <div class="card">
+          <ul>
+            <li><b>Part I:</b> Spiral Ladder + five layers, templates & examples</li>
+            <li><b>Part II:</b> Classroom spirals (math, science, literature)</li>
+            <li><b>Part III:</b> Facilitation for leadership, coaching, strategy</li>
+            <li><b>Part IV:</b> Daily practice & curriculum design</li>
+            <li><b>Appendices:</b> Generator, 100 prompts, team toolkits</li>
+          </ul>
+        </div>
+        <aside class="card">
+          <b>Ecosystem</b><br/>
+          <ul>
+            <li>Relational Reality — identity as relation (PhiloMind™)</li>
+            <li>Learn English the Spiral Way — language as lens</li>
+            <li>The Interface of Being — reality as co-production</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container stack">
+      <div class="card card-lg" style="text-align:center">
+        <h3 style="margin:0 0 10px">Ready to Spiral?</h3>
+        <p style="margin:0 0 12px">Get the book, download templates, and start spiraling your next lesson, meeting, or decision.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+          <a class="btn primary" href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">Buy on Amazon</a>
+          <a class="btn" href="mailto:editor@shunyapublications.com?subject=Spiral%20kits%20for%20our%20team">Request Team Kits</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (minimal) -->
+  <footer class="section" style="padding:24px 0">
+    <div class="container" style="color:var(--muted)">
+      Copyright © <span id="y"></span> Shunya Publications. All rights reserved.
+      &nbsp;•&nbsp; <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a>
+    </div>
+  </footer>
+
+<script>
+document.getElementById('y').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
