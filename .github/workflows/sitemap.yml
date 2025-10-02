@@ -1,16 +1,36 @@
+# .github/workflows/sitemap.yml
 name: Generate Sitemap
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write   # allow committing sitemap.xml
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Generate Sitemap
+      - name: Checkout repo with full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # needed for correct <lastmod> dates
+
+      - name: Generate sitemap
         uses: cicirello/generate-sitemap@v1
         with:
-          base-url-path: "https://www.shunyapublications.com"
+          base-url-path: https://www.shunyapublications.com
+          # path-to-root: docs   # <-- uncomment ONLY if your site is served from /docs
+
+      - name: Commit sitemap.xml (if changed)
+        run: |
+          if [ -f sitemap.xml ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add sitemap.xml
+            git diff --cached --quiet && echo "No changes" || (git commit -m "Automated sitemap update" && git push)
+          else
+            echo "sitemap.xml not found"
+          fi
