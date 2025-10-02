@@ -155,6 +155,13 @@
     /* Responsive */
     @media(max-width:980px){.hero{grid-template-columns:1fr}.features{grid-template-columns:1fr 1fr}}
     @media(max-width:720px){.features{grid-template-columns:1fr}}
+    /* Books grid: responsive columns */
+@media (max-width: 980px){
+  #booksGrid { grid-template-columns: repeat(2,1fr) !important; }
+}
+@media (max-width: 720px){
+  #booksGrid { grid-template-columns: 1fr !important; }
+}
   </style>
 </head>
 <body>
@@ -320,7 +327,8 @@
 
         <!-- Three-column layout (same visual style) -->
         <div class="stack" style="gap:12px">
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+         <div id="booksGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+           
 
             <!-- Book 1: The Echoveil -->
             <div>
