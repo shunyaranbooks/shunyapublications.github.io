@@ -494,12 +494,26 @@
   function closePreview3(){ document.getElementById('previewModal3').style.display = 'none'; }
 </script>
 
-  !-- Founder -->
-<div style="text-align:right;">
-  <a class="btn" href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">
+<!-- Founder Books mini-card (place right after </div> of #booksGrid) -->
+<div class="card" role="region" aria-label="Founder Books"
+     style="margin-top:8px; padding:12px; border-radius:12px;
+            background:linear-gradient(180deg,#fff,#f7fbff);
+            display:flex; align-items:center; justify-content:space-between;
+            gap:12px; flex-wrap:wrap;">
+  <div style="display:flex; align-items:center; gap:10px;">
+    <div style="font-size:1.4rem; line-height:1">📚</div>
+    <div>
+      <div class="eyebrow" style="margin:0;">Amazon Author</div>
+      <div style="font-weight:700; font-size:1rem; margin-top:2px;">Founder’s Books</div>
+    </div>
+  </div>
+  <a class="btn primary" href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">
     See Founder Books
   </a>
 </div>
+
+
+  
   <!-- FOOTER -->
   <footer class="section" style="padding:24px 0">
     <div class="container footer-bar">
