@@ -1,33 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://www.shunyapublications.com/</loc>
-    <lastmod>2025-09-27</lastmod>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://www.shunyapublications.com/#books</loc>
-    <lastmod>2025-09-27</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.shunyapublications.com/#journals</loc>
-    <lastmod>2025-09-27</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.shunyapublications.com/#aboutus</loc>
-    <lastmod>2025-09-27</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.shunyapublications.com/#owner</loc>
-    <lastmod>2025-09-27</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.shunyapublications.com/#contact</loc>
-    <lastmod>2025-09-27</lastmod>
-    <priority>0.6</priority>
-  </url>
+<url>
+<loc>https://www.shunyapublications.com/</loc>
+<lastmod>2025-10-02T12:41:33+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/Horizon-Herald.html</loc>
+<lastmod>2025-10-02T12:44:48+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/books.html</loc>
+<lastmod>2025-10-02T12:19:07+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/echo.pdf</loc>
+<lastmod>2025-09-29T16:52:27+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/ethics.html</loc>
+<lastmod>2025-09-30T21:24:55+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/ijbb.html</loc>
+<lastmod>2025-09-30T16:55:55+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/ijcsetf.html</loc>
+<lastmod>2025-09-30T16:56:50+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/ijldef.html</loc>
+<lastmod>2025-09-30T16:57:20+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/ijsscp.html</loc>
+<lastmod>2025-09-30T16:57:43+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/ipaas.html</loc>
+<lastmod>2025-10-02T12:24:49+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/journal.html</loc>
+<lastmod>2025-10-02T13:14:57+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/love-as-currency.html</loc>
+<lastmod>2025-09-29T22:22:59+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/memory-journals.html</loc>
+<lastmod>2025-10-02T12:38:35+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/public-memory-vs-public-policy.html</loc>
+<lastmod>2025-09-29T22:22:24+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/services.html</loc>
+<lastmod>2025-10-02T12:28:34+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/spiral-way.html</loc>
+<lastmod>2025-09-29T23:00:18+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/the-age-of-noise.html</loc>
+<lastmod>2025-09-29T22:28:42+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/the-self-that-dies.html</loc>
+<lastmod>2025-09-29T23:15:12+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/too-late.html</loc>
+<lastmod>2025-09-29T23:07:44+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/triadism.html</loc>
+<lastmod>2025-09-29T23:22:46+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/truth-was-never-a-fact.html</loc>
+<lastmod>2025-09-29T22:21:30+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/wait.html</loc>
+<lastmod>2025-09-30T12:18:02+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.shunyapublications.com/images/littods.pdf</loc>
+<lastmod>2025-10-02T00:03:17+05:30</lastmod>
+</url>
 </urlset>
