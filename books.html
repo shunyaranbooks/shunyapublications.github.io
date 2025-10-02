@@ -156,12 +156,15 @@
     @media(max-width:980px){.hero{grid-template-columns:1fr}.features{grid-template-columns:1fr 1fr}}
     @media(max-width:720px){.features{grid-template-columns:1fr}}
     /* Books grid: responsive columns */
-@media (max-width: 980px){
-  #booksGrid { grid-template-columns: repeat(2,1fr) !important; }
-}
-@media (max-width: 720px){
-  #booksGrid { grid-template-columns: 1fr !important; }
-}
+    @media (max-width: 980px){
+      #booksGrid { grid-template-columns: repeat(2,1fr) !important; }
+    }
+    @media (max-width: 720px){
+      #booksGrid { grid-template-columns: 1fr !important; }
+    }
+
+    /* Keep PDF canvases tidy inside modal (no toolbar/download UI) */
+    .pdfPages canvas{display:block;margin:0 auto 12px;max-width:100%;height:auto;box-shadow:var(--shadow-soft);border:1px solid var(--line);border-radius:8px}
   </style>
 </head>
 <body>
@@ -329,7 +332,6 @@
         <div class="stack" style="gap:12px">
          <div id="booksGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
            
-
             <!-- Book 1: The Echoveil -->
             <div>
               <p style="margin:.2rem 0 1rem;">
@@ -398,7 +400,8 @@
       <div id="previewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;" role="dialog" aria-modal="true" aria-label="Book preview">
         <div style="background:#fff; padding:10px; border-radius:12px; max-width:90%; max-height:90%; position:relative;">
           <button onclick="closePreview()" aria-label="Close preview" style="position:absolute; top:8px; right:12px; border:none; background:#ff4d4d; color:#fff; padding:6px 10px; border-radius:6px; cursor:pointer;">✖</button>
-          <embed src="echo.pdf#view=FitH" type="application/pdf" title="Preview — The Echoveil PDF" style="width:80vw; height:80vh; border:none;" />
+          <!-- Replaced EMBED with canvas container (no download UI) -->
+          <div id="pdfEcho" class="pdfPages" style="width:80vw; height:80vh; border:none; overflow:auto;"></div>
         </div>
       </div>
 
@@ -406,7 +409,8 @@
       <div id="previewModal2" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;" role="dialog" aria-modal="true" aria-label="Book preview">
         <div style="background:#fff; padding:10px; border-radius:12px; max-width:90%; max-height:90%; position:relative;">
           <button onclick="closePreview2()" aria-label="Close preview" style="position:absolute; top:8px; right:12px; border:none; background:#ff4d4d; color:#fff; padding:6px 10px; border-radius:6px; cursor:pointer;">✖</button>
-          <embed src="images/littods.pdf#view=FitH" type="application/pdf" title="Preview — Love in the Time of Dalal Street PDF" style="width:80vw; height:80vh; border:none;" />
+          <!-- Replaced EMBED with canvas container (no download UI) -->
+          <div id="pdfLittods" class="pdfPages" style="width:80vw; height:80vh; border:none; overflow:auto;"></div>
         </div>
       </div>
 
@@ -414,7 +418,8 @@
       <div id="previewModal3" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;" role="dialog" aria-modal="true" aria-label="Book preview">
         <div style="background:#fff; padding:10px; border-radius:12px; max-width:90%; max-height:90%; position:relative;">
           <button onclick="closePreview3()" aria-label="Close preview" style="position:absolute; top:8px; right:12px; border:none; background:#ff4d4d; color:#fff; padding:6px 10px; border-radius:6px; cursor:pointer;">✖</button>
-          <embed src="images/01.pdf#view=FitH" type="application/pdf" title="Preview — 0≠1 PDF" style="width:80vw; height:80vh; border:none;" />
+          <!-- Replaced EMBED with canvas container (no download UI) -->
+          <div id="pdf01" class="pdfPages" style="width:80vw; height:80vh; border:none; overflow:auto;"></div>
         </div>
       </div>
 
@@ -444,13 +449,60 @@
     </div>
   </footer>
 
+  <!-- PDF.js (adds preview with no download toolbar) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <script>
     // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Modal
-    function openPreview(){ document.getElementById('previewModal').style.display = 'flex'; }
+    // PDF.js worker
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+    // Render helper: draws all pages to canvas (no native viewer toolbar)
+    async function renderPdf(url, containerId){
+      const container = document.getElementById(containerId);
+      if (!container || container.dataset.rendered === '1') return;
+      const loadingTask = pdfjsLib.getDocument(url);
+      const pdf = await loadingTask.promise;
+      const scale = 1.2;
+
+      for (let p = 1; p <= pdf.numPages; p++){
+        const page = await pdf.getPage(p);
+        const viewport = page.getViewport({ scale });
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        container.appendChild(canvas);
+        await page.render({ canvasContext: ctx, viewport }).promise;
+      }
+      container.dataset.rendered = '1';
+    }
+
+    // Override open functions to render PDFs (structure/style unchanged)
+    function openPreview(){
+      document.getElementById('previewModal').style.display = 'flex';
+      renderPdf('echo.pdf', 'pdfEcho');
+    }
     function closePreview(){ document.getElementById('previewModal').style.display = 'none'; }
+
+    function openPreview2(){
+      document.getElementById('previewModal2').style.display = 'flex';
+      renderPdf('images/littods.pdf', 'pdfLittods');
+    }
+    function closePreview2(){ document.getElementById('previewModal2').style.display = 'none'; }
+
+    function openPreview3(){
+      document.getElementById('previewModal3').style.display = 'flex';
+      renderPdf('images/01.pdf', 'pdf01');
+    }
+    function closePreview3(){ document.getElementById('previewModal3').style.display = 'none'; }
+
+    // Optional: discourage easy right-click save on canvases (not bulletproof)
+    document.addEventListener('contextmenu', function(e){
+      if (e.target.closest('.pdfPages')) e.preventDefault();
+    });
   </script>
 </body>
 </html>
