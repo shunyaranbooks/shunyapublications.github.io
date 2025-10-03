@@ -3,7 +3,7 @@ Date: 2025-10-02
 
 This pack lets independent researchers evaluate the **Spiral Question Ladder** without needing the creator’s ongoing involvement.
 
-## 1) One-paragraph summary
+## 1) Summary
 Spiral Question Ladder is a five-layer inquiry scaffold—**Clarifying → Causal → Ethical → Transformational → Meta**—designed to shift thinking from answers to *reframing*. It is an **integrative** framework (not a new construct): the layers map to conceptual clarity, systems/causal reasoning, moral reasoning, redesign/innovation, and metacognition/epistemic cognition. The distinctive mechanism is **mandatory Ethics + Meta + Recursion** (loop-backs), which should increase **question depth, transfer, and redesign quality** in classrooms, teams, and dialogues.
 
 ## 2) Theory of change (text schematic)
