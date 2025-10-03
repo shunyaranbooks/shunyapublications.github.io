@@ -50,10 +50,14 @@
     .cols{display:grid;gap:16px;grid-template-columns:1fr 1fr}
     @media (max-width:900px){.hero{grid-template-columns:1fr}.g2,.g3,.g4,.cols{grid-template-columns:1fr}}
 
-    /* --- tiny topbar for logo --- */
-    .topbar{position:sticky;top:0;z-index:50;background:rgba(11,12,16,.8);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08)}
-    .topbar-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:8px 24px}
-    .topbar img{height:34px;width:34px;border-radius:8px;display:block}
+    /* ---- Site menu (same links as home) ---- */
+    .nav{position:sticky;top:0;z-index:60;background:rgba(11,12,16,.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+    .nav-inner{max-width:1180px;margin:auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;gap:12px;align-items:center;color:#e8edf1}
+    .brand img{height:38px;width:38px;border-radius:10px;box-shadow:var(--shadow)}
+    .brand span{font-weight:800}
+    .menu a{margin-left:18px;color:#c9d3df;font-weight:600}
+    .menu a:hover{color:#fff}
 
     /* --- viewer styles --- */
     .sv-wrap{margin-top:24px}
@@ -63,7 +67,7 @@
     .sv-article{box-sizing:border-box;max-width:100%;padding:18px}
     .markdown-body{box-sizing:border-box;max-width:100%}
     .sv-inputs{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
-    .sv-inputs input{min-width:220px}
+    .sv-inputs input{min-width:240px}
   </style>
 
   <script type="application/ld+json">
@@ -79,13 +83,24 @@
 </head>
 <body>
 
-  <!-- logo topbar -->
-  <div class="topbar">
-    <div class="topbar-inner">
-      <a href="/"><img src="/images/Logosh.png" alt="Shunya Publications logo"></a>
-      <strong>Shunya Publications</strong>
+  <!-- Global nav -->
+  <nav class="nav" aria-label="Global">
+    <div class="nav-inner">
+      <a class="brand" href="/">
+        <img src="/images/Logosh.png" alt="Shunya Publications Logo">
+        <span>Shunya Publications</span>
+      </a>
+      <div class="menu" role="navigation">
+        <a href="/index.html">Home</a>
+        <a href="/books.html">Books</a>
+        <a href="/journal.html">Journals</a>
+        <a href="/services.html">Services</a>
+        <a href="/ipaas.html">IPaaS</a>
+        <a href="/memory-journals.html">Memory Journals</a>
+        <a href="/Horizon-Herald.html">Horizon Herald</a>
+      </div>
     </div>
-  </div>
+  </nav>
 
   <div class="wrap">
     <!-- HERO -->
@@ -161,7 +176,7 @@
       <h3 class="h3">From yes/no to multidimensional</h3>
       <div class="cols">
         <div>
-          <p>Start with a flat question (“Should school start later?”), spiral it across five layers—definitions, causes, ethics, redesign, and blind spots—to expose systems, values, and frames.</p>
+          <p>Start with a flat question (“Should school start later?”), spiral it across five layers—definitions, causes, ethics, redesign, and blind spots.</p>
           <p class="badge">Outcome: not memory training—<em>perception training</em>.</p>
         </div>
         <div>
@@ -218,29 +233,8 @@ META — Why do we always adjust time, not format?
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="section card" style="padding:20px">
-      <div class="kicker">FAQ</div>
-      <h3 class="h3">Quick answers</h3>
-      <details><summary>Is this different from Bloom/DoK/Socratic?</summary>
-        <p>Yes — Spiral mandates <em>Ethical</em> and <em>Meta</em> layers and uses <em>recursion</em> (loop-backs). It’s a portable loop for classrooms, meetings, coaching, and strategy.</p>
-      </details>
-      <details><summary>Can I use this in a curriculum or retreat?</summary>
-        <p>Absolutely. See the templates and facilitation guides in the ZIP; start with 60–90 minute spirals or “micro-spirals” (Ethical→Meta).</p>
-      </details>
-      <details><summary>Where do I report results or get in touch?</summary>
-        <p style="margin:.8rem 0 0;">
-    Email:
-    <a href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com&subject=Submission%20%E2%80%94%20%5BYour%20Name%5D%20%E2%80%94%20%5BBook%20Title%5D">
-      editor@shunyapublications.com
-    </a>
-    <span class="meta"> (CC: shunya.ran.books@gmail.com)</span>
-  </p>
-      </details>
-    </section>
-
     <!-- Researcher Pack — Online Viewer -->
-    <section class="section card sv-wrap" aria-labelledby="sv-title" style="padding:18px">
+    <section id="viewer" class="section card sv-wrap" aria-labelledby="sv-title" style="padding:18px">
       <div class="sv-head">
         <div>
           <div class="kicker">Researcher Pack</div>
@@ -253,17 +247,12 @@ META — Why do we always adjust time, not format?
       </div>
 
       <nav class="sv-nav" aria-label="Pack files">
-        <!-- Use exact names that exist in your kit -->
         <a href="?file=README.md">README</a>
         <a href="?file=Timeline_Budget.md">Timeline_Budget.md</a>
-        <!-- Add more like:
-        <a href="?file=Protocols/Study_Guide.md">Protocols / Study_Guide.md</a>
-        <a href="?file=Surveys/Teacher_Survey.md">Surveys / Teacher_Survey.md</a>
-        -->
       </nav>
 
       <div class="sv-inputs">
-        <input id="sv-file" type="text" placeholder="Or type a path, e.g. Protocols/Overview.md">
+        <input id="sv-file" type="text" placeholder="Type a path, e.g. Consent/Adult_Consent_Template.md">
         <button class="btn" id="sv-open">Open</button>
         <button class="btn" id="sv-copylink">Copy shareable link</button>
       </div>
@@ -309,7 +298,7 @@ META — Why do we always adjust time, not format?
   <script src="https://cdn.jsdelivr.net/npm/marked@11/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/common.min.js"></script>
 
-  <!-- Viewer logic -->
+  <!-- Viewer logic (path normalization + scroll into view) -->
   <script>
   (function(){
     const BASE = "/spiral-question-ladder/Spiral_Researcher_Pack/";
@@ -317,22 +306,29 @@ META — Why do we always adjust time, not format?
     const input = document.getElementById("sv-file");
     const btnOpen = document.getElementById("sv-open");
     const btnCopy = document.getElementById("sv-copylink");
+    const viewerSection = document.getElementById("viewer");
 
     function getParamFile(){
-      const p = new URLSearchParams(location.search).get("file");
-      return (p && p.trim()) || "README.md";
+      const p = new URLSearchParams(location.search).get("file") || "README.md";
+      return sanitizePath(decodeURIComponent(p));
     }
 
-    function joinPath(...parts){
-      return parts.join("/").replace(/\/+/g,"/").replace(/\/\.\//g,"/").replace(/\/[^\/]+\/\.\.\//g,"/");
+    // Normalize: collapse spaces, fix "Consent /File.md", backslashes, strip "../"
+    function sanitizePath(p){
+      p = (p || "").replace(/\\/g,"/").replace(/\s*\/\s*/g,"/").replace(/\s+/g," ").trim();
+      p = p.replace(/^\/+/,"");            // no leading slash
+      while (p.includes("../")) p = p.replace("../",""); // prevent escaping base
+      return p;
     }
 
-    function isAbsolute(href){
-      return /^(https?:)?\/\//i.test(href) || href.startsWith("/") || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:");
+    function joinPath(){
+      return Array.from(arguments).join("/").replace(/\/+/g,"/").replace(/^\/+/, "/");
     }
+
+    function isAbs(h){ return /^(https?:)?\/\//i.test(h) || h.startsWith("/") || h.startsWith("#") || h.startsWith("mailto:") || h.startsWith("tel:"); }
 
     async function load(file){
-      const clean = file.replace(/^\//,"");
+      const clean = sanitizePath(file || "README.md");
       const url = BASE + clean;
       input.value = clean;
 
@@ -341,7 +337,6 @@ META — Why do we always adjust time, not format?
         if(!res.ok) throw new Error(res.status + " " + res.statusText);
         const md = await res.text();
 
-        // render
         marked.setOptions({
           highlight(code,lang){
             try { return hljs.highlight(code, {language: lang}).value; }
@@ -350,76 +345,72 @@ META — Why do we always adjust time, not format?
         });
         mdEl.innerHTML = marked.parse(md);
 
-        // compute current dir for relative assets
-        const dir = clean.replace(/[^\/]*$/,""); // e.g., "Protocols/"
+        // current directory (for relative assets inside MD)
+        const dir = clean.replace(/[^\/]*$/,"");
 
-        // fix images and links to assets
+        // fix images
         mdEl.querySelectorAll("img").forEach(img=>{
           const src = img.getAttribute("src") || "";
-          if(!isAbsolute(src)){
-            img.src = joinPath(BASE, dir, src);
-          }
+          if(!isAbs(src)) img.src = joinPath(BASE, dir, src);
         });
 
-        // convert markdown links to other .md files into in-page loads
+        // intra-pack links
         mdEl.querySelectorAll("a").forEach(a=>{
           const href = a.getAttribute("href") || "";
-          if(isAbsolute(href)) return;
-
-          const dest = joinPath(dir, href);
-
+          if(isAbs(href)) return;
+          const dest = sanitizePath(joinPath(dir, href));
           if(/\.(md|markdown)$/i.test(dest)){
-            a.href = `?file=${dest}`;
-            a.addEventListener("click",(e)=>{
+            a.href = `?file=${encodeURIComponent(dest)}`;
+            a.addEventListener("click", (e)=>{
               e.preventDefault();
               history.pushState({}, "", a.href);
               route();
             });
           }else{
-            // non-md asset (csv, pdf, png, etc.)
             a.href = joinPath(BASE, dest);
           }
         });
 
+        // update URL + title, then scroll viewer into view
+        const u = new URL(location.href);
+        u.searchParams.set("file", clean);
+        history.replaceState({}, "", u.toString());
         document.title = `${clean.replace(/\.md$/i,"")} — Spiral Question Ladder | Shunya Publications`;
-        const urlObj = new URL(location.href);
-        urlObj.searchParams.set("file", clean);
-        history.replaceState({}, "", urlObj.toString());
+        viewerSection.scrollIntoView({behavior:"smooth", block:"start"});
       }catch(err){
         mdEl.innerHTML = `
           <p>❌ Could not load <code>${url}</code>.</p>
-          <p>Try one of these:</p>
+          <p>Check filename/case. Examples:</p>
           <ul>
             <li><a href="?file=README.md">README.md</a></li>
             <li><a href="?file=Timeline_Budget.md">Timeline_Budget.md</a></li>
+            <li><a href="?file=Consent/Adult_Consent_Template.md">Consent/Adult_Consent_Template.md</a></li>
           </ul>`;
+        viewerSection.scrollIntoView({behavior:"smooth", block:"start"});
       }
     }
 
     function route(){ load(getParamFile()); }
 
-    // open by typing a path
-    btnOpen.addEventListener("click", ()=>{
-      const f = (input.value || "").trim();
-      if(f) { history.pushState({}, "", `?file=${f}`); route(); }
+    // Open via button or Enter key
+    btnOpen.addEventListener("click", ()=> {
+      const f = sanitizePath(input.value);
+      if(f){ history.pushState({}, "", `?file=${encodeURIComponent(f)}`); route(); }
     });
+    input.addEventListener("keydown",(e)=>{ if(e.key === "Enter"){ e.preventDefault(); btnOpen.click(); } });
 
-    // copy shareable link
+    // Copy shareable link
     btnCopy.addEventListener("click", async ()=>{
       const urlObj = new URL(location.href);
-      urlObj.searchParams.set("file", (input.value || getParamFile()).trim());
-      try{
-        await navigator.clipboard.writeText(urlObj.toString());
-        alert("Link copied");
-      }catch{
-        alert("Copy failed; copy from the address bar.");
-      }
+      urlObj.searchParams.set("file", sanitizePath(input.value || getParamFile()));
+      try{ await navigator.clipboard.writeText(urlObj.toString()); alert("Link copied"); }
+      catch{ alert("Copy failed; copy from the address bar."); }
     });
 
     // handle back/forward
     window.addEventListener("popstate", route);
 
-    // intercept clicks on the nav buttons (they use ?file=…)
+    // intercept clicks on the small nav (README / Timeline)
     document.querySelectorAll(".sv-nav a").forEach(a=>{
       a.addEventListener("click",(e)=>{
         e.preventDefault();
