@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Research — Single‑File (Forms Foundry Lite)</title>
+  <meta name="description" content="Single-file site with an embedded Forms Foundry Lite: extract ideals, reforge blueprints, and publish—all in one HTML.">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <meta name="theme-color" content="#1565ff">
+  <style>
+    :root{
+      --bg:#ffffff;--bg-1:#fff9f1;--bg-2:#f3f9ff;--bg-3:#eef9f5;
+      --text:#142036;--muted:#5a6b88;--line:#e6ecf5;--brand:#1565ff;--brand2:#ff7a3d;--accent:#7d4dff;--ok:#15a085;
+      --radius:16px;--radius-lg:20px;--shadow:0 12px 30px rgba(21,101,255,.10);--ring:0 0 0 4px rgba(21,101,255,.16);
+      --font:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:var(--font);color:var(--text);background:var(--bg);
+      background:
+        radial-gradient(1100px 620px at 10% -10%, var(--bg-1) 0%, #fff 60%),
+        radial-gradient(1200px 720px at 110% 110%, var(--bg-2) 0%, #fff 55%),
+        radial-gradient(1000px 650px at -10% 120%, var(--bg-3) 0%, #fff 50%);
+    }
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1180px;margin:auto;padding:0 20px}
+    .section{padding:64px 0;border-top:1px solid var(--line)}
+    .section:first-of-type{border-top:none}
+    .nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand img{height:42px;width:42px;border-radius:10px;box-shadow:var(--shadow)}
+    .brand span{font-weight:800}
+    .menu a{margin-left:18px;color:var(--muted);font-weight:600}
+    .menu a:hover{color:var(--text)}
+
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;padding:72px 0 36px}
+    .title{font-size:clamp(2rem,3.2vw,2.75rem);line-height:1.12;margin:6px 0}
+    .subtitle{color:#2a3b5c;opacity:.95;max-width:68ch}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+    .card-lg{padding:20px;border-radius:var(--radius-lg)}
+    .eyebrow{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .stack{display:flex;flex-direction:column;gap:14px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600}
+    .btn:hover{box-shadow:var(--ring)}
+    .btn.brand{background:linear-gradient(180deg,#f7fbff,#eaf2ff);border-color:#dbe7ff}
+    .btn.outline{background:#fff}
+    .btn.soft{background:linear-gradient(180deg,#fff,#f9fbff)}
+
+    .rgrid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media (min-width:980px){.rgrid{grid-template-columns:1fr 1fr}}
+    .rcard{position:relative;overflow:hidden}
+    .rcard .pill{position:absolute;top:12px;right:12px;font-size:.75rem;padding:6px 10px;border-radius:999px;background:#f0f6ff;border:1px solid #dbe7ff;color:#1565ff;font-weight:700}
+    .actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px;clear:both}
+
+    /* --- Forms Foundry Lite (software widget) --- */
+    .studio{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .studio textarea{width:100%;min-height:200px;padding:12px;border-radius:12px;border:1px solid var(--line);font:14px/1.5 var(--font)}
+    .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+    .kicker{color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:12px}
+    .list{margin:0;padding-left:18px}
+    .tag{display:inline-block;margin:2px 6px 0 0;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#fff}
+    .good{border-color:#cfeee3;background:#f2fbf8}
+    .risk{border-color:#ffe2cc;background:#fff7f1}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .mono{font-family:ui-monospace,SFMono-Regular,Consolas,Menlo,monospace;font-size:13px}
+    @media (max-width:980px){.studio{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav" aria-label="Global">
+    <div class="container nav-inner">
+      <a class="brand" href="#top"><img src="/images/Logosh.png" alt="Shunya Publications Logo"><span>Shunya Publications</span></a>
+      <div class="menu" role="navigation">
+        <a href="/index.html">Home</a>
+        <a href="/services.html">Services</a>
+        <a href="#projects">Research</a>
+        <a href="/spiral-question-ladder/">Spiral</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="section">
+    <div class="container hero">
+      <div>
+        <p class="eyebrow">Research</p>
+        <h1 class="title">Frameworks, Tools & Initiatives</h1>
+        <p class="subtitle">A single‑file site that also embeds a working prototype of <b>Forms Foundry Lite</b> — extract inherited ideals, reforge them, and publish a shareable blueprint.</p>
+        <div class="stack" style="flex-direction:row;gap:12px;flex-wrap:wrap;margin-top:10px">
+          <a class="btn brand" href="#studio">↓ Open Forms Foundry</a>
+          <a class="btn" href="mailto:editor@shunyapublications.com?subject=Research%20Collaboration%20Inquiry">✉️ Collaborate</a>
+          <a class="btn" href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">📖 Founder’s Books on Amazon</a>
+        </div>
+      </div>
+      <aside class="card card-lg" aria-label="Research visual">
+        <img src="/images/homeimg.png" alt="Abstract research visual" style="width:100%;border-radius:12px;border:1px solid var(--line)"/>
+      </aside>
+    </div>
+  </header>
+
+  <!-- PROJECTS (card + Spiral) -->
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="stack">
+        <div>
+          <p class="eyebrow">Projects</p>
+          <h2 style="margin:0 0 6px;font-size:clamp(1.5rem,1.8vw,1.9rem)">Current Research</h2>
+          <p style="margin:0">Explore our growing portfolio of research projects — each designed to produce practical tools, open frameworks, and ready‑to‑use resources for educators, researchers, and innovators.</p>
+        </div>
+
+        <div class="rgrid">
+          <article class="card card-lg rcard" style="background:linear-gradient(180deg, rgba(21,101,255,.06), #fff)">
+            <span class="pill">Active</span>
+            <h3 style="margin-top:0">Spiral Question Ladder</h3>
+
+            <figure style="margin:0 0 10px 20px; float:right; max-width:260px">
+              <a href="https://www.shunyapublications.com/spiral-question-ladder/" target="_self" rel="noopener">
+                <img src="/images/spiralimg.png" alt="Spiral Question Ladder illustration" style="display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line)" loading="lazy"/>
+              </a>
+            </figure>
+
+            <p><b>See Differently. Think Deeper. Redesign Everything.</b> A five‑layer inquiry framework: <b>Clarifying → Causal → Ethical → Transformational → Meta</b>. Classroom‑ready; sprint‑ready.</p>
+
+            <div class="grid2">
+              <div class="card">
+                <b>Outcomes & measures</b>
+                <ul class="list">
+                  <li>Quality of framing ↑ (rubric: clarity, recursion, friction)</li>
+                  <li>Decision risk surfaced earlier</li>
+                  <li>Transfer to new domains within 2–3 spirals</li>
+                </ul>
+              </div>
+              <div class="card">
+                <b>Alignment</b>
+                <ul class="list">
+                  <li>Education: lesson design, debate maps</li>
+                  <li>Leadership: decision sprints, premortems</li>
+                  <li>Research: journaling, daily spiral habit</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="actions">
+              <a class="btn brand" href="/spiral-question-ladder/index.html">Open Project</a>
+              <a class="btn outline" href="/spiral-question-ladder/Spiral_Researcher_Pack.zip">⬇ Researcher Pack</a>
+              <a class="btn soft" href="/spiral-question-ladder/?file=README.md">Online Viewer</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOFTWARE: Forms Foundry Lite -->
+  <section id="studio" class="section">
+    <div class="container">
+      <div class="stack">
+        <div>
+          <p class="eyebrow">Software (Prototype)</p>
+          <h2 style="margin:0 0 6px;font-size:clamp(1.5rem,1.8vw,1.9rem)">Forms Foundry Lite</h2>
+          <p class="subtitle" style="margin:0">Paste text (policy, syllabus, brand deck, chapter). We’ll surface <i>candidate ideals</i>, risks, and a draft <i>Reforged Form</i> you can tweak and export. Runs entirely in this HTML file.</p>
+        </div>
+
+        <div class="card card-lg studio" role="region" aria-label="Forms Foundry Lite">
+          <div>
+            <label class="eyebrow" for="src">Source text</label>
+            <textarea id="src" placeholder="Paste text here… e.g., a policy or mission statement"></textarea>
+            <div class="toolbar">
+              <button class="btn brand" id="analyze">Analyze</button>
+              <button class="btn" id="clear">Clear</button>
+              <button class="btn outline" id="export">Export JSON</button>
+            </div>
+            <small class="mono">All analysis runs locally in your browser. No data leaves this page.</small>
+          </div>
+
+          <div class="stack">
+            <div class="card">
+              <b>Candidate Ideals</b>
+              <div id="ideals"></div>
+            </div>
+            <div class="card">
+              <b>Risks / Distortions</b>
+              <div id="risks"></div>
+            </div>
+            <div class="card">
+              <b>Reforged Form (editable)</b>
+              <div class="stack">
+                <input id="f-name" placeholder="Name (e.g., Success as Durable Value)" style="padding:12px;border-radius:12px;border:1px solid var(--line)">
+                <textarea id="f-claim" placeholder="Core claim — the essence of this ideal"></textarea>
+                <textarea id="f-practice" placeholder="Practices / rituals to live this Form"></textarea>
+                <textarea id="f-measures" placeholder="Measures — how we’ll know it’s working"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="section" style="padding:24px 0">
+    <div class="container" style="color:var(--muted)">
+      © <span id="y"></span> Shunya Publications · Built as a single HTML with embedded software.
+    </div>
+  </footer>
+
+  <script>
+    // Footer year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // --- Forms Foundry Lite logic (simple, local, no libs) ---
+    const src = document.getElementById('src');
+    const outIdeals = document.getElementById('ideals');
+    const outRisks = document.getElementById('risks');
+    const fName = document.getElementById('f-name');
+    const fClaim = document.getElementById('f-claim');
+    const fPractice = document.getElementById('f-practice');
+    const fMeasures = document.getElementById('f-measures');
+
+    const KEYWORDS = {
+      ideals:[
+        'justice','beauty','truth','freedom','dignity','merit','efficiency','growth','wellbeing','care','order','safety','security','innovation','excellence','discipline','loyalty','transparency','sustainability','equity','inclusion','privacy','authenticity','performance','success','harmony','service','respect','integrity'
+      ],
+      risks:[
+        ['efficiency','dehumanization'],['growth','extraction'],['discipline','rigidity'],['loyalty','conformity'],['merit','elitism'],
+        ['order','authoritarianism'],['safety','paternalism'],['performance','burnout'],['excellence','perfectionism'],['transparency','surveillance'],['authenticity','narcissism']
+      ]
+    };
+
+    function analyze(){
+      const text = (src.value||'').toLowerCase();
+      // crude token search
+      const found = new Set();
+      KEYWORDS.ideals.forEach(k=>{ if(text.includes(k)) found.add(k) });
+      // fallback: guess based on verbs/nouns
+      if(found.size===0 && text){
+        ['care','truth','justice','freedom','success','innovation','equity','excellence'].forEach(k=>{ if(text.match(new RegExp('\\b'+k+'\\b','i'))) found.add(k) });
+      }
+      renderTags(outIdeals, Array.from(found).sort(), 'good');
+
+      // risks based on pairs
+      const r = [];
+      KEYWORDS.risks.forEach(([k, risk])=>{ if(found.has(k)) r.push(risk) });
+      renderTags(outRisks, Array.from(new Set(r)).sort(), 'risk');
+
+      // seed a draft form
+      if(!fName.value) fName.value = suggestName(found);
+      if(!fClaim.value) fClaim.value = suggestClaim(found);
+      if(!fPractice.value) fPractice.value = suggestPractices(found);
+      if(!fMeasures.value) fMeasures.value = suggestMeasures(found);
+    }
+
+    function renderTags(node, items, cls){
+      node.innerHTML = items.length? items.map(x=>`<span class="tag ${cls}">${esc(x)}</span>`).join(' ') : '<span class="tag">—</span>';
+    }
+    function esc(s){ return (s+'').replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])) }
+
+    function suggestName(found){
+      if(found.has('success')) return 'Success as Durable Value';
+      if(found.has('efficiency')) return 'Efficiency with Dignity';
+      if(found.has('truth')) return 'Truth as Coherent Inquiry';
+      if(found.has('justice')) return 'Justice as Repair';
+      if(found.has('beauty')) return 'Beauty as Care of Attention';
+      if(found.has('freedom')) return 'Freedom with Responsibility';
+      return 'Reforged Form';
+    }
+    function suggestClaim(found){
+      const base = 'This Form reframes an inherited ideal to better serve human flourishing and long‑term coherence.';
+      if(found.has('success')) return base + ' Success is defined by durable value, repair, and community trust—not visibility alone.';
+      if(found.has('efficiency')) return base + ' Efficiency is pursued without trading away dignity, safety, or meaning.';
+      if(found.has('justice')) return base + ' Justice prioritizes repair over spectacle and prevention over punishment.';
+      if(found.has('truth')) return base + ' Truth emerges from open methods, reproducibility, and plural evidence.';
+      return base;
+    }
+    function suggestPractices(found){
+      const lines = [];
+      if(found.has('success')) lines.push('Replace vanity metrics with durability metrics (retention, repair rate, stewardship).');
+      if(found.has('efficiency')) lines.push('Timebox throughput but keep "human checks" for decisions affecting people.');
+      if(found.has('justice')) lines.push('Add a repair track to incident processes; include affected voices.');
+      lines.push('Run a monthly “shadow audit” to surface distortions of the ideal.');
+      return lines.join('\n');
+    }
+    function suggestMeasures(found){
+      const ms = [];
+      if(found.has('success')) ms.push('Stakeholder trust index, complaint resolution time, post‑launch defect half‑life.');
+      if(found.has('efficiency')) ms.push('Throughput vs. burnout proxy (attrition, sick leave, pulse survey).');
+      if(found.has('justice')) ms.push('Repair completion rate; recurrence after repair.');
+      ms.push('Qualitative: team narratives show alignment; fewer “workarounds”.');
+      return ms.join('\n');
+    }
+
+    document.getElementById('analyze').addEventListener('click', analyze);
+    document.getElementById('clear').addEventListener('click', ()=>{
+      src.value=''; outIdeals.innerHTML=''; outRisks.innerHTML='';
+      fName.value=''; fClaim.value=''; fPractice.value=''; fMeasures.value='';
+    });
+    document.getElementById('export').addEventListener('click', ()=>{
+      const payload = {
+        source: src.value, ideals: Array.from(document.querySelectorAll('#ideals .tag')).map(t=>t.textContent),
+        risks: Array.from(document.querySelectorAll('#risks .tag')).map(t=>t.textContent),
+        form: { name:fName.value, claim:fClaim.value, practices:fPractice.value, measures:fMeasures.value },
+        generatedAt: new Date().toISOString()
+      };
+      const blob = new Blob([JSON.stringify(payload,null,2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = Object.assign(document.createElement('a'), {href:url, download:'reforged-form.json'});
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
