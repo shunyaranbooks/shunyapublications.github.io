@@ -3,20 +3,43 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Research — Single‑File (Forms Foundry Lite)</title>
-  <meta name="description" content="Single-file site with an embedded Forms Foundry Lite: extract ideals, reforge blueprints, and publish—all in one HTML.">
+  <title>Forms Reforged — Form Foundry App</title>
+  <meta name="description" content="A large single‑file application based on Forms Reforged. Diagnose inherited ideals, extract essence, reforge blueprints, and export sharable artifacts." />
+  <link rel="canonical" href="https://www.shunyapublications.com/form.html" />
+
+  <!-- Favicons (reuse site assets if present) -->
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <meta name="theme-color" content="#1565ff">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Forms Reforged — Form Foundry App" />
+  <meta property="og:description" content="Diagnose, redesign, and publish the ideals you live by. Single‑page, offline‑ready." />
+  <meta property="og:image" content="https://www.shunyapublications.com/Logosh.png" />
+
   <style>
+    /* =========================
+       Shunya UI — Light Theme
+       ========================= */
     :root{
-      --bg:#ffffff;--bg-1:#fff9f1;--bg-2:#f3f9ff;--bg-3:#eef9f5;
-      --text:#142036;--muted:#5a6b88;--line:#e6ecf5;--brand:#1565ff;--brand2:#ff7a3d;--accent:#7d4dff;--ok:#15a085;
-      --radius:16px;--radius-lg:20px;--shadow:0 12px 30px rgba(21,101,255,.10);--ring:0 0 0 4px rgba(21,101,255,.16);
+      --bg:#ffffff; --bg-1:#fff9f1; --bg-2:#f3f9ff; --bg-3:#eef9f5;
+      --ink:#142036; --muted:#5a6b88; --line:#e6ecf5; --line-strong:#cfd8e6;
+      --brand:#1565ff; --brand-2:#ff7a3d; --brand-3:#15a085; --accent:#7d4dff; --gold:#f6b73c;
+      --ok:#18a37b; --warn:#e7a02c; --err:#e25b5b;
+      --shadow:0 12px 30px rgba(21,101,255,.10);
+      --shadow-soft:0 10px 24px rgba(20, 32, 54, .10);
+      --ring:0 0 0 4px rgba(21,101,255,.16);
+      --radius:16px; --radius-lg:20px;
       --font:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      --fs-hero: clamp(2rem, 3.2vw, 2.6rem);
+      --fs-h2: clamp(1.4rem, 1.8vw, 1.8rem);
+      --fs-h3: 1.1rem;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;font-family:var(--font);color:var(--text);background:var(--bg);
+    body{
+      margin:0; font-family:var(--font); color:var(--ink); background: var(--bg);
       background:
         radial-gradient(1100px 620px at 10% -10%, var(--bg-1) 0%, #fff 60%),
         radial-gradient(1200px 720px at 110% 110%, var(--bg-2) 0%, #fff 55%),
@@ -24,179 +47,279 @@
     }
     a{color:var(--brand);text-decoration:none}
     a:hover{text-decoration:underline}
+    img{max-width:100%;height:auto}
+
     .container{max-width:1180px;margin:auto;padding:0 20px}
-    .section{padding:64px 0;border-top:1px solid var(--line)}
+    .section{padding:64px 0; border-top:1px solid var(--line)}
     .section:first-of-type{border-top:none}
+    .stack{display:flex;flex-direction:column;gap:14px}
+
+    .card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow-soft)}
+    .card-lg{padding:20px;border-radius:var(--radius-lg)}
+    .eyebrow{font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--ink);font-weight:600}
+    .btn:hover{box-shadow:var(--ring)}
+    .btn:focus-visible{outline:none; box-shadow: var(--ring)}
+    .btn.primary{background:linear-gradient(180deg,#f7fbff,#eaf2ff); border-color:#dbe7ff}
+    .btn.ghost{background:#fff}
+    .btn.soft{background:linear-gradient(180deg,#fff,#fbfdff)}
+    .btn.warn{background:linear-gradient(180deg,#fff8f5,#fff); border-color:#ffd8be}
+
+    /* Nav */
     .nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
     .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     .brand{display:flex;gap:12px;align-items:center}
-    .brand img{height:42px;width:42px;border-radius:10px;box-shadow:var(--shadow)}
+    .brand img{height:42px;width:42px;border-radius:10px;box-shadow:var(--shadow-soft)}
     .brand span{font-weight:800}
     .menu a{margin-left:18px;color:var(--muted);font-weight:600}
-    .menu a:hover{color:var(--text)}
+    .menu a:hover{color:var(--ink)}
 
-    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;padding:72px 0 36px}
-    .title{font-size:clamp(2rem,3.2vw,2.75rem);line-height:1.12;margin:6px 0}
-    .subtitle{color:#2a3b5c;opacity:.95;max-width:68ch}
-    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
-    .card-lg{padding:20px;border-radius:var(--radius-lg)}
-    .eyebrow{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-    .stack{display:flex;flex-direction:column;gap:14px}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600}
-    .btn:hover{box-shadow:var(--ring)}
-    .btn.brand{background:linear-gradient(180deg,#f7fbff,#eaf2ff);border-color:#dbe7ff}
-    .btn.outline{background:#fff}
-    .btn.soft{background:linear-gradient(180deg,#fff,#f9fbff)}
+    /* Hero */
+    header{padding:72px 0 36px}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+    .title{font-size:var(--fs-hero);line-height:1.12;margin:6px 0}
+    .subtitle{color:#2a3b5c;opacity:.95;max-width:72ch}
+    .hero-card img{width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)}
 
-    .rgrid{display:grid;grid-template-columns:1fr;gap:16px}
-    @media (min-width:980px){.rgrid{grid-template-columns:1fr 1fr}}
-    .rcard{position:relative;overflow:hidden}
-    .rcard .pill{position:absolute;top:12px;right:12px;font-size:.75rem;padding:6px 10px;border-radius:999px;background:#f0f6ff;border:1px solid #dbe7ff;color:#1565ff;font-weight:700}
-    .actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px;clear:both}
+    /* Layout helpers */
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 
-    /* --- Forms Foundry Lite (software widget) --- */
-    .studio{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .studio textarea{width:100%;min-height:200px;padding:12px;border-radius:12px;border:1px solid var(--line);font:14px/1.5 var(--font)}
-    .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
-    .kicker{color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:12px}
-    .list{margin:0;padding-left:18px}
-    .tag{display:inline-block;margin:2px 6px 0 0;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#fff}
-    .good{border-color:#cfeee3;background:#f2fbf8}
-    .risk{border-color:#ffe2cc;background:#fff7f1}
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .mono{font-family:ui-monospace,SFMono-Regular,Consolas,Menlo,monospace;font-size:13px}
-    @media (max-width:980px){.studio{grid-template-columns:1fr}}
+    /* Foundry */
+    .foundry{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+    .foundry .panel{display:flex;flex-direction:column;gap:12px}
+    .field{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .input, textarea, select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);font:14px/1.5 var(--font)}
+    textarea{min-height:120px}
+    .tags{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#fff}
+    .tag.ok{background:#f2fbf8;border-color:#cfeee3}
+    .tag.risk{background:#fff7f1;border-color:#ffe2cc}
+
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap}
+    .mini{font-size:.85rem;color:var(--muted)}
+
+    /* Vault */
+    .vault-table{width:100%;border-collapse:collapse}
+    .vault-table th,.vault-table td{padding:10px;border-bottom:1px solid var(--line);text-align:left}
+
+    /* Print */
+    @media print{
+      .nav, .menu, .toolbar, .actions, .no-print{display:none !important}
+      body{background:#fff}
+      .card, .card-lg{box-shadow:none}
+    }
+
+    /* Responsiveness */
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .foundry{grid-template-columns:1fr}
+      .grid2{grid-template-columns:1fr}
+      .grid3, .grid4{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:720px){
+      .grid3, .grid4{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
   <!-- NAV -->
   <nav class="nav" aria-label="Global">
     <div class="container nav-inner">
-      <a class="brand" href="#top"><img src="/images/Logosh.png" alt="Shunya Publications Logo"><span>Shunya Publications</span></a>
+      <div class="brand">
+        <img src="/images/Logosh.png" alt="Shunya Publications Logo" />
+        <span>Shunya Publications</span>
+      </div>
       <div class="menu" role="navigation">
         <a href="/index.html">Home</a>
         <a href="/services.html">Services</a>
-        <a href="#projects">Research</a>
+        <a href="/research.html">Research</a>
         <a href="/spiral-question-ladder/">Spiral</a>
       </div>
     </div>
   </nav>
 
   <!-- HERO -->
-  <header class="section">
+  <header id="top" class="section">
     <div class="container hero">
       <div>
-        <p class="eyebrow">Research</p>
-        <h1 class="title">Frameworks, Tools & Initiatives</h1>
-        <p class="subtitle">A single‑file site that also embeds a working prototype of <b>Forms Foundry Lite</b> — extract inherited ideals, reforge them, and publish a shareable blueprint.</p>
-        <div class="stack" style="flex-direction:row;gap:12px;flex-wrap:wrap;margin-top:10px">
-          <a class="btn brand" href="#studio">↓ Open Forms Foundry</a>
-          <a class="btn" href="mailto:editor@shunyapublications.com?subject=Research%20Collaboration%20Inquiry">✉️ Collaborate</a>
-          <a class="btn" href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">📖 Founder’s Books on Amazon</a>
+        <p class="eyebrow">Forms Reforged</p>
+        <h1 class="title">Form Foundry — Diagnose, Reforge, Publish</h1>
+        <p class="subtitle">A big, single‑file application inspired by the book <i>Forms Reforged</i>. Map inherited ideals, extract their essence, design a better blueprint, and export artifacts you can share with teams, classrooms, and communities.</p>
+        <div class="stack" style="flex-direction:row; gap:12px; flex-wrap:wrap; margin-top:10px">
+          <a class="btn primary" href="#foundry">↓ Open Foundry</a>
+          <a class="btn" href="#vault">🔒 Vault</a>
+          <a class="btn ghost" href="#color">🎨 Color Codes</a>
         </div>
       </div>
-      <aside class="card card-lg" aria-label="Research visual">
-        <img src="/images/homeimg.png" alt="Abstract research visual" style="width:100%;border-radius:12px;border:1px solid var(--line)"/>
+      <aside class="card card-lg hero-card" aria-label="Forms visual">
+        <img src="/images/homeimg.png" alt="Abstract forms visual" />
       </aside>
     </div>
   </header>
 
-  <!-- PROJECTS (card + Spiral) -->
-  <section id="projects" class="section">
+  <!-- FOUNDY CORE -->
+  <section id="foundry" class="section">
     <div class="container">
       <div class="stack">
         <div>
-          <p class="eyebrow">Projects</p>
-          <h2 style="margin:0 0 6px;font-size:clamp(1.5rem,1.8vw,1.9rem)">Current Research</h2>
-          <p style="margin:0">Explore our growing portfolio of research projects — each designed to produce practical tools, open frameworks, and ready‑to‑use resources for educators, researchers, and innovators.</p>
+          <p class="eyebrow">Studio</p>
+          <h2 style="font-size:var(--fs-h2); margin:0 0 6px">Form Foundry</h2>
+          <p class="mini">Workflow: <b>Diagnose</b> → <b>Extract Essence</b> → <b>Reimagine</b> → <b>Embodiment</b> → <b>Measures</b> → <b>Publish</b></p>
         </div>
 
-        <div class="rgrid">
-          <article class="card card-lg rcard" style="background:linear-gradient(180deg, rgba(21,101,255,.06), #fff)">
-            <span class="pill">Active</span>
-            <h3 style="margin-top:0">Spiral Question Ladder</h3>
-
-            <figure style="margin:0 0 10px 20px; float:right; max-width:260px">
-              <a href="https://www.shunyapublications.com/spiral-question-ladder/" target="_self" rel="noopener">
-                <img src="/images/spiralimg.png" alt="Spiral Question Ladder illustration" style="display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line)" loading="lazy"/>
-              </a>
-            </figure>
-
-            <p><b>See Differently. Think Deeper. Redesign Everything.</b> A five‑layer inquiry framework: <b>Clarifying → Causal → Ethical → Transformational → Meta</b>. Classroom‑ready; sprint‑ready.</p>
-
-            <div class="grid2">
-              <div class="card">
-                <b>Outcomes & measures</b>
-                <ul class="list">
-                  <li>Quality of framing ↑ (rubric: clarity, recursion, friction)</li>
-                  <li>Decision risk surfaced earlier</li>
-                  <li>Transfer to new domains within 2–3 spirals</li>
-                </ul>
+        <div class="foundry">
+          <!-- Left column: Inputs / Wizard -->
+          <div class="panel">
+            <article class="card card-lg">
+              <div class="field">
+                <label class="eyebrow" for="f-topic">Ideal / Topic</label>
+                <input id="f-topic" class="input" placeholder="e.g., Success, Beauty, Justice, Freedom, Masculinity" />
               </div>
-              <div class="card">
-                <b>Alignment</b>
-                <ul class="list">
-                  <li>Education: lesson design, debate maps</li>
-                  <li>Leadership: decision sprints, premortems</li>
-                  <li>Research: journaling, daily spiral habit</li>
-                </ul>
+              <div class="field">
+                <label class="eyebrow" for="f-source">Source Text (optional)</label>
+                <textarea id="f-source" placeholder="Paste a policy, brand deck, syllabus, or chapter excerpt to analyze…"></textarea>
               </div>
-            </div>
+              <div class="toolbar">
+                <button id="btn-analyze" class="btn primary">Analyze</button>
+                <button id="btn-clear" class="btn ghost">Clear</button>
+                <button id="btn-autofill" class="btn soft">Autofill Demo</button>
+              </div>
+              <p class="mini">Local‑only: all computation runs in your browser. Nothing leaves this page.</p>
+            </article>
 
-            <div class="actions">
-              <a class="btn brand" href="/spiral-question-ladder/index.html">Open Project</a>
-              <a class="btn outline" href="/spiral-question-ladder/Spiral_Researcher_Pack.zip">⬇ Researcher Pack</a>
-              <a class="btn soft" href="/spiral-question-ladder/?file=README.md">Online Viewer</a>
-            </div>
-          </article>
+            <article class="card">
+              <b>Detected / Declared Ideals</b>
+              <div id="ideals" class="tags" aria-live="polite"></div>
+            </article>
+            <article class="card">
+              <b>Risk Patterns (when the ideal goes wrong)</b>
+              <div id="risks" class="tags" aria-live="polite"></div>
+            </article>
+
+            <article class="card">
+              <b>Extract the Essence</b>
+              <textarea id="f-essence" placeholder="What is timeless and worth preserving? (distill to 1–3 sentences)"></textarea>
+            </article>
+
+            <article class="card">
+              <b>Reimagine the Blueprint</b>
+              <textarea id="f-claim" placeholder="Core claim: redefine the ideal to serve human flourishing and long‑term coherence."></textarea>
+              <textarea id="f-principles" placeholder="Principles (3–7): rules of thumb that keep this Form alive."></textarea>
+              <textarea id="f-practices" placeholder="Practices / rituals: how to live the Form (daily/weekly/monthly)."></textarea>
+              <textarea id="f-measures" placeholder="Measures: how we’ll know it’s working (leading + lagging, quantitative + qualitative)."></textarea>
+            </article>
+
+            <article class="card">
+              <b>Embodiment Plan</b>
+              <div class="grid2">
+                <textarea id="f-actions30" placeholder="Next 30 days — experiments"></textarea>
+                <textarea id="f-actions90" placeholder="Next 90 days — scaling & governance"></textarea>
+              </div>
+            </article>
+
+            <article class="card">
+              <b>Attribution & License</b>
+              <div class="grid2">
+                <input id="f-author" class="input" placeholder="Author / Team (default: Shunya Publications)"/>
+                <select id="f-license" class="input">
+                  <option value="CC BY-SA 4.0" selected>CC BY‑SA 4.0</option>
+                  <option>CC BY 4.0</option>
+                  <option>All Rights Reserved</option>
+                </select>
+              </div>
+            </article>
+          </div>
+
+          <!-- Right column: Live Blueprint + Export -->
+          <div class="panel">
+            <article class="card card-lg">
+              <div class="field">
+                <label class="eyebrow" for="f-name">Name Your Reforged Form</label>
+                <input id="f-name" class="input" placeholder="e.g., Success as Durable Value" />
+              </div>
+              <div id="preview" class="stack" style="min-height:120px">
+                <!-- filled dynamically -->
+              </div>
+              <div class="toolbar actions no-print">
+                <button id="btn-save" class="btn primary">Save to Vault</button>
+                <button id="btn-md" class="btn">Export Markdown</button>
+                <button id="btn-json" class="btn ghost">Export JSON</button>
+                <button id="btn-print" class="btn soft">Print / PDF</button>
+              </div>
+            </article>
+
+            <article class="card">
+              <b>Starter Suggestions</b>
+              <div class="stack mini">
+                <div><b>Names</b>: Efficiency with Dignity · Justice as Repair · Beauty as Care of Attention · Truth as Coherent Inquiry · Freedom with Responsibility</div>
+                <div><b>Principles</b>: Clarity before speed · Repair over blame · Transparency without surveillance · Courage with care · Stewardship > extraction</div>
+                <div><b>Measures</b>: Durability, trust, recurrence after repair, burnout proxies, stakeholder narratives</div>
+              </div>
+            </article>
+
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SOFTWARE: Forms Foundry Lite -->
-  <section id="studio" class="section">
+  <!-- VAULT (localStorage) -->
+  <section id="vault" class="section">
     <div class="container">
       <div class="stack">
         <div>
-          <p class="eyebrow">Software (Prototype)</p>
-          <h2 style="margin:0 0 6px;font-size:clamp(1.5rem,1.8vw,1.9rem)">Forms Foundry Lite</h2>
-          <p class="subtitle" style="margin:0">Paste text (policy, syllabus, brand deck, chapter). We’ll surface <i>candidate ideals</i>, risks, and a draft <i>Reforged Form</i> you can tweak and export. Runs entirely in this HTML file.</p>
+          <p class="eyebrow">Library</p>
+          <h2 style="font-size:var(--fs-h2); margin:0 0 6px">Vault — Saved Forms</h2>
+          <p class="mini">Saved items live in your browser (localStorage). You can export / import to move between devices.</p>
         </div>
-
-        <div class="card card-lg studio" role="region" aria-label="Forms Foundry Lite">
-          <div>
-            <label class="eyebrow" for="src">Source text</label>
-            <textarea id="src" placeholder="Paste text here… e.g., a policy or mission statement"></textarea>
-            <div class="toolbar">
-              <button class="btn brand" id="analyze">Analyze</button>
-              <button class="btn" id="clear">Clear</button>
-              <button class="btn outline" id="export">Export JSON</button>
+        <article class="card card-lg">
+          <div class="toolbar no-print" style="justify-content:space-between">
+            <div class="field" style="gap:6px">
+              <input id="search" class="input" placeholder="Search name / topic…" style="min-width:220px"/>
+              <button id="btn-search" class="btn">Search</button>
+              <button id="btn-reset" class="btn ghost">Reset</button>
             </div>
-            <small class="mono">All analysis runs locally in your browser. No data leaves this page.</small>
+            <div class="field">
+              <input id="import-file" type="file" accept="application/json" class="no-print" />
+              <button id="btn-import" class="btn">Import JSON</button>
+              <button id="btn-export-all" class="btn ghost">Export All</button>
+              <button id="btn-wipe" class="btn warn">Wipe Vault</button>
+            </div>
           </div>
 
-          <div class="stack">
-            <div class="card">
-              <b>Candidate Ideals</b>
-              <div id="ideals"></div>
-            </div>
-            <div class="card">
-              <b>Risks / Distortions</b>
-              <div id="risks"></div>
-            </div>
-            <div class="card">
-              <b>Reforged Form (editable)</b>
-              <div class="stack">
-                <input id="f-name" placeholder="Name (e.g., Success as Durable Value)" style="padding:12px;border-radius:12px;border:1px solid var(--line)">
-                <textarea id="f-claim" placeholder="Core claim — the essence of this ideal"></textarea>
-                <textarea id="f-practice" placeholder="Practices / rituals to live this Form"></textarea>
-                <textarea id="f-measures" placeholder="Measures — how we’ll know it’s working"></textarea>
-              </div>
-            </div>
-          </div>
+          <div class="stack" id="vault-list" aria-live="polite"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOR CODES (from book guidance) -->
+  <section id="color" class="section">
+    <div class="container">
+      <div class="stack">
+        <div>
+          <p class="eyebrow">Design</p>
+          <h2 style="font-size:var(--fs-h2); margin:0 0 6px">Recommended Color Codes</h2>
+          <p class="mini">For chapter headings & quotes (Forms Reforged): Navy #1A1A80 · Plum #5D3A7A · Accents #B71C1C · Background #FAF9F6</p>
         </div>
 
+        <div class="grid4">
+          <div class="card" style="background:#FAF9F6">
+            <b>Background</b><br/>#FAF9F6
+          </div>
+          <div class="card" style="background:#1A1A80; color:#fff">
+            <b>Headings</b><br/>#1A1A80
+          </div>
+          <div class="card" style="background:#5D3A7A; color:#fff">
+            <b>Quotes</b><br/>#5D3A7A
+          </div>
+          <div class="card" style="background:#B71C1C; color:#fff">
+            <b>Accent</b><br/>#B71C1C
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -204,112 +327,339 @@
   <!-- FOOTER -->
   <footer class="section" style="padding:24px 0">
     <div class="container" style="color:var(--muted)">
-      © <span id="y"></span> Shunya Publications · Built as a single HTML with embedded software.
+      © <span id="y"></span> Shunya Publications · Form Foundry App (single HTML).
     </div>
   </footer>
 
   <script>
-    // Footer year
+    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // --- Forms Foundry Lite logic (simple, local, no libs) ---
-    const src = document.getElementById('src');
-    const outIdeals = document.getElementById('ideals');
-    const outRisks = document.getElementById('risks');
-    const fName = document.getElementById('f-name');
-    const fClaim = document.getElementById('f-claim');
-    const fPractice = document.getElementById('f-practice');
-    const fMeasures = document.getElementById('f-measures');
+    // --- Keyword heuristics (inspired by book themes) ---
+    const IDEAL_KEYWORDS = [
+      'justice','beauty','truth','freedom','dignity','merit','efficiency','growth','wellbeing','care','order','safety','security','innovation','excellence','discipline','loyalty','transparency','sustainability','equity','inclusion','privacy','authenticity','performance','success','harmony','service','respect','integrity','love','identity','masculinity','femininity','citizenship'
+    ];
+    const RISK_PAIRS = [
+      ['efficiency','dehumanization'], ['growth','extraction'], ['discipline','rigidity'], ['loyalty','conformity'], ['merit','elitism'],
+      ['order','authoritarianism'], ['safety','paternalism'], ['performance','burnout'], ['excellence','perfectionism'], ['transparency','surveillance'], ['authenticity','narcissism'], ['freedom','irresponsibility'], ['truth','dogmatism']
+    ];
 
-    const KEYWORDS = {
-      ideals:[
-        'justice','beauty','truth','freedom','dignity','merit','efficiency','growth','wellbeing','care','order','safety','security','innovation','excellence','discipline','loyalty','transparency','sustainability','equity','inclusion','privacy','authenticity','performance','success','harmony','service','respect','integrity'
-      ],
-      risks:[
-        ['efficiency','dehumanization'],['growth','extraction'],['discipline','rigidity'],['loyalty','conformity'],['merit','elitism'],
-        ['order','authoritarianism'],['safety','paternalism'],['performance','burnout'],['excellence','perfectionism'],['transparency','surveillance'],['authenticity','narcissism']
-      ]
-    };
+    // Elements
+    const topicEl = document.getElementById('f-topic');
+    const sourceEl = document.getElementById('f-source');
+    const idealsEl = document.getElementById('ideals');
+    const risksEl = document.getElementById('risks');
+    const essenceEl = document.getElementById('f-essence');
+    const claimEl = document.getElementById('f-claim');
+    const principlesEl = document.getElementById('f-principles');
+    const practicesEl = document.getElementById('f-practices');
+    const measuresEl = document.getElementById('f-measures');
+    const actions30El = document.getElementById('f-actions30');
+    const actions90El = document.getElementById('f-actions90');
+    const authorEl = document.getElementById('f-author');
+    const licenseEl = document.getElementById('f-license');
+    const nameEl = document.getElementById('f-name');
+    const previewEl = document.getElementById('preview');
+
+    // Buttons
+    const analyzeBtn = document.getElementById('btn-analyze');
+    const clearBtn = document.getElementById('btn-clear');
+    const autofillBtn = document.getElementById('btn-autofill');
+    const saveBtn = document.getElementById('btn-save');
+    const mdBtn = document.getElementById('btn-md');
+    const jsonBtn = document.getElementById('btn-json');
+    const printBtn = document.getElementById('btn-print');
+
+    // Vault & search
+    const vaultList = document.getElementById('vault-list');
+    const searchEl = document.getElementById('search');
+    const searchBtn = document.getElementById('btn-search');
+    const resetBtn = document.getElementById('btn-reset');
+    const importFile = document.getElementById('import-file');
+    const importBtn = document.getElementById('btn-import');
+    const exportAllBtn = document.getElementById('btn-export-all');
+    const wipeBtn = document.getElementById('btn-wipe');
+
+    function esc(x){ return (x||'').replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])) }
 
     function analyze(){
-      const text = (src.value||'').toLowerCase();
-      // crude token search
+      const text = (sourceEl.value||'') + ' ' + (topicEl.value||'');
+      const t = text.toLowerCase();
       const found = new Set();
-      KEYWORDS.ideals.forEach(k=>{ if(text.includes(k)) found.add(k) });
-      // fallback: guess based on verbs/nouns
-      if(found.size===0 && text){
-        ['care','truth','justice','freedom','success','innovation','equity','excellence'].forEach(k=>{ if(text.match(new RegExp('\\b'+k+'\\b','i'))) found.add(k) });
+      IDEAL_KEYWORDS.forEach(k=>{ if(t.includes(k)) found.add(k) });
+      if(found.size===0 && topicEl.value){ // simple fallback
+        const tok = topicEl.value.toLowerCase().split(/\W+/).filter(Boolean);
+        tok.slice(0,3).forEach(k=>found.add(k));
       }
-      renderTags(outIdeals, Array.from(found).sort(), 'good');
+      idealsEl.innerHTML = Array.from(found).sort().map(k=>`<span class="tag ok">${esc(k)}</span>`).join(' ') || '<span class="mini">—</span>';
 
-      // risks based on pairs
-      const r = [];
-      KEYWORDS.risks.forEach(([k, risk])=>{ if(found.has(k)) r.push(risk) });
-      renderTags(outRisks, Array.from(new Set(r)).sort(), 'risk');
+      const rs = [];
+      RISK_PAIRS.forEach(([k,r])=>{ if(found.has(k)) rs.push(r) });
+      risksEl.innerHTML = Array.from(new Set(rs)).sort().map(r=>`<span class="tag risk">${esc(r)}</span>`).join(' ') || '<span class="mini">—</span>';
 
-      // seed a draft form
-      if(!fName.value) fName.value = suggestName(found);
-      if(!fClaim.value) fClaim.value = suggestClaim(found);
-      if(!fPractice.value) fPractice.value = suggestPractices(found);
-      if(!fMeasures.value) fMeasures.value = suggestMeasures(found);
+      if(!nameEl.value) nameEl.value = suggestName(found);
+      if(!claimEl.value) claimEl.value = suggestClaim(found);
+      if(!principlesEl.value) principlesEl.value = suggestPrinciples(found);
+      if(!practicesEl.value) practicesEl.value = suggestPractices(found);
+      if(!measuresEl.value) measuresEl.value = suggestMeasures(found);
+      if(!essenceEl.value) essenceEl.value = suggestEssence(found);
+
+      renderPreview();
     }
-
-    function renderTags(node, items, cls){
-      node.innerHTML = items.length? items.map(x=>`<span class="tag ${cls}">${esc(x)}</span>`).join(' ') : '<span class="tag">—</span>';
-    }
-    function esc(s){ return (s+'').replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])) }
 
     function suggestName(found){
-      if(found.has('success')) return 'Success as Durable Value';
-      if(found.has('efficiency')) return 'Efficiency with Dignity';
-      if(found.has('truth')) return 'Truth as Coherent Inquiry';
-      if(found.has('justice')) return 'Justice as Repair';
-      if(found.has('beauty')) return 'Beauty as Care of Attention';
-      if(found.has('freedom')) return 'Freedom with Responsibility';
-      return 'Reforged Form';
+      const f = Array.from(found);
+      if(f.includes('success')) return 'Success as Durable Value';
+      if(f.includes('efficiency')) return 'Efficiency with Dignity';
+      if(f.includes('justice')) return 'Justice as Repair';
+      if(f.includes('beauty')) return 'Beauty as Care of Attention';
+      if(f.includes('truth')) return 'Truth as Coherent Inquiry';
+      if(f.includes('freedom')) return 'Freedom with Responsibility';
+      return (topicEl.value? topicEl.value+': Reforged' : 'Reforged Form');
+    }
+    function suggestEssence(found){
+      if(found.has('success')) return 'We crave contribution that lasts and relationships that trust us—beyond visibility or speed.';
+      if(found.has('justice')) return 'A society heals when it prioritizes repair and prevention, not spectacle or retribution.';
+      return 'Distill the timeless insight worth preserving from the inherited ideal.';
     }
     function suggestClaim(found){
-      const base = 'This Form reframes an inherited ideal to better serve human flourishing and long‑term coherence.';
-      if(found.has('success')) return base + ' Success is defined by durable value, repair, and community trust—not visibility alone.';
-      if(found.has('efficiency')) return base + ' Efficiency is pursued without trading away dignity, safety, or meaning.';
-      if(found.has('justice')) return base + ' Justice prioritizes repair over spectacle and prevention over punishment.';
-      if(found.has('truth')) return base + ' Truth emerges from open methods, reproducibility, and plural evidence.';
+      const base='This Form reframes an inherited ideal to better serve human flourishing and long‑term coherence.';
+      if(found.has('success')) return base+' Success is defined by durable value, repair, and community trust—not visibility alone.';
+      if(found.has('efficiency')) return base+' Efficiency is pursued without trading away dignity, safety, or meaning.';
+      if(found.has('justice')) return base+' Justice prioritizes repair over spectacle and prevention over punishment.';
+      if(found.has('beauty')) return base+' Beauty widens attention and deepens care, not comparison.';
+      if(found.has('truth')) return base+' Truth emerges from open methods, reproducibility, and plural evidence.';
       return base;
     }
+    function suggestPrinciples(found){
+      const P = [];
+      P.push('Clarity before speed');
+      if(found.has('justice')) P.push('Repair over blame');
+      if(found.has('truth')) P.push('Methods over slogans');
+      if(found.has('efficiency')) P.push('Throughput without burnout');
+      P.push('Transparency without surveillance');
+      P.push('Stewardship over extraction');
+      return P.join('\n');
+    }
     function suggestPractices(found){
-      const lines = [];
+      const lines=[];
+      lines.push('Run a monthly shadow‑audit: where does the ideal distort? Document and repair.');
       if(found.has('success')) lines.push('Replace vanity metrics with durability metrics (retention, repair rate, stewardship).');
-      if(found.has('efficiency')) lines.push('Timebox throughput but keep "human checks" for decisions affecting people.');
+      if(found.has('efficiency')) lines.push('Timebox throughput but require human review for people‑impacting decisions.');
       if(found.has('justice')) lines.push('Add a repair track to incident processes; include affected voices.');
-      lines.push('Run a monthly “shadow audit” to surface distortions of the ideal.');
       return lines.join('\n');
     }
     function suggestMeasures(found){
-      const ms = [];
-      if(found.has('success')) ms.push('Stakeholder trust index, complaint resolution time, post‑launch defect half‑life.');
-      if(found.has('efficiency')) ms.push('Throughput vs. burnout proxy (attrition, sick leave, pulse survey).');
-      if(found.has('justice')) ms.push('Repair completion rate; recurrence after repair.');
-      ms.push('Qualitative: team narratives show alignment; fewer “workarounds”.');
+      const ms=[];
+      if(found.has('success')) ms.push('Trust index; complaint resolution time; post‑launch defect half‑life.');
+      if(found.has('efficiency')) ms.push('Throughput : burnout proxy (attrition, sick leave, pulse survey).');
+      if(found.has('justice')) ms.push('Repair completion %; recurrence rate after repair.');
+      ms.push('Qualitative: stakeholder narratives show alignment; fewer workarounds.');
       return ms.join('\n');
     }
 
-    document.getElementById('analyze').addEventListener('click', analyze);
-    document.getElementById('clear').addEventListener('click', ()=>{
-      src.value=''; outIdeals.innerHTML=''; outRisks.innerHTML='';
-      fName.value=''; fClaim.value=''; fPractice.value=''; fMeasures.value='';
-    });
-    document.getElementById('export').addEventListener('click', ()=>{
-      const payload = {
-        source: src.value, ideals: Array.from(document.querySelectorAll('#ideals .tag')).map(t=>t.textContent),
-        risks: Array.from(document.querySelectorAll('#risks .tag')).map(t=>t.textContent),
-        form: { name:fName.value, claim:fClaim.value, practices:fPractice.value, measures:fMeasures.value },
-        generatedAt: new Date().toISOString()
+    function renderPreview(){
+      const data = collect();
+      const md = toMarkdown(data);
+      previewEl.innerHTML = markdownToHTML(md);
+    }
+
+    function collect(){
+      return {
+        name: nameEl.value.trim(),
+        topic: topicEl.value.trim(),
+        ideals: Array.from(idealsEl.querySelectorAll('.tag')).map(t=>t.textContent.trim()),
+        risks: Array.from(risksEl.querySelectorAll('.tag')).map(t=>t.textContent.trim()),
+        essence: essenceEl.value.trim(),
+        claim: claimEl.value.trim(),
+        principles: principlesEl.value.trim(),
+        practices: practicesEl.value.trim(),
+        measures: measuresEl.value.trim(),
+        actions30: actions30El.value.trim(),
+        actions90: actions90El.value.trim(),
+        author: authorEl.value.trim() || 'Shunya Publications',
+        license: licenseEl.value,
+        createdAt: new Date().toISOString()
       };
-      const blob = new Blob([JSON.stringify(payload,null,2)], {type:'application/json'});
+    }
+
+    function toMarkdown(d){
+      const nl = (x)=> x ? x.replace(/\n/g,'\n\n') : '';
+      return `# ${d.name || 'Reforged Form'}\n\n`+
+      `**Topic:** ${d.topic||'—'}  \n`+
+      `**Author:** ${d.author}  \n`+
+      `**License:** ${d.license}  \n`+
+      `**Created:** ${new Date(d.createdAt).toLocaleString()}\n\n`+
+      `---\n\n`+
+      `### Essence\n${nl(d.essence) || '—'}\n\n`+
+      `### Core Claim\n${nl(d.claim) || '—'}\n\n`+
+      `### Principles\n${nl(d.principles) || '—'}\n\n`+
+      `### Practices / Rituals\n${nl(d.practices) || '—'}\n\n`+
+      `### Measures\n${nl(d.measures) || '—'}\n\n`+
+      `### First 30 / 90 Days\n- 30d: ${d.actions30||'—'}\n\n- 90d: ${d.actions90||'—'}\n\n`+
+      `### Ideals & Risks\n- Ideals: ${(d.ideals&&d.ideals.length)? d.ideals.join(', ') : '—'}\n- Risks: ${(d.risks&&d.risks.length)? d.risks.join(', ') : '—'}\n`;
+    }
+
+    function markdownToHTML(md){
+      // lightweight converter (headings, bold, lists, paragraphs)
+      let html = esc(md);
+      html = html.replace(/^### (.*)$/gm,'<h3>$1</h3>');
+      html = html.replace(/^## (.*)$/gm,'<h2>$1</h2>');
+      html = html.replace(/^# (.*)$/gm,'<h1>$1</h1>');
+      html = html.replace(/\*\*(.*?)\*\*/g,'<b>$1</b>');
+      html = html.replace(/^- (.*)$/gm,'<li>$1</li>');
+      html = html.replace(/(<li>.*<\/li>\n?)+/g, m=>`<ul>${m}</ul>`);
+      html = html.replace(/\n\n/g,'</p><p>');
+      return '<div class="stack"><p>'+html+'</p></div>';
+    }
+
+    function saveToVault(){
+      const d = collect();
+      const id = (d.name||'Reforged Form')+'::'+Date.now();
+      const all = JSON.parse(localStorage.getItem('forms_vault')||'{}');
+      all[id] = d; localStorage.setItem('forms_vault', JSON.stringify(all));
+      renderVault();
+      alert('Saved to Vault');
+    }
+
+    function renderVault(filter=''){
+      const all = JSON.parse(localStorage.getItem('forms_vault')||'{}');
+      const ids = Object.keys(all).sort((a,b)=> all[b].createdAt.localeCompare(all[a].createdAt));
+      const rows = ids.filter(id=>{
+        if(!filter) return true;
+        const x = all[id];
+        return (x.name+x.topic).toLowerCase().includes(filter.toLowerCase());
+      }).map(id=>{
+        const x = all[id];
+        return `<div class="card"><div class="grid2">
+          <div>
+            <b>${esc(x.name)}</b><br/>
+            <span class="mini">Topic:</span> ${esc(x.topic||'—')} · <span class="mini">Author:</span> ${esc(x.author)}<br/>
+            <span class="mini">Saved:</span> ${new Date(x.createdAt).toLocaleString()}
+          </div>
+          <div class="toolbar no-print" style="justify-content:flex-end">
+            <button class="btn" data-act="load" data-id="${esc(id)}">Load</button>
+            <button class="btn ghost" data-act="download-md" data-id="${esc(id)}">MD</button>
+            <button class="btn ghost" data-act="download-json" data-id="${esc(id)}">JSON</button>
+            <button class="btn warn" data-act="delete" data-id="${esc(id)}">Delete</button>
+          </div>
+        </div></div>`;
+      });
+      vaultList.innerHTML = rows.join('') || '<div class="mini">No saved forms yet.</div>';
+    }
+
+    function exportBlob(filename, text, type='text/plain'){
+      const blob = new Blob([text], {type});
       const url = URL.createObjectURL(blob);
-      const a = Object.assign(document.createElement('a'), {href:url, download:'reforged-form.json'});
-      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      const a = Object.assign(document.createElement('a'), {href:url, download:filename});
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 1000);
+    }
+
+    function exportJSON(d, name='reforged-form.json'){
+      exportBlob(name, JSON.stringify(d, null, 2), 'application/json');
+    }
+
+    function exportMD(d, name='reforged-form.md'){
+      exportBlob(name, toMarkdown(d), 'text/markdown');
+    }
+
+    // Events
+    analyzeBtn.addEventListener('click', analyze);
+    clearBtn.addEventListener('click', ()=>{
+      [topicEl, sourceEl, essenceEl, claimEl, principlesEl, practicesEl, measuresEl, actions30El, actions90El, authorEl, nameEl].forEach(el=>el.value='');
+      idealsEl.innerHTML = risksEl.innerHTML = '';
+      previewEl.innerHTML = '';
     });
+    autofillBtn.addEventListener('click', ()=>{
+      topicEl.value = 'Success';
+      sourceEl.value = 'We prioritize performance and growth with discipline and transparency to deliver excellence.';
+      analyze();
+    });
+
+    ;['input','keyup','change'].forEach(evt=>{
+      [nameEl, essenceEl, claimEl, principlesEl, practicesEl, measuresEl, actions30El, actions90El, authorEl].forEach(el=>{
+        el.addEventListener(evt, renderPreview);
+      });
+    });
+
+    saveBtn.addEventListener('click', saveToVault);
+    mdBtn.addEventListener('click', ()=> exportMD(collect()));
+    jsonBtn.addEventListener('click', ()=> exportJSON(collect()));
+    printBtn.addEventListener('click', ()=> window.print());
+
+    // Vault handlers
+    function handleVaultClick(e){
+      const btn = e.target.closest('button[data-act]');
+      if(!btn) return;
+      const act = btn.getAttribute('data-act');
+      const id = btn.getAttribute('data-id');
+      const all = JSON.parse(localStorage.getItem('forms_vault')||'{}');
+      const item = all[id];
+      if(!item) return;
+      if(act==='load'){
+        // load into editor
+        topicEl.value = item.topic||'';
+        nameEl.value = item.name||'';
+        authorEl.value = item.author||'';
+        essenceEl.value = item.essence||'';
+        claimEl.value = item.claim||'';
+        principlesEl.value = item.principles||'';
+        practicesEl.value = item.practices||'';
+        measuresEl.value = item.measures||'';
+        actions30El.value = item.actions30||'';
+        actions90El.value = item.actions90||'';
+        idealsEl.innerHTML = (item.ideals||[]).map(k=>`<span class='tag ok'>${esc(k)}</span>`).join(' ');
+        risksEl.innerHTML = (item.risks||[]).map(k=>`<span class='tag risk'>${esc(k)}</span>`).join(' ');
+        renderPreview();
+        window.scrollTo({top: document.getElementById('foundry').offsetTop - 60, behavior:'smooth'});
+      }
+      if(act==='download-md') exportMD(item, (item.name||'form')+'.md');
+      if(act==='download-json') exportJSON(item, (item.name||'form')+'.json');
+      if(act==='delete'){
+        if(confirm('Delete from Vault?')){ delete all[id]; localStorage.setItem('forms_vault', JSON.stringify(all)); renderVault(searchEl.value.trim()); }
+      }
+    }
+    vaultList.addEventListener('click', handleVaultClick);
+
+    searchBtn.addEventListener('click', ()=> renderVault(searchEl.value.trim()));
+    resetBtn.addEventListener('click', ()=>{ searchEl.value=''; renderVault(); });
+
+    importBtn.addEventListener('click', ()=>{
+      const file = importFile.files && importFile.files[0];
+      if(!file) return alert('Choose a JSON file first.');
+      const reader = new FileReader();
+      reader.onload = ()=>{
+        try{
+          const obj = JSON.parse(reader.result);
+          const all = JSON.parse(localStorage.getItem('forms_vault')||'{}');
+          if(Array.isArray(obj)){
+            obj.forEach((x,i)=> all[(x.name||'Imported')+'::'+(x.createdAt||Date.now()+i)] = x);
+          }else{
+            all[(obj.name||'Imported')+'::'+(obj.createdAt||Date.now())] = obj;
+          }
+          localStorage.setItem('forms_vault', JSON.stringify(all));
+          renderVault();
+          alert('Imported');
+        }catch(e){ alert('Invalid JSON'); }
+      };
+      reader.readAsText(file);
+    });
+
+    exportAllBtn.addEventListener('click', ()=>{
+      const all = JSON.parse(localStorage.getItem('forms_vault')||'{}');
+      exportJSON(all, 'forms_vault.json');
+    });
+
+    wipeBtn.addEventListener('click', ()=>{
+      if(confirm('This will delete all saved forms in this browser. Continue?')){
+        localStorage.removeItem('forms_vault');
+        renderVault();
+      }
+    });
+
+    // Initial
+    renderVault();
   </script>
 </body>
 </html>
