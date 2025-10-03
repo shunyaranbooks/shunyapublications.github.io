@@ -1,0 +1,13 @@
+variable,type,description
+site_id,string,School/Org code
+group_id,string,Class/Team code
+participant_id,string,Anonymous ID
+phase,string,baseline|spiral
+artifact_id,string,Unique artifact code
+recursion,int,1–5 score
+generativity,int,1–5 score
+friction,int,1–5 score
+layering,int,1–5 score
+meta_index,int,1–5 score
+rater_id,string,Rater code
+notes,string,Optional comments

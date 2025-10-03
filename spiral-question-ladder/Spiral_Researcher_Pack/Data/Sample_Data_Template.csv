@@ -1,0 +1,3 @@
+site_id,group_id,participant_id,phase,artifact_id,recursion,generativity,friction,layering,meta_index,rater_id,notes
+S1,ClassA,p001,baseline,A1,2,2,1,1,1,R1,BAU
+S1,ClassA,p001,spiral,S1,4,5,4,5,5,R1,Improved loop-backs
