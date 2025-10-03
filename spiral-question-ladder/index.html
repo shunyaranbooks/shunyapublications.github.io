@@ -1,5 +1,5 @@
-<!doctype html> 
-<html lang="en"> 
+<!doctype html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Spiral Question Ladder — See Differently. Think Deeper. Redesign Everything. | Shunya Publications</title>
@@ -50,12 +50,12 @@
     .cols{display:grid;gap:16px;grid-template-columns:1fr 1fr}
     @media (max-width:900px){.hero{grid-template-columns:1fr}.g2,.g3,.g4,.cols{grid-template-columns:1fr}}
 
-    /* --- tiny topbar for logo (added) --- */
+    /* --- tiny topbar for logo --- */
     .topbar{position:sticky;top:0;z-index:50;background:rgba(11,12,16,.8);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08)}
     .topbar-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:8px 24px}
     .topbar img{height:34px;width:34px;border-radius:8px;display:block}
 
-    /* --- viewer styles (added) --- */
+    /* --- viewer styles --- */
     .sv-wrap{margin-top:24px}
     .sv-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between}
     .sv-nav a{margin-right:10px;font-weight:600}
@@ -65,6 +65,7 @@
     .sv-inputs{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
     .sv-inputs input{min-width:220px}
   </style>
+
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -78,7 +79,7 @@
 </head>
 <body>
 
-  <!-- added: logo topbar -->
+  <!-- logo topbar -->
   <div class="topbar">
     <div class="topbar-inner">
       <a href="/"><img src="/images/Logosh.png" alt="Shunya Publications logo"></a>
@@ -103,7 +104,6 @@
       </div>
       <figure style="padding:20px">
         <div class="card" role="img" aria-label="Five-layer spiral diagram: Clarifying, Causal, Ethical, Transformational, Meta" style="height:100%;display:grid;place-items:center;padding:24px">
-          <!-- Lightweight SVG motif -->
           <svg viewBox="0 0 300 300" width="100%" height="100%" aria-hidden="true">
             <defs>
               <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
@@ -229,11 +229,17 @@ META — Why do we always adjust time, not format?
         <p>Absolutely. See the templates and facilitation guides in the ZIP; start with 60–90 minute spirals or “micro-spirals” (Ethical→Meta).</p>
       </details>
       <details><summary>Where do I report results or get in touch?</summary>
-        <p>Email: <a href="mailto:hello@shunyapublications.com">hello@shunyapublications.com</a> (replace with your preferred address).</p>
+        <p style="margin:.8rem 0 0;">
+    Email:
+    <a href="mailto:editor@shunyapublications.com?cc=shunya.ran.books@gmail.com&subject=Submission%20%E2%80%94%20%5BYour%20Name%5D%20%E2%80%94%20%5BBook%20Title%5D">
+      editor@shunyapublications.com
+    </a>
+    <span class="meta"> (CC: shunya.ran.books@gmail.com)</span>
+  </p>
       </details>
     </section>
 
-    <!-- ADDED: Researcher Pack — Online Viewer -->
+    <!-- Researcher Pack — Online Viewer -->
     <section class="section card sv-wrap" aria-labelledby="sv-title" style="padding:18px">
       <div class="sv-head">
         <div>
@@ -247,16 +253,17 @@ META — Why do we always adjust time, not format?
       </div>
 
       <nav class="sv-nav" aria-label="Pack files">
-        <!-- Update these names if needed to match your kit -->
+        <!-- Use exact names that exist in your kit -->
         <a href="?file=README.md">README</a>
-        <a href="?file=timeline_nudget.md">Timeline</a>
-        <a href="?file=Appendix_100_Prompts.md">100 Prompts</a>
-        <a href="?file=Templates.md">Templates</a>
-        <a href="?file=Spiral_Question_Generator.md">Generator</a>
+        <a href="?file=Timeline_Budget.md">Timeline_Budget.md</a>
+        <!-- Add more like:
+        <a href="?file=Protocols/Study_Guide.md">Protocols / Study_Guide.md</a>
+        <a href="?file=Surveys/Teacher_Survey.md">Surveys / Teacher_Survey.md</a>
+        -->
       </nav>
 
       <div class="sv-inputs">
-        <input id="sv-file" type="text" placeholder="Or type a path, e.g. notes/Session_Guide.md">
+        <input id="sv-file" type="text" placeholder="Or type a path, e.g. Protocols/Overview.md">
         <button class="btn" id="sv-open">Open</button>
         <button class="btn" id="sv-copylink">Copy shareable link</button>
       </div>
@@ -271,6 +278,7 @@ META — Why do we always adjust time, not format?
 
   <noscript><div class="wrap"><p>Please enable JavaScript to use the generator.</p></div></noscript>
 
+  <!-- generator logic -->
   <script>
   (function(){
     const t = document.getElementById('topic');
@@ -284,7 +292,7 @@ META — Why do we always adjust time, not format?
         `TRANSFORMATIONAL — What could we redesign? If we started over, how might ${topic} look different?`,
         `META — What assumptions frame our questions about “${topic}”? What are we not seeing?`
       ];
-      out.value = lines.join('\\n\\n');
+      out.value = lines.join('\n\n');
     });
     document.getElementById('copy').addEventListener('click', async ()=>{
       try{
@@ -295,72 +303,134 @@ META — Why do we always adjust time, not format?
   })();
   </script>
 
-  <!-- added: Markdown viewer deps -->
+  <!-- Markdown viewer deps -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.5.1/github-markdown.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@11/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/common.min.js"></script>
 
-  <!-- added: Viewer logic -->
+  <!-- Viewer logic -->
   <script>
-    (function(){
-      const FOLDER = 'Spiral_Researcher_Pack/';
-      const params = new URLSearchParams(location.search);
-      const initial = (params.get('file') || 'README.md').replace(/^\\/?/,'');
-      const el = document.getElementById('sv-md');
-      const input = document.getElementById('sv-file');
-      const openBtn = document.getElementById('sv-open');
-      const copyBtn = document.getElementById('sv-copylink');
+  (function(){
+    const BASE = "/spiral-question-ladder/Spiral_Researcher_Pack/";
+    const mdEl = document.getElementById("sv-md");
+    const input = document.getElementById("sv-file");
+    const btnOpen = document.getElementById("sv-open");
+    const btnCopy = document.getElementById("sv-copylink");
 
-      async function load(file){
-        const path = FOLDER + file;
-        input.value = file;
-        try{
-          const res = await fetch(path, {cache:'no-store'});
-          if(!res.ok) throw new Error('Not found');
-          const md = await res.text();
-          marked.setOptions({
-            highlight: (code, lang) => {
-              try { return hljs.highlight(code, {language: lang}).value; }
-              catch { return hljs.highlightAuto(code).value; }
-            }
-          });
-          el.innerHTML = marked.parse(md);
-          document.title = file.replace(/\\.md$/i,'') + ' — Spiral Question Ladder | Shunya Publications';
-          const url = new URL(location.href);
-          url.searchParams.set('file', file);
-          history.replaceState(null, '', url.toString());
-        } catch(e){
-          el.innerHTML = '<p>❌ Could not load <code>'+path+'</code>. Check the filename/case.</p>';
-        }
-      }
+    function getParamFile(){
+      const p = new URLSearchParams(location.search).get("file");
+      return (p && p.trim()) || "README.md";
+    }
 
-      openBtn.addEventListener('click', ()=> {
-        const f = (input.value || '').trim().replace(/^\\/?/,'');
-        if (f) load(f);
-      });
+    function joinPath(...parts){
+      return parts.join("/").replace(/\/+/g,"/").replace(/\/\.\//g,"/").replace(/\/[^\/]+\/\.\.\//g,"/");
+    }
 
-      copyBtn.addEventListener('click', async ()=> {
-        const url = new URL(location.href);
-        url.searchParams.set('file', (input.value || initial).trim());
-        try{
-          await navigator.clipboard.writeText(url.toString());
-          alert('Link copied');
-        }catch{ alert('Copy failed; manually copy the address bar.'); }
-      });
+    function isAbsolute(href){
+      return /^(https?:)?\/\//i.test(href) || href.startsWith("/") || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:");
+    }
 
-      // Handle clicks on the nav links (they use ?file=...)
-      document.querySelectorAll('.sv-nav a').forEach(a=>{
-        a.addEventListener('click', (e)=>{
-          e.preventDefault();
-          const u = new URL(a.href);
-          const f = (u.searchParams.get('file') || '').trim();
-          if (f) load(f);
+    async function load(file){
+      const clean = file.replace(/^\//,"");
+      const url = BASE + clean;
+      input.value = clean;
+
+      try{
+        const res = await fetch(url, {cache:"no-store"});
+        if(!res.ok) throw new Error(res.status + " " + res.statusText);
+        const md = await res.text();
+
+        // render
+        marked.setOptions({
+          highlight(code,lang){
+            try { return hljs.highlight(code, {language: lang}).value; }
+            catch { return hljs.highlightAuto(code).value; }
+          }
         });
-      });
+        mdEl.innerHTML = marked.parse(md);
 
-      load(initial);
-    })();
+        // compute current dir for relative assets
+        const dir = clean.replace(/[^\/]*$/,""); // e.g., "Protocols/"
+
+        // fix images and links to assets
+        mdEl.querySelectorAll("img").forEach(img=>{
+          const src = img.getAttribute("src") || "";
+          if(!isAbsolute(src)){
+            img.src = joinPath(BASE, dir, src);
+          }
+        });
+
+        // convert markdown links to other .md files into in-page loads
+        mdEl.querySelectorAll("a").forEach(a=>{
+          const href = a.getAttribute("href") || "";
+          if(isAbsolute(href)) return;
+
+          const dest = joinPath(dir, href);
+
+          if(/\.(md|markdown)$/i.test(dest)){
+            a.href = `?file=${dest}`;
+            a.addEventListener("click",(e)=>{
+              e.preventDefault();
+              history.pushState({}, "", a.href);
+              route();
+            });
+          }else{
+            // non-md asset (csv, pdf, png, etc.)
+            a.href = joinPath(BASE, dest);
+          }
+        });
+
+        document.title = `${clean.replace(/\.md$/i,"")} — Spiral Question Ladder | Shunya Publications`;
+        const urlObj = new URL(location.href);
+        urlObj.searchParams.set("file", clean);
+        history.replaceState({}, "", urlObj.toString());
+      }catch(err){
+        mdEl.innerHTML = `
+          <p>❌ Could not load <code>${url}</code>.</p>
+          <p>Try one of these:</p>
+          <ul>
+            <li><a href="?file=README.md">README.md</a></li>
+            <li><a href="?file=Timeline_Budget.md">Timeline_Budget.md</a></li>
+          </ul>`;
+      }
+    }
+
+    function route(){ load(getParamFile()); }
+
+    // open by typing a path
+    btnOpen.addEventListener("click", ()=>{
+      const f = (input.value || "").trim();
+      if(f) { history.pushState({}, "", `?file=${f}`); route(); }
+    });
+
+    // copy shareable link
+    btnCopy.addEventListener("click", async ()=>{
+      const urlObj = new URL(location.href);
+      urlObj.searchParams.set("file", (input.value || getParamFile()).trim());
+      try{
+        await navigator.clipboard.writeText(urlObj.toString());
+        alert("Link copied");
+      }catch{
+        alert("Copy failed; copy from the address bar.");
+      }
+    });
+
+    // handle back/forward
+    window.addEventListener("popstate", route);
+
+    // intercept clicks on the nav buttons (they use ?file=…)
+    document.querySelectorAll(".sv-nav a").forEach(a=>{
+      a.addEventListener("click",(e)=>{
+        e.preventDefault();
+        history.pushState({}, "", a.getAttribute("href"));
+        route();
+      });
+    });
+
+    // initial
+    route();
+  })();
   </script>
 </body>
 </html>
