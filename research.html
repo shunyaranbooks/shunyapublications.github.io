@@ -83,10 +83,16 @@
     .card-lg{padding:20px;border-radius:var(--radius-lg)}
     .eyebrow{font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
 
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600}
-    .btn:hover{box-shadow:var(--ring)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:700}
+    .btn:hover{box-shadow:var(--ring); transform:translateY(-1px)}
+    .btn:active{transform:translateY(0)}
     .btn:focus-visible{outline:none; box-shadow: var(--ring)}
     .btn.primary{background:linear-gradient(180deg,#f7fbff,#eaf2ff); border-color:#dbe7ff}
+
+    /* Button variants */
+    .btn.brand{background:linear-gradient(180deg,#eaf2ff,#dce9ff); border-color:#cfe0ff}
+    .btn.outline{background:#fff}
+    .btn.soft{background:linear-gradient(180deg,#fff,#f8fbff)}
 
     .nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
     .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
@@ -111,10 +117,9 @@
     .rcard h3{margin:.2rem 0 .4rem;font-size:1.15rem}
     .rcard p{margin:.2rem 0}
 
-    /* Attached button group */
-    .actions{display:flex;align-items:stretch;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:1rem}
-    .actions .btn{flex:1;border-radius:0;border:none;justify-content:center;background:linear-gradient(180deg,#fff,#f6fbff)}
-    .actions .btn + .btn{border-left:1px solid var(--line)}
+    /* Action buttons (separate pills) */
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .actions .btn{flex:1 1 220px; justify-content:center}
 
     footer .footer-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted)}
   </style>
@@ -150,7 +155,7 @@
         </div>
       </div>
       <aside class="card card-lg hero-card" aria-label="Research note">
-        <img src="images/homeimg.png" alt="Abstract research visual" />
+        <img src="images/homeres.png" alt="Abstract research visual" />
       </aside>
     </div>
   </header>
@@ -223,10 +228,42 @@
                 </ul>
               </div>
 
+              <div>
+                <b>Outcomes &amp; measures</b>
+                <ul style="margin:.3rem 0 0 1.2rem">
+                  <li><i>Depth</i>: distinct perspectives surfaced per topic</li>
+                  <li><i>Generativity</i>: redesign options proposed at the Transformational layer</li>
+                  <li><i>Friction</i>: trade‑offs named before decisions</li>
+                  <li><i>Transfer</i>: applying a prior spiral to a new domain</li>
+                </ul>
+              </div>
+
+              <div>
+                <b>Alignment</b>
+                <ul style="margin:.3rem 0 0 1.2rem">
+                  <li>Education: inquiry‑based learning, Socratic seminars, argument mapping</li>
+                  <li>Research: problem framing, positionality statements, limitations</li>
+                  <li>Leadership: strategy sprints, premortems, decision records</li>
+                </ul>
+              </div>
+
+              <div>
+                <b>Project status</b>
+                <ul style="margin:.3rem 0 0 1.2rem">
+                  <li>Version: 1.0 · Maintained by Shunya Publications</li>
+                  <li>Contributions: classroom rubrics &amp; facilitation scripts welcome via email</li>
+                </ul>
+              </div>
+
+              <div>
+                <b>Cite as</b>
+                <p style="margin:.3rem 0 0">Akhtar, M. A. K. (Shunya). <i>Spiral Question Ladder</i>. Shunya Publications. CC BY‑SA 4.0.</p>
+              </div>
+
               <div class="actions">
-                <a class="btn" href="/spiral-question-ladder/index.html">Open Project</a>
-                <a class="btn" href="/spiral-question-ladder/Spiral_Researcher_Pack.zip">⬇ Researcher Pack</a>
-                <a class="btn" href="/spiral-question-ladder/?file=README.md">Online Viewer</a>
+                <a class="btn brand" href="/spiral-question-ladder/index.html">Open Project</a>
+                <a class="btn outline" href="/spiral-question-ladder/Spiral_Researcher_Pack.zip">⬇ Researcher Pack</a>
+                <a class="btn soft" href="/spiral-question-ladder/?file=README.md">Online Viewer</a>
               </div>
             </div>
           </article>
@@ -238,9 +275,9 @@
             <h3>Project Title</h3>
             <p>One-line purpose statement. What this project solves or explores.</p>
             <div class="actions">
-              <a class="btn" href="#">Open Project</a>
-              <a class="btn" href="#">⬇ Resources</a>
-              <a class="btn" href="#">Online Viewer</a>
+              <a class="btn brand" href="#">Open Project</a>
+              <a class="btn outline" href="#">⬇ Resources</a>
+              <a class="btn soft" href="#">Online Viewer</a>
             </div>
           </article>
           -->
