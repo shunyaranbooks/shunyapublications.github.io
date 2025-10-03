@@ -46,7 +46,7 @@
   </script>
 
   <style>
-    /* ===== Shunya UI (copied from index) ===== */
+    /* ===== Shunya UI (from index) ===== */
     :root{
       --bg: #ffffff;
       --bg-1:#fff9f1; --bg-2:#f3f9ff; --bg-3:#eef9f5;
@@ -102,15 +102,19 @@
     .subtitle{color:#2a3b5c;opacity:.95;max-width:68ch}
     .hero-card img{width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)}
 
-    $1 1fr;gap:16px}
-    @media(max-width:980px){.hero{grid-template-columns:1fr}.rgrid{grid-template-columns:1fr 1fr}}
-    @media(max-width:720px){.rgrid{grid-template-columns:1fr}}
+    /* Projects grid */
+    .rgrid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(max-width:980px){.hero{grid-template-columns:1fr}}
 
     .rcard{position:relative;overflow:hidden}
     .rcard .pill{position:absolute;top:12px;right:12px;font-size:.75rem;padding:6px 10px;border-radius:999px;background:#f0f6ff;border:1px solid #dbe7ff;color:#1565ff;font-weight:700}
     .rcard h3{margin:.2rem 0 .4rem;font-size:1.15rem}
     .rcard p{margin:.2rem 0}
-    .rcard .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:.6rem}
+
+    /* Attached button group */
+    .actions{display:flex;align-items:stretch;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:1rem}
+    .actions .btn{flex:1;border-radius:0;border:none;justify-content:center;background:linear-gradient(180deg,#fff,#f6fbff)}
+    .actions .btn + .btn{border-left:1px solid var(--line)}
 
     footer .footer-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted)}
   </style>
@@ -137,7 +141,7 @@
     <div class="container hero">
       <div>
         <p class="eyebrow">Research</p>
-        <h1 class="title">Frameworks, Tools & Initiatives</h1>
+        <h1 class="title">Frameworks, Tools &amp; Initiatives</h1>
         <p class="subtitle">A living collection of research-led projects at Shunya Publications — from philosophy and culture to education, science and technology. Each card opens to its project hub with downloads, generators, and documentation.</p>
         <div class="stack" style="flex-direction:row; gap:12px; flex-wrap:wrap; margin-top:10px">
           <a class="btn primary" href="#projects">↓ Explore Projects</a>
@@ -146,7 +150,7 @@
         </div>
       </div>
       <aside class="card card-lg hero-card" aria-label="Research note">
-        <img src="images/homeres.png" alt="Abstract research visual" />
+        <img src="images/homeimg.png" alt="Abstract research visual" />
       </aside>
     </div>
   </header>
@@ -168,15 +172,19 @@
             <h3 style="margin-top:0">Spiral Question Ladder</h3>
             <p><b>See Differently. Think Deeper. Redesign Everything.</b> A five-layer inquiry framework for generative thinking: <b>Clarifying → Causal → Ethical → Transformational → Meta</b>.</p>
 
+            <figure class="card" style="margin:10px 0; padding:0; overflow:hidden; border-radius:16px">
+              <img src="spiralimg.png" alt="Spiral Question Ladder illustration" style="display:block; width:100%; height:auto; border-radius:16px; border:1px solid var(--line)" loading="lazy"/>
+            </figure>
+
             <div class="stack" style="gap:10px">
               <div>
                 <b>Method (5 layers)</b>
                 <ol style="margin:.3rem 0 0 1.2rem">
-                  <li><b>Clarifying</b> — Define terms & scope. <i>“What do we mean by X here?”</i></li>
+                  <li><b>Clarifying</b> — Define terms &amp; scope. <i>“What do we mean by X here?”</i></li>
                   <li><b>Causal</b> — Map mechanisms, incentives, histories. <i>“Why does X exist/persist?”</i></li>
-                  <li><b>Ethical</b> — Surface values & impacts. <i>“Should it be this way? Who benefits/hurts?”</i></li>
-                  <li><b>Transformational</b> — Redesign constraints & formats. <i>“If we started over, what would change?”</i></li>
-                  <li><b>Meta</b> — Examine frames & blind spots. <i>“What are we not asking?”</i></li>
+                  <li><b>Ethical</b> — Surface values &amp; impacts. <i>“Should it be this way? Who benefits/hurts?”</i></li>
+                  <li><b>Transformational</b> — Redesign constraints &amp; formats. <i>“If we started over, what would change?”</i></li>
+                  <li><b>Meta</b> — Examine frames &amp; blind spots. <i>“What are we not asking?”</i></li>
                 </ol>
               </div>
 
@@ -193,7 +201,7 @@
                 <b>Quick start</b>
                 <ol style="margin:.3rem 0 0 1.2rem">
                   <li>Pick a topic (e.g., remote work). Run the <i>Spiral Generator</i>.</li>
-                  <li>Spend 2–3 min per layer; capture decisions & uncertainties.</li>
+                  <li>Spend 2–3 min per layer; capture decisions &amp; uncertainties.</li>
                   <li>Close with a <i>Transformational</i> redesign and a <i>Meta</i> reflection.</li>
                 </ol>
               </div>
@@ -201,22 +209,22 @@
               <div>
                 <b>Use cases</b>
                 <ul style="margin:.3rem 0 0 1.2rem">
-                  <li>Classrooms & seminars — reframe lessons, structure debates</li>
+                  <li>Classrooms &amp; seminars — reframe lessons, structure debates</li>
                   <li>Leadership sprints — decision framing, risk surfacing, premortems</li>
-                  <li>Coaching & research journaling — one spiral a day</li>
+                  <li>Coaching &amp; research journaling — one spiral a day</li>
                 </ul>
               </div>
 
               <div>
-                <b>Access & license</b>
+                <b>Access &amp; license</b>
                 <ul style="margin:.3rem 0 0 1.2rem">
                   <li>ZIP download with editable PDFs/Docs</li>
-                  <li>Open license: <span style="font-weight:600">CC BY‑SA 4.0</span> — attribute “Spiral Question Ladder — Shunya Publications”.</li>
+                  <li>Open license: <span style="font-weight:600">CC BY-SA 4.0</span> — attribute “Spiral Question Ladder — Shunya Publications”.</li>
                 </ul>
               </div>
 
               <div class="actions">
-                   <a class="btn" href="/spiral-question-ladder/index.html">Open Project</a>
+                <a class="btn" href="/spiral-question-ladder/index.html">Open Project</a>
                 <a class="btn" href="/spiral-question-ladder/Spiral_Researcher_Pack.zip">⬇ Researcher Pack</a>
                 <a class="btn" href="/spiral-question-ladder/?file=README.md">Online Viewer</a>
               </div>
@@ -230,8 +238,9 @@
             <h3>Project Title</h3>
             <p>One-line purpose statement. What this project solves or explores.</p>
             <div class="actions">
-              <a class="btn primary" href="#">Open Project</a>
+              <a class="btn" href="#">Open Project</a>
               <a class="btn" href="#">⬇ Resources</a>
+              <a class="btn" href="#">Online Viewer</a>
             </div>
           </article>
           -->
