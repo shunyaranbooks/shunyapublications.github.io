@@ -189,6 +189,7 @@
           <li><b>Load / MD / Delete</b> (in <i>Your Vault</i>) — load a draft, export Markdown, or delete it.</li>
           <li><b>⬇ Export Markdown</b> — clean doc for sharing/printing.</li>
           <li><b>⬇ Export JSON</b> — structured backup you can re-import later.</li>
+          <li><b>⬆ Import JSON/README</b> — pick a saved <code>.json</code> or the Markdown README to auto-fill the form.</li>
           <li><b>🔗 Copy shareable URL</b> — copies a link encoding your draft (not password-protected).</li>
           <li><b>🖨️ Print / Save as PDF</b> — use the browser print dialog.</li>
           <li><b>Quizzes</b> — quick checks to improve clarity &amp; integrity.</li>
@@ -465,6 +466,9 @@ Source / Links: Daniels (2023); WHO burnout brief; company OKR doc.
         <h3 style="margin:0 0 6px;font-size:var(--fs-h3)">Export & Share</h3>
         <p>Use <b>Export Markdown</b> to generate a clean document for proposals, workshops, or classrooms. <b>Export JSON</b> lets you re-import later. Everything runs locally; we don’t see your data.</p>
         <div class="row">
+          <!-- NEW: Import button + hidden file input -->
+          <button class="btn success" id="importBtn">⬆ Import JSON/README</button>
+          <input type="file" id="importFile" accept=".json,.md,.markdown,.txt" style="display:none">
           <button class="btn outline" id="copyLink">🔗 Copy shareable URL (encodes your draft)</button>
           <button class="btn soft" id="printDoc">🖨️ Print / Save as PDF</button>
         </div>
@@ -539,20 +543,41 @@ Source / Links: Daniels (2023); WHO burnout brief; company OKR doc.
     draftStatus.textContent = 'Saved · ' + nowStr();
   });
 
-  // Vault UI
+  // Vault UI (UPDATED)
   function renderVault(){
     const tbody = $('#vaultTable tbody');
     tbody.innerHTML = '';
+
+    // Empty state
+    if (!vault.length) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="4" class="eyebrow" style="color:#5a6b88">
+            No drafts yet. Click “＋ New”, fill the form, then hit “Save Draft”.
+          </td>
+        </tr>`;
+      return;
+    }
+
     vault.forEach(item=>{
+      const safeTitle  = escapeHtml(item.title || '—');
+      const safeDomain = escapeHtml(item.domain || '—');
+      const updatedMs  = item.updated || Date.now();
+      const iso        = new Date(updatedMs).toISOString();
+      const pretty     = new Date(updatedMs).toLocaleString(undefined, {
+        year:'numeric', month:'short', day:'2-digit', hour:'2-digit', minute:'2-digit'
+      });
+      const id = encodeURIComponent(item.title || '');
+
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>\${escapeHtml(item.title||'—')}</td>
-        <td>\${escapeHtml(item.domain||'—')}</td>
-        <td>\${new Date(item.updated||Date.now()).toLocaleString()}</td>
+        <td>${safeTitle}</td>
+        <td>${safeDomain}</td>
+        <td><time datetime="${iso}">${pretty}</time></td>
         <td>
-          <button class="btn soft" data-act="load" data-id="\${encodeURIComponent(item.title)}">Load</button>
-          <button class="btn outline" data-act="md" data-id="\${encodeURIComponent(item.title)}">MD</button>
-          <button class="btn warn" data-act="del" data-id="\${encodeURIComponent(item.title)}">Delete</button>
+          <button class="btn soft"    data-act="load" data-id="${id}" title="Load into the form">Load</button>
+          <button class="btn outline" data-act="md"   data-id="${id}" title="Export as Markdown">MD</button>
+          <button class="btn warn"    data-act="del"  data-id="${id}" title="Delete from this browser">Delete</button>
         </td>`;
       tbody.appendChild(tr);
     });
@@ -579,81 +604,81 @@ Source / Links: Daniels (2023); WHO burnout brief; company OKR doc.
   function toMarkdown(d){
     d = d||formToObj();
     const esc = s=> (s||'').trim();
-    return `# \${esc(d.title)}
+    return `# ${esc(d.title)}
 
 `+
-`**Domain:** \${esc(d.domain)}  
-**Author/Team:** \${esc(d.author)}  
-**Updated:** \${nowStr()}
+`**Domain:** ${esc(d.domain)}  
+**Author/Team:** ${esc(d.author)}  
+**Updated:** ${nowStr()}
 
 ---
 
 `+
 `## 1) Diagnose the Inherited Form
-\${esc(d.inherited)}
+${esc(d.inherited)}
 
 **Harms & Misfits**
-\${esc(d.harms)}
+${esc(d.harms)}
 
 **Signals It’s Failing**
-\${esc(d.signals)}
+${esc(d.signals)}
 
 ---
 
 `+
 `## 2) Extract the Essence
-\${esc(d.essence)}
+${esc(d.essence)}
 
 **Context & Constraints**
-\${esc(d.constraints)}
+${esc(d.constraints)}
 
 ---
 
 `+
 `## 3) Reimagine the Blueprint
 **Definition**
-\${esc(d.definition)}
+${esc(d.definition)}
 
 **Pillars**
-\${esc(d.pillars)}
+${esc(d.pillars)}
 
 **Anti-patterns**
-\${esc(d.anti)}
+${esc(d.anti)}
 
 **Practices & Rituals**
-\${esc(d.rituals)}
+${esc(d.rituals)}
 
 **Symbols & Language**
-\${esc(d.symbols)}
+${esc(d.symbols)}
 
 ---
 
 `+
 `## 4) Embody & Ritualize
 **Roles & Responsibilities**
-\${esc(d.roles)}
+${esc(d.roles)}
 
 **Friction Plan**
-\${esc(d.friction)}
+${esc(d.friction)}
 
 **Timeline**
-\${esc(d.timeline)}
+${esc(d.timeline)}
 
 ---
 
 `+
 `## 5) Share & Metrics
 **Audience & Adoption**
-\${esc(d.audience)}
+${esc(d.audience)}
 
 **Success Metrics**
-\${esc(d.metrics)}
+${esc(d.metrics)}
 
 **Ethics Guardrails**
-\${esc(d.ethics)}
+${esc(d.ethics)}
 
 **License**
-\${esc(d.license)}
+${esc(d.license)}
 `;
   }
   function downloadText(text, filename){
@@ -702,7 +727,100 @@ Source / Links: Daniels (2023); WHO burnout brief; company OKR doc.
   });
 
   // Escape HTML for table
-  function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])); }
+  function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;","<": "&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])); }
+
+  // ---- NEW: Import JSON/README (.md) ----
+  (function(){
+    const importBtn = byId('importBtn');
+    const importFile = byId('importFile');
+
+    function saveIntoVault(data){
+      if(!data || !data.title) return;
+      data.updated = Date.now();
+      const idx = vault.findIndex(x=>x.title===data.title);
+      if(idx>-1) vault[idx] = data; else vault.unshift(data);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(vault));
+      renderVault();
+    }
+
+    function between(text, startMarker, endMarker){
+      const s = text.indexOf(startMarker);
+      if(s === -1) return '';
+      const start = s + startMarker.length;
+      const e = endMarker ? text.indexOf(endMarker, start) : -1;
+      return (e === -1 ? text.slice(start) : text.slice(start, e)).trim();
+    }
+
+    function parseMarkdownToData(md){
+      const data = {};
+      // top meta
+      const t = md.match(/^\s*#\s+(.+)\s*$/m);
+      data.title = t ? t[1].trim() : '';
+
+      const domain = md.match(/\*\*Domain:\*\*\s*(.+)\s*$/m);
+      const author = md.match(/\*\*Author\/Team:\*\*\s*(.+)\s*$/m);
+      data.domain = domain ? domain[1].trim() : '';
+      data.author = author ? author[1].trim() : '';
+
+      // step 1
+      data.inherited = between(md, '## 1) Diagnose the Inherited Form\n', '\n\n**Harms & Misfits**');
+      data.harms     = between(md, '**Harms & Misfits**\n', '\n\n**Signals It’s Failing**');
+      data.signals   = between(md, '**Signals It’s Failing**\n', '\n\n---');
+
+      // step 2
+      data.essence     = between(md, '## 2) Extract the Essence\n', '\n\n**Context & Constraints**');
+      data.constraints = between(md, '**Context & Constraints**\n', '\n\n---');
+
+      // step 3
+      data.definition = between(md, '## 3) Reimagine the Blueprint\n**Definition**\n', '\n\n**Pillars**');
+      data.pillars    = between(md, '**Pillars**\n', '\n\n**Anti-patterns**');
+      data.anti       = between(md, '**Anti-patterns**\n', '\n\n**Practices & Rituals**');
+      data.rituals    = between(md, '**Practices & Rituals**\n', '\n\n**Symbols & Language**');
+      data.symbols    = between(md, '**Symbols & Language**\n', '\n\n---');
+
+      // step 4
+      data.roles    = between(md, '## 4) Embody & Ritualize\n**Roles & Responsibilities**\n', '\n\n**Friction Plan**');
+      data.friction = between(md, '**Friction Plan**\n', '\n\n**Timeline**');
+      data.timeline = between(md, '**Timeline**\n', '\n\n---');
+
+      // step 5
+      data.audience = between(md, '## 5) Share & Metrics\n**Audience & Adoption**\n', '\n\n**Success Metrics**');
+      data.metrics  = between(md, '**Success Metrics**\n', '\n\n**Ethics Guardrails**');
+      data.ethics   = between(md, '**Ethics Guardrails**\n', '\n\n**License**');
+      data.license  = between(md, '**License**\n', '');
+
+      return data;
+    }
+
+    importBtn.addEventListener('click', ()=> importFile.click());
+    importFile.addEventListener('change', async ()=>{
+      const file = importFile.files && importFile.files[0];
+      if(!file) return;
+      try{
+        const text = await file.text();
+        let data;
+        const name = (file.name || '').toLowerCase();
+        if(name.endsWith('.json')){
+          data = JSON.parse(text || '{}');
+        }else{
+          data = parseMarkdownToData(text || '');
+        }
+        if(!data || Object.keys(data).length===0){
+          alert('Could not read data from this file.');
+          importFile.value = '';
+          return;
+        }
+        objToForm(data);
+        draftStatus.textContent = 'Imported · ' + (data.title || file.name);
+        saveIntoVault({...data});
+      }catch(e){
+        console.error(e);
+        alert('Import failed. Make sure this is an export JSON or the Markdown README generated by this page.');
+      }finally{
+        importFile.value = ''; // reset
+      }
+    });
+  })();
 
   // Init
   renderVault();
