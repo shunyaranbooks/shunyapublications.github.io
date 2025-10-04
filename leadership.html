@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Architecture of Leadership — Interactive Playbook</title>
+<meta name="description" content="A bilingual, interactive leadership playbook for higher education—vision, governance, KPIs, SOPs, IQAC/NIRF evidence, and tools to design resilient institutions." />
+<link rel="canonical" href="https://www.shunyapublications.com/leadership.html" />
+
+<!-- App Icons (stays compatible with your site) -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Shunya">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+<link rel="manifest" href="/site.webmanifest?v=2">
+<meta name="theme-color" content="#1565ff">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="The Architecture of Leadership — Interactive Playbook" />
+<meta property="og:description" content="Design institutions that lead themselves: vision, governance, KPIs, SOPs, IQAC/NIRF evidence, and tools, bilingual (EN/HI)." />
+<meta property="og:image" content="https://www.shunyapublications.com/Logosh.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="The Architecture of Leadership — Interactive Playbook" />
+<meta name="twitter:description" content="A bilingual, interactive leadership playbook for higher education—vision, governance, KPIs, SOPs, IQAC/NIRF evidence, and tools." />
+<meta name="twitter:image" content="https://www.shunyapublications.com/Logosh.png" />
+
+<style>
+  /* =========================
+     Design System — Shunya UI
+     ========================= */
+  :root{
+    --bg:#ffffff;
+    --bg-1:#fff9f1; --bg-2:#f3f9ff; --bg-3:#eef9f5;
+    --text:#142036; --muted:#5a6b88;
+    --line:#e6ecf5; --line-strong:#cfd8e6;
+    --brand:#1565ff; --brand-2:#ff7a3d; --brand-3:#15a085; --accent:#7d4dff; --gold:#f6b73c;
+
+    --shadow:0 12px 30px rgba(21,101,255,.10);
+    --shadow-soft:0 10px 24px rgba(20,32,54,.10);
+    --ring:0 0 0 4px rgba(21,101,255,.16);
+
+    --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    --fs-hero: clamp(2rem, 3.2vw, 2.6rem);
+    --fs-h2: clamp(1.5rem, 1.8vw, 1.9rem);
+    --fs-h3: 1.1rem;
+    --radius: 16px; --radius-lg: 20px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; font-family:var(--font); color:var(--text);
+    background:
+      radial-gradient(1100px 620px at 10% -10%, var(--bg-1) 0%, #fff 60%),
+      radial-gradient(1200px 720px at 110% 110%, var(--bg-2) 0%, #fff 55%),
+      radial-gradient(1000px 650px at -10% 120%, var(--bg-3) 0%, #fff 50%);
+  }
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  .container{max-width:1180px;margin:auto;padding:0 20px}
+  .section{padding:64px 0; border-top:1px solid var(--line)}
+  .section:first-of-type{border-top:none}
+  .stack{display:flex;flex-direction:column;gap:14px}
+  .row{display:flex;gap:16px;flex-wrap:wrap}
+  .w-50{flex:1 1 480px}
+  .w-33{flex:1 1 320px}
+  .w-100{flex:1 1 100%}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow-soft)}
+  .card-lg{padding:20px;border-radius:var(--radius-lg)}
+  .eyebrow{font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600;cursor:pointer}
+  .btn:hover{box-shadow:var(--ring)}
+  .btn.primary{background:linear-gradient(180deg,#f7fbff,#eaf2ff); border-color:#dbe7ff}
+  .btn.ghost{background:#fff}
+  .pill{display:inline-block;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:.85rem}
+
+  .nav{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+  .brand{display:flex;gap:12px;align-items:center}
+  .brand img{height:40px;width:40px;border-radius:10px;box-shadow:var(--shadow-soft)}
+  .brand span{font-weight:800}
+  .menu a{margin-left:16px;color:var(--muted);font-weight:600}
+  .menu a:hover{color:var(--text)}
+
+  header{padding:64px 0 24px}
+  .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+  .title{font-size:var(--fs-hero);line-height:1.12;margin:6px 0}
+  .title .rainbow{background:linear-gradient(90deg,var(--brand),var(--accent),var(--gold),var(--brand-3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .subtitle{color:#2a3b5c;opacity:.95;max-width:68ch}
+  .hero-card img{width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)}
+
+  /* Sticky TOC */
+  .toc{position:sticky; top:86px; align-self:flex-start}
+  .toc a{display:block;padding:8px 10px;margin:6px 0;border-radius:10px;border:1px solid var(--line);background:#fff;color:#2a3b5c;font-size:.95rem}
+  .toc a.active{border-color:#bcd3ff;background:linear-gradient(180deg,#f7fbff,#ffffff)}
+
+  /* Accordion */
+  .accordion summary{list-style:none;cursor:pointer;font-weight:700}
+  .accordion summary::-webkit-details-marker{display:none}
+  .accordion .content{margin-top:10px;color:#25314d}
+
+  /* Switch / Toggle */
+  .switch{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .switch button{border:0;background:#fff;padding:8px 12px;font-weight:700;color:#3b4b6a;cursor:pointer}
+  .switch button.active{background:#eaf2ff}
+
+  /* Inputs */
+  .input, textarea, select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+  textarea{min-height:110px}
+  label{font-weight:700;font-size:.95rem}
+
+  /* Table */
+  table{width:100%;border-collapse:separate;border-spacing:0;margin-top:10px}
+  th,td{border:1px solid var(--line);padding:10px;border-left:0;border-top:0}
+  th:first-child,td:first-child{border-left:1px solid var(--line)}
+  tr:first-child th{border-top:1px solid var(--line)}
+  th{background:#f7fbff;text-align:left}
+
+  /* Quiz */
+  .quiz .q{margin:8px 0;padding:10px;border:1px solid var(--line);border-radius:12px}
+  .badge{display:inline-block;background:#eef4ff;border:1px solid #dbe7ff;color:#163a72;padding:4px 10px;border-radius:999px;font-size:.8rem;font-weight:700}
+
+  /* Charts */
+  canvas{max-width:100%;border:1px solid var(--line);border-radius:12px;background:#fff}
+
+  /* Responsive */
+  @media(max-width:980px){
+    .hero{grid-template-columns:1fr}
+    .toc{display:none}
+  }
+</style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <nav class="nav" aria-label="Global">
+    <div class="container nav-inner">
+      <div class="brand">
+        <img src="images/Logosh.png" alt="Shunya Publications Logo" />
+        <span>Shunya Publications</span>
+      </div>
+      <div class="menu" role="navigation">
+        <a href="index.html">Home</a>
+        <a href="#tools">Tools</a>
+        <a href="#kpi">KPIs</a>
+        <a href="#sops">SOPs</a>
+        <a href="#iqac">IQAC/NIRF</a>
+        <a href="#journal">Reflect</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="section" id="top">
+    <div class="container hero">
+      <div>
+        <p class="eyebrow" data-i18n="eyebrow">Interactive Playbook</p>
+        <h1 class="title"><span data-i18n="title1">The Architecture of Leadership</span> — <span class="rainbow" data-i18n="title2">Designing Transformative Leadership for Higher Education</span></h1>
+        <p class="subtitle" data-i18n="subtitle">
+          Leadership is not a position you hold — it is a system you design, execute, and gradually make self-sustaining.
+          This bilingual (EN/HI) app helps you build that system: vision, governance, KPIs, SOPs, IQAC/NIRF evidence,
+          reflective practice, and a Leadership Mandala integrating Seer–Builder–Steward–Innovator–Sage.
+        </p>
+        <div class="row">
+          <div class="switch" role="tablist" aria-label="Language">
+            <button id="btn-en" class="active" aria-selected="true">English</button>
+            <button id="btn-hi" aria-selected="false">हिन्दी</button>
+          </div>
+          <button class="btn" onclick="window.print()" aria-label="Print or Save as PDF">🖨️ Print / Save PDF</button>
+          <button class="btn" id="exportMdBtn" aria-label="Export notes as Markdown">⬇️ Export Your Notes (MD)</button>
+        </div>
+      </div>
+      <aside class="card card-lg hero-card" aria-label="Publisher note">
+        <img src="images/homeimg.png" alt="Leadership mandala decorative image" />
+      </aside>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT + TOC LAYOUT -->
+  <section class="section" id="overview">
+    <div class="container row">
+      <aside class="w-33">
+        <nav class="toc card">
+          <div class="eyebrow">On this page</div>
+          <a href="#disclaimer" class="toc-link active">Disclaimer</a>
+          <a href="#seer">Seer — Vision & Governance</a>
+          <a href="#builder">Builder — Management & Operations</a>
+          <a href="#steward">Steward — Research & Societal Impact</a>
+          <a href="#innovator">Innovator — Data & Foresight</a>
+          <a href="#sage">Sage — Communication & Reflection</a>
+          <a href="#tools">Leadership Tools</a>
+          <a href="#kpi">KPIs & Calculators</a>
+          <a href="#sops">SOPs & Policy Checklists</a>
+          <a href="#iqac">IQAC • NIRF Evidence Tracker</a>
+          <a href="#journal">Reflective Journal</a>
+          <a href="#quiz">Micro-Quizzes</a>
+          <a href="#legacy">Legacy Blueprint</a>
+        </nav>
+      </aside>
+
+      <div class="w-50 stack">
+
+        <!-- DISCLAIMER (Accordion) -->
+        <article class="card card-lg" id="disclaimer">
+          <details class="accordion" open>
+            <summary><span data-i18n="discTitle"><b>Disclaimer / अस्वीकरण</b> — tap to collapse/expand</span></summary>
+            <div class="content" data-i18n="discBody">
+              <p><b>Disclaimer</b><br/>
+              This book/app is inspired by real experiences during the Nurturing Future Leadership Programme (NFLP) at IIM Ranchi.
+              While it draws upon actual sessions, people, and events, some dialogues, reflections, and descriptions are interpretative in nature — shaped by the author’s inner feelings, personal understanding, and creative perspective.
+              They are not intended as verbatim records or official statements by any individual or institution.
+              Their purpose is to capture the essence of learning and transformation, not to represent exact conversations.
+              Any resemblance to specific words or views expressed by others should be read as experiential interpretation, not direct attribution.
+              — Shunya</p>
+
+              <p><b>अस्वीकरण</b><br/>
+              यह ऐप/पुस्तक IIM रांची के NFLP कार्यक्रम के वास्तविक अनुभवों से प्रेरित है। इसमें सत्रों, व्यक्तियों और घटनाओं का उल्लेख है, परंतु कुछ संवाद, चिंतन और वर्णन लेखक की आंतरिक भावनाओं, व्यक्तिगत समझ और सृजनात्मक दृष्टिकोण पर आधारित हैं। 
+              इनका उद्देश्य किसी भी व्यक्ति या संस्था के शब्दशः कथन या आधिकारिक वक्तव्य प्रस्तुत करना नहीं है, बल्कि सीखने और रूपांतरण की आत्मा को पकड़ना है। 
+              अन्य व्यक्तियों द्वारा कही गई बातों से कोई समानता केवल अनुभवजन्य व्याख्या मानी जाए, प्रत्यक्ष उद्धरण नहीं।
+              — शून्य</p>
+
+              <p class="eyebrow">© 2025 Md. Amir Khusru Akhtar (Pen Name: Shunya). All rights reserved.</p>
+            </div>
+          </details>
+        </article>
+
+        <!-- INTRO / SELF -->
+        <article class="card card-lg">
+          <h2 data-i18n="selfH">Intro: The Self — (The Core of Leadership)</h2>
+          <p><i data-i18n="selfQ">“Leadership begins where ego ends.”</i></p>
+          <p data-i18n="selfB">
+            Leadership in higher education is often misunderstood as charisma or authority. In practice, it is <b>architecture</b>:
+            a deliberately designed structure of vision, systems, culture, and continuity. This app helps you translate intent
+            into institutional design through five archetypes and a repeatable praxis. Use the tools, calculate your KPIs,
+            build SOPs and evidence workflows, and cultivate reflection that improves decisions over time.
+          </p>
+        </article>
+
+        <!-- ARCHETYPE: SEER -->
+        <article class="card card-lg" id="seer">
+          <div class="row">
+            <div class="w-100">
+              <span class="badge">Archetype 1</span>
+              <h2>Seer — Vision & Governance <span class="pill">द्रष्टा: दृष्टि और शासन</span></h2>
+              <p><i>“Clarity is created when vision becomes a shared contract.”</i></p>
+            </div>
+            <div class="w-50">
+              <h3>What you’ll build</h3>
+              <ul>
+                <li>Aligned Vision & Mission (NEP-aware), revisited annually</li>
+                <li>5-year Strategic Plan with KPIs, milestones, owners</li>
+                <li>Collaborative Governance (BoG, Academic Council, IQAC)</li>
+                <li>Well-being & mindful decision practices for leaders</li>
+              </ul>
+            </div>
+            <div class="w-50">
+              <h3>Tools you’ll use</h3>
+              <ul>
+                <li>Strategic Planning Canvas</li>
+                <li>Governance Responsibility Grid</li>
+                <li>Institutional Mission Audit</li>
+                <li>Stakeholder Mapping & Policy Register</li>
+              </ul>
+            </div>
+            <div class="w-100">
+              <p class="eyebrow">NFLP @ IIM Ranchi</p>
+              <p>
+                The journey began with lamp-lighting and a shared photograph—more than an inauguration,
+                it felt like the beginning of a common future. Use this section to turn shared aspiration into
+                explicit policy and measurable progress.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ARCHETYPE: BUILDER -->
+        <article class="card card-lg" id="builder">
+          <div class="row">
+            <div class="w-100">
+              <span class="badge">Archetype 2</span>
+              <h2>Builder — Management & Operations <span class="pill">निर्माता: प्रबंधन और संचालन</span></h2>
+              <p><i>“Strong systems make space for strong people.”</i></p>
+            </div>
+            <div class="w-50">
+              <h3>What you’ll build</h3>
+              <ul>
+                <li>Budget cycles, fund utilization registers, audits, compliance</li>
+                <li>Project plans (Gantt), M&amp;E frameworks, TAT metrics</li>
+                <li>Service charters, SOPs, and cross-functional workflows</li>
+                <li>EI-based performance dialogues & conflict resolution</li>
+              </ul>
+            </div>
+            <div class="w-50">
+              <h3>Tools you’ll use</h3>
+              <ul>
+                <li>Project Planner & Risk Map</li>
+                <li>SOP Builder & Service Charter</li>
+                <li>Budget Utilization Tracker</li>
+                <li>Turnaround Time (TAT) Monitor</li>
+              </ul>
+            </div>
+            <div class="w-100">
+              <p class="eyebrow">NFLP @ IIM Ranchi</p>
+              <p>
+                In lively conversations with peers and organizers, we discovered that systems succeed only when
+                people feel supported inside them. Build processes that serve people—and they will serve purpose.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ARCHETYPE: STEWARD -->
+        <article class="card card-lg" id="steward">
+          <div class="row">
+            <div class="w-100">
+              <span class="badge">Archetype 3</span>
+              <h2>Steward — Research & Societal Impact <span class="pill">संरक्षक: अनुसंधान और सामाजिक प्रभाव</span></h2>
+              <p><i>“Reputation grows where relevance flows.”</i></p>
+            </div>
+            <div class="w-50">
+              <h3>What you’ll build</h3>
+              <ul>
+                <li>Impact-oriented research metrics (beyond counts)</li>
+                <li>Incubation, consultancy, village/industry outreach</li>
+                <li>Evidence-ready NAAC/NIRF data systems</li>
+                <li>Branding & communication for credibility</li>
+              </ul>
+            </div>
+            <div class="w-50">
+              <h3>Tools you’ll use</h3>
+              <ul>
+                <li>Research Impact Log (citations, patents, policy)</li>
+                <li>Outreach Program Tracker (MoUs, events, beneficiaries)</li>
+                <li>NIRF Evidence Map</li>
+                <li>Media & Communication Calendar</li>
+              </ul>
+            </div>
+            <div class="w-100">
+              <p class="eyebrow">NFLP @ IIM Ranchi</p>
+              <p>
+                As the Drum Circle echoed in the night, impact felt less like data—and more like belonging.
+                Build the rhythm between knowledge and the communities it serves.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ARCHETYPE: INNOVATOR -->
+        <article class="card card-lg" id="innovator">
+          <div class="row">
+            <div class="w-100">
+              <span class="badge">Archetype 4</span>
+              <h2>Innovator — Data & Foresight <span class="pill">नवोन्मेषक: डेटा और दूरदृष्टि</span></h2>
+              <p><i>“Leadership without data is guesswork. Leadership without foresight is risk.”</i></p>
+            </div>
+            <div class="w-50">
+              <h3>What you’ll build</h3>
+              <ul>
+                <li>AI-assisted, brain-aware learning tools</li>
+                <li>Scenario planning & institutional foresight</li>
+                <li>Data governance & MIS dashboards</li>
+                <li>Inclusive innovation pipelines (DEI-linked)</li>
+              </ul>
+            </div>
+            <div class="w-50">
+              <h3>Tools you’ll use</h3>
+              <ul>
+                <li>Trend Radar & Scenario Matrix</li>
+                <li>Data Policy Register</li>
+                <li>KPI Dashboard (below)</li>
+                <li>Innovation Funnel Tracker</li>
+              </ul>
+            </div>
+            <div class="w-100">
+              <p class="eyebrow">NFLP @ IIM Ranchi</p>
+              <p>
+                Foresight is not prediction; it is preparation. Use the radar to scan signals and the
+                matrix to test responses—before reality tests you.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ARCHETYPE: SAGE -->
+        <article class="card card-lg" id="sage">
+          <div class="row">
+            <div class="w-100">
+              <span class="badge">Archetype 5</span>
+              <h2>Sage — Communication & Reflection <span class="pill">मनीषी: संवाद और आत्मचिंतन</span></h2>
+              <p><i>“What leaders say becomes what others build.”</i></p>
+            </div>
+            <div class="w-50">
+              <h3>What you’ll build</h3>
+              <ul>
+                <li>Leadership showcasing & policy presence</li>
+                <li>Strategic communication & crisis playbooks</li>
+                <li>Peer review & internal quality systems</li>
+                <li>Reflective journals & 360° feedback habits</li>
+              </ul>
+            </div>
+            <div class="w-50">
+              <h3>Tools you’ll use</h3>
+              <ul>
+                <li>Message Map & Stakeholder Briefs</li>
+                <li>Academic Audit Checklist</li>
+                <li>360° Feedback Planner</li>
+                <li>After-Action Review (AAR)</li>
+              </ul>
+            </div>
+            <div class="w-100">
+              <p class="eyebrow">NFLP @ IIM Ranchi</p>
+              <p>
+                When certificates were handed and the final photo was taken, silence said:
+                legacy begins when applause ends. Build habits that outlast the moment.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- TOOLS LIBRARY -->
+        <article class="card card-lg" id="tools">
+          <h2>Leadership Tools Library</h2>
+          <p>These tools save to your browser (localStorage). You can export all notes as Markdown from the top.</p>
+
+          <!-- Strategic Planning Canvas -->
+<details class="accordion" id="spc">
+  <summary>Strategic Planning Canvas (5-Year)</summary>
+
+  <style>
+    /* Lightweight layout helpers (if not already present in site CSS) */
+    .row{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0}
+    .w-25{flex:1 1 240px;max-width:25ch}
+    .w-33{flex:1 1 320px;min-width:280px}
+    .w-50{flex:1 1 480px;min-width:320px}
+    .w-66{flex:2 1 640px;min-width:360px}
+    .w-100{flex:1 1 100%}
+    .input{width:100%;min-height:110px;padding:10px;border:1px solid var(--line, #cfd8e6);border-radius:12px;font:inherit;resize:vertical;background:#fff}
+    .mini{min-height:64px}
+    .input:focus{outline:none;box-shadow:0 0 0 4px rgba(21,101,255,.16)}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .muted{color:#4c5f82;font-size:.92rem}
+    .btnbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+    .btn.spc{padding:10px 12px;border-radius:12px;border:1px solid var(--line,#cfd8e6);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:0 10px 24px rgba(20,32,54,.08);cursor:pointer;font-weight:600}
+    .btn.spc.primary{background:linear-gradient(180deg,#f7fbff,#eaf2ff);border-color:#dbe7ff}
+    .pill{display:inline-block;border:1px solid var(--line,#cfd8e6);border-radius:999px;padding:6px 10px;margin:4px 6px 0 0;background:#fff;font-size:.9rem}
+    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;background:#f6f8fb;border:1px solid #e1e6ef;border-radius:8px;padding:2px 6px}
+    .hint{font-size:.86rem;color:#5a6b88;margin:.2rem 0 0}
+    .label-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .chip{background:#eef5ff;border:1px solid #dbe7ff;color:#0f254b;border-radius:999px;padding:4px 8px;font-size:.8rem}
+    .mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+  </style>
+
+  <div class="content">
+    <!-- Vision & Mission -->
+    <div class="row">
+      <div class="w-50">
+        <div class="label-row">
+          <label for="spc-vision"><b>Vision</b></label>
+          <span class="chip">Why do we exist? What future do we create?</span>
+        </div>
+        <textarea id="spc-vision" class="input" placeholder="A vivid, future-facing north star for the institution."></textarea>
+        <p class="hint">Tip: Should be enduring (10–15 years), student- and society-centered, memorable.</p>
+      </div>
+      <div class="w-50">
+        <div class="label-row">
+          <label for="spc-mission"><b>Mission</b></label>
+          <span class="chip">What do we do every day to serve that vision?</span>
+        </div>
+        <textarea id="spc-mission" class="input" placeholder="Actionable, present-tense, clear on beneficiaries and methods."></textarea>
+        <p class="hint">Tip: Keep it testable—someone should be able to verify if you’re doing this daily.</p>
+      </div>
+    </div>
+
+    <!-- Goals, KPIs -->
+    <div class="row">
+      <div class="w-33">
+        <label for="spc-goals"><b>Strategic Goals (3–5)</b></label>
+        <textarea id="spc-goals" class="input" placeholder="Goal 1…&#10;Goal 2…&#10;Goal 3…"></textarea>
+        <p class="hint">Example: “Strengthen research impact”, “Improve graduate employability”, “Advance accreditation tier”.</p>
+      </div>
+
+      <div class="w-33">
+        <label for="spc-kpis"><b>KPIs &amp; Milestones</b></label>
+        <textarea id="spc-kpis" class="input" placeholder="For each goal, define metrics and target values by year.&#10;• Research: Scopus/SCI papers, patents, consultancy (₹)&#10;• Teaching: Syllabus revisions, OBE mapping, course feedback&#10;• Student: Placement %, median CTC, internships, NPTEL/MOOC credits&#10;• Quality: NAAC score, NIRF rank band, audit closures"></textarea>
+        <p class="hint">Include baselines &amp; targets: <span class="mono">2025→2029</span>, Year-wise milestones.</p>
+      </div>
+
+      <div class="w-33">
+        <label for="spc-initiatives"><b>Flagship Initiatives &amp; Owners</b></label>
+        <textarea id="spc-initiatives" class="input" placeholder="Initiative — Owner — Start — End&#10;Research Incubation Cell — Dean (R) — 07/2025 — 06/2027&#10;Industry Advisory Board — TPO — 08/2025 — Ongoing"></textarea>
+        <p class="hint">Name clear owners &amp; timelines. Link each initiative to a KPI.</p>
+      </div>
+    </div>
+
+    <!-- Alignment & Compliance -->
+    <div class="row">
+      <div class="w-66">
+        <label for="spc-alignment"><b>Alignment &amp; Compliance (NEP 2020, UGC, AICTE, NAAC, NIRF)</b></label>
+        <textarea id="spc-alignment" class="input" placeholder="Map goals/initiatives to policy &amp; compliance:&#10;• NEP 2020: Multidisciplinary, Academic Bank of Credits, ODL/Online&#10;• UGC: OBE, LoE, Academic Integrity, Research Policy&#10;• AICTE: Model Curriculum, Internship, Industry 4.0 / FDP&#10;• NAAC: Criteria-wise artifacts (Curriculum, Teaching-Learning, Research, Infrastructure, Student Support, Governance, IQAC)&#10;• NIRF: Teaching & Learning, Research & Professional Practice, Graduation Outcomes, Outreach & Inclusivity, Peer Perception"></textarea>
+        <p class="hint">Call out evidence sources (SOPs, minutes, dashboards, MOU repository, IQAC AQARs).</p>
+      </div>
+      <div class="w-33">
+        <label for="spc-policies"><b>Key Policies &amp; Frameworks</b></label>
+        <textarea id="spc-policies" class="input" placeholder="Research &amp; IPR Policy, Consultancy, DEI, Digital Governance, Data Protection, Academic Integrity, E-content, OER, Mentoring, Grievance Redressal"></textarea>
+        <p class="hint">Note policy version, approval date, and review cycle.</p>
+      </div>
+    </div>
+
+    <!-- Timeline, Budget, Risks -->
+    <div class="row">
+      <div class="w-50">
+        <label for="spc-timeline"><b>Timeline &amp; Phasing (Gantt-level)</b></label>
+        <textarea id="spc-timeline" class="input" placeholder="Phase 1 (Y1): Baselines, policy approvals, pilots&#10;Phase 2 (Y2–Y3): Scale teaching reforms, research cells, industry boards&#10;Phase 3 (Y4–Y5): Accreditation push, internationalization, endline review"></textarea>
+        <p class="hint">Anchor to academic calendars and audit/inspection windows (AICTE/NAAC/NIRF).</p>
+      </div>
+
+      <div class="w-50">
+        <label for="spc-budget"><b>Budget &amp; Resources</b></label>
+        <textarea id="spc-budget" class="input" placeholder="Capex/Opex split; funding sources: Internal (₹), RUSA/State, CSR, Consultancy, Projects&#10;Year-wise allocation per initiative; staffing (faculty, TA, RA); infra (labs, LMS, repositories)"></textarea>
+        <p class="hint">Include sustainability (AMCs, renewals), and capacity building (FDP, workshops).</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="w-50">
+        <label for="spc-risks"><b>Risks &amp; Mitigations</b></label>
+        <textarea id="spc-risks" class="input" placeholder="Risk — Likelihood — Impact — Mitigation&#10;Faculty attrition — Medium — High — Hiring pipeline, FDP, mentorship&#10;Low research output — High — Medium — Seed grants, incentives, guidance cells"></textarea>
+        <p class="hint">Record early warnings (leading indicators) and risk owners.</p>
+      </div>
+
+      <div class="w-50">
+        <label for="spc-stakeholders"><b>Stakeholders &amp; Governance</b></label>
+        <textarea id="spc-stakeholders" class="input" placeholder="BoG, Academic Council, Deanery, HoDs, IQAC, IPR Cell, Industry Board, Alumni, Students&#10;Decision rhythms: Monthly IQAC reviews, quarterly BoG, semester-level program boards"></textarea>
+        <p class="hint">Define escalation paths, quorum, and evidence (minutes, resolutions).</p>
+      </div>
+    </div>
+
+    <!-- Review & M&E -->
+    <div class="row">
+      <div class="w-33">
+        <label for="spc-monitoring"><b>Monitoring &amp; Evaluation (M&amp;E)</b></label>
+        <textarea id="spc-monitoring" class="input" placeholder="KPI dashboards (program/department/institution)&#10;Quarterly reviews; mid-term (Y3) &amp; endline (Y5) evaluations&#10;External peer reviews; student/faculty panels"></textarea>
+        <p class="hint">Tie reviews to course files, exam boards, and IQAC/AQAR cadence.</p>
+      </div>
+
+      <div class="w-33">
+        <label for="spc-communications"><b>Communication &amp; Change Management</b></label>
+        <textarea id="spc-communications" class="input" placeholder="Leadership addresses; policy explainers; faculty townhalls&#10;Student-facing artifacts (handbooks, dashboards); media &amp; web updates"></textarea>
+        <p class="hint">Keep a release log; ensure accessible language and bilingual summaries.</p>
+      </div>
+
+      <div class="w-33">
+        <label for="spc-notes"><b>Notes / Assumptions</b></label>
+        <textarea id="spc-notes" class="input" placeholder="Context, constraints, dependencies; how you’ll adapt if assumptions shift."></textarea>
+        <p class="hint">Document trade-offs to preserve institutional memory.</p>
+      </div>
+    </div>
+
+    <!-- Quick tags -->
+    <div class="row">
+      <div class="w-100 muted">
+        Quick tags:
+        <span class="pill">OBE</span>
+        <span class="pill">Academic Bank of Credits</span>
+        <span class="pill">FDP</span>
+        <span class="pill">Internships</span>
+        <span class="pill">NPTEL/MOOCs</span>
+        <span class="pill">Incubation</span>
+        <span class="pill">Consultancy</span>
+        <span class="pill">IPR/Patents</span>
+        <span class="pill">Library &amp; ICT</span>
+        <span class="pill">DEI</span>
+        <span class="pill">Grievance Redressal</span>
+        <span class="pill">Ethics &amp; Plagiarism</span>
+        <span class="pill">NIRF</span>
+        <span class="pill">NAAC</span>
+        <span class="pill">AICTE</span>
+        <span class="pill">UGC</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="btnbar">
+      <button class="btn spc primary" id="spc-save">💾 Save</button>
+      <button class="btn spc" id="spc-export-json">⬇️ Export JSON</button>
+      <button class="btn spc" id="spc-export-csv">⬇️ Export CSV</button>
+      <button class="btn spc" id="spc-print">🖨️ Print Canvas</button>
+      <button class="btn spc" id="spc-clear">🗑️ Clear</button>
+      <span class="muted" id="spc-status" aria-live="polite"></span>
+    </div>
+
+    <p class="hint">
+      Tip: This canvas autosaves every <span class="kbd">3s</span> while typing (<span class="mono">localStorage</span> on your device).
+    </p>
+  </div>
+
+  <script>
+    (function(){
+      const KEY = 'spc-data-v1';
+      const $ = (id)=>document.getElementById(id);
+      const fields = [
+        'spc-vision','spc-mission','spc-goals','spc-kpis','spc-initiatives',
+        'spc-alignment','spc-policies','spc-timeline','spc-budget','spc-risks',
+        'spc-stakeholders','spc-monitoring','spc-communications','spc-notes'
+      ];
+
+      function readForm(){
+        const data = {};
+        fields.forEach(f => { const el = $(f); data[f] = el ? el.value : ''; });
+        data._updatedAt = new Date().toISOString();
+        return data;
+      }
+
+      function writeForm(data){
+        if(!data) return;
+        fields.forEach(f => { if($(f) && (f in data)) $(f).value = data[f] || ''; });
+      }
+
+      function save(manual=false){
+        const data = readForm();
+        try{
+          localStorage.setItem(KEY, JSON.stringify(data));
+          status(`Saved ${manual ? '(manual)' : ''} at ${new Date().toLocaleTimeString()}`);
+        }catch(e){
+          status('Save failed (storage full or blocked).');
+        }
+      }
+
+      function load(){
+        try{
+          const raw = localStorage.getItem(KEY);
+          if(raw){ writeForm(JSON.parse(raw)); status('Loaded saved draft.'); }
+          else { status('Start filling the canvas.'); }
+        }catch(e){ status('Could not load previous data.'); }
+      }
+
+      function status(msg){ const s=$('spc-status'); if(s) s.textContent = msg; }
+
+      function exportJSON(){
+        const blob = new Blob([JSON.stringify(readForm(), null, 2)], {type:'application/json'});
+        download(blob, 'strategic-planning-canvas.json');
+      }
+
+      function exportCSV(){
+        const data = readForm();
+        const rows = Object.entries(data)
+          .filter(([k])=>!k.startsWith('_'))
+          .map(([k,v])=>[
+            JSON.stringify(k),
+            JSON.stringify(String(v).replace(/\r?\n/g,' \\n '))
+          ].join(','));
+        const csv = 'key,value\n' + rows.join('\n');
+        const blob = new Blob([csv], {type:'text/csv'});
+        download(blob, 'strategic-planning-canvas.csv');
+      }
+
+      function download(blob, filename){
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = filename; a.click();
+        setTimeout(()=>URL.revokeObjectURL(url), 500);
+      }
+
+      function clearAll(){
+        if(!confirm('Clear all fields? This will remove the locally saved draft.')) return;
+        fields.forEach(f=>{ if($(f)) $(f).value=''; });
+        localStorage.removeItem(KEY);
+        status('Cleared.');
+      }
+
+      function printCanvas(){
+        // Print only this <details> content by opening a temporary window with styles
+        const node = document.querySelector('#spc .content');
+        if(!node) return;
+        const w = window.open('', '_blank', 'width=1024,height=800');
+        const css = `
+          <style>
+            body{font-family: ${getComputedStyle(document.body).fontFamily || 'system-ui'}; margin:16px; color:#142036}
+            .row{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0}
+            .w-25{flex:1 1 240px;max-width:25ch}
+            .w-33{flex:1 1 320px;min-width:280px}
+            .w-50{flex:1 1 480px;min-width:320px}
+            .w-66{flex:2 1 640px;min-width:360px}
+            .w-100{flex:1 1 100%}
+            textarea{width:100%;min-height:110px;border:1px solid #cfd8e6;border-radius:12px;padding:10px}
+            .hint{color:#5a6b88;font-size:.9rem}
+            label{font-weight:700}
+            h1{font-size:1.4rem}
+          </style>`;
+        const title = '<h1>Strategic Planning Canvas (5-Year)</h1>';
+        w.document.write(`<!doctype html><html><head><meta charset="utf-8">${css}</head><body>${title}${node.outerHTML}</body></html>`);
+        w.document.close();
+        w.focus();
+        w.print();
+      }
+
+      // Autosave while typing (debounced)
+      let t=null;
+      function onInput(){
+        if(t) clearTimeout(t);
+        t = setTimeout(()=>save(false), 3000);
+      }
+
+      // Init
+      document.addEventListener('DOMContentLoaded', ()=>{
+        load();
+        fields.forEach(f=>{ const el=$(f); if(el) el.addEventListener('input', onInput); });
+        $('spc-save')?.addEventListener('click', ()=>save(true));
+        $('spc-export-json')?.addEventListener('click', exportJSON);
+        $('spc-export-csv')?.addEventListener('click', exportCSV);
+        $('spc-clear')?.addEventListener('click', clearAll);
+        $('spc-print')?.addEventListener('click', printCanvas);
+      });
+    })();
+  </script>
+</details>
