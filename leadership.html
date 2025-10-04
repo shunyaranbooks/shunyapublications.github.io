@@ -8,7 +8,7 @@
 <link rel="canonical" href="/leadership.html" />
 <meta name="theme-color" content="#1565ff">
 
-<!-- Favicons (aligned with your index.html; safe to keep even if absent) -->
+<!-- Favicons (aligned with index.html) -->
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -43,7 +43,7 @@
   --shadow-soft:0 10px 24px rgba(20, 32, 54, .10);
   --ring: 0 0 0 4px rgba(21,101,255,.16);
   --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-  --fs-hero: clamp(1.9rem, 3.2vw, 2.4rem);
+  --fs-hero: clamp(2.0rem, 3.2vw, 2.6rem);
   --fs-h2: clamp(1.4rem, 1.8vw, 1.8rem);
   --fs-h3: 1.06rem;
   --radius: 16px;
@@ -72,7 +72,7 @@ a:hover{text-decoration:underline}
 .lead{color:#2a3b5c;opacity:.95}
 .notice{background:linear-gradient(180deg,#f7fbff,#fff);border:1px dashed #cfe0ff;padding:12px;border-radius:12px}
 small.muted{color:var(--muted)}
-hr.sep{border:none;border-top:1px solid var(--line);margin:10px 0}
+.badge-soft{display:inline-block;padding:4px 8px;border-radius:999px;border:1px solid var(--line);font-size:.8rem;background:#fff}
 
 /* Buttons */
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600;cursor:pointer}
@@ -90,6 +90,7 @@ textarea{min-height:110px; resize:vertical}
 .table th{font-size:.9rem; color:#374a6b; text-align:left; padding:6px 8px}
 .table td{background:#fff; border:1px solid var(--line); padding:8px; border-radius:10px}
 
+/* Grid / Rows */
 .grid{display:grid;gap:16px}
 .grid.cols-4{grid-template-columns:repeat(4,1fr)}
 .grid.cols-3{grid-template-columns:repeat(3,1fr)}
@@ -98,10 +99,11 @@ textarea{min-height:110px; resize:vertical}
 @media(max-width:700px){ .grid.cols-4,.grid.cols-3,.grid.cols-2{grid-template-columns:1fr} }
 
 .row{display:flex;flex-wrap:wrap;gap:12px}
-.w-25{flex:1 1 220px}
+.w-25{flex:1 1 260px}
 .w-33{flex:1 1 320px}
 .w-50{flex:1 1 480px}
 .w-66{flex:2 1 640px}
+.w-75{flex:3 1 780px}
 .w-100{flex:1 1 100%}
 
 /* KPI */
@@ -149,33 +151,49 @@ textarea{min-height:110px; resize:vertical}
   </div>
 </nav>
 
-<!-- START HERE (single controller card; no top quick-links) -->
+<!-- START HERE (Left 3/4 card + Right 1/4 image/status column) -->
 <header class="section" id="start">
   <div class="container">
     <div class="stack">
-      <div class="card card-lg">
-        <p class="eyebrow">Start Here</p>
-        <h1 style="margin:.2rem 0; font-size:var(--fs-hero)">Academic Leadership — Interactive Tools</h1>
-        <p class="lead">This page is a working toolkit for VCs, Registrars, Deans, HoDs, IQAC teams, and faculty leaders. It autosaves locally (offline-friendly), and lets you export/import your work for sharing and backup. Every section below includes a plain-English description, best-practice tips, and buttons for quick actions.</p>
+      <div class="row">
+        <!-- LEFT: 3/4 width -->
+        <div class="w-75">
+          <div class="card card-lg">
+            <p class="eyebrow">Start Here</p>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <h1 style="margin:.2rem 0; font-size:var(--fs-hero)">Academic Leadership — Interactive Tools</h1>
+              <span class="badge-soft">v3.4</span>
+            </div>
+            <p class="lead">
+              This page is a working toolkit for VCs, Registrars, Deans, HoDs, IQAC teams, and faculty leaders.
+              It autosaves locally (offline-friendly) and lets you export/import your work for sharing and backup.
+              Every section includes a plain-English description, best-practice tips, and quick actions.
+            </p>
 
-        <div class="row">
-          <!-- Left: Guide + Global Actions -->
-          <div class="w-66">
+            <!-- Guide + Global Actions -->
             <div class="notice">
               <b>Leadership Guide (PDF)</b><br>
-              Use this guide alongside the interactive page. Every section below mirrors a card on the page and explains what to enter, why it matters, and what “good” looks like.
+              Use this guide alongside the interactive page. Every section below mirrors a card here and explains
+              what to enter, why it matters, and what “good” looks like.
+              <div class="row" style="margin-top:10px;gap:8px">
+                <input id="pdfLink" type="url" placeholder="/leadership.pdf" value="/leadership.pdf"
+                       style="min-width:240px; flex:1; padding:10px 12px; border-radius:10px; border:1px solid var(--line-strong)" />
                 <a class="btn primary" id="open-pdf" target="_blank" rel="noopener" href="/leadership.pdf">Open PDF</a>
                 <button class="btn" id="global-export-json">Export JSON</button>
                 <button class="btn" id="global-import-json">Import JSON</button>
                 <button class="btn" id="global-export-csv">Export CSV (All)</button>
                 <button class="btn danger" id="global-reset">Reset All</button>
               </div>
-             
             </div>
 
+            <!-- Org Identity + Uploads -->
             <div class="card" style="margin-top:12px">
               <b>Your Organization Identity for Outputs</b>
-              <p class="lead" style="margin:.4rem 0">Upload a logo and set your organization name to brand printable outputs like <i>Minutes</i>, NAAC/NIRF tables, and more. The logo is stored locally and embedded in print views.</p>
+              <p class="lead" style="margin:.4rem 0">
+                Upload your <b>logo</b> and set the <b>organization name</b> to brand printable outputs like Minutes and NAAC/NIRF tables.
+                You can also upload an <b>Institution Cover Image</b> that shows on the right panel (1/4 width) for a personalized look.
+                All files stay in your browser only.
+              </p>
               <div class="row">
                 <div class="w-50">
                   <label>Organization / Institution Name</label>
@@ -185,43 +203,59 @@ textarea{min-height:110px; resize:vertical}
                   <label>Upload Logo (PNG/JPG/SVG)</label>
                   <input id="orgLogo" type="file" accept=".png,.jpg,.jpeg,.svg" />
                 </div>
+                <div class="w-50">
+                  <label>Institution Cover Image (shows at right)</label>
+                  <input id="instImage" type="file" accept=".png,.jpg,.jpeg,.svg" />
+                </div>
+                <div class="w-50">
+                  <div class="row" style="align-items:center;gap:10px">
+                    <span class="badge-soft">Autosave: On <span class="mono">(localStorage)</span></span>
+                    <span class="badge-soft">Language: English</span>
+                    <span class="badge-soft">Version: v3.4</span>
+                    <span class="badge-soft">Last Save: <span id="lastSave">—</span></span>
+                  </div>
+                </div>
               </div>
-              <small class="muted">The logo is kept in your browser only. To clear it, use <b>Reset All</b> above.</small>
+              <small class="muted">Logos and images are kept only in this browser. To clear, use <b>Reset All</b> above.</small>
             </div>
-          </div>
 
-          <!-- Right: Status + Hero image -->
-          <div class="w-33">
-            <div class="kpi">
-              <div><b>Autosave:</b> On (<span class="mono">localStorage</span>)</div>
-              <div><b>Last Save:</b> <span id="lastSave">—</span></div>
-              <div><b>Language:</b> <span id="langLabel">English</span></div>
+            <!-- Jump buttons -->
+            <div class="row" style="margin-top:12px">
+              <a class="btn" href="#dashboard">Set KPIs</a>
+              <a class="btn" href="#planning">Plan 5 Years</a>
+              <a class="btn" href="#accreditation">NAAC/NIRF</a>
+              <a class="btn" href="#governance">Governance</a>
+              <a class="btn" href="#iqac">Evidence Locker</a>
+              <a class="btn" href="#projects">Projects</a>
+              <a class="btn" href="#obe">OBE</a>
+              <a class="btn" href="#research">Research</a>
+              <a class="btn" href="#consultancy">Consultancy/MoUs</a>
+              <a class="btn" href="#faculty">Faculty Plan</a>
+              <a class="btn" href="#students">Student Success</a>
+              <a class="btn" href="#risk">Risk</a>
+              <a class="btn" href="#budget">Budget</a>
+              <a class="btn" href="#meetings">Minutes</a>
+              <a class="btn" href="#comms">Communication</a>
+              <a class="btn" href="#actions">Action Tracker</a>
             </div>
-            <figure class="card" style="margin-top:12px; text-align:center;">
-              <img src="/images/leadership.png" alt="Leadership overview illustration" style="max-width:100%; border-radius:12px; border:1px solid var(--line)" onerror="this.alt='(leadership.png not found — image optional)';this.style.display='none'">
-              <figcaption class="muted" style="margin-top:6px">Leadership snapshot: strategy → quality → execution</figcaption>
-            </figure>
           </div>
         </div>
 
-        <!-- Section jump buttons (within Start card; not a sticky toolbar) -->
-        <div class="row" style="margin-top:12px">
-          <a class="btn" href="#dashboard">Set KPIs</a>
-          <a class="btn" href="#planning">Plan 5 Years</a>
-          <a class="btn" href="#accreditation">NAAC/NIRF</a>
-          <a class="btn" href="#governance">Governance</a>
-          <a class="btn" href="#iqac">Evidence Locker</a>
-          <a class="btn" href="#projects">Projects</a>
-          <a class="btn" href="#obe">OBE</a>
-          <a class="btn" href="#research">Research</a>
-          <a class="btn" href="#consultancy">Consultancy/MoUs</a>
-          <a class="btn" href="#faculty">Faculty Plan</a>
-          <a class="btn" href="#students">Student Success</a>
-          <a class="btn" href="#risk">Risk</a>
-          <a class="btn" href="#budget">Budget</a>
-          <a class="btn" href="#meetings">Minutes</a>
-          <a class="btn" href="#comms">Communication</a>
-          <a class="btn" href="#actions">Action Tracker</a>
+        <!-- RIGHT: 1/4 width — institution image + status -->
+        <div class="w-25">
+          <figure class="card" style="text-align:center">
+            <img id="instHeroPreview" src="" alt="Institution cover"
+                 style="max-width:100%; height:auto; border:1px solid var(--line); border-radius:12px; display:none" />
+            <figcaption class="muted" id="instHeroCaption" style="margin-top:6px">
+              Upload an institution cover image (right here) using the field in the left card.
+            </figcaption>
+          </figure>
+          <div class="kpi" style="margin-top:12px">
+            <div><b>Status</b></div>
+            <div>Autosave: <span class="mono">localStorage</span></div>
+            <div>Last Save: <span id="lastSave2">—</span></div>
+            <div>Toolkit: v3.4</div>
+          </div>
         </div>
       </div>
     </div>
@@ -236,11 +270,8 @@ textarea{min-height:110px; resize:vertical}
         <p class="eyebrow">Overview</p>
         <h2 style="font-size:var(--fs-h2);margin:0 0 6px">Leadership Dashboard (Snapshot)</h2>
         <p class="lead">
-          This dashboard is your weekly “single-pane” view. Each tile is a live KPI you can rename, edit, and color-code with a status badge:
-          <b>OK</b> (on/above target), <b>Watch</b> (close to slipping or trending down), and <b>Risk</b> (off-target). Use this for executive huddles; the detailed work happens in the NAAC/NIRF, Projects, OBE, and other sections below.
-        </p>
-        <p>
-          <b>How to use:</b> Keep KPIs lean and outcome-oriented. Prefer institutional-level metrics (Research Output, Patents, OBE Mapping %, NAAC Grade, NIRF Band, Placement %, Median CTC, Consultancy ₹). Link causes and effects: for instance, if “OBE Mapping %” is Amber, ensure “Curriculum Revision” and “FDPs/Faculty” are on track. Refresh values before IQAC/BoG cycles so your variance analysis is always current and auditable.
+          Weekly “single-pane” view. Each tile is a live KPI you can rename, edit, and mark:
+          <b>OK</b> (on/above target), <b>Watch</b> (near slip), <b>Risk</b> (off-target). Use this for executive huddles; the detail sits in the NAAC/NIRF, Projects, OBE, and other sections.
         </p>
       </div>
 
@@ -250,9 +281,7 @@ textarea{min-height:110px; resize:vertical}
         <button class="btn primary" data-export="kpi">Export CSV</button>
         <button class="btn" data-print="kpi">Print</button>
       </div>
-      <small class="muted">
-        Common KPIs: Research Output, Patents, Consultancy ₹, Placement %, Median CTC, NAAC Score/Grade, NIRF Rank Band, Curriculum Revisions, OBE Mapping %, FDPs/Faculty, Internships %, NPTEL/MOOC Credits, IPR filings.
-      </small>
+      <small class="muted">Common KPIs: Research Output, Patents, Consultancy ₹, Placement %, Median CTC, NAAC Grade, NIRF Rank Band, Curriculum Revisions, OBE Mapping %, FDPs/Faculty, Internships %, NPTEL/MOOC Credits, IPR filings.</small>
     </div>
   </div>
 </section>
@@ -265,18 +294,9 @@ textarea{min-height:110px; resize:vertical}
         <p class="eyebrow">Strategy</p>
         <h2 style="margin:0 0 6px">Strategic Planning Canvas (5-Year)</h2>
         <p class="lead">
-          A concise, do-first planning canvas aligned to NEP 2020 and UGC/AICTE expectations. It turns aspiration into action by linking
-          <b>Vision/Mission → Goals → KPIs → Initiatives → Policy Alignment</b>. Use it to brief your Academic Council, IQAC, and BoG.
+          Concise, do-first planning canvas aligned with NEP 2020 and UGC/AICTE expectations:
+          <b>Vision/Mission → Goals → KPIs → Initiatives → Policy Alignment</b>.
         </p>
-        <ul>
-          <li><b>Vision:</b> A future-facing north star that names the value you create for students, society, and knowledge.</li>
-          <li><b>Mission:</b> What you do daily to serve that vision; should imply teaching, research, extension, and governance.</li>
-          <li><b>Goals (3–5):</b> Institutional goals with owners and funding reality; aim for leverage, not laundry lists.</li>
-          <li><b>KPIs & Milestones:</b> Baseline + yearly targets; quarterly checkpoints for variance control.</li>
-          <li><b>Flagship Initiatives:</b> Big rocks with named owners and time bounds; publish status in IQAC minutes.</li>
-          <li><b>Policy Alignment:</b> Map each goal/initiative to NEP/UGC/AICTE expectations and NAAC/NIRF indicators.</li>
-          <li><b>Key Policies:</b> Research/IPR, Consultancy, DEI, Academic Integrity, Data Governance, Mentoring, Internship.</li>
-        </ul>
       </div>
 
       <div class="row">
@@ -327,13 +347,13 @@ textarea{min-height:110px; resize:vertical}
         <p class="eyebrow">Quality & Rankings</p>
         <h2 style="margin:0 0 6px">NAAC Readiness & NIRF Indicators</h2>
         <p class="lead">
-          These two tables operationalize your quality narrative. The NAAC Evidence Checklist ensures that for every criterion you have curated, current, and citable artifacts. The NIRF Input Sheet captures only the indicators that matter, with traceable sources. Maintain a Compliance Calendar for AICTE/UGC milestones (EOA, affiliations, audits).
+          NAAC Evidence Checklist = curated, current, citable artifacts by criterion.
+          NIRF Input Sheet = indicators with traceable sources. Keep an AICTE/UGC Compliance Calendar for EOA, affiliations, audits.
         </p>
       </div>
 
       <div class="card">
         <h3 style="margin:0 0 6px">NAAC Criteria Evidence Checklist</h3>
-        <p>Track artifacts by criterion, assign owners, keep links to your drive/repository, and mark status (Draft/Ready/Audited). Keep dates/versioning visible. This table becomes your IQAC’s living manifest.</p>
         <table class="table" id="naacTable">
           <thead>
             <tr>
@@ -352,7 +372,6 @@ textarea{min-height:110px; resize:vertical}
 
       <div class="card">
         <h3 style="margin:0 0 6px">NIRF Input Sheet (Core)</h3>
-        <p>Capture the key inputs for NIRF categories with explicit sources. Freeze approved values annually; version your computations to stay audit-ready.</p>
         <table class="table" id="nirfTable">
           <thead>
             <tr>
@@ -371,7 +390,6 @@ textarea{min-height:110px; resize:vertical}
 
       <div class="card">
         <h3 style="margin:0 0 6px">AICTE/UGC Compliance Calendar</h3>
-        <p>Log every regulatory item with the responsible body, window, owner, and status. Use this to drive quarterly “green sheet” reviews.</p>
         <table class="table" id="compTable">
           <thead>
             <tr>
@@ -397,7 +415,7 @@ textarea{min-height:110px; resize:vertical}
       <div class="card">
         <p class="eyebrow">Governance</p>
         <h2 style="margin:0 0 6px">Governance Matrix (Bodies & Decisions)</h2>
-        <p class="lead">List Academic Council, BoS/BoG, Finance Committee, Research Committee, Ethics Committee, IQAC, etc., with cadence, quorum, key decisions, and evidence links (minutes/office orders). This is your “proof of governance” during NAAC and internal audits.</p>
+        <p class="lead">List Academic Council, BoS/BoG, Finance Committee, Research Committee, Ethics Committee, IQAC, etc., with cadence, quorum, decisions, and evidence links (minutes/office orders).</p>
       </div>
       <table class="table" id="govTable">
         <thead>
@@ -423,7 +441,7 @@ textarea{min-height:110px; resize:vertical}
       <div class="card">
         <p class="eyebrow">IQAC</p>
         <h2 style="margin:0 0 6px">Evidence Locker (Artifacts Manifest)</h2>
-        <p class="lead">A normalized manifest of institutional artifacts: policies, minutes, AARs, CO-PO matrices, syllabi, result analyses, FDP proofs, outreach proofs, MoUs, consultancy orders, IPR filings, accreditation letters, etc. Keep versions and dates — currency matters.</p>
+        <p class="lead">Manifest of policies, minutes, AARs, CO-PO matrices, syllabi, result analyses, FDP proofs, outreach, MoUs, consultancy orders, IPR filings, accreditation letters, etc., with versions/dates.</p>
       </div>
       <table class="table" id="iqacTable">
         <thead>
@@ -449,7 +467,7 @@ textarea{min-height:110px; resize:vertical}
       <div class="card">
         <p class="eyebrow">Projects</p>
         <h2 style="margin:0 0 6px">Project Planner (Light Gantt)</h2>
-        <p class="lead">Maintain a portfolio of flagship initiatives with owners and milestones. Tie each project to a strategic goal and a NAAC/NIRF lever (e.g., “Industry Labs” → RP/TLR). Use statuses: Planned / On Track / Delayed / Completed.</p>
+        <p class="lead">Portfolio of flagship initiatives with owners and milestones. Tie each project to a strategic goal and NAAC/NIRF levers.</p>
       </div>
       <table class="table" id="projTable">
         <thead>
@@ -475,7 +493,7 @@ textarea{min-height:110px; resize:vertical}
       <div class="card">
         <p class="eyebrow">Teaching-Learning</p>
         <h2 style="margin:0 0 6px">OBE Course Matrix (PO/CO Mapping)</h2>
-        <p class="lead">Capture course-PO and course-CO mappings with assessment split (CIA/TEE/Project/Viva). Attach evidence (syllabi and CO-PO matrices). Aggregate CO attainment → PO attainment and feed back into curriculum revision cycles.</p>
+        <p class="lead">Capture course-PO and course-CO mappings; record assessment split and attach evidence (syllabi/CO-PO matrices). Feed CO attainment into PO attainment and curriculum revision.</p>
       </div>
       <table class="table" id="obeTable">
         <thead>
@@ -501,7 +519,7 @@ textarea{min-height:110px; resize:vertical}
       <div class="card">
         <p class="eyebrow">Research</p>
         <h2 style="margin:0 0 6px">Research & Innovation Tracker</h2>
-        <p class="lead">Track publications (SCI/Scopus/UGC-CARE), patents (filed/granted), consultancy (₹), grants, prototypes, start-ups/incubation, and outreach with evidence links. This feeds NAAC Criterion 3 and NIRF RP/GO. Record impact (citations, policy influence, societal outcomes) in the notes for narrative depth.</p>
+        <p class="lead">Track publications (SCI/Scopus/UGC-CARE), patents, consultancy (₹), grants, prototypes, start-ups/incubation, outreach with evidence links. Capture impact (citations, policy, societal outcomes).</p>
       </div>
       <table class="table" id="rsTable">
         <thead>
@@ -527,7 +545,7 @@ textarea{min-height:110px; resize:vertical}
       <div class="card">
         <p class="eyebrow">Industry</p>
         <h2 style="margin:0 0 6px">Consultancy & MoU Tracker</h2>
-        <p class="lead">Maintain your MoU and consultancy pipeline: partner, scope, value, start/end, and evidence (MoU/WO/PO). Tag strategic partnerships for branding and placements. Show cross-walk to NIRF RP/OI and NAAC Criterion 3.</p>
+        <p class="lead">Maintain MoUs/consultancy pipeline: partner, scope/value, start/end, evidence. Tag strategic partnerships for branding and placements.</p>
       </div>
       <table class="table" id="mouTable">
         <thead>
@@ -553,7 +571,7 @@ textarea{min-height:110px; resize:vertical}
       <div class="card">
         <p class="eyebrow">Faculty</p>
         <h2 style="margin:0 0 6px">Faculty Workload & FDP Plan</h2>
-        <p class="lead">Balance teaching, research, and admin hours; plan FDPs aligned to departmental gaps and accreditation needs. Use this table to justify hiring and to monitor FDP completion (NAAC 2/6). Pair with OBE and Research trackers to spot load/impact imbalances.</p>
+        <p class="lead">Balance teaching, research, and admin hours; plan FDPs aligned to gaps and accreditation needs. Pair with OBE & Research trackers to spot load/impact imbalances.</p>
       </div>
       <table class="table" id="fwTable">
         <thead>
@@ -579,7 +597,7 @@ textarea{min-height:110px; resize:vertical}
       <div class="card">
         <p class="eyebrow">Students</p>
         <h2 style="margin:0 0 6px">Student Success Inputs</h2>
-        <p class="lead">Program-wise placement %, median CTC, internship %, MOOC/NPTEL credits, and notes. This feeds NIRF GO and OI. Use patterns to calibrate training, industry linkage, and curriculum reforms.</p>
+        <p class="lead">Program-wise placement %, median CTC, internship %, MOOC/NPTEL credits, notes. Feeds NIRF GO & OI; calibrate training and curriculum reforms.</p>
       </div>
       <table class="table" id="stuTable">
         <thead>
@@ -605,7 +623,7 @@ textarea{min-height:110px; resize:vertical}
       <div class="card">
         <p class="eyebrow">Risks</p>
         <h2 style="margin:0 0 6px">Risk Register</h2>
-        <p class="lead">Record risks with likelihood, impact, mitigation, owner, and status. Review quarterly in IQAC; escalate reds to BoG with time-bound corrective actions. Typical risks: faculty attrition, research compliance slippage, low placement conversion, infrastructure downtime, accreditation delays.</p>
+        <p class="lead">Record risks with likelihood, impact, mitigation, owner, and status. Review quarterly in IQAC; escalate reds to BoG with time-bound actions.</p>
       </div>
       <table class="table" id="riskTable">
         <thead>
@@ -631,7 +649,7 @@ textarea{min-height:110px; resize:vertical}
       <div class="card">
         <p class="eyebrow">Finance</p>
         <h2 style="margin:0 0 6px">Budget Planner (Capex/Opex)</h2>
-        <p class="lead">A single view of institutional spending: item, type, amount, funding source, year, and owner. Support audits and BoG approvals; connect line items to Projects and KPIs to show value flow.</p>
+        <p class="lead">Single-view of institutional spending. Connect line items to Projects & KPIs to show value flow.</p>
       </div>
       <table class="table" id="budTable">
         <thead>
@@ -657,7 +675,7 @@ textarea{min-height:110px; resize:vertical}
       <div class="card">
         <p class="eyebrow">Meetings</p>
         <h2 style="margin:0 0 6px">Minutes Generator</h2>
-        <p class="lead">Standardize minutes for IQAC, AC, BoS, and cross-functional reviews. Capture title, date, attendees, agenda, decisions (with rationale/votes), and action items. Your uploaded logo + organization name appear on printouts.</p>
+        <p class="lead">Standardize minutes for IQAC, AC, BoS, and cross-functional reviews. Your uploaded logo + organization name appear on printouts.</p>
       </div>
       <div class="row">
         <div class="w-33">
@@ -692,7 +710,7 @@ textarea{min-height:110px; resize:vertical}
       <div class="card">
         <p class="eyebrow">Change</p>
         <h2 style="margin:0 0 6px">Communication Plan</h2>
-        <p class="lead">Define audiences (students, faculty, alumni, industry, regulators), core messages, channels (email, social, town-halls), cadence, owners, and notes. This supports transparent change management and feeds NAAC 7 as well as NIRF peer perception.</p>
+        <p class="lead">Define audiences (students, faculty, alumni, industry, regulators), key messages, channels, cadence, owners, and notes.</p>
       </div>
       <table class="table" id="commTable">
         <thead>
@@ -718,7 +736,7 @@ textarea{min-height:110px; resize:vertical}
       <div class="card">
         <p class="eyebrow">Execution</p>
         <h2 style="margin:0 0 6px">Action Tracker (Backlog → Doing → Done)</h2>
-        <p class="lead">A lightweight Kanban to move decisions into action. Keep items small, assign a single owner, and limit “Doing” to protect focus. Export JSON for backup and leadership transition continuity.</p>
+        <p class="lead">Lightweight Kanban to move decisions into action. Keep items small, assign a single owner, and limit “Doing”.</p>
       </div>
       <div class="grid cols-3" id="kanban">
         <div class="card">
@@ -773,13 +791,14 @@ textarea{min-height:110px; resize:vertical}
 /* ========= Utilities & State ========= */
 const $ = (sel, root=document)=>root.querySelector(sel);
 const $$ = (sel, root=document)=>Array.from(root.querySelectorAll(sel));
-const KEY = 'leadership.app.v3'; // bumped to isolate from older versions
+const KEY = 'leadership.app.v3_4'; // versioned localStorage key
 const state = JSON.parse(localStorage.getItem(KEY) || '{}');
 
 function save() {
   state._updatedAt = new Date().toISOString();
   localStorage.setItem(KEY, JSON.stringify(state));
-  const t = $('#lastSave'); if (t) { try { t.textContent = new Date(state._updatedAt).toLocaleString(); } catch {} }
+  const t1 = $('#lastSave'); if (t1) { try { t1.textContent = new Date(state._updatedAt).toLocaleString(); } catch {} }
+  const t2 = $('#lastSave2'); if (t2) { try { t2.textContent = new Date(state._updatedAt).toLocaleString(); } catch {} }
 }
 function loadField(id, fallback=''){ const v = (state[id] ?? fallback); const el = $('#'+id); if(el) el.value = v; }
 function bindField(id){ const el = $('#'+id); if(!el) return; el.addEventListener('input', ()=>{ state[id]=el.value; save(); }); }
@@ -789,14 +808,11 @@ function downloadBlob(data, name, type='application/json'){
   setTimeout(()=>URL.revokeObjectURL(url), 300);
 }
 function toCSV(rows, headers){
-  const esc = s => `"${String(s??'').replace(/"/g,'""').replace(/\n/g,' ')}"`;
-  const head = headers.map(esc).join(',');
+  const esc = s => `"${String(s??'').replace(/"/g,'""').replace(/\n/g,' ')}"`; const head = headers.map(esc).join(',');
   const body = rows.map(r=>headers.map(h=>esc(r[h])).join(',')).join('\n');
   return head + '\n' + body;
 }
-
-/* ========= Language label (English fixed; placeholder) ========= */
-$('#langLabel').textContent = 'English';
+function escapeHTML(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 
 /* ========= Leadership PDF Link ========= */
 loadField('pdfLink','/leadership.pdf'); bindField('pdfLink');
@@ -807,14 +823,42 @@ $('#open-pdf').addEventListener('click', ()=> {
 
 /* ========= Org identity (logo + name) ========= */
 loadField('orgName',''); bindField('orgName');
-if(state.orgLogoDataUrl){ $('#orgLogo').dataset.hasImage = '1'; }
-$('#orgLogo').addEventListener('change', async (e)=>{
-  const f = e.target.files && e.target.files[0];
-  if(!f) return;
-  const reader = new FileReader();
-  reader.onload = () => { state.orgLogoDataUrl = reader.result; save(); alert('Logo saved for prints.'); };
-  reader.readAsDataURL(f);
-});
+const orgLogoInp = $('#orgLogo');
+if(state.orgLogoDataUrl && orgLogoInp){ orgLogoInp.dataset.hasImage = '1'; }
+if(orgLogoInp){
+  orgLogoInp.addEventListener('change', async (e)=>{
+    const f = e.target.files && e.target.files[0]; if(!f) return;
+    const reader = new FileReader();
+    reader.onload = () => { state.orgLogoDataUrl = reader.result; save(); alert('Logo saved for prints.'); };
+    reader.readAsDataURL(f);
+  });
+}
+
+/* ========= Institution cover image (right preview) ========= */
+const instImageInp = $('#instImage');
+const instPreview = $('#instHeroPreview');
+const instCaption = $('#instHeroCaption');
+
+function applyInstPreview(){
+  if(state.instImageDataUrl){
+    instPreview.src = state.instImageDataUrl;
+    instPreview.style.display = 'inline-block';
+    if(instCaption) instCaption.textContent = 'Institution cover image (you can replace it anytime).';
+  }else{
+    instPreview.removeAttribute('src');
+    instPreview.style.display = 'none';
+    if(instCaption) instCaption.textContent = 'Upload an institution cover image (right here) using the field in the left card.';
+  }
+}
+if(instImageInp){
+  instImageInp.addEventListener('change', async (e)=>{
+    const f = e.target.files && e.target.files[0]; if(!f) return;
+    const reader = new FileReader();
+    reader.onload = () => { state.instImageDataUrl = reader.result; save(); applyInstPreview(); };
+    reader.readAsDataURL(f);
+  });
+}
+applyInstPreview();
 
 /* ========= KPI Dashboard ========= */
 const defaultKPIs = [
@@ -875,9 +919,7 @@ $('#kpiGrid').addEventListener('click', (e)=>{
   if(isNaN(idx)) return;
   state.kpis.splice(idx,1); save(); renderKPIs();
 });
-$('#addKPI').addEventListener('click', ()=>{
-  ensureKpis(); state.kpis.push({name:'New KPI', value:'0', status:'warn'}); save(); renderKPIs();
-});
+$('#addKPI').addEventListener('click', ()=>{ ensureKpis(); state.kpis.push({name:'New KPI', value:'0', status:'warn'}); save(); renderKPIs(); });
 
 /* ========= Dynamic Table helpers ========= */
 function addRow(tableId, obj){
@@ -939,8 +981,7 @@ function getTableRows(tableId){
   }[tableId.replace('Table','')];
   const rows=[];
   $$('#'+tableId+' tbody tr').forEach(tr=>{
-    const cells = tr.querySelectorAll('td');
-    const obj={};
+    const cells = tr.querySelectorAll('td'); const obj={};
     headers.forEach((h,i)=>{ obj[h] = cells[i]?.querySelector('input,textarea')?.value ?? ''; });
     rows.push(obj);
   });
@@ -1059,7 +1100,6 @@ ${$('#mt-actions').value}
     else if(id==='sp'){ node = $('#planning'); }
     else if(id==='kanban'){ node = $('#kanban'); }
     else if(id==='mt'){
-      // Build a clean minutes printout including logo/name header
       const wrap = document.createElement('div');
       wrap.innerHTML = `
         ${printHeaderHTML()}
@@ -1088,7 +1128,6 @@ ${$('#mt-actions').value}
 });
 
 /* ========= Print helpers with logo/name header ========= */
-function escapeHTML(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 function printHeaderHTML(){
   const name = escapeHTML(state.orgName || '');
   const hasLogo = !!state.orgLogoDataUrl;
@@ -1179,8 +1218,10 @@ $('#global-export-csv').addEventListener('click',()=>{
 });
 $('#global-reset').addEventListener('click',()=>{ if(confirm('Reset ALL toolkit data on this device?')){ localStorage.removeItem(KEY); location.reload(); }});
 
-/* ========= Last save label ========= */
-$('#lastSave').textContent = state._updatedAt ? new Date(state._updatedAt).toLocaleString() : '—';
+/* ========= Last save labels ========= */
+const firstSave = state._updatedAt ? new Date(state._updatedAt).toLocaleString() : '—';
+if($('#lastSave')) $('#lastSave').textContent = firstSave;
+if($('#lastSave2')) $('#lastSave2').textContent = firstSave;
 </script>
 </body>
 </html>
