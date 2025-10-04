@@ -4,13 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Forms Reforged — Form Foundry (Beta)</title>
-  <meta name="description" content="A full, client‑side web app inspired by Forms Reforged — diagnose inherited ideals, reforge better ones, and export your blueprints. No server required." />
+  <meta name="description" content="A full, client-side web app inspired by Forms Reforged — diagnose inherited ideals, reforge better ones, and export your blueprints. No server required." />
   <link rel="canonical" href="https://www.shunyapublications.com/form.html" />
 
   <!-- Social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Forms Reforged — Form Foundry" />
-  <meta property="og:description" content="Diagnose the ideals you live by. Reforge them. Export as Markdown/JSON. 100% client‑side." />
+  <meta property="og:description" content="Diagnose the ideals you live by. Reforge them. Export as Markdown/JSON. 100% client-side." />
   <meta property="og:image" content="/images/Logosh.png" />
   <meta property="og:url" content="https://www.shunyapublications.com/form.html" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -19,6 +19,8 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <meta name="theme-color" content="#1565ff">
+  <!-- License (machine-readable) -->
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
 
   <style>
     /* =========================
@@ -103,6 +105,9 @@
 
     /* Footer */
     footer .footer-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted)}
+    /* License helper */
+    .license-note{margin-top:6px;font-size:.9rem;color:var(--muted)}
+    .license-note a{text-decoration:underline}
 
     /* Responsive */
     @media (max-width:980px){.hero,.cols{grid-template-columns:1fr}}
@@ -119,8 +124,10 @@
       <div class="menu" role="navigation">
         <a href="/index.html">Home</a>
         <a href="/services.html">Services</a>
+      
+         <a href="books.html" aria-current="page">Books</a>
+          <a href="journal.html">Journals</a>
         <a href="/research.html">Research</a>
-        <a href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">Founder’s Books</a>
       </div>
     </div>
   </nav>
@@ -131,8 +138,9 @@
       <div>
         <p class="eyebrow">Forms Reforged</p>
         <h1 class="title">Form Foundry — Diagnose, Reforge, Export</h1>
-        <p class="subtitle">A practical, research‑led tool based on <em>Forms Reforged</em> by Shunya. Audit the blueprints shaping your life and culture, design better ones, and share them with your team or classroom. 100% client‑side — your data stays in your browser.</p>
+        <p class="subtitle">A practical, research-led tool based on <em>Forms Reforged</em> by Shunya. Audit the blueprints shaping your life and culture, design better ones, and share them with your team or classroom. 100% client-side — your data stays in your browser.</p>
         <div class="row" style="margin-top:8px">
+         <a class="btn primary" href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">📖 Browse Founder’s Books on Amazon</a>
           <a class="btn brand" href="#start">↓ Start forging</a>
           <a class="btn soft" href="https://a.co/d/9bX7yl9" target="_blank" rel="noopener">📘 Read the book</a>
         </div>
@@ -233,7 +241,7 @@
                   <textarea id="pillars" name="pillars" placeholder="List the core pillars or principles…"></textarea>
                 </div>
                 <div>
-                  <label for="anti">Anti‑patterns (what this is NOT)</label>
+                  <label for="anti">Anti-patterns (what this is NOT)</label>
                   <textarea id="anti" name="anti" placeholder="Name the traps you will avoid…"></textarea>
                 </div>
               </div>
@@ -253,11 +261,11 @@
               <label for="roles">Roles & responsibilities (who does what?)</label>
               <textarea id="roles" name="roles" placeholder="Individuals, teams, stakeholders, feedback loops…"></textarea>
 
-              <label for="friction">Friction plan (where will this fail? pre‑mortem)</label>
-              <textarea id="friction" name="friction" placeholder="List foreseeable obstacles and counter‑moves…"></textarea>
+              <label for="friction">Friction plan (where will this fail? pre-mortem)</label>
+              <textarea id="friction" name="friction" placeholder="List foreseeable obstacles and counter-moves…"></textarea>
 
               <label for="timeline">Timeline (pilot → adopt → iterate)</label>
-              <textarea id="timeline" name="timeline" placeholder="Outline 30/60/90‑day phases…"></textarea>
+              <textarea id="timeline" name="timeline" placeholder="Outline 30/60/90-day phases…"></textarea>
             </div>
           </fieldset>
 
@@ -275,12 +283,12 @@
                 </div>
                 <div>
                   <label for="ethics">Ethics guardrails</label>
-                  <textarea id="ethics" name="ethics" placeholder="Non‑negotiables; consent, inclusion, transparency…"></textarea>
+                  <textarea id="ethics" name="ethics" placeholder="Non-negotiables; consent, inclusion, transparency…"></textarea>
                 </div>
               </div>
 
               <label for="license">License / attribution</label>
-              <input id="license" name="license" value="CC BY‑SA 4.0 — Attribute ‘Forms Reforged — Shunya Publications’" />
+              <input id="license" name="license" value="CC BY-SA 4.0 — Attribute ‘Forms Reforged — Shunya Publications’" />
             </div>
           </fieldset>
 
@@ -370,7 +378,7 @@
     <div class="container">
       <article class="card card-lg">
         <h3 style="margin:0 0 6px;font-size:var(--fs-h3)">Export & Share</h3>
-        <p>Use <b>Export Markdown</b> to generate a clean document for proposals, workshops, or classrooms. <b>Export JSON</b> lets you re‑import later. Everything runs locally; we don’t see your data.</p>
+        <p>Use <b>Export Markdown</b> to generate a clean document for proposals, workshops, or classrooms. <b>Export JSON</b> lets you re-import later. Everything runs locally; we don’t see your data.</p>
         <div class="row">
           <button class="btn outline" id="copyLink">🔗 Copy shareable URL (encodes your draft)</button>
           <button class="btn soft" id="printDoc">🖨️ Print / Save as PDF</button>
@@ -385,8 +393,12 @@
       <div>
         Copyright © <span id="y"></span> Shunya Publications. All rights reserved. · Built for <em>Forms Reforged</em>
       </div>
-      <div>
-        <a href="https://amazon.com/author/shunya_" target="_blank" rel="noopener">Founder’s Books</a>
+      <!-- License note (additive; nothing removed) -->
+      <div class="license-note">
+        Content on this page (tool text, prompts, templates) is licensed under
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener">CC BY-SA 4.0</a>.
+        Logos/wordmarks and the book <em>Forms Reforged</em> are excluded (all rights reserved).
+        Preferred attribution: “Forms Reforged — Form Foundry (Beta) by Shunya Publications (CC BY-SA 4.0).”
       </div>
     </div>
   </footer>
@@ -443,13 +455,13 @@
     vault.forEach(item=>{
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${escapeHtml(item.title||'—')}</td>
-        <td>${escapeHtml(item.domain||'—')}</td>
-        <td>${new Date(item.updated||Date.now()).toLocaleString()}</td>
+        <td>\${escapeHtml(item.title||'—')}</td>
+        <td>\${escapeHtml(item.domain||'—')}</td>
+        <td>\${new Date(item.updated||Date.now()).toLocaleString()}</td>
         <td>
-          <button class="btn soft" data-act="load" data-id="${encodeURIComponent(item.title)}">Load</button>
-          <button class="btn outline" data-act="md" data-id="${encodeURIComponent(item.title)}">MD</button>
-          <button class="btn warn" data-act="del" data-id="${encodeURIComponent(item.title)}">Delete</button>
+          <button class="btn soft" data-act="load" data-id="\${encodeURIComponent(item.title)}">Load</button>
+          <button class="btn outline" data-act="md" data-id="\${encodeURIComponent(item.title)}">MD</button>
+          <button class="btn warn" data-act="del" data-id="\${encodeURIComponent(item.title)}">Delete</button>
         </td>`;
       tbody.appendChild(tr);
     });
@@ -476,81 +488,81 @@
   function toMarkdown(d){
     d = d||formToObj();
     const esc = s=> (s||'').trim();
-    return `# ${esc(d.title)}
+    return `# \${esc(d.title)}
 
 `+
-`**Domain:** ${esc(d.domain)}  
-**Author/Team:** ${esc(d.author)}  
-**Updated:** ${nowStr()}
+`**Domain:** \${esc(d.domain)}  
+**Author/Team:** \${esc(d.author)}  
+**Updated:** \${nowStr()}
 
 ---
 
 `+
 `## 1) Diagnose the Inherited Form
-${esc(d.inherited)}
+\${esc(d.inherited)}
 
 **Harms & Misfits**
-${esc(d.harms)}
+\${esc(d.harms)}
 
 **Signals It’s Failing**
-${esc(d.signals)}
+\${esc(d.signals)}
 
 ---
 
 `+
 `## 2) Extract the Essence
-${esc(d.essence)}
+\${esc(d.essence)}
 
 **Context & Constraints**
-${esc(d.constraints)}
+\${esc(d.constraints)}
 
 ---
 
 `+
 `## 3) Reimagine the Blueprint
 **Definition**
-${esc(d.definition)}
+\${esc(d.definition)}
 
 **Pillars**
-${esc(d.pillars)}
+\${esc(d.pillars)}
 
-**Anti‑patterns**
-${esc(d.anti)}
+**Anti-patterns**
+\${esc(d.anti)}
 
 **Practices & Rituals**
-${esc(d.rituals)}
+\${esc(d.rituals)}
 
 **Symbols & Language**
-${esc(d.symbols)}
+\${esc(d.symbols)}
 
 ---
 
 `+
 `## 4) Embody & Ritualize
 **Roles & Responsibilities**
-${esc(d.roles)}
+\${esc(d.roles)}
 
 **Friction Plan**
-${esc(d.friction)}
+\${esc(d.friction)}
 
 **Timeline**
-${esc(d.timeline)}
+\${esc(d.timeline)}
 
 ---
 
 `+
 `## 5) Share & Metrics
 **Audience & Adoption**
-${esc(d.audience)}
+\${esc(d.audience)}
 
 **Success Metrics**
-${esc(d.metrics)}
+\${esc(d.metrics)}
 
 **Ethics Guardrails**
-${esc(d.ethics)}
+\${esc(d.ethics)}
 
 **License**
-${esc(d.license)}
+\${esc(d.license)}
 `;
   }
   function downloadText(text, filename){
@@ -590,7 +602,7 @@ ${esc(d.license)}
   byId('scoreCave').addEventListener('click', ()=>{
     const s = Number(byId('flicker').value) + Number(byId('noise').value);
     const out = byId('caveOut');
-    out.textContent = s>=3 ? 'You’re exiting the cave. Keep seeking disconfirming evidence.' : (s===2 ? 'Mixed: add a weekly “shadow check” (sources you disagree with).' : 'Shadow‑bound: reduce algorithmic feeds; schedule silent thinking.');
+    out.textContent = s>=3 ? 'You’re exiting the cave. Keep seeking disconfirming evidence.' : (s===2 ? 'Mixed: add a weekly “shadow check” (sources you disagree with).' : 'Shadow-bound: reduce algorithmic feeds; schedule silent thinking.');
   });
   byId('scoreIntegrity').addEventListener('click', ()=>{
     const s = Number(byId('humility').value) + Number(byId('inclusion').value);
