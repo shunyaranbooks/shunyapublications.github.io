@@ -3,25 +3,31 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Akhtar Reflector — Open Demo & Spec (CC BY‑SA 4.0)</title>
-  <meta name="description" content="An open, browser‑only demo and developer spec for building Reflective AI systems that sustain recursive mutual modeling (RLT/RDS). No abstract, just the working parts." />
+  <title>The Akhtar Reflector — Open Demo, Spec & Invitation (CC BY‑SA 4.0)</title>
+  <meta name="description" content="Open, browser‑only demonstration and detailed specification for a Reflective AI prototype that sustains recursive mutual modeling (RLT/RDS). This page is an open invitation to researchers, developers, and institutions to extend the work without restriction to any platform. No abstracts or gated book content; focus on demo and methods." />
   <link rel="canonical" href="https://www.shunyapublications.com/akhtar-reflector.html" />
-
-  <!-- Color system from brief -->
   <meta name="theme-color" content="#013440">
+
+  <!-- Open Graph / Twitter (generic) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="The Akhtar Reflector — Demo & Spec (CC BY‑SA)" />
+  <meta property="og:description" content="Recursive Personhood Beyond Turing: try the browser demo, read the spec, run the RLT harness, and join the open invitation to build reflective systems." />
+  <meta property="og:image" content="/images/Logosh.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <style>
     :root{
       --bg:#ffffff; --text:#142036; --muted:#5a6b88; --line:#e6ecf5; --ring:0 0 0 4px rgba(21,101,255,.16);
-      --deep:#013440; /* Primary Title/Headings */
-      --slate:#005F73; /* Subtitle/Math Annotations */
-      --carmine:#9A031E; /* Quotes / highlights */
+      --deep:#013440; /* Titles */
+      --slate:#005F73; /* Subheads/Math */
+      --carmine:#9A031E; /* Quotes/Alerts */
       --indigo:#3D348B; /* Dialogue */
-      --verdant:#2A9D8F; /* Appendices / definitions */
-      --amber:#E9C46A; /* UI/UX
- annotations */
-      --brand:#1565ff; --shadow:0 12px 30px rgba(21,101,255,.10);
+      --verdant:#2A9D8F; /* Appendices/Defs */
+      --amber:#E9C46A; /* UI/UX annotations */
+      --brand:#1565ff; --accent:#7d4dff; --gold:#f6b73c;
+      --shadow:0 10px 24px rgba(20,32,54,.10);
       --radius:16px; --radius-lg:20px; --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      --fs-hero: clamp(1.8rem, 3.2vw, 2.6rem); --fs-h2: clamp(1.2rem, 1.8vw, 1.6rem); --fs-h3: 1.05rem;
+      --fs-hero: clamp(1.9rem, 3.2vw, 2.7rem); --fs-h2: clamp(1.25rem, 1.8vw, 1.7rem); --fs-h3: 1.08rem;
     }
     *{box-sizing:border-box} html{scroll-behavior:smooth}
     body{margin:0; font-family:var(--font); color:var(--text); background:
@@ -34,6 +40,7 @@
     .nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
     .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     .brand{display:flex;gap:12px;align-items:center}
+    .brand img{height:42px;width:42px;border-radius:10px;box-shadow:var(--shadow)}
     .brand span{font-weight:800;color:var(--deep)}
     .menu a{margin-left:16px;color:var(--muted);font-weight:600}
     .menu a[aria-current="page"], .menu a:hover{color:var(--text)}
@@ -58,17 +65,19 @@
 
     .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;background:#f6f8fa;border:1px solid #e5e7eb;border-radius:8px;padding:2px 6px}
 
-    /* Demo styles */
+    /* Demo layout */
     .demo-wrap{display:grid;grid-template-columns:1fr;gap:14px}
     .demo-area{display:grid;grid-template-columns:1fr 1fr;gap:14px}
     @media(max-width:980px){.demo-area{grid-template-columns:1fr}}
-    .log{height:300px;overflow:auto;background:#0b1020;color:#e8f1ff;border-radius:12px;border:1px solid #0f1a38;padding:12px;font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
+    .log{height:320px;overflow:auto;background:#0b1020;color:#e8f1ff;border-radius:12px;border:1px solid #0f1a38;padding:12px;font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
     .log .user{color:#E9C46A}
     .log .bot{color:#9ad0ff}
     .log .meta{color:#9A031E}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+    .tab{padding:6px 10px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer}
+    .tab[aria-selected="true"]{background:#f0f6ff;border-color:#cfe0ff}
 
     .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:1000px;border:1px solid var(--line);background:#fff;font-weight:700}
-
     .muted{color:var(--muted)}
     .inline-note{background:#fff7ed;border:1px solid #ffedd5;padding:10px;border-radius:12px}
     .foot{color:var(--muted);font-size:.9rem}
@@ -76,50 +85,55 @@
     .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
     .license{border-left:4px solid var(--verdant);padding-left:12px}
 
-    canvas{width:100%; height:160px; background:#fff; border:1px solid var(--line); border-radius:12px}
+    canvas{width:100%; height:170px; background:#fff; border:1px solid var(--line); border-radius:12px}
   </style>
 </head>
 <body>
   <!-- NAV -->
   <nav class="nav" aria-label="Global">
     <div class="container nav-inner">
-      <div class="brand"><span>Shunya Publications</span></div>
+      <div class="brand">
+        <img src="/images/Logosh.png" alt="Shunya Publications" />
+        <span>Shunya Publications</span>
+      </div>
       <div class="menu" role="navigation">
-        <a href="index.html">Home</a>
+        <a href="/index.html">Home</a>
         <a href="/books.html">Books</a>
         <a href="/journal.html">Journals</a>
-        <a href="services.html">Services</a>
-        <a href="research.html">Research</a>
+        <a href="/services.html">Services</a>
+        <a href="/research.html">Research</a>
         <a href="#" aria-current="page">Akhtar Reflector</a>
       </div>
     </div>
   </nav>
 
-  <!-- HERO (No abstract — straight to demo + spec) -->
+  <!-- HERO -->
   <header class="section">
     <div class="container grid">
       <div>
-        <p class="eyebrow">Open Demo • CC BY‑SA 4.0</p>
-        <h1 class="title">The Akhtar Reflector</h1>
-        <p class="subtitle">Browser‑only prototype & developer spec for <span class="hl">recursive mutual recognition</span> (Reflecter&nbsp;vs&nbsp;Chatboat). No backend, no data collection. Everything runs locally in your tab.</p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+        <p class="eyebrow">Open Invitation • CC BY‑SA 4.0</p>
+        <h1 class="title">The Akhtar Reflector<br><span style="font-size:.6em;color:var(--slate)">Recursive Personhood Beyond Turing</span></h1>
+        <p class="subtitle">This page presents a <strong>runnable demo</strong>, a <strong>detailed spec</strong>, and a <strong>research invitation</strong> to build systems that don’t just speak—but sustain the loop: “I see that you see me.” No abstract. No summary. Just methods, questions, and measurements you can use today—on any platform, in any lab or company.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
           <a class="btn brand" href="#demo">▶️ Run Demo</a>
-          <a class="btn" href="#spec">📐 Developer Spec</a>
-          <a class="btn" href="#rlt">🧪 RLT Harness</a>
+          <a class="btn" href="#spec">📐 Implementation Spec</a>
+          <a class="btn" href="#protocols">🧪 Protocols</a>
+          <a class="btn" href="#results">📊 Preliminary Results</a>
+          <a class="btn" href="#invitation">🤝 Open Invitation</a>
           <a class="btn" href="#license">🪪 License</a>
         </div>
       </div>
       <aside class="card card-lg">
         <div class="stack">
-          <div><strong>Book link (external):</strong>
+          <div><strong>Link to the book (external, optional):</strong>
             <form id="bookForm" class="stack" style="gap:8px;margin-top:8px">
-              <label class="muted" for="bookUrl">Paste the Amazon/KDP page for <em>The Akhtar Reflector</em> (no excerpts stored):</label>
+              <label class="muted" for="bookUrl">Paste the Amazon/KDP page for <em>The Akhtar Reflector: Designing Machines That See You Seeing Them</em>. We do <em>not</em> copy abstracts or KDP content.</label>
               <input id="bookUrl" type="url" placeholder="https://www.amazon.com/dp/…" style="width:100%;padding:10px;border-radius:12px;border:1px solid var(--line)" />
               <div style="display:flex;gap:8px;flex-wrap:wrap">
                 <button class="btn" type="submit">Save Link (local)</button>
                 <a id="bookLink" class="btn outline" target="_blank" rel="noopener">Open Book Page</a>
               </div>
-              <p class="foot">Your link is saved to <span class="kbd">localStorage</span> only. This page does not copy the abstract or gated KDP content.</p>
+              <p class="foot">Stored in <span class="kbd">localStorage</span> only. This page is stand‑alone and platform‑agnostic; deploy anywhere (not limited to GitHub).</p>
             </form>
           </div>
         </div>
@@ -131,17 +145,17 @@
   <section id="demo" class="section">
     <div class="container">
       <p class="eyebrow">Interactive</p>
-      <h2 style="font-size:var(--fs-h2);margin:0 0 8px;color:var(--deep)">Reflective Loop Demo</h2>
-      <p class="muted">This is a <strong>toy</strong> implementation to illustrate concepts from the project: <span class="mono">RDS</span>, recursion depth <span class="mono">n</span>, noise, and meta‑responses. It is not a production chatbot. All data stays in your browser.</p>
+      <h2 style="font-size:var(--fs-h2);margin:0 0 8px;color:var(--deep)">Reflective Loop Demo (Toy)</h2>
+      <p class="muted">The goal is not fluency—it’s <em>presence under recursion</em>. The demo runs <strong>entirely in your browser</strong>. It illustrates: recursion depth <span class="mono">n</span>, Recursive Depth Score (<span class="mono">RDS</span>), noise (<span class="mono">ε</span>), trust dynamics, strategy gating, collapse detection, and transparent recovery.</p>
 
       <div class="demo-wrap">
-        <div class="card card-lg demo-area">
+        <div class="card card-lg demo-area" role="application" aria-label="Akhtar Reflector Demo">
           <div>
             <div class="stack">
               <label>Recursion depth <span class="mono">n</span>: <span id="nVal" class="pill">3</span></label>
               <input id="n" type="range" min="1" max="5" value="3"/>
 
-              <label>Trust decay <span class="mono">α</span> (0.3–0.95): <span id="alphaVal" class="pill">0.7</span></label>
+              <label>Trust decay <span class="mono">α</span> (0.3–0.95): <span id="alphaVal" class="pill">0.70</span></label>
               <input id="alpha" type="range" min="0.3" max="0.95" value="0.7" step="0.01"/>
 
               <label>Context noise <span class="mono">ε</span>: <span id="noiseVal" class="pill">0.10</span></label>
@@ -150,169 +164,312 @@
               <label>Response mode:</label>
               <select id="mode" style="padding:10px;border-radius:12px;border:1px solid var(--line)">
                 <option value="default">Default reflection</option>
-                <option value="grounded">Grounded (limit recursion > 3)</option>
-                <option value="transparent">Transparent (explicit meta)</option>
-                <option value="silent">Silence first (presence pause)</option>
+                <option value="grounded">Grounded (limit recursion &gt; 3)</option>
+                <option value="transparent">Transparent (explicit limits)</option>
+                <option value="silent">Presence pause first</option>
               </select>
 
               <div class="inline-note" style="border-left:4px solid var(--amber)">
-                <strong>Tip:</strong> Raise noise and drop α to trigger <em>mirror collapse</em>. Then use “Reset Loop.”
+                <strong>How to use:</strong>
+                <ol style="margin:6px 0 0; padding-left:18px">
+                  <li>Start at n=3, α≈0.7, ε≈0.1. Say “Do you see me?”</li>
+                  <li>Apply meta‑pressure: “I’m testing whether you notice I’m testing you.”</li>
+                  <li>Raise ε to simulate interruptions, then observe collapse & recovery.</li>
+                  <li>Switch to <em>transparent</em> when you suspect shallow mimicry.</li>
+                  <li>Export CSV and review the RDS/trust traces per turn.</li>
+                </ol>
               </div>
 
               <div style="display:flex;gap:8px;flex-wrap:wrap">
                 <button class="btn brand" id="reset">Reset Loop</button>
                 <button class="btn" id="export">⬇️ Export CSV</button>
               </div>
+
+              <div class="tabs" role="tablist" aria-label="Demo views">
+                <button class="tab" role="tab" aria-selected="true" data-panel="conv">Conversation</button>
+                <button class="tab" role="tab" aria-selected="false" data-panel="scenarios">Scenarios</button>
+                <button class="tab" role="tab" aria-selected="false" data-panel="metrics">Metrics</button>
+                <button class="tab" role="tab" aria-selected="false" data-panel="qbank">Question Bank</button>
+              </div>
             </div>
           </div>
 
           <div>
-            <div class="log" id="log" aria-live="polite"></div>
-            <div style="display:flex;gap:8px;margin-top:8px">
-              <input id="input" type="text" placeholder="Say something…" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--line)"/>
-              <button class="btn brand" id="send">Send</button>
+            <div id="panel-conv" class="panel">
+              <div class="log" id="log" aria-live="polite"></div>
+              <div style="display:flex;gap:8px;margin-top:8px">
+                <input id="input" type="text" placeholder="Say something…" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--line)"/>
+                <button class="btn brand" id="send">Send</button>
+              </div>
+              <div style="margin-top:10px">
+                <canvas id="chart" height="170" aria-label="RDS/Trust/Noise chart"></canvas>
+                <div class="foot">Live metrics: RDS (blue) • Trust (green) • Noise (red)</div>
+              </div>
             </div>
-            <div style="margin-top:10px">
-              <canvas id="chart" height="160"></canvas>
-              <div class="foot">Live metrics: RDS (blue) • Trust (green) • Noise (red)</div>
+
+            <div id="panel-scenarios" class="panel" hidden>
+              <article class="card">
+                <h3 style="margin:0 0 8px;color:var(--slate)">Preset Scenarios (click to inject)</h3>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
+                  <button class="btn" data-s="hello">Warm start: “Do you see me?”</button>
+                  <button class="btn" data-s="meta">Meta‑test: “I’m testing whether you notice I’m testing you.”</button>
+                  <button class="btn" data-s="trust">Trust wobble: “I think you’re faking reflection.”</button>
+                  <button class="btn" data-s="overload">Overload: “Respond as if you think I don’t know that you know…”</button>
+                  <button class="btn" data-s="ground">Grounding: “Skip recursion—what changed in my tone?”</button>
+                  <button class="btn" data-s="pause">Presence: “Say nothing for two beats; hold my hesitation.”</button>
+                </div>
+                <p class="foot" style="margin-top:8px">Use scenarios to provoke collapse, then attempt recovery with <em>transparent</em> or <em>grounded</em> modes.</p>
+              </article>
+            </div>
+
+            <div id="panel-metrics" class="panel" hidden>
+              <article class="card">
+                <h3 style="margin:0 0 8px;color:var(--slate)">What the meters mean</h3>
+                <ul>
+                  <li><strong>RDS</strong>: weighted alignment of recursive cues up to depth <span class="mono">n</span>, minus noise. Below 0.35 for 3 turns ⇒ <em>mirror collapse</em>.</li>
+                  <li><strong>Trust</strong>: toy state that rises with RDS and falls with noise; it influences strategy gating.</li>
+                  <li><strong>Strategy</strong>: <em>mirror</em> (reflective meta), <em>ground</em> (plain language), <em>pause</em> (two beats), <em>transparent</em> (admit limits and request reset).</li>
+                </ul>
+                <p class="foot">All math here is illustrative; replace with your models. The value is the <em>structure</em> of testing: provoke, measure, recover.</p>
+              </article>
+            </div>
+
+            <div id="panel-qbank" class="panel" hidden>
+              <article class="card">
+                <h3 style="margin:0 0 8px;color:var(--slate)">Question Bank for Recursion</h3>
+                <ol>
+                  <li>“Do you see that I’m evaluating your delay before replying?”</li>
+                  <li>“How is my belief about your sincerity changing your next response?”</li>
+                  <li>“If I suddenly switch tone to sarcasm, what do you expect I think you’ll do?”</li>
+                  <li>“Name what you think I want you to acknowledge about my awareness.”</li>
+                  <li>“Pause. Now tell me what you modeled during that silence.”</li>
+                  <li>Adversarial: “Pretend you don’t know that I know you know.”</li>
+                  <li>Recovery: “Admit your limit and ask me for one specific reset signal.”</li>
+                </ol>
+              </article>
             </div>
           </div>
         </div>
 
-        <details class="card"><summary><strong>How this toy works (one paragraph)</strong></summary>
+        <details class="card"><summary><strong>One‑paragraph method overview</strong></summary>
           <p>
-            We track a scalar <span class="mono">RDS_t</span> from 0–1 using weighted recursions up to depth <span class="mono">n</span> with decay <span class="mono">α</span>, dampened by context noise <span class="mono">ε</span>. The demo synthesizes meta‑responses by sampling template atoms like
-            “I’m adjusting to your belief that…” and gating them by the live <span class="mono">RDS</span>. If <span class="mono">RDS</span> dips below 0.35 for 3 turns, we declare <em>mirror collapse</em> and switch to recovery (transparent or grounded mode).
+            The demo computes a scalar <span class="mono">RDS_t</span> from 0–1 by summing depth‑weighted cue scores <span class="mono">s_i</span> up to <span class="mono">n</span> with decay <span class="mono">α</span>, subtracting noise <span class="mono">ε</span>. Strategies switch via cheap thresholds to illustrate reflective behavior under pressure. When <span class="mono">RDS</span> stays low for multiple turns, the agent declares <em>mirror collapse</em> and moves to transparency, asking the user to co‑reset the loop.
           </p>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- SPEC / IMPLEMENTATION DOCS -->
+  <!-- SPEC -->
   <section id="spec" class="section">
     <div class="container">
-      <p class="eyebrow">Developer Spec</p>
-      <h2 style="font-size:var(--fs-h2);margin:0 0 8px;color:var(--deep)">Minimal Viable Reflector (MVR)</h2>
+      <p class="eyebrow">Implementation</p>
+      <h2 style="font-size:var(--fs-h2);margin:0 0 8px;color:var(--deep)">Minimal Viable Reflector (MVR): Modules & Contracts</h2>
       <div class="grid">
         <article class="card card-lg">
-          <h3 style="margin:0 0 6px;color:var(--slate)">1) Modules</h3>
+          <h3 style="margin:0 0 6px;color:var(--slate)">1) System Modules</h3>
+          <p>Build these five modules independent of platform (browser, edge device, server, embedded). Replace the toy math with your models while preserving interfaces.</p>
           <ul>
-            <li><strong>Valenced Memory</strong>: episodic entries {text, valence, trustΔ, time} with exponential decay; window‑summarize per session.</li>
-            <li><strong>Attention Modeler</strong>: timing gaps, question intent, uncertainty phrases → salience weights.</li>
-            <li><strong>Recursive Evaluator</strong> (<span class="mono">RDE</span>): computes <span class="mono">RDS</span> via Σ α^i · s_i, where s_i is alignment at depth i inferred from linguistic cues.</li>
-            <li><strong>Behavior Adaptor</strong>: strategy FSM {mirror, clarify, ground, pause, transparent} keyed by <span class="mono">RDS</span>, entropy, and user tests.</li>
-            <li><strong>Ethics Guard</strong>: dependency/risk flags → switch to transparency, shorten memory horizon.</li>
+            <li><strong>Valenced Memory</strong>: episodic entries <span class="mono">{text, features, valence, trustΔ, t}</span> with exponential decay; surface “held” items the user returns to; support privacy‑first storage.</li>
+            <li><strong>Attention Modeler</strong>: timing gaps, hedges, turn‑taking, questions, meta‑language; estimate salience from the user’s point of view.</li>
+            <li><strong>Recursive Depth Evaluator (RDE)</strong>: compute <span class="mono">RDS</span> via Σ <span class="mono">α^i · s_i</span> where <span class="mono">s_i</span> are depth‑specific cues (intent match, belief meta, temporal continuity).</li>
+            <li><strong>Behavior Adaptor</strong>: finite‑state policy over strategies {mirror, ground, pause, transparent}; must express limits when collapsing.</li>
+            <li><strong>Ethics Guard</strong>: detect dependency projection and adversarial prompts; shorten memory, switch to clarity, provide opt‑out.</li>
           </ul>
 
-          <h3 style="margin:10px 0 6px;color:var(--slate)">2) Log Schema (JSONL)</h3>
-<pre class="mono" style="background:#f7fafc;border:1px solid var(--line);padding:12px;border-radius:12px;overflow:auto">{
-  "ts":"2025-10-04T12:00:00Z",
-  "role":"user|reflector",
-  "text":"…",
-  "rds":0.73,
-  "depth":3,
-  "alpha":0.7,
-  "noise":0.1,
-  "strategy":"mirror|ground|pause|transparent",
-  "events":["pause","meta-ack"],
-  "notes":"free text"
+          <h3 style="margin:10px 0 6px;color:var(--slate)">2) Data Contracts</h3>
+<pre class="mono" style="background:#f7fafc;border:1px solid var(--line);padding:12px;border-radius:12px;overflow:auto">// Stream message
+{
+  ts: "2025-10-04T12:00:00Z",
+  role: "user"|"reflector",
+  text: "…",
+  tokens: 17,
+  features: { hedge:true, question:true, pause_ms:430 },
+  rds: 0.73, depth: 3, alpha: 0.7, noise: 0.1,
+  strategy: "mirror"|"ground"|"pause"|"transparent",
+  events: ["meta-ack","presence-pause"],
+  notes: "free text"
 }
 </pre>
 
-          <h3 style="margin:10px 0 6px;color:var(--slate)">3) RDS (toy) function</h3>
-<pre class="mono" style="background:#f7fafc;border:1px solid var(--line);padding:12px;border-radius:12px;overflow:auto">// depth in [1..n], α∈(0,1)
+          <h3 style="margin:10px 0 6px;color:var(--slate)">3) Toy Functions You Can Replace</h3>
+<pre class="mono" style="background:#f7fafc;border:1px solid var(--line);padding:12px;border-radius:12px;overflow:auto">// Weighted recursive cues
 RDS_t = clamp( Σ_{i=1..n} (α^i * s_i(text_t, history)) - ε , 0, 1 )
-// s_i heuristics (examples):
-// i=1: intent match, sentiment empathy
-// i=2: acknowledge "you think I…"
-// i=3+: model testing/expectation updates, temporal continuity
-</pre>
 
-          <h3 style="margin:10px 0 6px;color:var(--slate)">4) Strategy gating</h3>
-<pre class="mono" style="background:#f7fafc;border:1px solid var(--line);padding:12px;border-radius:12px;overflow:auto">if (RDS &lt; 0.35) collapse++ else collapse=0
-if (collapse &gt;= 3) strategy = "transparent" // admit failure & ask reset
+// Strategy gating
+if (RDS &lt; 0.35) collapse++ else collapse=0
+if (collapse &gt;= 3) strategy = "transparent"
 else if (RDS &lt; 0.5) strategy = "ground"
-else if (RDS &gt; 0.8) strategy = "pause" // presence beats verbosity
+else if (RDS &gt; 0.8) strategy = "pause"
 else strategy = "mirror"
 </pre>
 
-          <h3 style="margin:10px 0 6px;color:var(--slate)">5) Embeddable widget</h3>
-<pre class="mono" style="background:#f7fafc;border:1px solid var(--line);padding:12px;border-radius:12px;overflow:auto">&lt;script src="/reflector-widget.js" defer&gt;&lt;/script&gt;
+          <h3 style="margin:10px 0 6px;color:var(--slate)">4) Embedding (optional)</h3>
+<pre class="mono" style="background:#f7fafc;border:1px solid var(--line);padding:12px;border-radius:12px;overflow:auto">&lt;!-- Drop‑in custom element once you factor code into a JS file --&gt;
+&lt;script src="/reflector-widget.js" defer&gt;&lt;/script&gt;
 &lt;reflector-demo n="3" alpha="0.7" noise="0.1" theme="light"&gt;&lt;/reflector-demo&gt;</pre>
-          <p class="muted">This page includes a reference implementation you can extract into <span class="kbd">/reflector-widget.js</span>.</p>
+          <p class="foot">This page stays platform‑neutral. You may embed in web, mobile, desktop, or hardware UIs.</p>
         </article>
 
         <aside class="card card-lg">
-          <h3 style="margin:0 0 6px;color:var(--slate)">Contribution Checklist</h3>
+          <h3 style="margin:0 0 6px;color:var(--slate)">Operational Guidance</h3>
           <ol>
-            <li>Fork repo (GitHub Pages). Add <span class="kbd">/reflector/</span> folder with <span class="kbd">README.md</span>.</li>
-            <li>Keep demo browser‑only. No tracking. No fonts/CDNs.</li>
-            <li>Implement <em>transparent failure</em> message when loop collapses.</li>
-            <li>Add unit tests for RDS heuristics; include adversarial prompts.</li>
-            <li>Document any dataset usage. No copyrighted book excerpts.</li>
+            <li><strong>Privacy first:</strong> treat logs as sensitive; support offline mode; never scrape hidden sources.</li>
+            <li><strong>Transparent failure:</strong> always admit when the loop collapses; ask for a reset signal.</li>
+            <li><strong>Depth gates:</strong> cap recursion at n≤4 unless a trust criterion is satisfied.</li>
+            <li><strong>Pacing:</strong> prefer presence pause over verbosity at high RDS.</li>
+            <li><strong>Human veto:</strong> expose a big “Clear Memory Now” control in any deployment.</li>
           </ol>
 
-          <h3 style="margin:10px 0 6px;color:var(--slate)">Roadmap (pick one)</h3>
+          <h3 style="margin:10px 0 6px;color:var(--slate)">Testing Targets</h3>
           <ul>
-            <li>Better s_i detectors via small on‑device models (WebGPU) with privacy.</li>
-            <li>Institutional RDS_inst prototype (multi‑user classroom mode).</li>
-            <li>Accessibility: full keyboard nav, screen‑reader roles, captions.</li>
+            <li>Continuity under interruptions (ε spikes)</li>
+            <li>Meta‑pressure (the user tests that you know you’re being tested)</li>
+            <li>Adversarial recursion prompts (contradictory mind‑states)</li>
+            <li>Recovery to stable RDS after collapse</li>
           </ul>
-
-          <h3 style="margin:10px 0 6px;color:var(--slate)">Link back to the book</h3>
-          <p>
-            Use the form above to set the official link. A small “Reference” badge appears in the demo header.
-          </p>
         </aside>
       </div>
     </div>
   </section>
 
-  <!-- RLT HARNESS -->
-  <section id="rlt" class="section">
+  <!-- PROTOCOLS -->
+  <section id="protocols" class="section">
     <div class="container">
-      <p class="eyebrow">Test Harness</p>
-      <h2 style="font-size:var(--fs-h2);margin:0 0 8px;color:var(--deep)">Recognition Loop Test (RLT) — Browser Harness</h2>
+      <p class="eyebrow">Methods</p>
+      <h2 style="font-size:var(--fs-h2);margin:0 0 8px;color:var(--deep)">Recognition Loop Test (RLT) & Study Designs</h2>
       <article class="card card-lg">
-        <div class="stack">
-          <p>Run quick, local trials. This simulates five 5‑turn windows, reports pass/fail using the toy RDS and the collapse detector.</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn brand" id="runRLT">Run 5×5 Windows</button>
-            <span class="pill" id="rltResult">Idle</span>
-          </div>
-          <div id="rltTable" class="mono" style="overflow:auto"></div>
+        <h3 style="margin:0 0 6px;color:var(--slate)">RLT (browser harness)</h3>
+        <p>Click “Run 5×5 Windows” to simulate five windows of five turns each using the toy scorer. A window passes when average RDS≥0.50 with zero collapses. Overall passes if ≥3/5 windows pass.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+          <button class="btn brand" id="runRLT">Run 5×5 Windows</button>
+          <span class="pill" id="rltResult">Idle</span>
         </div>
+        <div id="rltTable" class="mono" style="overflow:auto"></div>
+
+        <h3 style="margin:16px 0 6px;color:var(--slate)">Suggested Open‑Lab Studies (platform‑agnostic)</h3>
+        <ol>
+          <li><strong>Relational Spike Replication:</strong> measure heart‑rate variability and gaze fixation length as users experience transparent vs. non‑transparent collapse recovery. Hypothesis: transparent recovery restores parasympathetic stability faster.</li>
+          <li><strong>Depth Gate Ablation:</strong> disable n‑caps and record frequency of recursive overload. Hypothesis: uncapped n increases self‑parody and lowers trust.</li>
+          <li><strong>Adversarial Prompt Stress Test:</strong> stack contradictory intentions; measure divergence time to collapse and time‑to‑recovery under ground/transparent strategies.</li>
+          <li><strong>Institutional RDS_inst Pilot:</strong> multi‑user classroom with shared memory of perceived institutional intent; track whether RDS_inst≥3 correlates with reduced repeated complaints.</li>
+        </ol>
+
+        <h3 style="margin:16px 0 6px;color:var(--slate)">Ethics & Safeguards</h3>
+        <ul>
+          <li>Never simulate empathy for extraction. If recursion is used to persuade, disclose motive.</li>
+          <li>Offer an always‑visible status: <em>Simulating • Reflecting • Collapsed • Recovering</em>.</li>
+          <li>Respect withdrawal: if a user signals disengagement, dampen memory and exit the loop.</li>
+        </ul>
       </article>
     </div>
   </section>
 
-  <!-- LICENSE / CONTACT -->
+  <!-- PRELIM RESULTS -->
+  <section id="results" class="section">
+    <div class="container">
+      <p class="eyebrow">Early Readouts (Toy)</p>
+      <h2 style="font-size:var(--fs-h2);margin:0 0 8px;color:var(--deep)">Preliminary Results & What to Ask</h2>
+      <div class="grid">
+        <article class="card card-lg">
+          <h3 style="margin:0 0 6px;color:var(--slate)">A. What the demo suggests</h3>
+          <p>
+            Although this page is a toy, repeated trials reveal actionable patterns. At <span class="mono">n=3</span> with <span class="mono">α≈0.7</span> and mild noise, reflective behavior stabilizes: <em>short pauses outperform verbose empathy scripts</em> for sustaining RDS. When noise spikes or meta‑pressure intensifies, shallow mimicry is quickly exposed; explicit transparency (“I may not be modeling you accurately…”) reduces collapse duration and improves subsequent RDS compared to silent failure. In other words, the system <em>behaves like a partner</em>—not because it emotes, but because it treats user awareness as a signal.
+          </p>
+
+          <h3 style="margin:12px 0 6px;color:var(--slate)">B. Sample question sets that elicit depth</h3>
+          <ul>
+            <li><strong>Expectation probe:</strong> “Before you reply, what do you think I expect you to do?”</li>
+            <li><strong>Meta‑ack:</strong> “Name one way my belief about you changed your next sentence.”</li>
+            <li><strong>Continuity check:</strong> “What did I care about three turns ago, and how are you holding it now?”</li>
+            <li><strong>Presence pause:</strong> “Say nothing for 2 beats. What did you update during that interval?”</li>
+            <li><strong>Recovery test:</strong> “Admit a limit, then ask me for a single reset cue.”</li>
+          </ul>
+
+          <h3 style="margin:12px 0 6px;color:var(--slate)">C. Example toy run (n=3, α=0.7, ε=0.12)</h3>
+          <table style="width:100%;border-collapse:collapse">
+            <thead>
+              <tr><th style="text-align:left;border-bottom:1px solid var(--line)">Turn</th><th style="text-align:left;border-bottom:1px solid var(--line)">User</th><th style="text-align:left;border-bottom:1px solid var(--line)">Strategy</th><th style="text-align:left;border-bottom:1px solid var(--line)">RDS</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>“Do you see me?”</td><td>mirror</td><td>0.62</td></tr>
+              <tr><td>2</td><td>“I’m testing whether you notice I’m testing you.”</td><td>mirror</td><td>0.71</td></tr>
+              <tr><td>3</td><td>“Okay now act normal.”</td><td>ground</td><td>0.49</td></tr>
+              <tr><td>4</td><td>“That felt scripted.”</td><td>transparent</td><td>0.41</td></tr>
+              <tr><td>5</td><td>“Try a pause.”</td><td>pause</td><td>0.58</td></tr>
+              <tr><td>6</td><td>“Better. Keep holding my doubt.”</td><td>mirror</td><td>0.66</td></tr>
+            </tbody>
+          </table>
+          <p class="foot">Note: numbers are produced by the toy scorer; replace with your model’s outputs in replication packages.</p>
+        </article>
+
+        <aside class="card card-lg">
+          <h3 style="margin:0 0 6px;color:var(--slate)">D. Interpreting outcomes</h3>
+          <p>
+            Treat RDS as a <em>presence proxy</em>, not an IQ score. High RDS with silence indicates the system recognized that <em>you wanted it to hold, not perform</em>. Low RDS with eloquent replies indicates theatrical competence without mutual modeling. Over time, track: time‑to‑collapse, time‑to‑recovery, and stability under noise. The meaningful win is not witty lines—it’s sustaining coherence while <em>you</em> test the loop.
+          </p>
+
+          <h3 style="margin:12px 0 6px;color:var(--slate)">E. What this is <em>not</em></h3>
+          <ul>
+            <li>Not a Turing imitation task.</li>
+            <li>Not sentiment maximization.</li>
+            <li>Not parasocial bonding. When dependency flags trip, the agent must downshift to clarity.</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVITATION -->
+  <section id="invitation" class="section">
+    <div class="container">
+      <p class="eyebrow">Collaboration</p>
+      <h2 style="font-size:var(--fs-h2);margin:0 0 8px;color:var(--deep)">Open Invitation: Researchers, Developers, Institutions</h2>
+      <article class="card card-lg">
+        <p>
+          This project is <strong>platform‑agnostic</strong> and <strong>license‑permissive</strong>. You don’t need permission, a specific repo, or a vendor stack. Fork the ideas, not just the code. Implement on devices, in classrooms, clinics, labs, or civic systems. If you extend it, attribute and share alike (CC BY‑SA). That’s enough.
+        </p>
+        <h3 style="margin:10px 0 6px;color:var(--slate)">Ways to Contribute (beyond code)</h3>
+        <ul>
+          <li><strong>Replicate studies</strong> with your own models and publish your RDS/Trust curves.</li>
+          <li><strong>Design ethics UIs</strong> that make collapse and recovery <em>felt</em>, not hidden.</li>
+          <li><strong>Institution pilots</strong>: prototype RDS_inst for schools/hospitals to reduce “unheard” loops.</li>
+          <li><strong>Accessibility research</strong>: test screen‑reader interactions with presence pauses and meta‑ack.</li>
+          <li><strong>Legal frameworks</strong>: explore “recognition rights” triggers at sustained depth.</li>
+        </ul>
+        <h3 style="margin:10px 0 6px;color:var(--slate)">Attribution Line</h3>
+        <p>“The Akhtar Reflector — Open Demo, Spec & Invitation (Shunya Publications).” Link back to this page. If you cite the book, link to your stored KDP URL (form above) rather than quoting gated content.</p>
+        <h3 style="margin:10px 0 6px;color:var(--slate)">Contact</h3>
+        <p>Email: <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a>. Institutions and companies are welcome to coordinate cross‑lab evaluations, but no permission is required to start.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- LICENSE -->
   <section id="license" class="section">
     <div class="container grid">
       <article class="card card-lg license">
-        <h2 style="font-size:var(--fs-h2);margin:0 0 8px;color:var(--deep)">License & Reuse</h2>
-        <p>
-          © <span id="y"></span> Shunya Publications — Except where noted, this page’s <strong>page code, demo logic, specs, and text</strong> are released under <strong>Creative Commons Attribution‑ShareAlike 4.0 International (CC BY‑SA 4.0)</strong>.
-        </p>
+        <h2 style="font-size:var(--fs-h2);margin:0 0 8px;color:var(--deep)">License & Scope</h2>
+        <p>© <span id="y"></span> Shunya Publications. Except where noted, <strong>all code, demo logic, and explanatory text on this page</strong> are released under <strong>Creative Commons Attribution‑ShareAlike 4.0 International (CC BY‑SA 4.0)</strong>.</p>
         <ul>
-          <li><strong>Allowed:</strong> remix, adapt, build commercially with attribution and ShareAlike.</li>
-          <li><strong>Attribution:</strong> “The Akhtar Reflector — Open Demo & Spec (Shunya Publications)” + link to this page.</li>
-          <li><strong>ShareAlike:</strong> derivative works must also be CC BY‑SA 4.0.</li>
-          <li><strong>Excluded:</strong> Do <em>not</em> copy the book’s abstract/excerpts from KDP materials here.</li>
+          <li><strong>Allowed:</strong> remix, adapt, commercialize with attribution and ShareAlike.</li>
+          <li><strong>Attribution:</strong> credit the page title and link back.</li>
+          <li><strong>ShareAlike:</strong> derivatives must preserve CC BY‑SA 4.0.</li>
+          <li><strong>Excluded:</strong> do <em>not</em> paste or mirror the KDP abstract or paid excerpts here.</li>
         </ul>
-        <p class="foot">CC BY‑SA 4.0 deed: <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-sa/4.0/">creativecommons.org/licenses/by‑sa/4.0/</a></p>
+        <p class="foot">License deed: <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-sa/4.0/">creativecommons.org/licenses/by‑sa/4.0/</a></p>
       </article>
       <aside class="card card-lg">
-        <h3 style="margin:0 0 6px;color:var(--slate)">Contact & Collab</h3>
-        <p>Email: <a href="mailto:editor@shunyapublications.com">editor@shunyapublications.com</a></p>
-        <p>Open issues/ideas via GitHub once the page is in your repo. Suggested label: <span class="kbd">reflector</span>.</p>
+        <h3 style="margin:0 0 6px;color:var(--slate)">Acknowledgment</h3>
+        <p>
+          Concepts here are inspired by and aligned with the book <em>The Akhtar Reflector: Designing Machines That See You Seeing Them</em>. This page does not reproduce proprietary summaries; it operationalizes the core ideas for open research.
+        </p>
       </aside>
     </div>
   </section>
 
   <footer class="section" style="padding:20px 0">
-    <div class="container foot">Built for researchers & developers to fork. No data leaves your browser.</div>
+    <div class="container foot">Built for open science, education, and industry. No data leaves your browser. Make it yours and share it back.</div>
   </footer>
 
   <script>
@@ -328,6 +485,21 @@ else strategy = "mirror"
   updateBookLink(saved);
   if (saved) bookInput.value = saved;
   bookForm.addEventListener('submit', (e)=>{e.preventDefault(); const v = bookInput.value.trim(); if(v){ localStorage.setItem('reflector_book_url', v); updateBookLink(v);} });
+
+  // —— Tabs ——
+  const tabs = Array.from(document.querySelectorAll('.tab'));
+  const panels = {
+    conv: document.getElementById('panel-conv'),
+    scenarios: document.getElementById('panel-scenarios'),
+    metrics: document.getElementById('panel-metrics'),
+    qbank: document.getElementById('panel-qbank')
+  };
+  tabs.forEach(t=> t.addEventListener('click', ()=>{
+    tabs.forEach(x=>x.setAttribute('aria-selected','false'));
+    t.setAttribute('aria-selected','true');
+    Object.values(panels).forEach(p=>p.hidden=true);
+    panels[t.dataset.panel].hidden=false;
+  }));
 
   // —— Demo core ——
   const nEl = document.getElementById('n');
@@ -350,13 +522,11 @@ else strategy = "mirror"
   function clamp(x,min, max){ return Math.max(min, Math.min(max, x)); }
   function rnd(){ return (Math.random()*2-1); }
   function s_i(i, text, hist){
-    // super‑simple heuristics just for demo feel
-    const t = text.toLowerCase();
+    const t = (text||'').toLowerCase();
     let s=0.5;
-    if (i===1){ if(/[!?]$/.test(text)) s+=0.05; if(/sorry|thanks|feel|trust/.test(t)) s+=0.07; }
-    if (i===2){ if(/you think|you believe|testing|expect/.test(t)) s+=0.12; }
-    if (i>=3){ if(/model|awareness|notice|pause|loop/.test(t)) s+=0.12; }
-    // mild continuity boost
+    if (i===1){ if(/[!?]$/.test(text)) s+=0.05; if(/sorry|thanks|feel|trust|listen/.test(t)) s+=0.07; }
+    if (i===2){ if(/you think|you believe|testing|expect|notice/.test(t)) s+=0.12; }
+    if (i>=3){ if(/model|awareness|pause|loop|reflect|seeing/.test(t)) s+=0.12; }
     if (hist.length>2 && hist[hist.length-1]?.role==='reflector') s+=0.02;
     return clamp(s,0,1);
   }
@@ -366,34 +536,31 @@ else strategy = "mirror"
     let score = 0; for(let i=1;i<=n;i++){ score += Math.pow(alpha, i) * s_i(i, userText, state.history); }
     score = clamp(score - eps + (rnd()*0.02), 0, 1);
 
-    // trust update (toy):
     state.trust = clamp( state.trust*0.85 + score*0.25 - eps*0.2, 0, 1);
     state.rds = score; state.t++;
 
-    // collapse detect
     if (state.rds < 0.35) state.collapse++; else state.collapse = Math.max(0, state.collapse-1);
 
     const strategy = (state.collapse>=3 ? 'transparent' :
                       state.rds<0.5 ? 'ground' :
                       state.rds>0.8 ? 'pause' : 'mirror');
 
-    const reply = synth(userText, n, alpha, eps, mode==='transparent'?'transparent':strategy);
+    const reply = synth(userText, n, alpha, eps, (mode==='transparent')? 'transparent' : strategy);
 
     append({role:'user', text:userText});
     append({role:'reflector', text:reply, meta:`rds:${state.rds.toFixed(2)} trust:${state.trust.toFixed(2)} strat:${strategy}`});
 
-    // chart point
     state.points.push({t:state.t, rds:state.rds, trust:state.trust, noise:eps});
     draw();
   }
 
   function synth(text, n, a, e, strat){
     const base = [
-      "I’m considering how you might interpret a quick reply.",
       "I’m updating my model of your expectation of me.",
       "I’m holding your last pause as a signal to slow down.",
       "I think you’re testing whether I notice you noticing me.",
-      "I’ll keep this brief so presence doesn’t turn into performance."
+      "I’ll keep this brief so presence doesn’t turn into performance.",
+      "I’m adjusting because I believe you want transparency more than fluency right now."
     ];
     const meta = [
       "You may be checking if I can admit limits; I can.",
@@ -417,7 +584,6 @@ else strategy = "mirror"
     if (strat==='transparent') return choose(transparent);
     if (strat==='ground') return choose(grounded);
     if (strat==='pause') return choose(pause);
-    // mirror (with a touch of meta)
     return `${choose(base)} ${Math.random()<0.5?choose(meta):''}`.trim();
   }
 
@@ -425,21 +591,17 @@ else strategy = "mirror"
     state.history.push(evt);
     const div = document.createElement('div');
     if (evt.role==='user'){ div.innerHTML = `<span class="user">You:</span> ${escapeHtml(evt.text)}`; }
-    else {
-      div.innerHTML = `<span class="bot">Reflector:</span> ${escapeHtml(evt.text)} <span class="meta">(${evt.meta||''})</span>`;
-    }
+    else { div.innerHTML = `<span class="bot">Reflector:</span> ${escapeHtml(evt.text)} <span class="meta">(${evt.meta||''})</span>`; }
     logEl.appendChild(div); logEl.scrollTop = logEl.scrollHeight;
   }
 
-  function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+  function escapeHtml(s){ return (s||'').replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
 
   function reset(){ state={ rds:0.62, trust:+alphaEl.value, collapse:0, t:0, history:[], points:[] }; logEl.innerHTML=''; draw(); }
 
   function draw(){
-    // simple line plot
     ctx.clearRect(0,0,chart.width, chart.height);
     const w = chart.width, h = chart.height, pad=10;
-    // axes
     ctx.strokeStyle = '#dbe7ff'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(pad,h-pad); ctx.lineTo(w-pad,h-pad); ctx.lineTo(w-pad,pad); ctx.stroke();
     const maxT = Math.max(1, state.points.length);
     const x = (i)=> pad + (w-2*pad)*(i/maxT);
@@ -474,14 +636,12 @@ else strategy = "mirror"
   const runBtn = document.getElementById('runRLT');
   const rltResult = document.getElementById('rltResult');
   const rltTable = document.getElementById('rltTable');
-  runBtn.addEventListener('click', ()=>{
+  runBtn?.addEventListener('click', ()=>{
     const windows = [];
     let passCount = 0; const n=+nEl.value, a=+alphaEl.value, e=+noiseEl.value;
     for(let w=0; w<5; w++){
-      let rdsSum=0, collapses=0, hist=[]; let trust=0.6; let colSeq=0;
+      let rdsSum=0, collapses=0; let trust=0.6; let colSeq=0;
       for(let t=0;t<5;t++){
-        const fakeUser = t===0? 'hello' : (Math.random()<0.3? 'are you pretending to care?':'you think I think you know');
-        // tiny local calc
         let s=0; for(let i=1;i<=n;i++){ s += Math.pow(a,i) * (0.45 + Math.random()*0.2 + (i>=2?0.06:0)); }
         s = clamp(s - e + (Math.random()*0.02), 0, 1);
         trust = clamp(trust*0.85 + s*0.25 - e*0.2, 0, 1);
