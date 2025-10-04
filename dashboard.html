@@ -3,11 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Academic Leadership Dashboard — Single-File (Power BI Alternative)</title>
-<meta name="description" content="A single-file, offline-ready dashboard for academic leaders: global slicers, KPI tiles, charts, drill tables, export/print, and local data import. No server, no libraries." />
+<title>Academic Leadership Dashboard — Single-File</title>
 <meta name="theme-color" content="#1565ff" />
-<link rel="canonical" href="/dashboard.html" />
-
 <style>
 :root{
   --bg:#ffffff; --bg-1:#fff9f1; --bg-2:#f3f9ff; --bg-3:#eef9f5;
@@ -100,6 +97,10 @@ canvas{width:100%; height:300px; display:block}
 fieldset{border:1px dashed var(--line); border-radius:12px; padding:12px}
 legend{font-weight:700;color:#374a6b}
 
+/* toast */
+.toast{position:fixed; left:50%; transform:translateX(-50%); bottom:20px; background:#142036; color:#fff; padding:10px 14px; border-radius:10px; font-size:.9rem; box-shadow:var(--shadow); z-index:200; opacity:.98;}
+
+/* print */
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
 @media print{
   .nav, #controls, .slicers .btn, #help, #dataTemplates, #configCard {display:none!important}
@@ -118,13 +119,10 @@ legend{font-weight:700;color:#374a6b}
       <span>Academic Leadership Dashboard</span>
     </div>
     <div class="menu" role="navigation">
-      <a href="index.html">Home</a>
       <a href="#top" aria-current="page">Dashboard</a>
       <a href="#charts">Charts</a>
       <a href="#tables">Tables</a>
       <a href="#help">Help</a>
-      <a href="research.html">Research</a>
-      <a href="/leadership.html">Academic Leadership</a>
     </div>
   </div>
 </nav>
@@ -133,7 +131,7 @@ legend{font-weight:700;color:#374a6b}
   <div class="container">
     <div class="stack">
 
-      <!-- Identity card (prints to PDF) -->
+      <!-- Identity card -->
       <div class="card" id="brandCard">
         <div class="brand-card">
           <img id="brandLogoImg" src="/images/Logosh.png" alt="Institution Logo" />
@@ -146,8 +144,8 @@ legend{font-weight:700;color:#374a6b}
 
       <div class="card card-lg">
         <p class="eyebrow">Start</p>
-        <h1 style="margin:.2rem 0; font-size:var(--fs-hero)">Power-BI-style, Single-File Dashboard for Academic Leaders</h1>
-        <p class="lead">Use this offline-ready dashboard to track KPIs, explore trends, and export leadership snapshots. Data stays in the browser (<span class="mono">localStorage</span>).</p>
+        <h1 style="margin:.2rem 0; font-size:var(--fs-hero)">Power-BI-style, Single-File Dashboard</h1>
+        <p class="lead">Track KPIs, explore trends, and export leadership snapshots. Data stays in the browser (<span class="mono">localStorage</span>).</p>
 
         <!-- Branding -->
         <div class="row" id="controls">
@@ -259,7 +257,7 @@ legend{font-weight:700;color:#374a6b}
           <button class="btn" id="importJSON">Import JSON</button>
           <button class="btn" id="exportJSON">Export JSON</button>
           <button class="btn danger" id="resetAll">Reset All Data</button>
-          <span class="small">Bundle keys: <span class="mono">{ placements, research, budget, consultancy, config, brand }</span>.</span>
+          <span class="small">Bundle keys: <span class="mono">{ placements, research, budget, consultancy, obe, config, brand }</span>.</span>
         </div>
 
         <div id="dataTemplates" class="grid cols-2" style="margin-top:10px">
@@ -268,7 +266,7 @@ legend{font-weight:700;color:#374a6b}
             <div class="row">
               <input id="uplPlacements" type="file" accept=".csv" class="w-66">
               <button class="btn" id="btnUplPlacements">Upload CSV</button>
-              <button class="btn ghost" id="tplPlacements">Download Template</button>
+              <button class="btn ghost" id="tplPlacements">Template</button>
             </div>
             <textarea id="csvPlacements" placeholder="program,batch_year,placed_count,total_count,median_ctc_inr,internship_pct,dept
 B.Tech CSE,2024,72,90,520000,68,Engineering"></textarea>
@@ -280,7 +278,7 @@ B.Tech CSE,2024,72,90,520000,68,Engineering"></textarea>
             <div class="row">
               <input id="uplResearch" type="file" accept=".csv" class="w-66">
               <button class="btn" id="btnUplResearch">Upload CSV</button>
-              <button class="btn ghost" id="tplResearch">Download Template</button>
+              <button class="btn ghost" id="tplResearch">Template</button>
             </div>
             <textarea id="csvResearch" placeholder="title,type,citations,year,dept,program,link
 Paper A,SCI,12,2024,Engineering,B.Tech CSE,https://example.com"></textarea>
@@ -292,7 +290,7 @@ Paper A,SCI,12,2024,Engineering,B.Tech CSE,https://example.com"></textarea>
             <div class="row">
               <input id="uplBudget" type="file" accept=".csv" class="w-66">
               <button class="btn" id="btnUplBudget">Upload CSV</button>
-              <button class="btn ghost" id="tplBudget">Download Template</button>
+              <button class="btn ghost" id="tplBudget">Template</button>
             </div>
             <textarea id="csvBudget" placeholder="item,type,amount_inr,year,owner,project,status,dept
 AI Lab,Capex,1500000,2024,Dean R&amp;D,Industry Lab,approved,Engineering"></textarea>
@@ -304,11 +302,24 @@ AI Lab,Capex,1500000,2024,Dean R&amp;D,Industry Lab,approved,Engineering"></text
             <div class="row">
               <input id="uplConsult" type="file" accept=".csv" class="w-66">
               <button class="btn" id="btnUplConsult">Upload CSV</button>
-              <button class="btn ghost" id="tplConsult">Download Template</button>
+              <button class="btn ghost" id="tplConsult">Template</button>
             </div>
             <textarea id="csvConsult" placeholder="client,value_inr,start_date,end_date,owner_dept,status
 ABC Corp,300000,2024-04-01,2024-12-31,Engineering,active"></textarea>
             <div class="row"><button class="btn" data-parse="consultancy">Parse &amp; Merge</button></div>
+          </div>
+
+          <div class="card">
+            <b>OBE Mapping (real dataset)</b>
+            <div class="row">
+              <input id="uplOBE" type="file" accept=".csv" class="w-66">
+              <button class="btn" id="btnUplOBE">Upload CSV</button>
+              <button class="btn ghost" id="tplOBE">Template</button>
+            </div>
+            <textarea id="csvOBE" placeholder="dept,program,year,obe_mapped_pct
+Engineering,B.Tech CSE,2024,78
+Management,MBA,2024,82"></textarea>
+            <div class="row"><button class="btn" data-parse="obe">Parse &amp; Merge</button></div>
           </div>
         </div>
       </div>
@@ -412,6 +423,18 @@ ABC Corp,300000,2024-04-01,2024-12-31,Engineering,active"></textarea>
         </table>
       </div>
 
+      <div class="card">
+        <div class="row" style="align-items:center;gap:8px">
+          <b>OBE Mapping</b>
+          <input id="qOBE" class="w-33" type="text" placeholder="Search dept/program/year" />
+          <button class="btn" data-export-table="obe">Export CSV</button>
+        </div>
+        <table class="table" id="tblOBE">
+          <thead><tr><th>Dept</th><th>Program</th><th>Year</th><th>OBE Mapped %</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 </section>
@@ -422,18 +445,18 @@ ABC Corp,300000,2024-04-01,2024-12-31,Engineering,active"></textarea>
       <div class="card card-lg">
         <p class="eyebrow">Help</p>
         <h2 style="margin:0 0 6px">How to Use & Data Schemas</h2>
-        <p class="lead">Host it anywhere—or open from disk. Data never leaves your browser.</p>
+        <p class="lead">Data never leaves your browser. Import with CSV or JSON bundle.</p>
         <ul>
-          <li><b>Branding</b>: Upload logo or paste a URL → Save Branding. “Clear Logo” resets to default; “Reset Brand” clears name+logo.</li>
-          <li><b>Slicers</b>: Add custom values, Select All, Clear; “Reset Options From Data” rebuilds lists from the datasets.</li>
-          <li><b>Import</b>: Paste CSV then “Parse & Merge”, or upload CSV. Use JSON bundle to import everything.</li>
-          <li><b>Export</b>: Export filtered CSVs or the full JSON bundle.</li>
+          <li><b>Branding</b>: Upload logo (or URL) → Save Branding. “Clear Logo” resets to default; “Reset Brand” clears both.</li>
+          <li><b>Slicers</b>: Add custom values, Select All, Clear; “Reset Options From Data” rebuilds the lists.</li>
+          <li><b>OBE</b>: Provide real OBE mapping % by dept/program/year in its dataset (no more proxy needed).</li>
         </ul>
         <b>CSV columns</b>
         <pre class="mono" style="white-space:pre-wrap">placements: program, batch_year, placed_count, total_count, median_ctc_inr, internship_pct, dept
 research: title, type, citations, year, dept, program, link
 budget: item, type (Capex/Opex), amount_inr, year, owner, project, status (planned/approved/spent), dept
 consultancy: client, value_inr, start_date (YYYY-MM-DD), end_date, owner_dept, status (pipeline/active/closed)
+obe: dept, program, year, obe_mapped_pct
 </pre>
       </div>
     </div>
@@ -452,26 +475,21 @@ consultancy: client, value_inr, start_date (YYYY-MM-DD), end_date, owner_dept, s
 <script>
 "use strict";
 
-/* ======= helpers ======= */
-const KEY='leadership.dashboard.singlefile.v1';
+/* ======= helpers & state ======= */
+const KEY='leadership.dashboard.singlefile.v2';   // bump key to avoid stale state
 const DEFAULT_LOGO='/images/Logosh.png';
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
-const on=(id,ev,fn)=>{ const el=$('#'+id); if(el){ el.addEventListener(ev,fn); } };
+const on=(id,ev,fn)=>{ const el=$('#'+id); if(el) el.addEventListener(ev,fn); };
 const safeSet=(id,prop,val)=>{ const el=$('#'+id); if(el) el[prop]=val; };
 
 const state = (()=>{ try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch{ return {}; } })();
 
-function save(){
-  try{
-    state._updatedAt=new Date().toISOString();
-    localStorage.setItem(KEY, JSON.stringify(state));
-    safeSet('lastSave','textContent', new Date(state._updatedAt).toLocaleString());
-  }catch(e){ console.error(e); alert('Save failed (storage permission).'); }
-}
+function toast(msg){ let t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>{ t.remove(); },1600); }
+function save(){ try{ state._updatedAt=new Date().toISOString(); localStorage.setItem(KEY, JSON.stringify(state)); safeSet('lastSave','textContent', new Date(state._updatedAt).toLocaleString()); }catch(e){ console.error(e); toast('Save failed.'); } }
 function resetAll(){ localStorage.removeItem(KEY); location.reload(); }
 
-/* ===== CSV utils (robust) ===== */
+/* ===== CSV utils ===== */
 function splitCSVLine(line){
   const out=[]; let cur='', q=false;
   for(let i=0;i<line.length;i++){
@@ -551,32 +569,38 @@ const DEMO={
     {client:'EduTrust', value_inr:'800000', start_date:'2025-02-01', end_date:'2025-08-31', owner_dept:'Commerce', status:'pipeline'},
     {client:'GreenGrid', value_inr:'450000', start_date:'2025-03-15', end_date:'2025-09-15', owner_dept:'Engineering', status:'closed'}
   ],
+  obe:[
+    {dept:'Engineering', program:'B.Tech CSE', year:'2024', obe_mapped_pct:'78'},
+    {dept:'Management', program:'MBA', year:'2024', obe_mapped_pct:'82'}
+  ],
   brand:{ name:'Your Institution', logo:'' }
 };
 
 /* ===== Init ===== */
 function init(){
-  // seed state
   const firstRun=!state._seeded;
   state.config = state.config || JSON.parse(JSON.stringify(DEMO.config));
   state.placements = state.placements || [];
   state.research = state.research || [];
   state.budget = state.budget || [];
   state.consultancy = state.consultancy || [];
+  state.obe = state.obe || [];
   state.brand = state.brand || {name:'',logo:''};
-  if(firstRun || (!state.placements.length && !state.research.length && !state.budget.length && !state.consultancy.length)){
+
+  if(firstRun || (!state.placements.length && !state.research.length && !state.budget.length && !state.consultancy.length && !state.obe.length)){
     state.config=JSON.parse(JSON.stringify(DEMO.config));
     state.placements=JSON.parse(JSON.stringify(DEMO.placements));
     state.research=JSON.parse(JSON.stringify(DEMO.research));
     state.budget=JSON.parse(JSON.stringify(DEMO.budget));
     state.consultancy=JSON.parse(JSON.stringify(DEMO.consultancy));
+    state.obe=JSON.parse(JSON.stringify(DEMO.obe));
     if(!(state.brand.name||state.brand.logo)) state.brand=JSON.parse(JSON.stringify(DEMO.brand));
     state._seeded=true;
   }
   if(!state.brand.name) state.brand.name='Your Institution';
   if(!state._updatedAt) save();
 
-  // Branding fields live preview + fallback
+  // branding fields & live preview
   safeSet('orgName','value',state.brand.name||'');
   $("#brandLogoImg").addEventListener('error', ()=>{ $("#brandLogoImg").src = DEFAULT_LOGO; });
   $("#navLogoImg").addEventListener('error', ()=>{ $("#navLogoImg").src = DEFAULT_LOGO; });
@@ -584,34 +608,20 @@ function init(){
   $('#brandNameText').textContent=state.brand.name||'Your Institution';
   $('#orgName').addEventListener('input', ()=>{ $('#brandNameText').textContent=($('#orgName').value||'').trim()||'Your Institution'; });
 
-  // Upload file → instant preview, pending save
+  // logo file → preview
   on('orgLogo','change', async (e)=>{
     const f=e.target.files && e.target.files[0]; if(!f) return;
-    const objURL=URL.createObjectURL(f);
-    renderBrandImages(objURL);
-    const reader=new FileReader();
-    reader.onload=()=>{ state._pendingLogoDataURL=reader.result; state._pendingLogoURL=''; };
-    reader.readAsDataURL(f);
+    const objURL=URL.createObjectURL(f); renderBrandImages(objURL);
+    const reader=new FileReader(); reader.onload=()=>{ state._pendingLogoDataURL=reader.result; state._pendingLogoURL=''; }; reader.readAsDataURL(f);
   });
-  // URL field → instant preview, pending save
   on('logoUrl','input', ()=>{
     const url=($('#logoUrl').value||'').trim();
     if(url){ state._pendingLogoURL=url; state._pendingLogoDataURL=''; renderBrandImages(url); }
     else { state._pendingLogoURL=''; renderBrandImages(getStoredLogo()); }
   });
-
   on('saveBrand','click', saveBrand);
-  on('clearLogo','click', ()=>{
-    state.brand.logo=''; state._pendingLogoDataURL=''; state._pendingLogoURL='';
-    safeSet('orgLogo','value',''); safeSet('logoUrl','value','');
-    renderBrandImages(DEFAULT_LOGO); save(); alert('Logo cleared.');
-  });
-  on('resetBrand','click', ()=>{
-    state.brand={name:'',logo:''};
-    safeSet('orgName','value',''); safeSet('logoUrl','value',''); safeSet('orgLogo','value','');
-    $('#brandNameText').textContent='Your Institution';
-    renderBrandImages(DEFAULT_LOGO); save(); alert('Brand reset.');
-  });
+  on('clearLogo','click', ()=>{ state.brand.logo=''; state._pendingLogoDataURL=''; state._pendingLogoURL=''; safeSet('orgLogo','value',''); safeSet('logoUrl','value',''); renderBrandImages(DEFAULT_LOGO); save(); toast('Logo cleared'); });
+  on('resetBrand','click', ()=>{ state.brand={name:'',logo:''}; safeSet('orgName','value',''); safeSet('logoUrl','value',''); safeSet('orgLogo','value',''); $('#brandNameText').textContent='Your Institution'; renderBrandImages(DEFAULT_LOGO); save(); toast('Brand reset'); });
 
   // slicers
   refreshSlicers();
@@ -620,11 +630,11 @@ function init(){
   bindSlicerControls('Program','slProg','progAdd','progAll','progClr');
   bindSlicerControls('Status','slStatus','statAdd','statAll','statClr');
 
-  on('applyFilters','click', renderAll);
-  on('clearFilters','click', ()=>{ clearSlicers(); renderAll(); });
-  on('saveView','click', ()=>{ state.view=getSlicerState(); save(); alert('View saved.'); });
-  on('loadView','click', ()=>{ if(state.view){ setSlicerState(state.view); renderAll(); } else alert('No saved view yet.'); });
-  on('resetSlicerOptions','click', ()=>{ refreshSlicers(); alert('Options rebuilt from data.'); });
+  on('applyFilters','click', ()=>{ renderAll(); toast('Filters applied'); });
+  on('clearFilters','click', ()=>{ clearSlicers(); renderAll(); toast('Filters cleared'); });
+  on('saveView','click', ()=>{ state.view=getSlicerState(); save(); toast('View saved'); });
+  on('loadView','click', ()=>{ if(state.view){ setSlicerState(state.view); renderAll(); toast('View loaded'); } else toast('No saved view'); });
+  on('resetSlicerOptions','click', ()=>{ refreshSlicers(); renderAll(); toast('Options rebuilt'); });
   on('printView','click', ()=>window.print());
   on('exportFiltered','click', exportFilteredCSVs);
 
@@ -635,12 +645,13 @@ function init(){
     refreshSlicers(); renderAll();
     safeSet('orgName','value',state.brand.name||'');
     renderBrandImages(getStoredLogo());
-    alert('Demo data loaded.');
+    toast('Demo data loaded');
   });
   on('importJSON','click', importJSON);
   on('exportJSON','click', ()=>{
-    const bundle={config:state.config,placements:state.placements,research:state.research,budget:state.budget,consultancy:state.consultancy,brand:state.brand};
+    const bundle={config:state.config,placements:state.placements,research:state.research,budget:state.budget,consultancy:state.consultancy,obe:state.obe,brand:state.brand};
     downloadBlob(JSON.stringify(bundle,null,2),'dashboard-data.json','application/json');
+    toast('JSON exported');
   });
   on('resetAll','click', ()=>{ if(confirm('Reset ALL data & settings?')) resetAll(); });
   on('downloadTemplates','click', downloadAllTemplates);
@@ -650,11 +661,13 @@ function init(){
   bindUpload('Research','uplResearch','btnUplResearch','csvResearch','research');
   bindUpload('Budget','uplBudget','btnUplBudget','csvBudget','budget');
   bindUpload('Consultancy','uplConsult','btnUplConsult','csvConsult','consultancy');
+  bindUpload('OBE','uplOBE','btnUplOBE','csvOBE','obe');
 
   on('tplPlacements','click', ()=> downloadBlob('program,batch_year,placed_count,total_count,median_ctc_inr,internship_pct,dept\r\n','placements_template.csv','text/csv'));
   on('tplResearch','click', ()=> downloadBlob('title,type,citations,year,dept,program,link\r\n','research_template.csv','text/csv'));
   on('tplBudget','click', ()=> downloadBlob('item,type,amount_inr,year,owner,project,status,dept\r\n','budget_template.csv','text/csv'));
   on('tplConsult','click', ()=> downloadBlob('client,value_inr,start_date,end_date,owner_dept,status\r\n','consultancy_template.csv','text/csv'));
+  on('tplOBE','click', ()=> downloadBlob('dept,program,year,obe_mapped_pct\r\n','obe_template.csv','text/csv'));
 
   // parse & merge buttons
   $$('[data-parse]').forEach(btn=> btn.addEventListener('click', ()=> parseFromTextarea(btn.dataset.parse)));
@@ -664,6 +677,7 @@ function init(){
   on('qConsult','input', renderTables);
   on('qBudget','input', renderTables);
   on('qPlace','input', renderTables);
+  on('qOBE','input', renderTables);
 
   // single table export
   $$('[data-export-table]').forEach(b=> b.addEventListener('click', ()=> exportTableCSV(b.dataset.exportTable)));
@@ -671,7 +685,7 @@ function init(){
   // config
   populateConfigFields();
   on('saveConfig','click', saveConfig);
-  on('resetConfig','click', ()=>{ state.config=JSON.parse(JSON.stringify(DEMO.config)); save(); populateConfigFields(); renderAll(); alert('Config reset.'); });
+  on('resetConfig','click', ()=>{ state.config=JSON.parse(JSON.stringify(DEMO.config)); save(); populateConfigFields(); renderAll(); toast('Config reset'); });
 
   // first render
   renderAll();
@@ -687,28 +701,26 @@ function renderBrandImages(src){
 }
 function saveBrand(){
   const name=($('#orgName').value||'').trim()||'Your Institution';
-  state.brand.name=name;
-  $('#brandNameText').textContent=name;
-
+  state.brand.name=name; $('#brandNameText').textContent=name;
   if(state._pendingLogoDataURL){ state.brand.logo=state._pendingLogoDataURL; state._pendingLogoDataURL=''; }
   else if(state._pendingLogoURL){ state.brand.logo=state._pendingLogoURL; state._pendingLogoURL=''; }
-
-  save();
-  renderBrandImages(getStoredLogo());
-  alert('Branding saved.');
+  save(); renderBrandImages(getStoredLogo()); toast('Branding saved');
 }
 
 /* ===== Slicers ===== */
 function refreshSlicers(){
-  const years=unique([...(state.placements||[]).map(r=>String(r.batch_year||'').trim()),
-                      ...(state.research||[]).map(r=>String(r.year||'').trim()),
-                      ...(state.budget||[]).map(r=>String(r.year||'').trim())]).filter(Boolean).sort();
+  const years=unique([...(state.placements||[]).map(r=>String(r.batch_year||'')),
+                      ...(state.research||[]).map(r=>String(r.year||'')),
+                      ...(state.budget||[]).map(r=>String(r.year||'')),
+                      ...(state.obe||[]).map(r=>String(r.year||''))]).filter(Boolean).sort();
   const depts=unique([...(state.placements||[]).map(r=>r.dept),
                       ...(state.research||[]).map(r=>r.dept),
                       ...(state.budget||[]).map(r=>r.dept),
-                      ...(state.consultancy||[]).map(r=>r.owner_dept)]).filter(Boolean).sort();
+                      ...(state.consultancy||[]).map(r=>r.owner_dept),
+                      ...(state.obe||[]).map(r=>r.dept)]).filter(Boolean).sort();
   const progs=unique([...(state.placements||[]).map(r=>r.program),
-                      ...(state.research||[]).map(r=>r.program)]).filter(Boolean).sort();
+                      ...(state.research||[]).map(r=>r.program),
+                      ...(state.obe||[]).map(r=>r.program)]).filter(Boolean).sort();
   const stats=unique([...(state.budget||[]).map(r=>r.status),
                       ...(state.consultancy||[]).map(r=>r.status)]).filter(Boolean).sort();
   fillMulti($('#slYear'),years);
@@ -739,9 +751,10 @@ function bindSlicerControls(label, selId, addId, allId, clrId){
     const vals=txt.split(',').map(s=>s.trim()).filter(Boolean);
     addOptions(sel, vals);
     Array.from(sel.options).forEach(o=>{ if(vals.includes(o.value)) o.selected=true; });
+    renderAll(); toast(`${label} added`);
   });
-  on(allId,'click', ()=>{ Array.from(sel?.options||[]).forEach(o=>o.selected=true); });
-  on(clrId,'click', ()=>{ Array.from(sel?.options||[]).forEach(o=>o.selected=false); });
+  on(allId,'click', ()=>{ Array.from(sel?.options||[]).forEach(o=>o.selected=true); renderAll(); toast(`${label}: all selected`); });
+  on(clrId,'click', ()=>{ Array.from(sel?.options||[]).forEach(o=>o.selected=false); renderAll(); toast(`${label}: cleared`); });
 }
 function applyFilters(){
   const s=getSlicerState();
@@ -764,6 +777,7 @@ function applyFilters(){
     research:(state.research||[]).filter(pass),
     budget:(state.budget||[]).filter(pass),
     consultancy:(state.consultancy||[]).filter(pass),
+    obe:(state.obe||[]).filter(pass),
     config:state.config
   };
 }
@@ -780,8 +794,18 @@ function computeKPIs(ds){
   const spent=sum(b.filter(r=>(r.status||'').toLowerCase()==='spent').map(r=>+r.amount_inr||0));
   const approved=sum(b.filter(r=>(r.status||'').toLowerCase()==='approved').map(r=>+r.amount_inr||0));
   const util=(approved+spent)>0? (spent/(approved+spent)):0;
-  const obeProxy=mean(p.map(r=>+r.internship_pct||0))/100;
-  return {placementRate, medCTC, roCount, consVal, util, obeProxy};
+
+  // OBE Mapping (real dataset first; fall back to internship proxy if no rows)
+  const obeRows = ds.obe||[];
+  let obeRatio = 0;
+  if(obeRows.length){
+    const vals = obeRows.map(r => +r.obe_mapped_pct || 0);
+    obeRatio = mean(vals)/100; // 0..1
+  }else{
+    // fallback proxy like before (internship%)
+    obeRatio = mean(p.map(r=>+r.internship_pct||0))/100;
+  }
+  return {placementRate, medCTC, roCount, consVal, util, obeRatio};
 }
 function statusBadge(ratio, cfg){ const th=cfg.thresholds||{ok:0.9,warn:0.75}; return ratio>=th.ok?'status-ok':(ratio>=th.warn?'status-warn':'status-risk'); }
 function renderKPIs(ds){
@@ -793,7 +817,7 @@ function renderKPIs(ds){
     {name:'Research Output (count)', value:k.roCount, badge:'', note:'Publications in filter'},
     {name:'Consultancy (YTD)', value:fmtINR(k.consVal), badge:statusBadge(k.consVal/(cfg.consultancy_target||2000000), cfg), note:`Target ${fmtINR(cfg.consultancy_target||2000000)}`},
     {name:'Budget Utilization', value:pct(k.util*100), badge:statusBadge(k.util/(cfg.budget_ratio_target||0.9), cfg), note:`Target ${(cfg.budget_ratio_target*100||90).toFixed(0)}%`},
-    {name:'OBE Mapping (proxy)', value:pct(k.obeProxy*100), badge:statusBadge(k.obeProxy/(cfg.obe_target||0.75), cfg), note:`Target ${(cfg.obe_target*100||75).toFixed(0)}%`},
+    {name:'OBE Mapping', value:pct(k.obeRatio*100), badge:statusBadge(k.obeRatio/(cfg.obe_target||0.75), cfg), note:`Target ${(cfg.obe_target*100||75).toFixed(0)}%`},
     {name:'Filters — Years', value:(getSelected($('#slYear')).join(', ')||'All'), badge:'', note:'Applied'},
     {name:'Filters — Dept', value:(getSelected($('#slDept')).join(', ')||'All'), badge:'', note:'Applied'}
   ];
@@ -904,6 +928,10 @@ function renderTables(){
     ctc: fmtINR(+r.median_ctc_inr||0), intern:(+r.internship_pct||0).toFixed(0)+'%'
   }));
   fillTable($('#tblPlace tbody'), rowsP, ['program','batch_year','placed','total','pct','ctc','intern']);
+
+  const qO=($('#qOBE').value||'').toLowerCase();
+  const rowsO=(ds.obe||[]).filter(r=> JSON.stringify(r).toLowerCase().includes(qO) );
+  fillTable($('#tblOBE tbody'), rowsO, ['dept','program','year','obe_mapped_pct']);
 }
 function fillTable(tbody, rows, headers, post, fmt){
   if(!tbody) return; tbody.innerHTML='';
@@ -924,6 +952,7 @@ function exportTableCSV(kind){
   if(kind==='consultancy'){ rows=ds.consultancy; headers=['client','value_inr','start_date','end_date','owner_dept','status']; }
   if(kind==='budget'){ rows=ds.budget; headers=['item','type','amount_inr','year','owner','project','status','dept']; }
   if(kind==='placements'){ rows=ds.placements; headers=['program','batch_year','placed_count','total_count','median_ctc_inr','internship_pct','dept']; }
+  if(kind==='obe'){ rows=ds.obe; headers=['dept','program','year','obe_mapped_pct']; }
   const csv=toCSV(rows, headers); downloadBlob(csv, `${kind}.csv`, 'text/csv');
 }
 
@@ -939,33 +968,35 @@ function importJSON(){
       if(obj.research) state.research=obj.research;
       if(obj.budget) state.budget=obj.budget;
       if(obj.consultancy) state.consultancy=obj.consultancy;
+      if(obj.obe) state.obe=obj.obe;
       if(obj.brand) state.brand=obj.brand;
       save(); refreshSlicers(); renderAll(); renderBrandImages(getStoredLogo());
       safeSet('orgName','value',state.brand.name||'');
-      alert('JSON imported.');
-    }catch(e){ console.error(e); alert('Invalid JSON.'); }
+      toast('JSON imported');
+    }catch(e){ console.error(e); toast('Invalid JSON'); }
   };
   inp.click();
 }
 function parseFromTextarea(kind){
-  const map={placements:'csvPlacements',research:'csvResearch',budget:'csvBudget',consultancy:'csvConsult'};
-  const ta=$('#'+map[kind]); if(!ta){ alert('Target textarea not found.'); return; }
-  const txt=(ta.value||'').trim(); if(!txt){ alert('Paste CSV first or use Upload.'); return; }
-  const rows=parseCSV(txt); if(!rows.length){ alert('No rows found.'); return; }
+  const map={placements:'csvPlacements',research:'csvResearch',budget:'csvBudget',consultancy:'csvConsult',obe:'csvOBE'};
+  const ta=$('#'+map[kind]); if(!ta){ toast('Target textarea not found'); return; }
+  const txt=(ta.value||'').trim(); if(!txt){ toast('Paste CSV first or use Upload'); return; }
+  const rows=parseCSV(txt); if(!rows.length){ toast('No rows found'); return; }
   const ensure=(row,keys)=>keys.forEach(k=>{ if(!(k in row)) row[k]=''; });
   if(kind==='placements'){ rows.forEach(r=>ensure(r,['program','batch_year','placed_count','total_count','median_ctc_inr','internship_pct','dept'])); }
   if(kind==='research'){ rows.forEach(r=>ensure(r,['title','type','citations','year','dept','program','link'])); }
   if(kind==='budget'){ rows.forEach(r=>ensure(r,['item','type','amount_inr','year','owner','project','status','dept'])); }
   if(kind==='consultancy'){ rows.forEach(r=>ensure(r,['client','value_inr','start_date','end_date','owner_dept','status'])); }
+  if(kind==='obe'){ rows.forEach(r=>ensure(r,['dept','program','year','obe_mapped_pct'])); }
   const replace=!!$('#replaceMode')?.checked;
   state[kind]= replace ? rows : [ ...(state[kind]||[]), ...rows ];
   save(); refreshSlicers(); renderAll();
-  alert(`${rows.length} ${kind} row(s) ${replace?'replaced.':'merged.'}`);
+  toast(`${rows.length} ${kind} row(s) ${replace?'replaced':'merged'}`);
 }
 function bindUpload(label, inputId, btnId, textAreaId, kind){
   on(btnId,'click', async ()=>{
     const inp=$('#'+inputId);
-    if(!inp?.files || !inp.files[0]){ alert(`Choose a ${label} CSV file first.`); return; }
+    if(!inp?.files || !inp.files[0]){ toast(`Choose a ${label} CSV first`); return; }
     const text=await inp.files[0].text();
     $('#'+textAreaId).value=text;
     parseFromTextarea(kind);
@@ -977,6 +1008,7 @@ function downloadAllTemplates(){
   downloadBlob('title,type,citations,year,dept,program,link\r\n','research_template.csv','text/csv');
   downloadBlob('item,type,amount_inr,year,owner,project,status,dept\r\n','budget_template.csv','text/csv');
   downloadBlob('client,value_inr,start_date,end_date,owner_dept,status\r\n','consultancy_template.csv','text/csv');
+  downloadBlob('dept,program,year,obe_mapped_pct\r\n','obe_template.csv','text/csv');
 }
 function exportFilteredCSVs(){
   const ds=applyFilters();
@@ -984,7 +1016,8 @@ function exportFilteredCSVs(){
     {name:'placements.csv', rows:ds.placements, headers:['program','batch_year','placed_count','total_count','median_ctc_inr','internship_pct','dept']},
     {name:'research.csv', rows:ds.research, headers:['title','type','citations','year','dept','program','link']},
     {name:'budget.csv', rows:ds.budget, headers:['item','type','amount_inr','year','owner','project','status','dept']},
-    {name:'consultancy.csv', rows:ds.consultancy, headers:['client','value_inr','start_date','end_date','owner_dept','status']}
+    {name:'consultancy.csv', rows:ds.consultancy, headers:['client','value_inr','start_date','end_date','owner_dept','status']},
+    {name:'obe.csv', rows:ds.obe, headers:['dept','program','year','obe_mapped_pct']}
   ].forEach(f=> downloadBlob(toCSV(f.rows,f.headers), f.name, 'text/csv'));
 }
 
@@ -1009,8 +1042,11 @@ function saveConfig(){
   c.thresholds=c.thresholds||{};
   const ok=ratioOrNull($('#cfgOk').value); if(ok!=null) c.thresholds.ok=ok;
   const warn=ratioOrNull($('#cfgWarn').value); if(warn!=null) c.thresholds.warn=warn;
-  state.config=c; save(); renderAll(); alert('Config saved.');
+  state.config=c; save(); renderAll(); toast('Config saved');
 }
+
+/* ===== Branding helpers ===== */
+function getStoredLogo(){ return state.brand?.logo ? state.brand.logo : DEFAULT_LOGO; }
 
 /* ===== Boot ===== */
 document.addEventListener('DOMContentLoaded', init);
