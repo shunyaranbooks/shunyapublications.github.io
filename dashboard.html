@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Academic Leadership Dashboard — Single‑File (Power BI Alternative)</title>
-<meta name="description" content="A single‑file, offline‑ready dashboard for academic leaders: global slicers, KPI tiles, charts, drill tables, export/print, and local data import. No server, no libraries." />
+<title>Academic Leadership Dashboard — Single-File (Power BI Alternative)</title>
+<meta name="description" content="A single-file, offline-ready dashboard for academic leaders: global slicers, KPI tiles, charts, drill tables, export/print, and local data import. No server, no libraries." />
 <meta name="theme-color" content="#1565ff" />
 <link rel="canonical" href="/dashboard.html" />
 
 <style>
-/* ================= Shunya Design System (single‑file) ================= */
+/* ================= Shunya Design System (single-file) ================= */
 :root{
   --bg:#ffffff; --bg-1:#fff9f1; --bg-2:#f3f9ff; --bg-3:#eef9f5;
   --text:#142036; --muted:#5a6b88;
@@ -114,8 +114,8 @@ footer{color:var(--muted)}
 <nav class="nav" aria-label="Global">
   <div class="container inner">
     <div class="brand">
-      <!-- Requested: static logo file before the title -->
-      <img src="/images/Logosh.png" alt="Logo" class="brand-img" />
+      <!-- Static logo before title; this also updates to uploaded logo -->
+      <img id="navLogoImg" src="/images/Logosh.png" alt="Logo" class="brand-img" />
       <span>Academic Leadership Dashboard</span>
     </div>
     <div class="menu" role="navigation">
@@ -134,7 +134,7 @@ footer{color:var(--muted)}
   <div class="container">
     <div class="stack">
 
-      <!-- Visible institution identity card (shows uploaded name & logo or defaults) -->
+      <!-- Identity card (prints to PDF) -->
       <div class="card" id="brandCard">
         <div class="brand-card">
           <img id="brandLogoImg" src="/images/Logosh.png" alt="Institution Logo" />
@@ -147,8 +147,8 @@ footer{color:var(--muted)}
 
       <div class="card card-lg">
         <p class="eyebrow">Start</p>
-        <h1 style="margin:.2rem 0; font-size:var(--fs-hero)">Power‑BI‑style, Single‑File Dashboard for Academic Leaders</h1>
-        <p class="lead">Use this offline‑ready dashboard to track institutional KPIs, explore trends, and export leadership snapshots. No server, no external libraries—data stays in the browser (<span class="mono">localStorage</span>). Bring your own CSV/JSON or start with the demo data.</p>
+        <h1 style="margin:.2rem 0; font-size:var(--fs-hero)">Power-BI-style, Single-File Dashboard for Academic Leaders</h1>
+        <p class="lead">Use this offline-ready dashboard to track institutional KPIs, explore trends, and export leadership snapshots. No server, no external libraries—data stays in the browser (<span class="mono">localStorage</span>). Bring your own CSV/JSON or start with the demo data.</p>
         <div class="row" id="controls">
           <label class="w-33">Organization Name<input id="orgName" type="text" placeholder="e.g., Usha Martin University" /></label>
           <label class="w-33">Upload Logo (PNG/JPG/SVG)<input id="orgLogo" type="file" accept=".png,.jpg,.jpeg,.svg" /></label>
@@ -203,7 +203,11 @@ footer{color:var(--muted)}
         <div id="dataTemplates" class="grid cols-2" style="margin-top:10px">
           <div class="card">
             <b>Placements</b>
-            <div class="row"><input id="uplPlacements" type="file" accept=".csv" class="w-66"><button class="btn" id="btnUplPlacements">Upload CSV</button><button class="btn ghost" id="tplPlacements">Download Template</button></div>
+            <div class="row">
+              <input id="uplPlacements" type="file" accept=".csv" class="w-66">
+              <button class="btn" id="btnUplPlacements">Upload CSV</button>
+              <button class="btn ghost" id="tplPlacements">Download Template</button>
+            </div>
             <textarea id="csvPlacements" placeholder="program,batch_year,placed_count,total_count,median_ctc_inr,internship_pct,dept
 B.Tech CSE,2024,72,90,520000,68,Engineering"></textarea>
             <div class="row"><button class="btn" data-parse="placements">Parse & Merge</button></div>
@@ -211,7 +215,11 @@ B.Tech CSE,2024,72,90,520000,68,Engineering"></textarea>
 
           <div class="card">
             <b>Research</b>
-            <div class="row"><input id="uplResearch" type="file" accept=".csv" class="w-66"><button class="btn" id="btnUplResearch">Upload CSV</button><button class="btn ghost" id="tplResearch">Download Template</button></div>
+            <div class="row">
+              <input id="uplResearch" type="file" accept=".csv" class="w-66">
+              <button class="btn" id="btnUplResearch">Upload CSV</button>
+              <button class="btn ghost" id="tplResearch">Download Template</button>
+            </div>
             <textarea id="csvResearch" placeholder="title,type,citations,year,dept,program,link
 Paper A,SCI,12,2024,Engineering,B.Tech CSE,https://example.com"></textarea>
             <div class="row"><button class="btn" data-parse="research">Parse & Merge</button></div>
@@ -219,15 +227,23 @@ Paper A,SCI,12,2024,Engineering,B.Tech CSE,https://example.com"></textarea>
 
           <div class="card">
             <b>Budget</b>
-            <div class="row"><input id="uplBudget" type="file" accept=".csv" class="w-66"><button class="btn" id="btnUplBudget">Upload CSV</button><button class="btn ghost" id="tplBudget">Download Template</button></div>
+            <div class="row">
+              <input id="uplBudget" type="file" accept=".csv" class="w-66">
+              <button class="btn" id="btnUplBudget">Upload CSV</button>
+              <button class="btn ghost" id="tplBudget">Download Template</button>
+            </div>
             <textarea id="csvBudget" placeholder="item,type,amount_inr,year,owner,project,status,dept
-AI Lab,Capex,1500000,2024,Dean R&D,Industry Lab,approved,Engineering"></textarea>
+AI Lab,Capex,1500000,2024,Dean R&amp;D,Industry Lab,approved,Engineering"></textarea>
             <div class="row"><button class="btn" data-parse="budget">Parse & Merge</button></div>
           </div>
 
           <div class="card">
             <b>Consultancy / MoU</b>
-            <div class="row"><input id="uplConsult" type="file" accept=".csv" class="w-66"><button class="btn" id="btnUplConsult">Upload CSV</button><button class="btn ghost" id="tplConsult">Download Template</button></div>
+            <div class="row">
+              <input id="uplConsult" type="file" accept=".csv" class="w-66">
+              <button class="btn" id="btnUplConsult">Upload CSV</button>
+              <button class="btn ghost" id="tplConsult">Download Template</button>
+            </div>
             <textarea id="csvConsult" placeholder="client,value_inr,start_date,end_date,owner_dept,status
 ABC Corp,300000,2024-04-01,2024-12-31,Engineering,active"></textarea>
             <div class="row"><button class="btn" data-parse="consultancy">Parse & Merge</button></div>
@@ -346,9 +362,9 @@ ABC Corp,300000,2024-04-01,2024-12-31,Engineering,active"></textarea>
         <h2 style="margin:0 0 6px">How to Use & Data Schemas</h2>
         <p class="lead">This single file is your lightweight alternative to Power BI: share it, host it on GitHub Pages, or open from disk. Data never leaves the browser. You can import your own CSVs or a consolidated JSON bundle.</p>
         <ul>
-          <li><b>Global Slicers</b>: Year, Department, Program, Status. Multi‑select with Ctrl/Cmd; click Apply.</li>
+          <li><b>Global Slicers</b>: Year, Department, Program, Status. Multi-select with Ctrl/Cmd; click Apply.</li>
           <li><b>KPIs</b>: Calculated live from datasets; thresholds define color badges.</li>
-          <li><b>Charts</b>: Canvas‑based, no external libraries. Hover near points for values.</li>
+          <li><b>Charts</b>: Canvas-based, no external libraries. Hover near points for values.</li>
           <li><b>Tables</b>: Search filters rows instantly; export current view as CSV.</li>
           <li><b>Branding</b>: Set org name and upload a logo. They’re stored locally and appear in the identity card and print.</li>
           <li><b>Persistence</b>: All data and settings are saved to <span class="mono">localStorage</span>.</li>
@@ -360,7 +376,7 @@ budget: item, type (Capex/Opex), amount_inr, year, owner, project, status (plann
 consultancy: client, value_inr, start_date (YYYY-MM-DD), end_date, owner_dept, status (pipeline/active/closed)
 config (JSON): targets & thresholds { placement_target, obe_target, consultancy_target, budget_ratio_target, thresholds: { ok:0.9, warn:0.75 } }
 </pre>
-        <p class="small">Tip: Use <b>Download CSV Templates</b> to get ready‑made headers. Bundle everything in JSON as <code>{ placements, research, budget, consultancy, config, brand }</code> and use “Import JSON”.</p>
+        <p class="small">Tip: Use <b>Download CSV Templates</b> to get ready-made headers. Bundle everything in JSON as <code>{ placements, research, budget, consultancy, config, brand }</code> and use “Import JSON”.</p>
       </div>
     </div>
   </div>
@@ -370,7 +386,7 @@ config (JSON): targets & thresholds { placement_target, obe_target, consultancy_
   <div class="container">
     <div class="stack">
       <div class="card">Privacy: All data stays in your browser via <span class="mono">localStorage</span>. Use Import/Export to move between devices.</div>
-      <div>© Shunya Publications — Academic Leadership Dashboard — Single‑File Edition. Designed for higher‑education leaders.</div>
+      <div>© Shunya Publications — Academic Leadership Dashboard — Single-File Edition. Designed for higher-education leaders.</div>
     </div>
   </div>
 </footer>
@@ -382,21 +398,68 @@ const $ = (sel, root=document)=>root.querySelector(sel);
 const $$ = (sel, root=document)=>Array.from(root.querySelectorAll(sel));
 const state = JSON.parse(localStorage.getItem(KEY) || '{}');
 
-function save(){ state._updatedAt = new Date().toISOString(); localStorage.setItem(KEY, JSON.stringify(state)); const t=$('#lastSave'); if(t) t.textContent = new Date(state._updatedAt).toLocaleString(); }
+function save(){
+  state._updatedAt = new Date().toISOString();
+  localStorage.setItem(KEY, JSON.stringify(state));
+  const t=$('#lastSave'); if(t) t.textContent = new Date(state._updatedAt).toLocaleString();
+}
 function resetAll(){ localStorage.removeItem(KEY); location.reload(); }
-function toCSV(rows, headers){ const esc=s=>`"${String(s??'').replace(/"/g,'""').replace(/
-?
-/g,' ')}"`; const head=headers.join(','); const body=rows.map(r=>headers.map(h=>esc(r[h])).join(',')).join('
-'); return head+'
-'+body; }
-function downloadBlob(data, name, type='text/plain'){ const blob=new Blob([data],{type}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(url),300); }
-function parseCSV(text){ const lines=text.trim().split(/
-?
-/); if(!lines.length) return []; const headers=lines[0].split(',').map(s=>s.trim()); return lines.slice(1).filter(l=>l.trim().length>0).map(l=>{ const vals=l.match(/(?:\"[^"]*\"|[^,])+/g)?.map(v=>v.replace(/^\"|\"$/g,'').trim()) || l.split(','); const o={}; headers.forEach((h,i)=>o[h]= (vals[i]||'').trim()); return o; }); }
-function unique(arr){ return Array.from(new Set(arr.filter(x=>x!==undefined && x!==null && x!==''))); }
-function sum(arr){ return arr.reduce((a,b)=>a+(+b||0),0); }
-function mean(arr){ return arr.length? sum(arr)/arr.length : 0; }
-function median(arr){ const v=arr.map(x=>+x||0).sort((a,b)=>a-b); if(!v.length) return 0; const m=Math.floor(v.length/2); return v.length%2? v[m] : (v[m-1]+v[m])/2; }
+
+function toCSV(rows, headers){
+  const esc = s => '"' + String(s ?? '').replace(/"/g,'""').replace(/\r?\n/g,' ') + '"';
+  const head = headers.join(',');
+  const body = (rows||[]).map(r=> headers.map(h=>esc(r[h])).join(',')).join('\r\n');
+  return head + '\r\n' + body;
+}
+function downloadBlob(data, name, type='text/plain'){
+  const blob=new Blob([data],{type});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },300);
+}
+
+/* Simple CSV splitter (handles quotes and commas) */
+function splitCSVLine(line){
+  const out=[]; let cur=''; let inQ=false;
+  for(let i=0;i<line.length;i++){
+    const ch=line[i];
+    if(inQ){
+      if(ch === '"'){
+        if(i+1<line.length && line[i+1] === '"'){ cur+='"'; i++; }
+        else { inQ=false; }
+      } else { cur+=ch; }
+    } else {
+      if(ch === '"'){ inQ=true; }
+      else if(ch === ','){ out.push(cur); cur=''; }
+      else { cur+=ch; }
+    }
+  }
+  out.push(cur);
+  return out.map(s=>s.trim());
+}
+function parseCSV(text){
+  const norm = String(text||'').replace(/\r\n/g,'\n').replace(/\r/g,'\n').trim();
+  if(!norm) return [];
+  const lines = norm.split('\n');
+  const headers = splitCSVLine(lines[0]);
+  const rows=[];
+  for(let i=1;i<lines.length;i++){
+    const l=lines[i]; if(!l || !l.trim()) continue;
+    const vals = splitCSVLine(l);
+    const o={}; headers.forEach((h,idx)=> o[h]= (vals[idx]??'').trim());
+    rows.push(o);
+  }
+  return rows;
+}
+
+function unique(arr){ return Array.from(new Set((arr||[]).filter(x=>x!==undefined && x!==null && x!==''))); }
+function sum(arr){ return (arr||[]).reduce((a,b)=>a+(+b||0),0); }
+function mean(arr){ return (arr&&arr.length)? sum(arr)/arr.length : 0; }
+function median(arr){
+  const v=(arr||[]).map(x=>+x||0).sort((a,b)=>a-b);
+  if(!v.length) return 0; const m=Math.floor(v.length/2);
+  return v.length%2? v[m] : (v[m-1]+v[m])/2;
+}
 function fmtINR(n){ n=+n||0; return '₹'+n.toLocaleString('en-IN'); }
 function pct(n){ return (+(n||0)).toFixed(1)+'%'; }
 function ymd(d){ if(!d) return ''; const x=new Date(d); if(isNaN(x)) return d; return x.toISOString().slice(0,10); }
@@ -440,7 +503,7 @@ const DEMO = {
 
 /* ===================== Initialize ===================== */
 function init(){
-  // If first run or no data, preload DEMO
+  // Seed on first run
   const firstRun = !state._seeded;
   state.config = state.config || JSON.parse(JSON.stringify(DEMO.config));
   state.placements = state.placements || [];
@@ -448,6 +511,7 @@ function init(){
   state.budget = state.budget || [];
   state.consultancy = state.consultancy || [];
   state.brand = state.brand || { name: '', logo: '' };
+
   if(firstRun || (!state.placements.length && !state.research.length && !state.budget.length && !state.consultancy.length)){
     state.config = JSON.parse(JSON.stringify(DEMO.config));
     state.placements = JSON.parse(JSON.stringify(DEMO.placements));
@@ -460,17 +524,17 @@ function init(){
   if(!state.brand.name) state.brand.name = 'Your Institution';
   if(!state._updatedAt) save();
 
-  // Branding fields and identity card
+  // Branding fields + identity card + nav logo
   $('#orgName').value = state.brand.name || '';
   renderBrandCard();
 
   // Slicers
   refreshSlicers();
 
-  // KPI & tables
+  // KPI + charts + tables
   renderAll();
 
-  // Bindings
+  // ===== Bindings =====
   $('#saveBrand').addEventListener('click', saveBrand);
   $('#resetBrand').addEventListener('click', ()=>{ state.brand={name:'',logo:''}; save(); $('#orgName').value=''; renderBrandCard(); alert('Branding cleared.'); });
 
@@ -487,19 +551,16 @@ function init(){
   $('#resetAll').addEventListener('click', ()=>{ if(confirm('Reset ALL data & settings?')) resetAll(); });
   $('#downloadTemplates').addEventListener('click', downloadAllTemplates);
 
-  // Per‑dataset uploads + template buttons
+  // Per-dataset uploads + template buttons
   bindUpload('Placements','uplPlacements','btnUplPlacements','csvPlacements','placements');
   bindUpload('Research','uplResearch','btnUplResearch','csvResearch','research');
   bindUpload('Budget','uplBudget','btnUplBudget','csvBudget','budget');
   bindUpload('Consultancy','uplConsult','btnUplConsult','csvConsult','consultancy');
-  $('#tplPlacements').addEventListener('click', ()=> downloadBlob('program,batch_year,placed_count,total_count,median_ctc_inr,internship_pct,dept
-','placements_template.csv','text/csv'));
-  $('#tplResearch').addEventListener('click', ()=> downloadBlob('title,type,citations,year,dept,program,link
-','research_template.csv','text/csv'));
-  $('#tplBudget').addEventListener('click', ()=> downloadBlob('item,type,amount_inr,year,owner,project,status,dept
-','budget_template.csv','text/csv'));
-  $('#tplConsult').addEventListener('click', ()=> downloadBlob('client,value_inr,start_date,end_date,owner_dept,status
-','consultancy_template.csv','text/csv'));
+
+  $('#tplPlacements').addEventListener('click', ()=> downloadBlob('program,batch_year,placed_count,total_count,median_ctc_inr,internship_pct,dept\r\n','placements_template.csv','text/csv'));
+  $('#tplResearch').addEventListener('click', ()=> downloadBlob('title,type,citations,year,dept,program,link\r\n','research_template.csv','text/csv'));
+  $('#tplBudget').addEventListener('click', ()=> downloadBlob('item,type,amount_inr,year,owner,project,status,dept\r\n','budget_template.csv','text/csv'));
+  $('#tplConsult').addEventListener('click', ()=> downloadBlob('client,value_inr,start_date,end_date,owner_dept,status\r\n','consultancy_template.csv','text/csv'));
 
   // CSV paste parsers
   $$('[data-parse]').forEach(btn=> btn.addEventListener('click', ()=> parseFromTextarea(btn.dataset.parse)));
@@ -523,14 +584,19 @@ function renderBrandCard(){
   const logo = (state.brand?.logo && state.brand.logo.startsWith('data:')) ? state.brand.logo : '/images/Logosh.png';
   $('#brandNameText').textContent = name;
   const img = $('#brandLogoImg'); if(img) img.src = logo;
+  const navImg = $('#navLogoImg'); if(navImg) navImg.src = logo;
 }
 function saveBrand(){
   const name = ($('#orgName').value||'').trim();
-  if(name) state.brand.name = name; else state.brand.name = 'Your Institution';
-  save(); renderBrandCard(); alert('Branding saved. The name appears on the identity card and in print.');
+  state.brand.name = name || 'Your Institution';
+  save(); renderBrandCard();
+  alert('Branding saved. The identity card and nav logo are updated and will print to PDF.');
 }
 $('#orgLogo').addEventListener('change', async (e)=>{
-  const f=e.target.files && e.target.files[0]; if(!f) return; const reader=new FileReader(); reader.onload=()=>{ state.brand.logo=reader.result; save(); renderBrandCard(); alert('Logo saved (embedded for print).'); }; reader.readAsDataURL(f);
+  const f=e.target.files && e.target.files[0]; if(!f) return;
+  const reader=new FileReader();
+  reader.onload=()=>{ state.brand.logo=reader.result; save(); renderBrandCard(); alert('Logo saved (embedded locally for print).'); };
+  reader.readAsDataURL(f);
 });
 
 /* ===================== Filters / Slicers ===================== */
@@ -544,12 +610,12 @@ function refreshSlicers(){
   fillMulti($('#slProg'), progs);
   fillMulti($('#slStatus'), statuses);
 }
-function fillMulti(sel, items){ sel.innerHTML=''; items.forEach(v=>{ if(!v) return; const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); }); }
-function getSelected(sel){ return Array.from(sel.selectedOptions).map(o=>o.value); }
+function fillMulti(sel, items){ sel.innerHTML=''; (items||[]).forEach(v=>{ if(!v) return; const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); }); }
+function getSelected(sel){ return Array.from(sel.selectedOptions||[]).map(o=>o.value); }
 function getSlicerState(){ return { years:getSelected($('#slYear')), depts:getSelected($('#slDept')), progs:getSelected($('#slProg')), stats:getSelected($('#slStatus')) }; }
 function setSlicerState(v){ setMulti($('#slYear'), v.years||[]); setMulti($('#slDept'), v.depts||[]); setMulti($('#slProg'), v.progs||[]); setMulti($('#slStatus'), v.stats||[]); }
-function setMulti(sel, values){ Array.from(sel.options).forEach(o=>{ o.selected = values.includes(o.value); }); }
-function clearSlicers(){ ['slYear','slDept','slProg','slStatus'].forEach(id=>{ const sel=$('#'+id); Array.from(sel.options).forEach(o=>o.selected=false); }); }
+function setMulti(sel, values){ Array.from(sel.options||[]).forEach(o=>{ o.selected = (values||[]).includes(o.value); }); }
+function clearSlicers(){ ['slYear','slDept','slProg','slStatus'].forEach(id=>{ const sel=$('#'+id); Array.from(sel.options||[]).forEach(o=>o.selected=false); }); }
 
 function applyFilters(){
   const s=getSlicerState();
@@ -618,40 +684,44 @@ function renderKPIs(ds){
 
 /* ===================== Charts (Canvas) ===================== */
 function drawLineChart(canvas, labels, series){
-  if(!canvas) return; const ctx=canvas.getContext('2d'); if(!ctx) return; const cw=canvas.clientWidth||400; const ch=canvas.clientHeight||300; const W=canvas.width=cw*2; const H=canvas.height=ch*2; const pad=60; ctx.clearRect(0,0,W,H);
-  const s = series.map(v=> +v||0); const max=Math.max(1, ...s);
+  if(!canvas) return; const ctx=canvas.getContext('2d'); if(!ctx) return;
+  const cw=canvas.clientWidth||400; const ch=canvas.clientHeight||300; const W=canvas.width=cw*2; const H=canvas.height=ch*2; const pad=60; ctx.clearRect(0,0,W,H);
+  const s = (series||[]).map(v=> +v||0); const max=Math.max(1, ...s);
   const xStep=(W-2*pad)/Math.max(1, (labels.length-1));
   const y=(v)=> H-pad - (v/max)*(H-2*pad);
   // Axes
   ctx.strokeStyle='#cfd8e6'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(pad,pad); ctx.lineTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke();
   // Labels
-  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; ctx.font='24px Arial'; labels.forEach((lb,i)=>{ const x=pad+i*xStep; ctx.fillText(String(lb), x, H-pad+30); });
+  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; ctx.font='24px Arial'; (labels||[]).forEach((lb,i)=>{ const x=pad+i*xStep; ctx.fillText(String(lb), x, H-pad+30); });
   // Line
   ctx.strokeStyle='#1565ff'; ctx.lineWidth=4; ctx.beginPath(); s.forEach((v,i)=>{ const x=pad+i*xStep; const yy=y(v); if(i===0) ctx.moveTo(x,yy); else ctx.lineTo(x,yy); }); ctx.stroke();
   // Dots
   ctx.fillStyle='#1565ff'; s.forEach((v,i)=>{ const x=pad+i*xStep; const yy=y(v); ctx.beginPath(); ctx.arc(x,yy,6,0,Math.PI*2); ctx.fill(); });
 }
 function drawStackedBar(canvas, cats, stacks){
-  if(!canvas) return; const ctx=canvas.getContext('2d'); if(!ctx) return; const cw=canvas.clientWidth||400; const ch=canvas.clientHeight||300; const W=canvas.width=cw*2; const H=canvas.height=ch*2; const pad=60; ctx.clearRect(0,0,W,H);
+  if(!canvas) return; const ctx=canvas.getContext('2d'); if(!ctx) return;
+  const cw=canvas.clientWidth||400; const ch=canvas.clientHeight||300; const W=canvas.width=cw*2; const H=canvas.height=ch*2; const pad=60; ctx.clearRect(0,0,W,H);
   const colors=['#1565ff','#15a085','#ff7a3d','#7d4dff','#f6b73c'];
-  const totals=cats.map((_,i)=> stacks.reduce((a,s)=>a+(+s.values[i]||0),0));
+  const totals=(cats||[]).map((_,i)=> (stacks||[]).reduce((a,s)=>a+(+s.values[i]||0),0));
   const max=Math.max(1, ...totals);
-  const barW=(W-2*pad)/Math.max(1,cats.length) * 0.6; const step=(W-2*pad)/Math.max(1,cats.length);
+  const barW=(W-2*pad)/Math.max(1,(cats||[]).length) * 0.6; const step=(W-2*pad)/Math.max(1,(cats||[]).length);
   ctx.strokeStyle='#cfd8e6'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(pad,pad); ctx.lineTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke();
-  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; ctx.font='24px Arial'; cats.forEach((c,i)=> ctx.fillText(String(c), pad+i*step, H-pad+30));
-  cats.forEach((c,i)=>{
-    let y=H-pad; stacks.forEach((s,si)=>{ const v=+s.values[i]||0; const h=(v/max)*(H-2*pad); ctx.fillStyle=colors[si%colors.length]; ctx.fillRect(pad+i*step - barW/2, y-h, barW, h); y-=h; });
+  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; ctx.font='24px Arial'; (cats||[]).forEach((c,i)=> ctx.fillText(String(c), pad+i*step, H-pad+30));
+  (cats||[]).forEach((c,i)=>{
+    let y=H-pad;
+    (stacks||[]).forEach((s,si)=>{ const v=+s.values[i]||0; const h=(v/max)*(H-2*pad); ctx.fillStyle=colors[si%colors.length]; ctx.fillRect(pad+i*step - barW/2, y-h, barW, h); y-=h; });
   });
 }
 function drawGroupedBar(canvas, cats, series){
-  if(!canvas) return; const ctx=canvas.getContext('2d'); if(!ctx) return; const cw=canvas.clientWidth||400; const ch=canvas.clientHeight||300; const W=canvas.width=cw*2; const H=canvas.height=ch*2; const pad=60; ctx.clearRect(0,0,W,H);
+  if(!canvas) return; const ctx=canvas.getContext('2d'); if(!ctx) return;
+  const cw=canvas.clientWidth||400; const ch=canvas.clientHeight||300; const W=canvas.width=cw*2; const H=canvas.height=ch*2; const pad=60; ctx.clearRect(0,0,W,H);
   const colors=['#1565ff','#15a085','#ff7a3d','#7d4dff'];
-  const max=Math.max(1, ...series.flatMap(s=>s.values.map(v=>+v||0)));
-  const groupW=(W-2*pad)/Math.max(1,cats.length) * 0.7; const step=(W-2*pad)/Math.max(1,cats.length); const barW=groupW/Math.max(1,series.length);
+  const max=Math.max(1, ...(series||[]).flatMap(s=>s.values.map(v=>+v||0)));
+  const groupW=(W-2*pad)/Math.max(1,(cats||[]).length) * 0.7; const step=(W-2*pad)/Math.max(1,(cats||[]).length); const barW=groupW/Math.max(1,(series||[]).length);
   ctx.strokeStyle='#cfd8e6'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(pad,pad); ctx.lineTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke();
-  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; ctx.font='24px Arial'; cats.forEach((c,i)=> ctx.fillText(String(c), pad+i*step, H-pad+30));
-  cats.forEach((c,i)=>{
-    series.forEach((s,si)=>{ const v=+s.values[i]||0; const h=(v/max)*(H-2*pad); const x=pad+i*step - groupW/2 + si*barW; ctx.fillStyle=colors[si%colors.length]; ctx.fillRect(x, H-pad-h, barW, h); });
+  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; ctx.font='24px Arial'; (cats||[]).forEach((c,i)=> ctx.fillText(String(c), pad+i*step, H-pad+30));
+  (cats||[]).forEach((c,i)=>{
+    (series||[]).forEach((s,si)=>{ const v=+s.values[i]||0; const h=(v/max)*(H-2*pad); const x=pad+i*step - groupW/2 + si*barW; ctx.fillStyle=colors[si%colors.length]; ctx.fillRect(x, H-pad-h, barW, h); });
   });
 }
 
@@ -664,7 +734,7 @@ function renderAll(){
   save();
 }
 
-function yearsFromResearch(ds){ return unique(ds.research.map(r=>String(r.year))).sort(); }
+function yearsFromResearch(ds){ return unique((ds.research||[]).map(r=>String(r.year))).sort(); }
 function renderCharts(ds){
   // Research by year (count)
   const yrs = yearsFromResearch(ds);
@@ -719,3 +789,136 @@ function renderCharts(ds){
   const avg = total.reduce((a,b) => a+b, 0) ? (placed.reduce((a,b) => a+b, 0) / total.reduce((a,b) => a+b, 0)) : 0;
   $('#meta-place').textContent = progs.length ? `Avg Placement: ${(avg*100).toFixed(1)}%` : 'No data';
 }
+
+/* ===================== Tables ===================== */
+function renderTables(){
+  const ds=applyFilters();
+
+  // Research
+  const qR=($('#qResearch').value||'').toLowerCase();
+  const rowsR=ds.research.filter(r=> JSON.stringify(r).toLowerCase().includes(qR) );
+  fillTable($('#tblResearch tbody'), rowsR, ['title','type','citations','year','dept','program','link'], (tr, r)=>{
+    const a=tr.children[6].querySelector('a'); if(a){ a.href=r.link||'#'; a.textContent='open'; a.target='_blank'; a.rel='noopener'; }
+  });
+
+  // Consultancy
+  const qC=($('#qConsult').value||'').toLowerCase();
+  const rowsC=ds.consultancy.filter(r=> JSON.stringify(r).toLowerCase().includes(qC) );
+  fillTable($('#tblConsult tbody'), rowsC, ['client','value_inr','start_date','end_date','owner_dept','status'], null, (k,v)=> k==='value_inr'? fmtINR(v): v);
+
+  // Budget
+  const qB=($('#qBudget').value||'').toLowerCase();
+  const rowsB=ds.budget.filter(r=> JSON.stringify(r).toLowerCase().includes(qB) );
+  fillTable($('#tblBudget tbody'), rowsB, ['item','type','amount_inr','year','owner','project','status'], null, (k,v)=> k==='amount_inr'? fmtINR(v): v);
+
+  // Placements
+  const qP=($('#qPlace').value||'').toLowerCase();
+  const rowsP=ds.placements
+    .filter(r=> JSON.stringify(r).toLowerCase().includes(qP) )
+    .map(r=>({
+      program:r.program, batch_year:r.batch_year,
+      placed:+r.placed_count||0, total:+r.total_count||0,
+      pct: ((+r.total_count? (+r.placed_count||0)/(+r.total_count):0)*100).toFixed(1)+'%',
+      ctc: fmtINR(+r.median_ctc_inr||0), intern:(+r.internship_pct||0).toFixed(0)+'%'
+    }));
+  fillTable($('#tblPlace tbody'), rowsP, ['program','batch_year','placed','total','pct','ctc','intern']);
+}
+function fillTable(tbody, rows, headers, post, fmt){
+  tbody.innerHTML='';
+  (rows||[]).forEach(r=>{
+    const tr=document.createElement('tr');
+    (headers||[]).forEach((h)=>{
+      const td=document.createElement('td');
+      if(h==='link') { td.innerHTML=`<a href="#" target="_blank" rel="noopener">open</a>`; }
+      else {
+        const val = r[h];
+        td.textContent = fmt? fmt(h,val) : (val ?? '');
+      }
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr); if(post) post(tr,r);
+  });
+}
+function exportTableCSV(kind){
+  const ds=applyFilters(); let rows=[], headers=[];
+  if(kind==='research'){ rows=ds.research; headers=['title','type','citations','year','dept','program','link']; }
+  if(kind==='consultancy'){ rows=ds.consultancy; headers=['client','value_inr','start_date','end_date','owner_dept','status']; }
+  if(kind==='budget'){ rows=ds.budget; headers=['item','type','amount_inr','year','owner','project','status','dept']; }
+  if(kind==='placements'){ rows=ds.placements; headers=['program','batch_year','placed_count','total_count','median_ctc_inr','internship_pct','dept']; }
+  const csv=toCSV(rows, headers); downloadBlob(csv, `${kind}.csv`, 'text/csv');
+}
+
+/* ===================== Import / Export Data ===================== */
+async function importJSON(){
+  const inp=document.createElement('input'); inp.type='file'; inp.accept='application/json';
+  inp.onchange= async ()=>{
+    const file=inp.files[0]; if(!file) return;
+    const text=await file.text();
+    try{
+      const obj=JSON.parse(text);
+      if(obj.config) state.config=obj.config;
+      if(obj.placements) state.placements=obj.placements;
+      if(obj.research) state.research=obj.research;
+      if(obj.budget) state.budget=obj.budget;
+      if(obj.consultancy) state.consultancy=obj.consultancy;
+      if(obj.brand) state.brand=obj.brand;
+      save(); refreshSlicers(); renderAll(); renderBrandCard();
+      alert('JSON imported.');
+    }catch(e){ console.error(e); alert('Invalid JSON.'); }
+  };
+  inp.click();
+}
+function parseFromTextarea(kind){
+  const ids={placements:'csvPlacements', research:'csvResearch', budget:'csvBudget', consultancy:'csvConsult'};
+  const id=ids[kind];
+  const ta=$('#'+id);
+  if(!ta){ alert('Target textarea not found.'); return; }
+  const txt=(ta.value||'').trim(); if(!txt){ alert('Paste CSV first or use Upload.'); return; }
+  const rows=parseCSV(txt); if(!rows.length){ alert('No rows found.'); return; }
+  // Normalize expected numeric fields (optional, keeps CSV values if strings)
+  if(kind==='placements'){ rows.forEach(r=>{ ['placed_count','total_count','median_ctc_inr','internship_pct'].forEach(k=> r[k]=r[k]??''); }); }
+  if(kind==='research'){ rows.forEach(r=>{ r.citations = r.citations ?? ''; }); }
+  if(kind==='budget'){ rows.forEach(r=>{ r.amount_inr = r.amount_inr ?? ''; }); }
+  if(kind==='consultancy'){ rows.forEach(r=>{ r.value_inr = r.value_inr ?? ''; }); }
+
+  state[kind]=[...(state[kind]||[]), ...rows]; save(); refreshSlicers(); renderAll();
+  alert(`${rows.length} ${kind} row(s) merged.`);
+}
+
+/* Upload helper binds a file to a textarea and parses */
+function bindUpload(label, inputId, btnId, textAreaId, kind){
+  $('#'+btnId).addEventListener('click', async ()=>{
+    const inp=$('#'+inputId);
+    if(!inp.files || !inp.files[0]){ alert(`Choose a ${label} CSV file first.`); return; }
+    const text=await inp.files[0].text();
+    $('#'+textAreaId).value=text;
+    parseFromTextarea(kind);
+    inp.value='';
+  });
+}
+
+/* ===================== Download templates (all at once) ===================== */
+function downloadAllTemplates(){
+  downloadBlob('program,batch_year,placed_count,total_count,median_ctc_inr,internship_pct,dept\r\n','placements_template.csv','text/csv');
+  downloadBlob('title,type,citations,year,dept,program,link\r\n','research_template.csv','text/csv');
+  downloadBlob('item,type,amount_inr,year,owner,project,status,dept\r\n','budget_template.csv','text/csv');
+  downloadBlob('client,value_inr,start_date,end_date,owner_dept,status\r\n','consultancy_template.csv','text/csv');
+}
+
+/* ===================== Export filtered CSV bundle ===================== */
+function exportFilteredCSVs(){
+  const ds=applyFilters();
+  const files=[
+    {name:'placements.csv', rows:ds.placements, headers:['program','batch_year','placed_count','total_count','median_ctc_inr','internship_pct','dept']},
+    {name:'research.csv', rows:ds.research, headers:['title','type','citations','year','dept','program','link']},
+    {name:'budget.csv', rows:ds.budget, headers:['item','type','amount_inr','year','owner','project','status','dept']},
+    {name:'consultancy.csv', rows:ds.consultancy, headers:['client','value_inr','start_date','end_date','owner_dept','status']}
+  ];
+  files.forEach(f=>{ const csv=toCSV(f.rows, f.headers); downloadBlob(csv, f.name, 'text/csv'); });
+}
+
+// Kick off
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
