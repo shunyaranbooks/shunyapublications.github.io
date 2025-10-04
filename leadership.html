@@ -1,729 +1,1040 @@
 <!DOCTYPE html>
-<html lang="en" data-lang="en">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Architecture of Leadership — Interactive Playbook</title>
-<meta name="description" content="A bilingual, interactive leadership playbook for higher education—vision, governance, KPIs, SOPs, IQAC/NIRF evidence, and tools to design resilient institutions." />
-<link rel="canonical" href="https://www.shunyapublications.com/leadership.html" />
-
-<!-- App Icons (stays compatible with your site) -->
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Shunya">
-<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
-<link rel="manifest" href="/site.webmanifest?v=2">
+<title>Leadership Toolkit — Academic Leadership App</title>
+<meta name="description" content="An interactive, offline-ready toolkit for academic leadership: NAAC/NIRF readiness, KPI dashboards, governance, IQAC evidence, OBE matrices, projects, risks, budgets, and more.">
+<link rel="canonical" href="./leadership.html" />
 <meta name="theme-color" content="#1565ff">
-
-<!-- Open Graph -->
-<meta property="og:type" content="website" />
-<meta property="og:title" content="The Architecture of Leadership — Interactive Playbook" />
-<meta property="og:description" content="Design institutions that lead themselves: vision, governance, KPIs, SOPs, IQAC/NIRF evidence, and tools, bilingual (EN/HI)." />
-<meta property="og:image" content="https://www.shunyapublications.com/Logosh.png" />
-<meta property="og:image:type" content="image/png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="The Architecture of Leadership — Interactive Playbook" />
-<meta name="twitter:description" content="A bilingual, interactive leadership playbook for higher education—vision, governance, KPIs, SOPs, IQAC/NIRF evidence, and tools." />
-<meta name="twitter:image" content="https://www.shunyapublications.com/Logosh.png" />
-
 <style>
-  /* =========================
-     Design System — Shunya UI
-     ========================= */
-  :root{
-    --bg:#ffffff;
-    --bg-1:#fff9f1; --bg-2:#f3f9ff; --bg-3:#eef9f5;
-    --text:#142036; --muted:#5a6b88;
-    --line:#e6ecf5; --line-strong:#cfd8e6;
-    --brand:#1565ff; --brand-2:#ff7a3d; --brand-3:#15a085; --accent:#7d4dff; --gold:#f6b73c;
-
-    --shadow:0 12px 30px rgba(21,101,255,.10);
-    --shadow-soft:0 10px 24px rgba(20,32,54,.10);
-    --ring:0 0 0 4px rgba(21,101,255,.16);
-
-    --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    --fs-hero: clamp(2rem, 3.2vw, 2.6rem);
-    --fs-h2: clamp(1.5rem, 1.8vw, 1.9rem);
-    --fs-h3: 1.1rem;
-    --radius: 16px; --radius-lg: 20px;
-  }
-
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0; font-family:var(--font); color:var(--text);
-    background:
-      radial-gradient(1100px 620px at 10% -10%, var(--bg-1) 0%, #fff 60%),
-      radial-gradient(1200px 720px at 110% 110%, var(--bg-2) 0%, #fff 55%),
-      radial-gradient(1000px 650px at -10% 120%, var(--bg-3) 0%, #fff 50%);
-  }
-  a{color:var(--brand);text-decoration:none}
-  a:hover{text-decoration:underline}
-
-  .container{max-width:1180px;margin:auto;padding:0 20px}
-  .section{padding:64px 0; border-top:1px solid var(--line)}
-  .section:first-of-type{border-top:none}
-  .stack{display:flex;flex-direction:column;gap:14px}
-  .row{display:flex;gap:16px;flex-wrap:wrap}
-  .w-50{flex:1 1 480px}
-  .w-33{flex:1 1 320px}
-  .w-100{flex:1 1 100%}
-
-  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow-soft)}
-  .card-lg{padding:20px;border-radius:var(--radius-lg)}
-  .eyebrow{font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600;cursor:pointer}
-  .btn:hover{box-shadow:var(--ring)}
-  .btn.primary{background:linear-gradient(180deg,#f7fbff,#eaf2ff); border-color:#dbe7ff}
-  .btn.ghost{background:#fff}
-  .pill{display:inline-block;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:.85rem}
-
-  .nav{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
-  .brand{display:flex;gap:12px;align-items:center}
-  .brand img{height:40px;width:40px;border-radius:10px;box-shadow:var(--shadow-soft)}
-  .brand span{font-weight:800}
-  .menu a{margin-left:16px;color:var(--muted);font-weight:600}
-  .menu a:hover{color:var(--text)}
-
-  header{padding:64px 0 24px}
-  .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
-  .title{font-size:var(--fs-hero);line-height:1.12;margin:6px 0}
-  .title .rainbow{background:linear-gradient(90deg,var(--brand),var(--accent),var(--gold),var(--brand-3));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .subtitle{color:#2a3b5c;opacity:.95;max-width:68ch}
-  .hero-card img{width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)}
-
-  /* Sticky TOC */
-  .toc{position:sticky; top:86px; align-self:flex-start}
-  .toc a{display:block;padding:8px 10px;margin:6px 0;border-radius:10px;border:1px solid var(--line);background:#fff;color:#2a3b5c;font-size:.95rem}
-  .toc a.active{border-color:#bcd3ff;background:linear-gradient(180deg,#f7fbff,#ffffff)}
-
-  /* Accordion */
-  .accordion summary{list-style:none;cursor:pointer;font-weight:700}
-  .accordion summary::-webkit-details-marker{display:none}
-  .accordion .content{margin-top:10px;color:#25314d}
-
-  /* Switch / Toggle */
-  .switch{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-  .switch button{border:0;background:#fff;padding:8px 12px;font-weight:700;color:#3b4b6a;cursor:pointer}
-  .switch button.active{background:#eaf2ff}
-
-  /* Inputs */
-  .input, textarea, select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}
-  textarea{min-height:110px}
-  label{font-weight:700;font-size:.95rem}
-
-  /* Table */
-  table{width:100%;border-collapse:separate;border-spacing:0;margin-top:10px}
-  th,td{border:1px solid var(--line);padding:10px;border-left:0;border-top:0}
-  th:first-child,td:first-child{border-left:1px solid var(--line)}
-  tr:first-child th{border-top:1px solid var(--line)}
-  th{background:#f7fbff;text-align:left}
-
-  /* Quiz */
-  .quiz .q{margin:8px 0;padding:10px;border:1px solid var(--line);border-radius:12px}
-  .badge{display:inline-block;background:#eef4ff;border:1px solid #dbe7ff;color:#163a72;padding:4px 10px;border-radius:999px;font-size:.8rem;font-weight:700}
-
-  /* Charts */
-  canvas{max-width:100%;border:1px solid var(--line);border-radius:12px;background:#fff}
-
-  /* Responsive */
-  @media(max-width:980px){
-    .hero{grid-template-columns:1fr}
-    .toc{display:none}
-  }
+/* ========= Design System (aligned with your index.html) ========= */
+:root{
+  --bg:#ffffff; --bg-1:#fff9f1; --bg-2:#f3f9ff; --bg-3:#eef9f5;
+  --text:#142036; --muted:#5a6b88;
+  --line:#e6ecf5; --line-strong:#cfd8e6;
+  --brand:#1565ff; --brand-2:#ff7a3d; --brand-3:#15a085; --accent:#7d4dff; --gold:#f6b73c;
+  --shadow:0 12px 30px rgba(21,101,255,.10);
+  --shadow-soft:0 10px 24px rgba(20,32,54,.10);
+  --ring:0 0 0 4px rgba(21,101,255,.16);
+  --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  --fs-hero: clamp(2rem, 3.2vw, 2.2rem);
+  --fs-h2: clamp(1.4rem, 1.8vw, 1.8rem);
+  --fs-h3: 1.05rem;
+  --radius:16px; --radius-lg:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; font-family:var(--font); color:var(--text); background:var(--bg);
+  background:
+    radial-gradient(1100px 620px at 10% -10%, var(--bg-1) 0%, #fff 60%),
+    radial-gradient(1200px 720px at 110% 110%, var(--bg-2) 0%, #fff 55%),
+    radial-gradient(1000px 650px at -10% 120%, var(--bg-3) 0%, #fff 50%);
+}
+a{color:var(--brand); text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1180px;margin:auto;padding:0 20px}
+.section{padding:56px 0; border-top:1px solid var(--line)}
+.section:first-of-type{border-top:none}
+.stack{display:flex;flex-direction:column;gap:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow-soft)}
+.card-lg{padding:20px;border-radius:var(--radius-lg)}
+.eyebrow{font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600;cursor:pointer}
+.btn:hover{box-shadow:var(--ring)}
+.btn.primary{background:linear-gradient(180deg,#f7fbff,#eaf2ff); border-color:#dbe7ff}
+.btn.danger{background:linear-gradient(180deg,#fff5f5,#ffecec); border-color:#ffd6d6; color:#8b1e1e}
+.btn.success{background:linear-gradient(180deg,#f0fff7,#e8fff4); border-color:#d0f2e2; color:#0f5d43}
+.grid{display:grid;gap:16px}
+.grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.grid.cols-4{grid-template-columns:repeat(4,1fr)}
+.grid.cols-2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:1000px){ .grid.cols-3,.grid.cols-4{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:700px){ .grid.cols-3,.grid.cols-4,.grid.cols-2{grid-template-columns:1fr} }
+label{font-weight:700}
+input[type="text"],input[type="number"],input[type="date"],input[type="url"],textarea,select{
+  width:100%; padding:10px 12px; border:1px solid var(--line-strong); border-radius:12px; font:inherit; background:#fff
+}
+textarea{min-height:100px; resize:vertical}
+.table{width:100%; border-collapse:separate; border-spacing:0 8px}
+.table th{font-size:.9rem; color:#374a6b; text-align:left; padding:6px 8px}
+.table td{background:#fff; border:1px solid var(--line); padding:8px; border-radius:10px}
+.kpi{padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.kpi b{font-size:1.2rem}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid var(--line);font-size:.8rem;background:#fff}
+.status-ok{background:#e9fff4;border-color:#c8f0dd;color:#0d6a4b}
+.status-warn{background:#fff8e6;border-color:#ffe4a8;color:#856404}
+.status-risk{background:#ffefef;border-color:#ffd3d3;color:#842029}
+.tools-nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.tools-nav .inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+.tools-nav .menu{display:flex;flex-wrap:wrap;gap:8px}
+.tools-nav a{padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:#fff}
+small.muted{color:var(--muted)}
+hr.sep{border:none;border-top:1px solid var(--line);margin:10px 0}
+.details{margin-top:8px}
+summary{cursor:pointer;font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:12px}
+.w-25{flex:1 1 220px}
+.w-33{flex:1 1 320px}
+.w-50{flex:1 1 480px}
+.w-66{flex:2 1 640px}
+.w-100{flex:1 1 100%}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.right{margin-left:auto}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+.notice{background:linear-gradient(180deg,#f7fbff,#fff);border:1px dashed #cfe0ff;padding:12px;border-radius:12px}
 </style>
 </head>
-
 <body>
-  <!-- NAV -->
-  <nav class="nav" aria-label="Global">
-    <div class="container nav-inner">
-      <div class="brand">
-        <img src="images/Logosh.png" alt="Shunya Publications Logo" />
-        <span>Shunya Publications</span>
-      </div>
-      <div class="menu" role="navigation">
-        <a href="index.html">Home</a>
-        <a href="#tools">Tools</a>
-        <a href="#kpi">KPIs</a>
-        <a href="#sops">SOPs</a>
-        <a href="#iqac">IQAC/NIRF</a>
-        <a href="#journal">Reflect</a>
-      </div>
+
+<!-- Sticky Global Toolbar -->
+<nav class="tools-nav">
+  <div class="container inner">
+    <div class="toolbar">
+      <strong>Leadership Toolkit</strong>
+      <a class="btn" href="#quickstart">Quick Start</a>
+      <a class="btn" href="#dashboard">Dashboard</a>
+      <a class="btn" href="#accreditation">NAAC/NIRF</a>
+      <a class="btn" href="#projects">Projects</a>
+      <a class="btn" href="#obe">OBE</a>
+      <a class="btn" href="#iqac">IQAC</a>
+      <a class="btn" href="#risk">Risk</a>
+      <a class="btn" href="#budget">Budget</a>
+      <a class="btn" href="#actions">Actions</a>
     </div>
-  </nav>
-
-  <!-- HERO -->
-  <header class="section" id="top">
-    <div class="container hero">
-      <div>
-        <p class="eyebrow" data-i18n="eyebrow">Interactive Playbook</p>
-        <h1 class="title"><span data-i18n="title1">The Architecture of Leadership</span> — <span class="rainbow" data-i18n="title2">Designing Transformative Leadership for Higher Education</span></h1>
-        <p class="subtitle" data-i18n="subtitle">
-          Leadership is not a position you hold — it is a system you design, execute, and gradually make self-sustaining.
-          This bilingual (EN/HI) app helps you build that system: vision, governance, KPIs, SOPs, IQAC/NIRF evidence,
-          reflective practice, and a Leadership Mandala integrating Seer–Builder–Steward–Innovator–Sage.
-        </p>
-        <div class="row">
-          <div class="switch" role="tablist" aria-label="Language">
-            <button id="btn-en" class="active" aria-selected="true">English</button>
-            <button id="btn-hi" aria-selected="false">हिन्दी</button>
-          </div>
-          <button class="btn" onclick="window.print()" aria-label="Print or Save as PDF">🖨️ Print / Save PDF</button>
-          <button class="btn" id="exportMdBtn" aria-label="Export notes as Markdown">⬇️ Export Your Notes (MD)</button>
-        </div>
-      </div>
-      <aside class="card card-lg hero-card" aria-label="Publisher note">
-        <img src="images/homeimg.png" alt="Leadership mandala decorative image" />
-      </aside>
+    <div class="toolbar">
+      <button class="btn primary" id="global-export-json">Export JSON</button>
+      <button class="btn" id="global-import-json">Import JSON</button>
+      <button class="btn" id="global-export-csv">Export CSV (All)</button>
+      <button class="btn danger" id="global-reset">Reset All</button>
+      <select id="lang" class="btn" title="Language">
+        <option value="en" selected>English</option>
+        <option value="hi">हिन्दी</option>
+      </select>
     </div>
-  </header>
-
-  <!-- MAIN CONTENT + TOC LAYOUT -->
-  <section class="section" id="overview">
-    <div class="container row">
-      <aside class="w-33">
-        <nav class="toc card">
-          <div class="eyebrow">On this page</div>
-          <a href="#disclaimer" class="toc-link active">Disclaimer</a>
-          <a href="#seer">Seer — Vision & Governance</a>
-          <a href="#builder">Builder — Management & Operations</a>
-          <a href="#steward">Steward — Research & Societal Impact</a>
-          <a href="#innovator">Innovator — Data & Foresight</a>
-          <a href="#sage">Sage — Communication & Reflection</a>
-          <a href="#tools">Leadership Tools</a>
-          <a href="#kpi">KPIs & Calculators</a>
-          <a href="#sops">SOPs & Policy Checklists</a>
-          <a href="#iqac">IQAC • NIRF Evidence Tracker</a>
-          <a href="#journal">Reflective Journal</a>
-          <a href="#quiz">Micro-Quizzes</a>
-          <a href="#legacy">Legacy Blueprint</a>
-        </nav>
-      </aside>
-
-      <div class="w-50 stack">
-
-        <!-- DISCLAIMER (Accordion) -->
-        <article class="card card-lg" id="disclaimer">
-          <details class="accordion" open>
-            <summary><span data-i18n="discTitle"><b>Disclaimer / अस्वीकरण</b> — tap to collapse/expand</span></summary>
-            <div class="content" data-i18n="discBody">
-              <p><b>Disclaimer</b><br/>
-              This book/app is inspired by real experiences during the Nurturing Future Leadership Programme (NFLP) at IIM Ranchi.
-              While it draws upon actual sessions, people, and events, some dialogues, reflections, and descriptions are interpretative in nature — shaped by the author’s inner feelings, personal understanding, and creative perspective.
-              They are not intended as verbatim records or official statements by any individual or institution.
-              Their purpose is to capture the essence of learning and transformation, not to represent exact conversations.
-              Any resemblance to specific words or views expressed by others should be read as experiential interpretation, not direct attribution.
-              — Shunya</p>
-
-              <p><b>अस्वीकरण</b><br/>
-              यह ऐप/पुस्तक IIM रांची के NFLP कार्यक्रम के वास्तविक अनुभवों से प्रेरित है। इसमें सत्रों, व्यक्तियों और घटनाओं का उल्लेख है, परंतु कुछ संवाद, चिंतन और वर्णन लेखक की आंतरिक भावनाओं, व्यक्तिगत समझ और सृजनात्मक दृष्टिकोण पर आधारित हैं। 
-              इनका उद्देश्य किसी भी व्यक्ति या संस्था के शब्दशः कथन या आधिकारिक वक्तव्य प्रस्तुत करना नहीं है, बल्कि सीखने और रूपांतरण की आत्मा को पकड़ना है। 
-              अन्य व्यक्तियों द्वारा कही गई बातों से कोई समानता केवल अनुभवजन्य व्याख्या मानी जाए, प्रत्यक्ष उद्धरण नहीं।
-              — शून्य</p>
-
-              <p class="eyebrow">© 2025 Md. Amir Khusru Akhtar (Pen Name: Shunya). All rights reserved.</p>
-            </div>
-          </details>
-        </article>
-
-        <!-- INTRO / SELF -->
-        <article class="card card-lg">
-          <h2 data-i18n="selfH">Intro: The Self — (The Core of Leadership)</h2>
-          <p><i data-i18n="selfQ">“Leadership begins where ego ends.”</i></p>
-          <p data-i18n="selfB">
-            Leadership in higher education is often misunderstood as charisma or authority. In practice, it is <b>architecture</b>:
-            a deliberately designed structure of vision, systems, culture, and continuity. This app helps you translate intent
-            into institutional design through five archetypes and a repeatable praxis. Use the tools, calculate your KPIs,
-            build SOPs and evidence workflows, and cultivate reflection that improves decisions over time.
-          </p>
-        </article>
-
-        <!-- ARCHETYPE: SEER -->
-        <article class="card card-lg" id="seer">
-          <div class="row">
-            <div class="w-100">
-              <span class="badge">Archetype 1</span>
-              <h2>Seer — Vision & Governance <span class="pill">द्रष्टा: दृष्टि और शासन</span></h2>
-              <p><i>“Clarity is created when vision becomes a shared contract.”</i></p>
-            </div>
-            <div class="w-50">
-              <h3>What you’ll build</h3>
-              <ul>
-                <li>Aligned Vision & Mission (NEP-aware), revisited annually</li>
-                <li>5-year Strategic Plan with KPIs, milestones, owners</li>
-                <li>Collaborative Governance (BoG, Academic Council, IQAC)</li>
-                <li>Well-being & mindful decision practices for leaders</li>
-              </ul>
-            </div>
-            <div class="w-50">
-              <h3>Tools you’ll use</h3>
-              <ul>
-                <li>Strategic Planning Canvas</li>
-                <li>Governance Responsibility Grid</li>
-                <li>Institutional Mission Audit</li>
-                <li>Stakeholder Mapping & Policy Register</li>
-              </ul>
-            </div>
-            <div class="w-100">
-              <p class="eyebrow">NFLP @ IIM Ranchi</p>
-              <p>
-                The journey began with lamp-lighting and a shared photograph—more than an inauguration,
-                it felt like the beginning of a common future. Use this section to turn shared aspiration into
-                explicit policy and measurable progress.
-              </p>
-            </div>
-          </div>
-        </article>
-
-        <!-- ARCHETYPE: BUILDER -->
-        <article class="card card-lg" id="builder">
-          <div class="row">
-            <div class="w-100">
-              <span class="badge">Archetype 2</span>
-              <h2>Builder — Management & Operations <span class="pill">निर्माता: प्रबंधन और संचालन</span></h2>
-              <p><i>“Strong systems make space for strong people.”</i></p>
-            </div>
-            <div class="w-50">
-              <h3>What you’ll build</h3>
-              <ul>
-                <li>Budget cycles, fund utilization registers, audits, compliance</li>
-                <li>Project plans (Gantt), M&amp;E frameworks, TAT metrics</li>
-                <li>Service charters, SOPs, and cross-functional workflows</li>
-                <li>EI-based performance dialogues & conflict resolution</li>
-              </ul>
-            </div>
-            <div class="w-50">
-              <h3>Tools you’ll use</h3>
-              <ul>
-                <li>Project Planner & Risk Map</li>
-                <li>SOP Builder & Service Charter</li>
-                <li>Budget Utilization Tracker</li>
-                <li>Turnaround Time (TAT) Monitor</li>
-              </ul>
-            </div>
-            <div class="w-100">
-              <p class="eyebrow">NFLP @ IIM Ranchi</p>
-              <p>
-                In lively conversations with peers and organizers, we discovered that systems succeed only when
-                people feel supported inside them. Build processes that serve people—and they will serve purpose.
-              </p>
-            </div>
-          </div>
-        </article>
-
-        <!-- ARCHETYPE: STEWARD -->
-        <article class="card card-lg" id="steward">
-          <div class="row">
-            <div class="w-100">
-              <span class="badge">Archetype 3</span>
-              <h2>Steward — Research & Societal Impact <span class="pill">संरक्षक: अनुसंधान और सामाजिक प्रभाव</span></h2>
-              <p><i>“Reputation grows where relevance flows.”</i></p>
-            </div>
-            <div class="w-50">
-              <h3>What you’ll build</h3>
-              <ul>
-                <li>Impact-oriented research metrics (beyond counts)</li>
-                <li>Incubation, consultancy, village/industry outreach</li>
-                <li>Evidence-ready NAAC/NIRF data systems</li>
-                <li>Branding & communication for credibility</li>
-              </ul>
-            </div>
-            <div class="w-50">
-              <h3>Tools you’ll use</h3>
-              <ul>
-                <li>Research Impact Log (citations, patents, policy)</li>
-                <li>Outreach Program Tracker (MoUs, events, beneficiaries)</li>
-                <li>NIRF Evidence Map</li>
-                <li>Media & Communication Calendar</li>
-              </ul>
-            </div>
-            <div class="w-100">
-              <p class="eyebrow">NFLP @ IIM Ranchi</p>
-              <p>
-                As the Drum Circle echoed in the night, impact felt less like data—and more like belonging.
-                Build the rhythm between knowledge and the communities it serves.
-              </p>
-            </div>
-          </div>
-        </article>
-
-        <!-- ARCHETYPE: INNOVATOR -->
-        <article class="card card-lg" id="innovator">
-          <div class="row">
-            <div class="w-100">
-              <span class="badge">Archetype 4</span>
-              <h2>Innovator — Data & Foresight <span class="pill">नवोन्मेषक: डेटा और दूरदृष्टि</span></h2>
-              <p><i>“Leadership without data is guesswork. Leadership without foresight is risk.”</i></p>
-            </div>
-            <div class="w-50">
-              <h3>What you’ll build</h3>
-              <ul>
-                <li>AI-assisted, brain-aware learning tools</li>
-                <li>Scenario planning & institutional foresight</li>
-                <li>Data governance & MIS dashboards</li>
-                <li>Inclusive innovation pipelines (DEI-linked)</li>
-              </ul>
-            </div>
-            <div class="w-50">
-              <h3>Tools you’ll use</h3>
-              <ul>
-                <li>Trend Radar & Scenario Matrix</li>
-                <li>Data Policy Register</li>
-                <li>KPI Dashboard (below)</li>
-                <li>Innovation Funnel Tracker</li>
-              </ul>
-            </div>
-            <div class="w-100">
-              <p class="eyebrow">NFLP @ IIM Ranchi</p>
-              <p>
-                Foresight is not prediction; it is preparation. Use the radar to scan signals and the
-                matrix to test responses—before reality tests you.
-              </p>
-            </div>
-          </div>
-        </article>
-
-        <!-- ARCHETYPE: SAGE -->
-        <article class="card card-lg" id="sage">
-          <div class="row">
-            <div class="w-100">
-              <span class="badge">Archetype 5</span>
-              <h2>Sage — Communication & Reflection <span class="pill">मनीषी: संवाद और आत्मचिंतन</span></h2>
-              <p><i>“What leaders say becomes what others build.”</i></p>
-            </div>
-            <div class="w-50">
-              <h3>What you’ll build</h3>
-              <ul>
-                <li>Leadership showcasing & policy presence</li>
-                <li>Strategic communication & crisis playbooks</li>
-                <li>Peer review & internal quality systems</li>
-                <li>Reflective journals & 360° feedback habits</li>
-              </ul>
-            </div>
-            <div class="w-50">
-              <h3>Tools you’ll use</h3>
-              <ul>
-                <li>Message Map & Stakeholder Briefs</li>
-                <li>Academic Audit Checklist</li>
-                <li>360° Feedback Planner</li>
-                <li>After-Action Review (AAR)</li>
-              </ul>
-            </div>
-            <div class="w-100">
-              <p class="eyebrow">NFLP @ IIM Ranchi</p>
-              <p>
-                When certificates were handed and the final photo was taken, silence said:
-                legacy begins when applause ends. Build habits that outlast the moment.
-              </p>
-            </div>
-          </div>
-        </article>
-
-        <!-- TOOLS LIBRARY -->
-        <article class="card card-lg" id="tools">
-          <h2>Leadership Tools Library</h2>
-          <p>These tools save to your browser (localStorage). You can export all notes as Markdown from the top.</p>
-
-          <!-- Strategic Planning Canvas -->
-<details class="accordion" id="spc">
-  <summary>Strategic Planning Canvas (5-Year)</summary>
-
-  <style>
-    /* Lightweight layout helpers (if not already present in site CSS) */
-    .row{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0}
-    .w-25{flex:1 1 240px;max-width:25ch}
-    .w-33{flex:1 1 320px;min-width:280px}
-    .w-50{flex:1 1 480px;min-width:320px}
-    .w-66{flex:2 1 640px;min-width:360px}
-    .w-100{flex:1 1 100%}
-    .input{width:100%;min-height:110px;padding:10px;border:1px solid var(--line, #cfd8e6);border-radius:12px;font:inherit;resize:vertical;background:#fff}
-    .mini{min-height:64px}
-    .input:focus{outline:none;box-shadow:0 0 0 4px rgba(21,101,255,.16)}
-    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .muted{color:#4c5f82;font-size:.92rem}
-    .btnbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
-    .btn.spc{padding:10px 12px;border-radius:12px;border:1px solid var(--line,#cfd8e6);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:0 10px 24px rgba(20,32,54,.08);cursor:pointer;font-weight:600}
-    .btn.spc.primary{background:linear-gradient(180deg,#f7fbff,#eaf2ff);border-color:#dbe7ff}
-    .pill{display:inline-block;border:1px solid var(--line,#cfd8e6);border-radius:999px;padding:6px 10px;margin:4px 6px 0 0;background:#fff;font-size:.9rem}
-    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;background:#f6f8fb;border:1px solid #e1e6ef;border-radius:8px;padding:2px 6px}
-    .hint{font-size:.86rem;color:#5a6b88;margin:.2rem 0 0}
-    .label-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .chip{background:#eef5ff;border:1px solid #dbe7ff;color:#0f254b;border-radius:999px;padding:4px 8px;font-size:.8rem}
-    .mono{font-family:ui-monospace,Menlo,Consolas,monospace}
-  </style>
-
-  <div class="content">
-    <!-- Vision & Mission -->
-    <div class="row">
-      <div class="w-50">
-        <div class="label-row">
-          <label for="spc-vision"><b>Vision</b></label>
-          <span class="chip">Why do we exist? What future do we create?</span>
-        </div>
-        <textarea id="spc-vision" class="input" placeholder="A vivid, future-facing north star for the institution."></textarea>
-        <p class="hint">Tip: Should be enduring (10–15 years), student- and society-centered, memorable.</p>
-      </div>
-      <div class="w-50">
-        <div class="label-row">
-          <label for="spc-mission"><b>Mission</b></label>
-          <span class="chip">What do we do every day to serve that vision?</span>
-        </div>
-        <textarea id="spc-mission" class="input" placeholder="Actionable, present-tense, clear on beneficiaries and methods."></textarea>
-        <p class="hint">Tip: Keep it testable—someone should be able to verify if you’re doing this daily.</p>
-      </div>
-    </div>
-
-    <!-- Goals, KPIs -->
-    <div class="row">
-      <div class="w-33">
-        <label for="spc-goals"><b>Strategic Goals (3–5)</b></label>
-        <textarea id="spc-goals" class="input" placeholder="Goal 1…&#10;Goal 2…&#10;Goal 3…"></textarea>
-        <p class="hint">Example: “Strengthen research impact”, “Improve graduate employability”, “Advance accreditation tier”.</p>
-      </div>
-
-      <div class="w-33">
-        <label for="spc-kpis"><b>KPIs &amp; Milestones</b></label>
-        <textarea id="spc-kpis" class="input" placeholder="For each goal, define metrics and target values by year.&#10;• Research: Scopus/SCI papers, patents, consultancy (₹)&#10;• Teaching: Syllabus revisions, OBE mapping, course feedback&#10;• Student: Placement %, median CTC, internships, NPTEL/MOOC credits&#10;• Quality: NAAC score, NIRF rank band, audit closures"></textarea>
-        <p class="hint">Include baselines &amp; targets: <span class="mono">2025→2029</span>, Year-wise milestones.</p>
-      </div>
-
-      <div class="w-33">
-        <label for="spc-initiatives"><b>Flagship Initiatives &amp; Owners</b></label>
-        <textarea id="spc-initiatives" class="input" placeholder="Initiative — Owner — Start — End&#10;Research Incubation Cell — Dean (R) — 07/2025 — 06/2027&#10;Industry Advisory Board — TPO — 08/2025 — Ongoing"></textarea>
-        <p class="hint">Name clear owners &amp; timelines. Link each initiative to a KPI.</p>
-      </div>
-    </div>
-
-    <!-- Alignment & Compliance -->
-    <div class="row">
-      <div class="w-66">
-        <label for="spc-alignment"><b>Alignment &amp; Compliance (NEP 2020, UGC, AICTE, NAAC, NIRF)</b></label>
-        <textarea id="spc-alignment" class="input" placeholder="Map goals/initiatives to policy &amp; compliance:&#10;• NEP 2020: Multidisciplinary, Academic Bank of Credits, ODL/Online&#10;• UGC: OBE, LoE, Academic Integrity, Research Policy&#10;• AICTE: Model Curriculum, Internship, Industry 4.0 / FDP&#10;• NAAC: Criteria-wise artifacts (Curriculum, Teaching-Learning, Research, Infrastructure, Student Support, Governance, IQAC)&#10;• NIRF: Teaching & Learning, Research & Professional Practice, Graduation Outcomes, Outreach & Inclusivity, Peer Perception"></textarea>
-        <p class="hint">Call out evidence sources (SOPs, minutes, dashboards, MOU repository, IQAC AQARs).</p>
-      </div>
-      <div class="w-33">
-        <label for="spc-policies"><b>Key Policies &amp; Frameworks</b></label>
-        <textarea id="spc-policies" class="input" placeholder="Research &amp; IPR Policy, Consultancy, DEI, Digital Governance, Data Protection, Academic Integrity, E-content, OER, Mentoring, Grievance Redressal"></textarea>
-        <p class="hint">Note policy version, approval date, and review cycle.</p>
-      </div>
-    </div>
-
-    <!-- Timeline, Budget, Risks -->
-    <div class="row">
-      <div class="w-50">
-        <label for="spc-timeline"><b>Timeline &amp; Phasing (Gantt-level)</b></label>
-        <textarea id="spc-timeline" class="input" placeholder="Phase 1 (Y1): Baselines, policy approvals, pilots&#10;Phase 2 (Y2–Y3): Scale teaching reforms, research cells, industry boards&#10;Phase 3 (Y4–Y5): Accreditation push, internationalization, endline review"></textarea>
-        <p class="hint">Anchor to academic calendars and audit/inspection windows (AICTE/NAAC/NIRF).</p>
-      </div>
-
-      <div class="w-50">
-        <label for="spc-budget"><b>Budget &amp; Resources</b></label>
-        <textarea id="spc-budget" class="input" placeholder="Capex/Opex split; funding sources: Internal (₹), RUSA/State, CSR, Consultancy, Projects&#10;Year-wise allocation per initiative; staffing (faculty, TA, RA); infra (labs, LMS, repositories)"></textarea>
-        <p class="hint">Include sustainability (AMCs, renewals), and capacity building (FDP, workshops).</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="w-50">
-        <label for="spc-risks"><b>Risks &amp; Mitigations</b></label>
-        <textarea id="spc-risks" class="input" placeholder="Risk — Likelihood — Impact — Mitigation&#10;Faculty attrition — Medium — High — Hiring pipeline, FDP, mentorship&#10;Low research output — High — Medium — Seed grants, incentives, guidance cells"></textarea>
-        <p class="hint">Record early warnings (leading indicators) and risk owners.</p>
-      </div>
-
-      <div class="w-50">
-        <label for="spc-stakeholders"><b>Stakeholders &amp; Governance</b></label>
-        <textarea id="spc-stakeholders" class="input" placeholder="BoG, Academic Council, Deanery, HoDs, IQAC, IPR Cell, Industry Board, Alumni, Students&#10;Decision rhythms: Monthly IQAC reviews, quarterly BoG, semester-level program boards"></textarea>
-        <p class="hint">Define escalation paths, quorum, and evidence (minutes, resolutions).</p>
-      </div>
-    </div>
-
-    <!-- Review & M&E -->
-    <div class="row">
-      <div class="w-33">
-        <label for="spc-monitoring"><b>Monitoring &amp; Evaluation (M&amp;E)</b></label>
-        <textarea id="spc-monitoring" class="input" placeholder="KPI dashboards (program/department/institution)&#10;Quarterly reviews; mid-term (Y3) &amp; endline (Y5) evaluations&#10;External peer reviews; student/faculty panels"></textarea>
-        <p class="hint">Tie reviews to course files, exam boards, and IQAC/AQAR cadence.</p>
-      </div>
-
-      <div class="w-33">
-        <label for="spc-communications"><b>Communication &amp; Change Management</b></label>
-        <textarea id="spc-communications" class="input" placeholder="Leadership addresses; policy explainers; faculty townhalls&#10;Student-facing artifacts (handbooks, dashboards); media &amp; web updates"></textarea>
-        <p class="hint">Keep a release log; ensure accessible language and bilingual summaries.</p>
-      </div>
-
-      <div class="w-33">
-        <label for="spc-notes"><b>Notes / Assumptions</b></label>
-        <textarea id="spc-notes" class="input" placeholder="Context, constraints, dependencies; how you’ll adapt if assumptions shift."></textarea>
-        <p class="hint">Document trade-offs to preserve institutional memory.</p>
-      </div>
-    </div>
-
-    <!-- Quick tags -->
-    <div class="row">
-      <div class="w-100 muted">
-        Quick tags:
-        <span class="pill">OBE</span>
-        <span class="pill">Academic Bank of Credits</span>
-        <span class="pill">FDP</span>
-        <span class="pill">Internships</span>
-        <span class="pill">NPTEL/MOOCs</span>
-        <span class="pill">Incubation</span>
-        <span class="pill">Consultancy</span>
-        <span class="pill">IPR/Patents</span>
-        <span class="pill">Library &amp; ICT</span>
-        <span class="pill">DEI</span>
-        <span class="pill">Grievance Redressal</span>
-        <span class="pill">Ethics &amp; Plagiarism</span>
-        <span class="pill">NIRF</span>
-        <span class="pill">NAAC</span>
-        <span class="pill">AICTE</span>
-        <span class="pill">UGC</span>
-      </div>
-    </div>
-
-    <!-- Actions -->
-    <div class="btnbar">
-      <button class="btn spc primary" id="spc-save">💾 Save</button>
-      <button class="btn spc" id="spc-export-json">⬇️ Export JSON</button>
-      <button class="btn spc" id="spc-export-csv">⬇️ Export CSV</button>
-      <button class="btn spc" id="spc-print">🖨️ Print Canvas</button>
-      <button class="btn spc" id="spc-clear">🗑️ Clear</button>
-      <span class="muted" id="spc-status" aria-live="polite"></span>
-    </div>
-
-    <p class="hint">
-      Tip: This canvas autosaves every <span class="kbd">3s</span> while typing (<span class="mono">localStorage</span> on your device).
-    </p>
   </div>
+</nav>
 
-  <script>
-    (function(){
-      const KEY = 'spc-data-v1';
-      const $ = (id)=>document.getElementById(id);
-      const fields = [
-        'spc-vision','spc-mission','spc-goals','spc-kpis','spc-initiatives',
-        'spc-alignment','spc-policies','spc-timeline','spc-budget','spc-risks',
-        'spc-stakeholders','spc-monitoring','spc-communications','spc-notes'
-      ];
+<header class="section" id="quickstart">
+  <div class="container">
+    <div class="stack">
+      <div class="card card-lg">
+        <p class="eyebrow">Start Here</p>
+        <h1 style="margin:.2rem 0">Academic Leadership — Interactive Tools</h1>
+        <p>This page is a working toolkit for VCs, Registrars, Deans, HoDs, IQAC teams, and faculty leaders. It autosaves on your device (offline friendly), and lets you export/import your work.</p>
+        <div class="row">
+          <div class="w-66 notice">
+            <b>Leadership Guide (PDF)</b><br>
+            Keep the full narrative, models, and explanations in your PDF. Link it here:<br>
+            <input id="pdfLink" type="url" placeholder="e.g., leadership.pdf" />
+            <div style="margin-top:6px">
+              <a class="btn" id="open-pdf" target="_blank" rel="noopener">Open PDF</a>
+              <small class="muted">Tip: Commit <span class="mono">leadership.pdf</span> to your repo and paste its path above.</small>
+            </div>
+          </div>
+          <div class="w-33">
+            <div class="kpi">
+              <b>Autosave:</b> On (localStorage)<br>
+              <b>Last Save:</b> <span id="lastSave">—</span><br>
+              <b>Language:</b> <span id="langLabel">English</span>
+            </div>
+          </div>
+        </div>
+        <div class="toolbar" style="margin-top:10px;flex-wrap:wrap">
+          <a class="btn" href="#dashboard">1) Set KPIs</a>
+          <a class="btn" href="#planning">2) Plan 5 Years</a>
+          <a class="btn" href="#accreditation">3) NAAC/NIRF</a>
+          <a class="btn" href="#governance">4) Governance</a>
+          <a class="btn" href="#iqac">5) Evidence</a>
+          <a class="btn" href="#projects">6) Projects</a>
+          <a class="btn" href="#obe">7) OBE</a>
+          <a class="btn" href="#meetings">8) Minutes</a>
+          <a class="btn" href="#actions">9) Actions</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 
-      function readForm(){
-        const data = {};
-        fields.forEach(f => { const el = $(f); data[f] = el ? el.value : ''; });
-        data._updatedAt = new Date().toISOString();
-        return data;
-      }
+<!-- DASHBOARD -->
+<section id="dashboard" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Overview</p>
+        <h2 style="font-size:var(--fs-h2);margin:0 0 6px">Leadership Dashboard (Snapshot)</h2>
+        <p>Quick-edit KPI tiles for a snapshot view. Use NAAC/NIRF tabs below for detailed inputs.</p>
+      </div>
+      <div class="grid cols-4" id="kpiGrid">
+        <!-- KPI cards are dynamic; defaults below -->
+      </div>
+      <div class="toolbar">
+        <button class="btn" id="addKPI">+ Add KPI</button>
+        <button class="btn primary" data-export="kpi">Export CSV</button>
+        <button class="btn" data-print="kpi">Print</button>
+      </div>
+      <small class="muted">Common KPIs: Research Output, Patents, Consultancy ₹, Placement %, Median CTC, NAAC Score, NIRF Rank Band, Curriculum Revisions, OBE Mapping %, FDPs/Faculty, Internships %, NPTEL/MOOC Credits, IPR filings.</small>
+    </div>
+  </div>
+</section>
 
-      function writeForm(data){
-        if(!data) return;
-        fields.forEach(f => { if($(f) && (f in data)) $(f).value = data[f] || ''; });
-      }
+<!-- STRATEGIC PLANNING (compact, tool-first) -->
+<section id="planning" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Strategy</p>
+        <h2 style="margin:0 0 6px">Strategic Planning Canvas (5-Year)</h2>
+        <p>Short, do-first version. (Full explanations live in your PDF.)</p>
+      </div>
+      <div class="row">
+        <div class="w-50">
+          <label>Vision</label>
+          <textarea id="sp-vision" placeholder="Future-facing north star"></textarea>
+        </div>
+        <div class="w-50">
+          <label>Mission</label>
+          <textarea id="sp-mission" placeholder="What we do daily to serve that vision"></textarea>
+        </div>
+        <div class="w-33">
+          <label>Goals (3–5)</label>
+          <textarea id="sp-goals" placeholder="Goal 1…&#10;Goal 2…&#10;Goal 3…"></textarea>
+        </div>
+        <div class="w-33">
+          <label>KPIs & Milestones</label>
+          <textarea id="sp-kpis" placeholder="Metric → Baseline → Year targets"></textarea>
+        </div>
+        <div class="w-33">
+          <label>Flagship Initiatives & Owners</label>
+          <textarea id="sp-initiatives" placeholder="Initiative — Owner — Start — End"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="w-66">
+          <label>NEP/UGC/AICTE/NAAC/NIRF Alignment</label>
+          <textarea id="sp-alignment" placeholder="Map each goal/initiative to policy/compliance expectations"></textarea>
+        </div>
+        <div class="w-33">
+          <label>Key Policies</label>
+          <textarea id="sp-policies" placeholder="Research & IPR, Consultancy, DEI, Academic Integrity, Data Governance…"></textarea>
+        </div>
+      </div>
+      <div class="toolbar">
+        <button class="btn primary" data-export="sp">Export JSON</button>
+        <button class="btn" data-print="sp">Print</button>
+      </div>
+    </div>
+  </div>
+</section>
 
-      function save(manual=false){
-        const data = readForm();
-        try{
-          localStorage.setItem(KEY, JSON.stringify(data));
-          status(`Saved ${manual ? '(manual)' : ''} at ${new Date().toLocaleTimeString()}`);
-        }catch(e){
-          status('Save failed (storage full or blocked).');
+<!-- ACCREDITATION: NAAC + NIRF -->
+<section id="accreditation" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Quality & Rankings</p>
+        <h2 style="margin:0 0 6px">NAAC Readiness & NIRF Indicators</h2>
+      </div>
+
+      <details class="details card">
+        <summary>NAAC Criteria Evidence Checklist</summary>
+        <p class="muted">Track artifacts by criterion, link evidence, and set a status.</p>
+        <table class="table" id="naacTable">
+          <thead>
+            <tr>
+              <th>Criterion</th><th>Artifact / Evidence</th><th>Owner</th><th>Link/Path</th><th>Status</th><th>Notes</th><th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="toolbar">
+          <button class="btn" id="addNaac">+ Add Evidence</button>
+          <button class="btn primary" data-export="naac">Export CSV</button>
+          <button class="btn" data-print="naac">Print</button>
+        </div>
+        <small class="muted">Criteria: 1) Curricular Aspects, 2) Teaching-Learning & Evaluation, 3) Research/Innovations/Extension, 4) Infrastructure & Learning Resources, 5) Student Support & Progression, 6) Governance/Leadership/IQAC, 7) Institutional Values & Best Practices.</small>
+      </details>
+
+      <details class="details card">
+        <summary>NIRF Input Sheet (Core)</summary>
+        <p class="muted">Capture the key inputs for NIRF categories.</p>
+        <table class="table" id="nirfTable">
+          <thead>
+            <tr>
+              <th>Category</th><th>Indicator</th><th>Value</th><th>Year</th><th>Source/Evidence</th><th>Notes</th><th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="toolbar">
+          <button class="btn" id="addNirf">+ Add Indicator</button>
+          <button class="btn primary" data-export="nirf">Export CSV</button>
+          <button class="btn" data-print="nirf">Print</button>
+        </div>
+        <small class="muted">Common: Teaching & Learning, Research & Professional Practice, Graduation Outcomes, Outreach & Inclusivity, Peer Perception.</small>
+      </details>
+
+      <details class="details card">
+        <summary>AICTE/UGC Compliance Calendar</summary>
+        <table class="table" id="compTable">
+          <thead>
+            <tr>
+              <th>Item</th><th>Body</th><th>Date/Window</th><th>Owner</th><th>Status</th><th>Notes</th><th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="toolbar">
+          <button class="btn" id="addComp">+ Add Item</button>
+          <button class="btn primary" data-export="comp">Export CSV</button>
+          <button class="btn" data-print="comp">Print</button>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- GOVERNANCE -->
+<section id="governance" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Governance</p>
+        <h2 style="margin:0 0 6px">Governance Matrix (Bodies & Decisions)</h2>
+      </div>
+      <table class="table" id="govTable">
+        <thead>
+          <tr>
+            <th>Body</th><th>Cadence</th><th>Quorum</th><th>Decision/Resolution</th><th>Evidence (Minutes/Order)</th><th>Owner</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="toolbar">
+        <button class="btn" id="addGov">+ Add Row</button>
+        <button class="btn primary" data-export="gov">Export CSV</button>
+        <button class="btn" data-print="gov">Print</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IQAC EVIDENCE LOCKER -->
+<section id="iqac" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">IQAC</p>
+        <h2 style="margin:0 0 6px">Evidence Locker (Artifacts Manifest)</h2>
+      </div>
+      <table class="table" id="iqacTable">
+        <thead>
+          <tr>
+            <th>Artifact</th><th>Type</th><th>Program/Dept</th><th>Link/Path</th><th>Owner</th><th>Version/Date</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="toolbar">
+        <button class="btn" id="addIqac">+ Add Artifact</button>
+        <button class="btn primary" data-export="iqac">Export CSV</button>
+        <button class="btn" data-print="iqac">Print</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Projects</p>
+        <h2 style="margin:0 0 6px">Project Planner (Light Gantt)</h2>
+      </div>
+      <table class="table" id="projTable">
+        <thead>
+          <tr>
+            <th>Project</th><th>Owner</th><th>Start</th><th>End</th><th>Status</th><th>Milestones</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="toolbar">
+        <button class="btn" id="addProj">+ Add Project</button>
+        <button class="btn primary" data-export="proj">Export CSV</button>
+        <button class="btn" data-print="proj">Print</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBE -->
+<section id="obe" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Teaching-Learning</p>
+        <h2 style="margin:0 0 6px">OBE Course Matrix (PO/CO Mapping)</h2>
+      </div>
+      <table class="table" id="obeTable">
+        <thead>
+          <tr>
+            <th>Course</th><th>POs (e.g., PO1, PO2)</th><th>COs</th><th>Assessment Split (%)</th><th>Evidence (Syllabus/CO-PO)</th><th>Owner</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="toolbar">
+        <button class="btn" id="addObe">+ Add Course</button>
+        <button class="btn primary" data-export="obe">Export CSV</button>
+        <button class="btn" data-print="obe">Print</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH & INNOVATION -->
+<section id="research" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Research</p>
+        <h2 style="margin:0 0 6px">Research & Innovation Tracker</h2>
+      </div>
+      <table class="table" id="rsTable">
+        <thead>
+          <tr>
+            <th>Type</th><th>Title/Topic</th><th>Venue/Office</th><th>Value/Index</th><th>Year</th><th>Evidence</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="toolbar">
+        <button class="btn" id="addRs">+ Add Entry</button>
+        <button class="btn primary" data-export="rs">Export CSV</button>
+        <button class="btn" data-print="rs">Print</button>
+      </div>
+      <small class="muted">Use for publications (Scopus/SCI), patents, consultancy (₹), seed grants, start-ups/incubation.</small>
+    </div>
+  </div>
+</section>
+
+<!-- CONSULTANCY & MoUs -->
+<section id="consultancy" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Industry</p>
+        <h2 style="margin:0 0 6px">Consultancy & MoU Tracker</h2>
+      </div>
+      <table class="table" id="mouTable">
+        <thead>
+          <tr>
+            <th>Type</th><th>Partner/Client</th><th>Value/Scope</th><th>Start</th><th>End</th><th>Evidence/Link</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="toolbar">
+        <button class="btn" id="addMou">+ Add</button>
+        <button class="btn primary" data-export="mou">Export CSV</button>
+        <button class="btn" data-print="mou">Print</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACULTY WORKLOAD & FDP -->
+<section id="faculty" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Faculty</p>
+        <h2 style="margin:0 0 6px">Faculty Workload & FDP Plan</h2>
+      </div>
+      <table class="table" id="fwTable">
+        <thead>
+          <tr>
+            <th>Name</th><th>Teaching (Hrs/Wk)</th><th>Research (Hrs/Wk)</th><th>Admin (Hrs/Wk)</th><th>FDP/Training</th><th>Notes</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="toolbar">
+        <button class="btn" id="addFw">+ Add Faculty</button>
+        <button class="btn primary" data-export="fw">Export CSV</button>
+        <button class="btn" data-print="fw">Print</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDENT SUCCESS -->
+<section id="students" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Students</p>
+        <h2 style="margin:0 0 6px">Student Success Inputs</h2>
+      </div>
+      <table class="table" id="stuTable">
+        <thead>
+          <tr>
+            <th>Program</th><th>Placement %</th><th>Median CTC</th><th>Internship %</th><th>MOOC/NPTEL Credits</th><th>Notes</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="toolbar">
+        <button class="btn" id="addStu">+ Add Program</button>
+        <button class="btn primary" data-export="stu">Export CSV</button>
+        <button class="btn" data-print="stu">Print</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISK -->
+<section id="risk" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Risks</p>
+        <h2 style="margin:0 0 6px">Risk Register</h2>
+      </div>
+      <table class="table" id="riskTable">
+        <thead>
+          <tr>
+            <th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th><th>Owner</th><th>Status</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="toolbar">
+        <button class="btn" id="addRisk">+ Add Risk</button>
+        <button class="btn primary" data-export="risk">Export CSV</button>
+        <button class="btn" data-print="risk">Print</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section id="budget" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Finance</p>
+        <h2 style="margin:0 0 6px">Budget Planner (Capex/Opex)</h2>
+      </div>
+      <table class="table" id="budTable">
+        <thead>
+          <tr>
+            <th>Item</th><th>Type</th><th>Amount (₹)</th><th>Funding Source</th><th>Year</th><th>Owner</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="toolbar">
+        <button class="btn" id="addBud">+ Add Item</button>
+        <button class="btn primary" data-export="bud">Export CSV</button>
+        <button class="btn" data-print="bud">Print</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEETINGS -->
+<section id="meetings" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Meetings</p>
+        <h2 style="margin:0 0 6px">Minutes Generator</h2>
+      </div>
+      <div class="row">
+        <div class="w-33">
+          <label>Meeting Title</label>
+          <input id="mt-title" type="text" placeholder="e.g., IQAC Review (Q2)">
+          <label>Date</label>
+          <input id="mt-date" type="date">
+          <label>Attendees</label>
+          <input id="mt-att" type="text" placeholder="Names/roles">
+        </div>
+        <div class="w-66">
+          <label>Agenda</label>
+          <textarea id="mt-agenda" placeholder="Item 1…&#10;Item 2…"></textarea>
+          <label>Decisions</label>
+          <textarea id="mt-decisions" placeholder="Decision — Rationale — Vote (if any)"></textarea>
+          <label>Action Items</label>
+          <textarea id="mt-actions" placeholder="Task — Owner — Due date"></textarea>
+        </div>
+      </div>
+      <div class="toolbar">
+        <button class="btn primary" data-export="mt">Export Minutes (TXT)</button>
+        <button class="btn" data-print="mt">Print</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNICATION -->
+<section id="comms" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Change</p>
+        <h2 style="margin:0 0 6px">Communication Plan</h2>
+      </div>
+      <table class="table" id="commTable">
+        <thead>
+          <tr>
+            <th>Audience</th><th>Message</th><th>Channel</th><th>Cadence</th><th>Owner</th><th>Notes</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="toolbar">
+        <button class="btn" id="addComm">+ Add Audience</button>
+        <button class="btn primary" data-export="comm">Export CSV</button>
+        <button class="btn" data-print="comm">Print</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIONS -->
+<section id="actions" class="section">
+  <div class="container">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Execution</p>
+        <h2 style="margin:0 0 6px">Action Tracker (Backlog → Doing → Done)</h2>
+      </div>
+      <div class="grid cols-3" id="kanban">
+        <div class="card">
+          <h3>Backlog</h3>
+          <ul id="todo" class="stack"></ul>
+          <div class="toolbar">
+            <input id="todoInput" type="text" placeholder="Add task">
+            <button class="btn" data-add="todo">Add</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Doing</h3>
+          <ul id="doing" class="stack"></ul>
+          <div class="toolbar">
+            <input id="doingInput" type="text" placeholder="Add task">
+            <button class="btn" data-add="doing">Add</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Done</h3>
+          <ul id="done" class="stack"></ul>
+          <div class="toolbar">
+            <input id="doneInput" type="text" placeholder="Add task">
+            <button class="btn" data-add="done">Add</button>
+          </div>
+        </div>
+      </div>
+      <div class="toolbar">
+        <button class="btn primary" data-export="kanban">Export JSON</button>
+        <button class="btn" data-print="kanban">Print</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="section" style="padding:24px 0">
+  <div class="container">
+    <div class="stack">
+      <div class="card">
+        <b>Privacy</b>: All data stays in your browser via <span class="mono">localStorage</span>. Use Import/Export to move between devices.
+      </div>
+      <div>
+        Copyright © <span id="year"></span> Shunya Publications. All rights reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ========= Utilities ========= */
+const $ = (sel, root=document)=>root.querySelector(sel);
+const $$ = (sel, root=document)=>Array.from(root.querySelectorAll(sel));
+const KEY = 'leadership.app.v1';
+const state = JSON.parse(localStorage.getItem(KEY) || '{}');
+
+function save() {
+  state._updatedAt = new Date().toISOString();
+  localStorage.setItem(KEY, JSON.stringify(state));
+  $('#lastSave').textContent = new Date().toLocaleString();
+}
+function loadField(id, fallback=''){ const v = (state[id] ?? fallback); const el = $('#'+id); if(el) el.value = v; }
+function bindField(id){
+  const el = $('#'+id); if(!el) return;
+  el.addEventListener('input', ()=>{ state[id]=el.value; save(); });
+}
+function downloadBlob(data, name, type='application/json'){
+  const blob = new Blob([data], {type}); const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url), 300);
+}
+/* CSV helpers */
+function toCSV(rows, headers){
+  const esc = s => `"${String(s??'').replace(/"/g,'""').replace(/\n/g,' ')}"`;
+  const head = headers.map(esc).join(',');
+  const body = rows.map(r=>headers.map(h=>esc(r[h])).join(',')).join('\n');
+  return head + '\n' + body;
+}
+
+/* ========= Language (labels only for now) ========= */
+const langMap = { en:'English', hi:'हिन्दी' };
+function setLang(v){
+  state.lang = v; save();
+  $('#lang').value = v; $('#langLabel').textContent = langMap[v] || 'English';
+}
+
+/* ========= Dashboard (KPIs) ========= */
+const defaultKPIs = [
+  {name:'Research Output (yr)', value:'—', status:'ok'},
+  {name:'Patents (yr)', value:'—', status:'warn'},
+  {name:'Consultancy ₹ (yr)', value:'—', status:'warn'},
+  {name:'Placement %', value:'—', status:'ok'},
+  {name:'Median CTC ₹', value:'—', status:'ok'},
+  {name:'NAAC Score', value:'—', status:'ok'},
+  {name:'NIRF Rank Band', value:'—', status:'ok'},
+  {name:'OBE Mapping %', value:'—', status:'warn'}
+];
+function renderKPIs(){
+  const grid = $('#kpiGrid'); grid.innerHTML='';
+  const arr = state.kpis ?? defaultKPIs;
+  arr.forEach((kpi, idx)=>{
+    const card = document.createElement('div'); card.className='kpi';
+    const cls = kpi.status==='risk'?'status-risk':(kpi.status==='warn'?'status-warn':'status-ok');
+    card.innerHTML = `
+      <div class="row"><div class="w-66"><input type="text" value="${kpi.name||''}" data-k="${idx}" data-f="name"></div>
+      <div class="w-25"><input type="text" value="${kpi.value||''}" data-k="${idx}" data-f="value"></div>
+      <div class="w-25">
+        <select data-k="${idx}" data-f="status">
+          <option value="ok" ${kpi.status==='ok'?'selected':''}>OK</option>
+          <option value="warn" ${kpi.status==='warn'?'selected':''}>Watch</option>
+          <option value="risk" ${kpi.status==='risk'?'selected':''}>Risk</option>
+        </select>
+      </div></div>
+      <div class="badge ${cls}">${kpi.status?.toUpperCase()||'OK'}</div>
+    `;
+    grid.appendChild(card);
+  });
+  state.kpis = arr; save();
+  grid.addEventListener('input', (e)=>{
+    const t=e.target; const k=+t.dataset.k; const f=t.dataset.f;
+    if(!isNaN(k) && f){ state.kpis[k][f]=t.value; save(); renderKPIs(); }
+  }, { once:true });
+}
+$('#addKPI').addEventListener('click', ()=>{
+  state.kpis = state.kpis || defaultKPIs.slice();
+  state.kpis.push({name:'New KPI', value:'0', status:'warn'}); save(); renderKPIs();
+});
+
+/* ========= Generic Dynamic Tables ========= */
+function addRow(tableId, obj){
+  const tb = $('#'+tableId+' tbody');
+  const tr = document.createElement('tr');
+  const cols = {
+    naac:['crit','artifact','owner','link','status','notes'],
+    nirf:['cat','ind','val','year','src','notes'],
+    comp:['item','body','date','owner','status','notes'],
+    gov:['body','cadence','quorum','decision','evid','owner'],
+    iqac:['art','type','prog','link','owner','ver'],
+    proj:['name','owner','start','end','status','mile'],
+    obe:['course','pos','cos','assess','evid','owner'],
+    rs:['type','title','venue','value','year','evid'],
+    mou:['type','partner','value','start','end','evid'],
+    fw:['name','teach','res','adm','fdp','notes'],
+    stu:['prog','place','ctc','intern','mooc','notes'],
+    risk:['risk','like','imp','mit','owner','status'],
+    bud:['item','type','amt','src','year','owner'],
+    comm:['aud','msg','chan','cad','owner','notes']
+  }[tableId.replace('Table','')];
+  cols.forEach((c, i)=>{
+    const td=document.createElement('td');
+    const isDate = ['start','end','date'].includes(c);
+    const isNum = ['amt','val','year','place','ctc','intern'].includes(c);
+    const inp = document.createElement(c==='notes'||c==='mile'?'textarea':(isDate?'input':'input'));
+    if(isDate){ inp.type='date'; }
+    if(isNum){ inp.type='number'; inp.step='any'; }
+    inp.value = (obj && obj[c]) || '';
+    inp.addEventListener('input', ()=>{
+      syncTableState(tableId);
+    });
+    td.appendChild(inp); tr.appendChild(td);
+  });
+  const tdDel=document.createElement('td');
+  const btn=document.createElement('button'); btn.className='btn danger'; btn.textContent='Delete';
+  btn.addEventListener('click', ()=>{ tr.remove(); syncTableState(tableId); });
+  tdDel.appendChild(btn); tr.appendChild(tdDel);
+  tb.appendChild(tr);
+  syncTableState(tableId);
+}
+function getTableRows(tableId){
+  const tb = $('#'+tableId+' tbody');
+  const rows = [];
+  $$('#'+tableId+' tbody tr').forEach(tr=>{
+    const cells = tr.querySelectorAll('td');
+    const headers = {
+      naac:['crit','artifact','owner','link','status','notes'],
+      nirf:['cat','ind','val','year','src','notes'],
+      comp:['item','body','date','owner','status','notes'],
+      gov:['body','cadence','quorum','decision','evid','owner'],
+      iqac:['art','type','prog','link','owner','ver'],
+      proj:['name','owner','start','end','status','mile'],
+      obe:['course','pos','cos','assess','evid','owner'],
+      rs:['type','title','venue','value','year','evid'],
+      mou:['type','partner','value','start','end','evid'],
+      fw:['name','teach','res','adm','fdp','notes'],
+      stu:['prog','place','ctc','intern','mooc','notes'],
+      risk:['risk','like','imp','mit','owner','status'],
+      bud:['item','type','amt','src','year','owner'],
+      comm:['aud','msg','chan','cad','owner','notes']
+    }[tableId.replace('Table','')];
+    const obj={};
+    headers.forEach((h,i)=>{ obj[h] = cells[i]?.querySelector('input,textarea')?.value ?? ''; });
+    rows.push(obj);
+  });
+  return rows;
+}
+function syncTableState(tableId){
+  const key = tableId.replace('Table','');
+  state[key] = getTableRows(tableId); save();
+}
+function renderTable(tableId, data){
+  const tb = $('#'+tableId+' tbody'); tb.innerHTML='';
+  (data||[]).forEach(obj=>addRow(tableId,obj));
+}
+
+/* ========= Individual Table Buttons ========= */
+$('#addNaac').addEventListener('click', ()=>addRow('naacTable'));
+$('#addNirf').addEventListener('click', ()=>addRow('nirfTable'));
+$('#addComp').addEventListener('click', ()=>addRow('compTable'));
+$('#addGov').addEventListener('click', ()=>addRow('govTable'));
+$('#addIqac').addEventListener('click', ()=>addRow('iqacTable'));
+$('#addProj').addEventListener('click', ()=>addRow('projTable'));
+$('#addObe').addEventListener('click', ()=>addRow('obeTable'));
+$('#addRs').addEventListener('click', ()=>addRow('rsTable'));
+$('#addMou').addEventListener('click', ()=>addRow('mouTable'));
+$('#addFw').addEventListener('click', ()=>addRow('fwTable'));
+$('#addStu').addEventListener('click', ()=>addRow('stuTable'));
+$('#addRisk').addEventListener('click', ()=>addRow('riskTable'));
+$('#addBud').addEventListener('click', ()=>addRow('budTable'));
+$('#addComm').addEventListener('click', ()=>addRow('commTable'));
+
+/* Export/Print per-tool */
+document.body.addEventListener('click', (e)=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  if(btn.dataset.export){
+    const id = btn.dataset.export;
+    if(id==='kpi'){
+      const rows = (state.kpis||[]).map(x=>({name:x.name,value:x.value,status:x.status}));
+      const csv = toCSV(rows, ['name','value','status']);
+      downloadBlob(csv, 'kpis.csv','text/csv');
+      return;
+    }
+    if(id==='sp'){
+      const obj = {
+        vision: $('#sp-vision').value,
+        mission: $('#sp-mission').value,
+        goals: $('#sp-goals').value,
+        kpis: $('#sp-kpis').value,
+        initiatives: $('#sp-initiatives').value,
+        alignment: $('#sp-alignment').value,
+        policies: $('#sp-policies').value
+      };
+      downloadBlob(JSON.stringify(obj,null,2),'strategic-planning.json');
+      return;
+    }
+    if(id==='mt'){
+      const txt =
+`Minutes: ${$('#mt-title').value}
+Date: ${$('#mt-date').value}
+Attendees: ${$('#mt-att').value}
+
+Agenda:
+${$('#mt-agenda').value}
+
+Decisions:
+${$('#mt-decisions').value}
+
+Action Items:
+${$('#mt-actions').value}
+`;
+      downloadBlob(txt,'minutes.txt','text/plain'); return;
+    }
+    if(id==='kanban'){
+      const obj = { todo: state.todo||[], doing: state.doing||[], done: state.done||[] };
+      downloadBlob(JSON.stringify(obj,null,2),'kanban.json');
+      return;
+    }
+    // generic table CSV
+    const map = {naac:'naacTable',nirf:'nirfTable',comp:'compTable',gov:'govTable',iqac:'iqacTable',proj:'projTable',obe:'obeTable',rs:'rsTable',mou:'mouTable',fw:'fwTable',stu:'stuTable',risk:'riskTable',bud:'budTable',comm:'commTable'};
+    if(map[id]){
+      const rows = getTableRows(map[id]);
+      const headers = Object.keys(rows[0]||{col1:'',col2:''});
+      const csv = toCSV(rows, headers);
+      downloadBlob(csv, id+'.csv','text/csv');
+    }
+  }
+  if(btn.dataset.print){
+    const id = btn.dataset.print;
+    let node;
+    if(id==='kpi'){ node = $('#kpiGrid'); }
+    else if(id==='sp'){ node = $('#planning'); }
+    else if(id==='mt'){
+      // compose a print-friendly view
+      const wrap = document.createElement('div');
+      wrap.innerHTML = `
+        <h1>${$('#mt-title').value}</h1>
+        <p><b>Date:</b> ${$('#mt-date').value}</p>
+        <p><b>Attendees:</b> ${$('#mt-att').value}</p>
+        <h3>Agenda</h3><pre>${$('#mt-agenda').value}</pre>
+        <h3>Decisions</h3><pre>${$('#mt-decisions').value}</pre>
+        <h3>Action Items</h3><pre>${$('#mt-actions').value}</pre>
+      `;
+      printNode(wrap);
+      return;
+    }
+    else if(id==='kanban'){ node = $('#kanban'); }
+    else {
+      const map = {naac:'naacTable',nirf:'nirfTable',comp:'compTable',gov:'govTable',iqac:'iqacTable',proj:'projTable',obe:'obeTable',rs:'rsTable',mou:'mouTable',fw:'fwTable',stu:'stuTable',risk:'riskTable',bud:'budTable',comm:'commTable'};
+      node = $('#'+map[id]);
+    }
+    if(node) printNode(node);
+  }
+});
+function printNode(node){
+  const w=window.open('','_blank','width=1024,height=800');
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Print</title>
+  <style>
+  body{font-family:${getComputedStyle(document.body).fontFamily};margin:16px;color:#142036}
+  table{width:100%;border-collapse:separate;border-spacing:0 6px}
+  td,th{border:1px solid #cfd8e6;padding:6px;border-radius:8px}
+  h1,h2,h3{margin:.4rem 0}
+  pre{white-space:pre-wrap;background:#f7fbff;border:1px solid #dbe7ff;padding:10px;border-radius:8px}
+  </style></head><body>${node.outerHTML}</body></html>`);
+  w.document.close(); w.focus(); w.print();
+}
+
+/* ========= Strategic Planning: bind fields ========= */
+['sp-vision','sp-mission','sp-goals','sp-kpis','sp-initiatives','sp-alignment','sp-policies'].forEach(id=>{
+  loadField(id,''); bindField(id);
+});
+
+/* ========= PDF Link ========= */
+loadField('pdfLink','leadership.pdf'); bindField('pdfLink');
+$('#open-pdf').addEventListener('click',(e)=>{
+  const url = $('#pdfLink').value.trim() || 'leadership.pdf';
+  $('#open-pdf').setAttribute('href', url);
+});
+
+/* ========= NAAC/NIRF/Comp + others: render from state ========= */
+function initTable(id){
+  renderTable(id, state[id.replace('Table','')] || []);
+}
+['naacTable','nirfTable','compTable','govTable','iqacTable','projTable','obeTable','rsTable','mouTable','fwTable','stuTable','riskTable','budTable','commTable'].forEach(initTable);
+
+/* ========= Kanban ========= */
+function renderKanban(){
+  ['todo','doing','done'].forEach(col=>{
+    const ul = $('#'+col); ul.innerHTML='';
+    (state[col]||[]).forEach((t,i)=>{
+      const li=document.createElement('li'); li.className='card';
+      li.textContent = t;
+      const bar=document.createElement('div'); bar.className='toolbar right';
+      ['todo','doing','done'].forEach(target=>{
+        if(target!==col){
+          const b=document.createElement('button'); b.className='btn'; b.textContent='→ '+target;
+          b.addEventListener('click',()=>{
+            moveTask(col, target, i);
+          });
+          bar.appendChild(b);
         }
-      }
-
-      function load(){
-        try{
-          const raw = localStorage.getItem(KEY);
-          if(raw){ writeForm(JSON.parse(raw)); status('Loaded saved draft.'); }
-          else { status('Start filling the canvas.'); }
-        }catch(e){ status('Could not load previous data.'); }
-      }
-
-      function status(msg){ const s=$('spc-status'); if(s) s.textContent = msg; }
-
-      function exportJSON(){
-        const blob = new Blob([JSON.stringify(readForm(), null, 2)], {type:'application/json'});
-        download(blob, 'strategic-planning-canvas.json');
-      }
-
-      function exportCSV(){
-        const data = readForm();
-        const rows = Object.entries(data)
-          .filter(([k])=>!k.startsWith('_'))
-          .map(([k,v])=>[
-            JSON.stringify(k),
-            JSON.stringify(String(v).replace(/\r?\n/g,' \\n '))
-          ].join(','));
-        const csv = 'key,value\n' + rows.join('\n');
-        const blob = new Blob([csv], {type:'text/csv'});
-        download(blob, 'strategic-planning-canvas.csv');
-      }
-
-      function download(blob, filename){
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = filename; a.click();
-        setTimeout(()=>URL.revokeObjectURL(url), 500);
-      }
-
-      function clearAll(){
-        if(!confirm('Clear all fields? This will remove the locally saved draft.')) return;
-        fields.forEach(f=>{ if($(f)) $(f).value=''; });
-        localStorage.removeItem(KEY);
-        status('Cleared.');
-      }
-
-      function printCanvas(){
-        // Print only this <details> content by opening a temporary window with styles
-        const node = document.querySelector('#spc .content');
-        if(!node) return;
-        const w = window.open('', '_blank', 'width=1024,height=800');
-        const css = `
-          <style>
-            body{font-family: ${getComputedStyle(document.body).fontFamily || 'system-ui'}; margin:16px; color:#142036}
-            .row{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0}
-            .w-25{flex:1 1 240px;max-width:25ch}
-            .w-33{flex:1 1 320px;min-width:280px}
-            .w-50{flex:1 1 480px;min-width:320px}
-            .w-66{flex:2 1 640px;min-width:360px}
-            .w-100{flex:1 1 100%}
-            textarea{width:100%;min-height:110px;border:1px solid #cfd8e6;border-radius:12px;padding:10px}
-            .hint{color:#5a6b88;font-size:.9rem}
-            label{font-weight:700}
-            h1{font-size:1.4rem}
-          </style>`;
-        const title = '<h1>Strategic Planning Canvas (5-Year)</h1>';
-        w.document.write(`<!doctype html><html><head><meta charset="utf-8">${css}</head><body>${title}${node.outerHTML}</body></html>`);
-        w.document.close();
-        w.focus();
-        w.print();
-      }
-
-      // Autosave while typing (debounced)
-      let t=null;
-      function onInput(){
-        if(t) clearTimeout(t);
-        t = setTimeout(()=>save(false), 3000);
-      }
-
-      // Init
-      document.addEventListener('DOMContentLoaded', ()=>{
-        load();
-        fields.forEach(f=>{ const el=$(f); if(el) el.addEventListener('input', onInput); });
-        $('spc-save')?.addEventListener('click', ()=>save(true));
-        $('spc-export-json')?.addEventListener('click', exportJSON);
-        $('spc-export-csv')?.addEventListener('click', exportCSV);
-        $('spc-clear')?.addEventListener('click', clearAll);
-        $('spc-print')?.addEventListener('click', printCanvas);
       });
-    })();
-  </script>
-</details>
+      const del=document.createElement('button'); del.className='btn danger'; del.textContent='Delete';
+      del.addEventListener('click',()=>{ removeTask(col, i); });
+      bar.appendChild(del);
+      li.appendChild(bar); ul.appendChild(li);
+    });
+  });
+}
+function addTask(col, text){
+  state[col]=state[col]||[]; if(text.trim()){ state[col].push(text.trim()); save(); renderKanban(); }
+}
+function moveTask(from,to,idx){
+  state[from]=state[from]||[]; state[to]=state[to]||[];
+  const [t]=state[from].splice(idx,1); if(t){ state[to].push(t); } save(); renderKanban();
+}
+function removeTask(col, idx){
+  state[col].splice(idx,1); save(); renderKanban();
+}
+$$('[data-add]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const col = btn.dataset.add;
+    const val = $('#'+col+'Input').value;
+    addTask(col,val); $('#'+col+'Input').value='';
+  });
+});
+renderKanban();
+
+/* ========= Global Import/Export/Reset ========= */
+$('#global-export-json').addEventListener('click',()=>{
+  downloadBlob(JSON.stringify(state,null,2),'leadership-toolkit.json');
+});
+$('#global-import-json').addEventListener('click',()=>{
+  const inp=document.createElement('input'); inp.type='file'; inp.accept='application/json';
+  inp.onchange=async ()=>{
+    const file=inp.files[0]; if(!file) return;
+    const text=await file.text();
+    try{
+      const obj=JSON.parse(text);
+      localStorage.setItem(KEY, JSON.stringify(obj));
+      location.reload();
+    }catch(e){ alert('Invalid JSON'); }
+  };
+  inp.click();
+});
+$('#global-export-csv').addEventListener('click',()=>{
+  const packs = {
+    kpis:(state.kpis||[]).map(x=>({name:x.name,value:x.value,status:x.status})),
+    naac:(state.naac||[]), nirf:(state.nirf||[]), comp:(state.comp||[]),
+    gov:(state.gov||[]), iqac:(state.iqac||[]), proj:(state.proj||[]),
+    obe:(state.obe||[]), rs:(state.rs||[]), mou:(state.mou||[]),
+    fw:(state.fw||[]), stu:(state.stu||[]), risk:(state.risk||[]),
+    bud:(state.bud||[]), comm:(state.comm||[])
+  };
+  Object.entries(packs).forEach(([k,rows])=>{
+    const headers = Object.keys(rows[0]||{col1:'',col2:''});
+    const csv = toCSV(rows, headers);
+    downloadBlob(csv, `export-${k}.csv`, 'text/csv');
+  });
+});
+$('#global-reset').addEventListener('click',()=>{
+  if(confirm('Reset ALL toolkit data on this device?')){ localStorage.removeItem(KEY); location.reload(); }
+});
+
+/* ========= Language ========= */
+$('#lang').addEventListener('change', (e)=> setLang(e.target.value));
+setLang(state.lang || 'en');
+
+/* ========= Footer year & initial save label ========= */
+$('#year').textContent = new Date().getFullYear();
+$('#lastSave').textContent = state._updatedAt ? new Date(state._updatedAt).toLocaleString() : '—';
+
+/* ========= Initial KPI render ========= */
+renderKPIs();
+
+</script>
+</body>
+</html>
