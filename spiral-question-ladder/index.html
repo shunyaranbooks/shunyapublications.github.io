@@ -422,8 +422,7 @@ Use these tools freely under <b>CC BY-SA 4.0</b>. Attribute “Spiral Question L
 
     function shouldScrollNow(){
       // Scroll only if the user clicked "Open" / nav OR the URL already specifies ?file=
-      const hasParam = new URL(location.href).searchParams.has("file");
-      return userTriggered || hasParam;
+      return userTriggered || initialHasParam;
     }
 
     async function load(file){
