@@ -121,6 +121,7 @@
           <a class="btn" href="#results">📊 Preliminary Results</a>
           <a class="btn" href="#invitation">🤝 Open Invitation</a>
           <a class="btn" href="#license">🪪 License</a>
+           <a class="btn" href="https://a.co/d/5qfJLrN" target="_blank" rel="noopener">Buy on Amazon</a>
         </div>
       </div>
       <aside class="card card-lg">
@@ -468,9 +469,46 @@ else strategy = "mirror"
     </div>
   </section>
 
-  <footer class="section" style="padding:20px 0">
-    <div class="container foot">Built for open science, education, and industry. No data leaves your browser. Make it yours and share it back.</div>
-  </footer>
+ <!-- FOOTER -->
+<footer class="section" style="padding:24px 0">
+  <div class="container footer-bar">
+    <div>
+      Copyright © <span id="y"></span> Shunya Publications · Built for
+      <em>The Akhtar Reflector — Open Demo</em>
+    </div>
+
+    <div class="license-note">
+      <p>
+        Page content (demo spec, prompts, UI text, instructions) is licensed under
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0</a>.
+        Book text and brand assets are excluded (all rights reserved).
+      </p>
+
+      <p>
+        <strong>Preferred attribution:</strong>
+        “The Akhtar Reflector — Open Demo, Spec &amp; Invitation by Shunya Publications (CC BY-SA 4.0).”
+      </p>
+
+      <p>
+        <strong>Links:</strong>
+        📘 <a href="https://a.co/d/gSLNvzq" target="_blank" rel="noopener noreferrer"
+              aria-label="View complete details for The Akhtar Reflector on Amazon">
+              Book details on Amazon</a>
+        ·
+        📚 <a href="https://www.amazon.com/dp/B0FH13JTKD?binding=kindle_edition&qid=1759585269&sr=1-1&ref=dbs_dp_rwt_sb_pc_tkin"
+              target="_blank" rel="noopener noreferrer"
+              aria-label="Explore the Personhood Rewritten series on Amazon">
+              Personhood Rewritten series</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Current year
+  document.getElementById('y').textContent = new Date().getFullYear();
+</script>
+
 
   <script>
   // —— Book link localStorage ——
