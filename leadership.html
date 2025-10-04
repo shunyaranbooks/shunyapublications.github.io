@@ -823,6 +823,21 @@ $('#open-pdf').addEventListener('click', ()=> {
 
 /* ========= Org identity (logo + name) ========= */
 loadField('orgName',''); bindField('orgName');
+  // --- Show Institution Name in the right caption ---
+function updateInstNameCaption(){
+  const name = (state.orgName || '').trim();
+  const cap  = $('#instHeroCaption');
+  if (!cap) return;
+
+  // If a name is set, show it; otherwise keep a helpful default
+  cap.textContent = name || (state.instImageDataUrl
+    ? 'Institution cover image (you can replace it anytime).'
+    : 'Upload an institution cover image (right here) using the field in the left card.');
+}
+// run once on load and whenever the name changes
+updateInstNameCaption();
+$('#orgName').addEventListener('input', updateInstNameCaption);
+
 const orgLogoInp = $('#orgLogo');
 if(state.orgLogoDataUrl && orgLogoInp){ orgLogoInp.dataset.hasImage = '1'; }
 if(orgLogoInp){
@@ -857,6 +872,15 @@ if(instImageInp){
     reader.onload = () => { state.instImageDataUrl = reader.result; save(); applyInstPreview(); };
     reader.readAsDataURL(f);
   });
+   if(state.instImageDataUrl){
+    instPreview.src = state.instImageDataUrl;
+    instPreview.style.display = 'inline-block';
+  } else {
+    instPreview.removeAttribute('src');
+    instPreview.style.display = 'none';
+  }
+  // keep the caption in sync with name/image state
+  updateInstNameCaption();
 }
 applyInstPreview();
 
