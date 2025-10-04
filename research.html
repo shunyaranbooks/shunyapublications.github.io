@@ -161,7 +161,7 @@
     </div>
   </header>
 
-<!-- FEATURED PROJECTS (Image → Button → Details, two columns) -->
+<!-- FEATURED PROJECTS -->
 <section id="projects" class="section">
   <div class="container">
     <div class="stack">
@@ -170,43 +170,65 @@
         <h2 style="font-size:var(--fs-h2); margin:0 0 6px;">Research Projects</h2>
       </div>
 
-      <!-- Two-column grid -->
-      <div class="r2col" 
+      <!-- Auto-fit grid (stacks on mobile, up to 3+ cards on desktop) -->
+      <div class="r2col"
            style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px;">
 
         <!-- Column 1: Spiral Question Ladder -->
-        <article class="card card-lg rcard" 
+        <article class="card card-lg rcard"
                  style="background:linear-gradient(180deg, rgba(21,101,255,.06), #fff);">
           <span class="pill">Active</span>
           <figure style="margin:0 0 10px;">
-            <a href="/spiral-question-ladder/" target="_blank" rel="noopener">
-              <img src="images/spiralimg.png" 
-                   alt="The Spiral Question Ladder" 
+            <a href="/spiral-question-ladder/" target="_blank" rel="noopener noreferrer">
+              <img src="images/spiralimg.png"
+                   alt="The Spiral Question Ladder"
+                   loading="lazy" decoding="async"
                    style="width:100%;height:auto;border-radius:12px;
                           border:1px solid var(--line);box-shadow:var(--shadow-soft);">
             </a>
           </figure>
           <div class="actions">
-            <a class="btn brand" href="/spiral-question-ladder/" target="_blank" rel="noopener">
+            <a class="btn brand" href="/spiral-question-ladder/" target="_blank" rel="noopener noreferrer">
               Open Project
             </a>
           </div>
         </article>
 
         <!-- Column 2: Form Reforged -->
-        <article class="card card-lg rcard" 
+        <article class="card card-lg rcard"
                  style="background:linear-gradient(180deg, rgba(21,101,255,.06), #fff);">
           <span class="pill">Active</span>
           <figure style="margin:0 0 10px;">
-            <a href="/form.html" target="_blank" rel="noopener">
-              <img src="images/form.png" 
-                   alt="Form Reforged — Form Foundry" 
+            <a href="/form.html" target="_blank" rel="noopener noreferrer">
+              <img src="images/form.png"
+                   alt="Form Reforged — Form Foundry"
+                   loading="lazy" decoding="async"
                    style="width:100%;height:auto;border-radius:12px;
                           border:1px solid var(--line);box-shadow:var(--shadow-soft);">
             </a>
           </figure>
           <div class="actions">
-            <a class="btn brand" href="/form.html" target="_blank" rel="noopener">
+            <a class="btn brand" href="/form.html" target="_blank" rel="noopener noreferrer">
+              Open Project
+            </a>
+          </div>
+        </article>
+
+        <!-- Column 3: The Akhtar Reflector -->
+        <article class="card card-lg rcard"
+                 style="background:linear-gradient(180deg, rgba(21,101,255,.06), #fff);">
+          <span class="pill">Active</span>
+          <figure style="margin:0 0 10px;">
+            <a href="/akhtar-reflector.html" target="_blank" rel="noopener noreferrer">
+              <img src="images/reflector.png"
+                   alt="The Akhtar Reflector — Open Demo"
+                   loading="lazy" decoding="async"
+                   style="width:100%;height:auto;border-radius:12px;
+                          border:1px solid var(--line);box-shadow:var(--shadow-soft);">
+            </a>
+          </figure>
+          <div class="actions">
+            <a class="btn brand" href="/akhtar-reflector.html" target="_blank" rel="noopener noreferrer">
               Open Project
             </a>
           </div>
@@ -216,6 +238,7 @@
     </div>
   </div>
 </section>
+
 
 
   <!-- CONTACT / CTA -->
