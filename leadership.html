@@ -183,6 +183,8 @@ textarea{min-height:110px; resize:vertical}
                 <button class="btn" id="global-import-json">Import JSON</button>
                 <button class="btn" id="global-export-csv">Export CSV (All)</button>
                 <button class="btn danger" id="global-reset">Reset All</button>
+                <!-- NEW: Dashboard shortcut -->
+                <a class="btn" id="open-dashboard" href="/dashboard.html">Dashboard</a>
               </div>
             </div>
 
@@ -823,20 +825,19 @@ $('#open-pdf').addEventListener('click', ()=> {
 
 /* ========= Org identity (logo + name) ========= */
 loadField('orgName',''); bindField('orgName');
-  // --- Show Institution Name in the right caption ---
+
+// Keep right caption in sync with name/image
 function updateInstNameCaption(){
   const name = (state.orgName || '').trim();
   const cap  = $('#instHeroCaption');
   if (!cap) return;
-
-  // If a name is set, show it; otherwise keep a helpful default
   cap.textContent = name || (state.instImageDataUrl
     ? 'Institution cover image (you can replace it anytime).'
     : 'Upload an institution cover image (right here) using the field in the left card.');
 }
-// run once on load and whenever the name changes
+// run on load and when name changes
 updateInstNameCaption();
-$('#orgName').addEventListener('input', updateInstNameCaption);
+$('#orgName')?.addEventListener('input', updateInstNameCaption);
 
 const orgLogoInp = $('#orgLogo');
 if(state.orgLogoDataUrl && orgLogoInp){ orgLogoInp.dataset.hasImage = '1'; }
@@ -852,18 +853,17 @@ if(orgLogoInp){
 /* ========= Institution cover image (right preview) ========= */
 const instImageInp = $('#instImage');
 const instPreview = $('#instHeroPreview');
-const instCaption = $('#instHeroCaption');
 
 function applyInstPreview(){
   if(state.instImageDataUrl){
     instPreview.src = state.instImageDataUrl;
     instPreview.style.display = 'inline-block';
-    if(instCaption) instCaption.textContent = 'Institution cover image (you can replace it anytime).';
   }else{
     instPreview.removeAttribute('src');
     instPreview.style.display = 'none';
-    if(instCaption) instCaption.textContent = 'Upload an institution cover image (right here) using the field in the left card.';
   }
+  // IMPORTANT: after any image change, enforce caption based on current name/image
+  updateInstNameCaption();
 }
 if(instImageInp){
   instImageInp.addEventListener('change', async (e)=>{
@@ -872,15 +872,6 @@ if(instImageInp){
     reader.onload = () => { state.instImageDataUrl = reader.result; save(); applyInstPreview(); };
     reader.readAsDataURL(f);
   });
-   if(state.instImageDataUrl){
-    instPreview.src = state.instImageDataUrl;
-    instPreview.style.display = 'inline-block';
-  } else {
-    instPreview.removeAttribute('src');
-    instPreview.style.display = 'none';
-  }
-  // keep the caption in sync with name/image state
-  updateInstNameCaption();
 }
 applyInstPreview();
 
