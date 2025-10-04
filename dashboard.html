@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Academic Leadership Dashboard — Single‑File (Power BI Alternative)</title>
+<meta name="description" content="A single‑file, offline‑ready dashboard for academic leaders: global slicers, KPI tiles, charts, drill tables, export/print, and local data import. No server, no libraries." />
+<meta name="theme-color" content="#1565ff" />
+<link rel="canonical" href="/dashboard.html" />
+
+<style>
+/* ================= Shunya Design System (single‑file) ================= */
+:root{
+  --bg:#ffffff; --bg-1:#fff9f1; --bg-2:#f3f9ff; --bg-3:#eef9f5;
+  --text:#142036; --muted:#5a6b88;
+  --line:#e6ecf5; --line-strong:#cfd8e6;
+  --brand:#1565ff; --brand-2:#ff7a3d; --brand-3:#15a085; --accent:#7d4dff; --gold:#f6b73c;
+  --shadow:0 12px 30px rgba(21,101,255,.10);
+  --shadow-soft:0 10px 24px rgba(20,32,54,.10);
+  --ring:0 0 0 4px rgba(21,101,255,.16);
+  --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  --fs-hero: clamp(1.9rem, 3.2vw, 2.4rem);
+  --fs-h2: clamp(1.4rem, 1.8vw, 1.8rem);
+  --fs-h3: 1.06rem;
+  --radius: 16px; --radius-lg: 20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; font-family:var(--font); color:var(--text); background: var(--bg);
+  background:
+    radial-gradient(1100px 620px at 10% -10%, var(--bg-1) 0%, #fff 60%),
+    radial-gradient(1200px 720px at 110% 110%, var(--bg-2) 0%, #fff 55%),
+    radial-gradient(1000px 650px at -10% 120%, var(--bg-3) 0%, #fff 50%);
+}
+.container{max-width:1200px; margin:auto; padding:0 18px}
+.section{padding:56px 0; border-top:1px solid var(--line)}
+.section:first-of-type{border-top:none}
+.stack{display:flex;flex-direction:column;gap:14px}
+.grid{display:grid;gap:16px}
+.grid.cols-4{grid-template-columns:repeat(4,1fr)}
+.grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.grid.cols-2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:1000px){ .grid.cols-4,.grid.cols-3{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:700px){ .grid.cols-4,.grid.cols-3,.grid.cols-2{grid-template-columns:1fr} }
+
+.card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow-soft)}
+.card-lg{padding:20px; border-radius:var(--radius-lg)}
+.eyebrow{font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.lead{color:#2a3b5c; opacity:.95}
+.badge{display:inline-block; padding:2px 8px; border-radius:999px; border:1px solid var(--line); font-size:.8rem; background:#fff}
+.status-ok{background:#e9fff4;border-color:#c8f0dd;color:#0d6a4b}
+.status-warn{background:#fff8e6;border-color:#ffe4a8;color:#856404}
+.status-risk{background:#ffefef;border-color:#ffd3d3;color:#842029}
+.small{font-size:.9rem; color:var(--muted)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600;cursor:pointer}
+.btn:hover{box-shadow:var(--ring)}
+.btn.primary{background:linear-gradient(180deg,#f7fbff,#eaf2ff); border-color:#dbe7ff}
+.btn.danger{background:linear-gradient(180deg,#fff5f5,#ffecec); border-color:#ffd6d6; color:#8b1e1e}
+.btn.ghost{background:#fff; border-style:dashed}
+
+.row{display:flex;flex-wrap:wrap;gap:12px}
+.w-25{flex:1 1 220px}
+.w-33{flex:1 1 320px}
+.w-50{flex:1 1 480px}
+.w-66{flex:2 1 640px}
+.w-100{flex:1 1 100%}
+
+input[type="text"],input[type="number"],input[type="date"],input[type="file"],textarea,select{
+  width:100%; padding:10px 12px; border:1px solid var(--line-strong); border-radius:12px; font:inherit; background:#fff
+}
+textarea{min-height:110px; resize:vertical}
+.table{width:100%; border-collapse:separate; border-spacing:0 8px}
+.table th{font-size:.9rem; color:#374a6b; text-align:left; padding:6px 8px}
+.table td{background:#fff; border:1px solid var(--line); padding:8px; border-radius:10px}
+
+.nav{position:sticky; top:0; z-index:60; background:rgba(255,255,255,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+.nav .inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+.brand{display:flex;gap:10px;align-items:center}
+.brand-logo{height:40px;width:40px;border-radius:10px;background:#eef4ff;border:1px solid var(--line)}
+.brand span{font-weight:800}
+.menu a{margin-left:14px;color:var(--muted);font-weight:600;text-decoration:none}
+.menu a:hover{color:var(--text)}
+.menu a[aria-current="page"]{color:var(--text);text-decoration:underline}
+
+.kpi{padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff;display:flex;flex-direction:column;gap:6px}
+.kpi .value{font-size:1.4rem; font-weight:800}
+.kpi .meta{display:flex;gap:10px;align-items:center}
+
+.figure{display:flex;flex-direction:column;gap:8px}
+.canvas-wrap{background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px}
+canvas{width:100%; height:300px; display:block}
+
+footer{color:var(--muted)}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+@media print{
+  .nav, #controls, .slicers .btn, #help {display:none!important}
+  body{background:#fff}
+  .card{box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= Top Nav ================= -->
+<nav class="nav" aria-label="Global">
+  <div class="container inner">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true"></div>
+      <span>Academic Leadership Dashboard</span>
+    </div>
+    <div class="menu" role="navigation">
+      <a href="#top" aria-current="page">Dashboard</a>
+      <a href="#charts">Charts</a>
+      <a href="#tables">Tables</a>
+      <a href="#help">Help</a>
+    </div>
+  </div>
+</nav>
+
+<header class="section" id="top">
+  <div class="container">
+    <div class="stack">
+      <div class="card card-lg">
+        <p class="eyebrow">Start</p>
+        <h1 style="margin:.2rem 0; font-size:var(--fs-hero)">Power‑BI‑style, Single‑File Dashboard for Academic Leaders</h1>
+        <p class="lead">Use this offline‑ready dashboard to track institutional KPIs, explore trends, and export leadership snapshots. No server, no external libraries—data stays in the browser (<span class="mono">localStorage</span>). Bring your own CSV/JSON or start with the demo data.</p>
+        <div class="row" id="controls">
+          <label class="w-33">Organization Name<input id="orgName" type="text" placeholder="e.g., Usha Martin University" /></label>
+          <label class="w-33">Upload Logo (PNG/JPG/SVG)<input id="orgLogo" type="file" accept=".png,.jpg,.jpeg,.svg" /></label>
+          <div class="w-33" style="display:flex;gap:8px;align-items:flex-end;justify-content:flex-start">
+            <button class="btn" id="saveBrand">Save Branding</button>
+            <button class="btn ghost" id="resetBrand">Reset</button>
+          </div>
+        </div>
+        <hr class="sep"/>
+        <div class="row slicers">
+          <div class="w-25">
+            <label>Year</label>
+            <select id="slYear" multiple></select>
+          </div>
+          <div class="w-25">
+            <label>Department</label>
+            <select id="slDept" multiple></select>
+          </div>
+          <div class="w-25">
+            <label>Program</label>
+            <select id="slProg" multiple></select>
+          </div>
+          <div class="w-25">
+            <label>Status</label>
+            <select id="slStatus" multiple></select>
+          </div>
+          <div class="w-100" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <button class="btn" id="applyFilters">Apply Filters</button>
+            <button class="btn" id="clearFilters">Clear</button>
+            <button class="btn" id="saveView">Save View</button>
+            <button class="btn" id="loadView">Load View</button>
+            <button class="btn" id="printView">Print / PDF</button>
+            <button class="btn" id="exportFiltered">Export Filtered CSVs</button>
+            <span class="small">Autosave: <b>On</b> (<span class="mono">localStorage</span>) • Last Save: <span id="lastSave">—</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid cols-4" id="kpiGrid"></div>
+
+      <div class="card">
+        <div class="row" style="gap:8px;align-items:center;flex-wrap:wrap">
+          <b>Data Manager</b>
+          <button class="btn" id="loadDemo">Load Demo Data</button>
+          <button class="btn" id="importJSON">Import JSON</button>
+          <button class="btn" id="exportJSON">Export JSON</button>
+          <button class="btn danger" id="resetAll">Reset All Data</button>
+          <span class="small">Accepted: CSV/JSON structures described in Help. You can paste CSV rows into the editors below or import a consolidated JSON bundle.</span>
+        </div>
+        <div class="grid cols-2" style="margin-top:10px">
+          <div class="card">
+            <b>Paste CSV — Placements</b>
+            <textarea id="csvPlacements" placeholder="program,batch_year,placed_count,total_count,median_ctc_inr,internship_pct\nB.Tech CSE,2024,72,90,520000,68\n..." ></textarea>
+            <div class="row">
+              <button class="btn" data-parse="placements">Parse & Merge</button>
+            </div>
+          </div>
+          <div class="card">
+            <b>Paste CSV — Research</b>
+            <textarea id="csvResearch" placeholder="title,type,citations,year,dept,program,link\nPaper A,SCI,12,2024,Engineering,B.Tech CSE,https://...\n..." ></textarea>
+            <div class="row">
+              <button class="btn" data-parse="research">Parse & Merge</button>
+            </div>
+          </div>
+          <div class="card">
+            <b>Paste CSV — Budget</b>
+            <textarea id="csvBudget" placeholder="item,type,amount_inr,year,owner,project,status\nAI Lab,Capex,1500000,2024,Dean R&D,Industry Lab,approved\n..." ></textarea>
+            <div class="row">
+              <button class="btn" data-parse="budget">Parse & Merge</button>
+            </div>
+          </div>
+          <div class="card">
+            <b>Paste CSV — Consultancy/MoU</b>
+            <textarea id="csvConsult" placeholder="client,value_inr,start_date,end_date,owner_dept,status\nABC Corp,300000,2024-04-01,2024-12-31,Engineering,active\n..." ></textarea>
+            <div class="row">
+              <button class="btn" data-parse="consultancy">Parse & Merge</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<!-- ================= Charts ================= -->
+<section id="charts" class="section">
+  <div class="container">
+    <div class="stack">
+      <div class="card">
+        <p class="eyebrow">Trends</p>
+        <h2 style="margin:0 0 6px">Institutional Trends (Dynamic)</h2>
+        <p class="lead">Three core visuals: Research Output by Year, Patents by Status, and Consultancy Inflow by Quarter. All visuals respect slicers and refresh instantly. Tooltips appear on hover.</p>
+      </div>
+      <div class="grid cols-3">
+        <figure class="figure">
+          <figcaption><b>Research Output by Year</b> <span class="small" id="meta-research"></span></figcaption>
+          <div class="canvas-wrap"><canvas id="chResearch"></canvas></div>
+        </figure>
+        <figure class="figure">
+          <figcaption><b>Patents by Status (YoY)</b> <span class="small" id="meta-patents"></span></figcaption>
+          <div class="canvas-wrap"><canvas id="chPatents"></canvas></div>
+        </figure>
+        <figure class="figure">
+          <figcaption><b>Consultancy Inflow by Quarter</b> <span class="small" id="meta-consult"></span></figcaption>
+          <div class="canvas-wrap"><canvas id="chConsult"></canvas></div>
+        </figure>
+      </div>
+      <div class="grid cols-2">
+        <figure class="figure">
+          <figcaption><b>Budget: Planned vs Spent</b> <span class="small" id="meta-budget"></span></figcaption>
+          <div class="canvas-wrap"><canvas id="chBudget"></canvas></div>
+        </figure>
+        <figure class="figure">
+          <figcaption><b>Placement % by Program</b> <span class="small" id="meta-place"></span></figcaption>
+          <div class="canvas-wrap"><canvas id="chPlacement"></canvas></div>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Tables ================= -->
+<section id="tables" class="section">
+  <div class="container">
+    <div class="stack">
+      <div class="card">
+        <p class="eyebrow">Details</p>
+        <h2 style="margin:0 0 6px">Drill Tables (Filterable)</h2>
+        <p class="lead">Search within any table to narrow down results. Export the current table as CSV. Links in the Research and MoU tables open in a new tab.</p>
+      </div>
+
+      <div class="card">
+        <div class="row" style="align-items:center;gap:8px">
+          <b>Research Publications</b>
+          <input id="qResearch" class="w-33" type="text" placeholder="Search title/type/dept/program" />
+          <button class="btn" data-export-table="research">Export CSV</button>
+        </div>
+        <table class="table" id="tblResearch">
+          <thead><tr><th>Title</th><th>Type</th><th>Citations</th><th>Year</th><th>Dept</th><th>Program</th><th>Link</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="row" style="align-items:center;gap:8px">
+          <b>Consultancy / MoUs</b>
+          <input id="qConsult" class="w-33" type="text" placeholder="Search client/dept/status" />
+          <button class="btn" data-export-table="consultancy">Export CSV</button>
+        </div>
+        <table class="table" id="tblConsult">
+          <thead><tr><th>Client/Partner</th><th>Value (₹)</th><th>Start</th><th>End</th><th>Dept</th><th>Status</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="row" style="align-items:center;gap:8px">
+          <b>Budget Lines</b>
+          <input id="qBudget" class="w-33" type="text" placeholder="Search item/type/project/status" />
+          <button class="btn" data-export-table="budget">Export CSV</button>
+        </div>
+        <table class="table" id="tblBudget">
+          <thead><tr><th>Item</th><th>Type</th><th>Amount (₹)</th><th>Year</th><th>Owner</th><th>Project</th><th>Status</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="row" style="align-items:center;gap:8px">
+          <b>Placements</b>
+          <input id="qPlace" class="w-33" type="text" placeholder="Search program/year" />
+          <button class="btn" data-export-table="placements">Export CSV</button>
+        </div>
+        <table class="table" id="tblPlace">
+          <thead><tr><th>Program</th><th>Batch Year</th><th>Placed</th><th>Total</th><th>Placement %</th><th>Median CTC</th><th>Internship %</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="help" class="section">
+  <div class="container">
+    <div class="stack">
+      <div class="card card-lg">
+        <p class="eyebrow">Help</p>
+        <h2 style="margin:0 0 6px">How to Use & Data Schemas</h2>
+        <p class="lead">This single file is your lightweight alternative to Power BI: share it, host it on GitHub Pages, or open from disk. Data never leaves the browser. You can import your own CSVs or a consolidated JSON bundle.</p>
+        <ul>
+          <li><b>Global Slicers</b>: Year, Department, Program, Status. Multi‑select with Ctrl/Cmd or drag; click Apply.</li>
+          <li><b>KPIs</b>: Calculated live from datasets; thresholds define color badges.</li>
+          <li><b>Charts</b>: Canvas‑based, no external libraries. Hover for values.</li>
+          <li><b>Tables</b>: Search filters rows instantly; export current view as CSV.</li>
+          <li><b>Branding</b>: Set org name and logo for printed/PDF snapshots.</li>
+          <li><b>Persistence</b>: All data and settings are saved to <span class="mono">localStorage</span>.</li>
+        </ul>
+        <b>CSV columns</b>
+        <pre class="mono" style="white-space:pre-wrap">placements: program, batch_year, placed_count, total_count, median_ctc_inr, internship_pct
+research: title, type, citations, year, dept, program, link
+budget: item, type (Capex/Opex), amount_inr, year, owner, project, status (planned/approved/spent)
+consultancy: client, value_inr, start_date (YYYY-MM-DD), end_date, owner_dept, status (pipeline/active/closed)
+config (JSON): targets & thresholds { placement_target, obe_target, consultancy_target, budget_ratio_target, thresholds: { ok:0.9, warn:0.75 } }
+</pre>
+        <p class="small">Tip: You can build a JSON bundle with keys <code>{ placements, research, budget, consultancy, config }</code> and use “Import JSON”.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="section" style="padding:24px 0">
+  <div class="container">
+    <div class="stack">
+      <div class="card">Privacy: All data stays in your browser via <span class="mono">localStorage</span>. Use Import/Export to move between devices.</div>
+      <div>© Academic Leadership Dashboard — Single‑File Edition. Designed for higher‑education leaders.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===================== State & Utilities ===================== */
+const KEY = 'leadership.dashboard.singlefile.v1';
+const $ = (sel, root=document)=>root.querySelector(sel);
+const $$ = (sel, root=document)=>Array.from(root.querySelectorAll(sel));
+const state = JSON.parse(localStorage.getItem(KEY) || '{}');
+
+function save(){ state._updatedAt = new Date().toISOString(); localStorage.setItem(KEY, JSON.stringify(state)); const t=$('#lastSave'); if(t) t.textContent = new Date(state._updatedAt).toLocaleString(); }
+function resetAll(){ localStorage.removeItem(KEY); location.reload(); }
+function toCSV(rows, headers){ const esc=s=>`"${String(s??'').replace(/"/g,'""').replace(/\n/g,' ')}"`; const head=headers.map(esc).join(','); const body=rows.map(r=>headers.map(h=>esc(r[h])).join(',')).join('\n'); return head+'\n'+body; }
+function downloadBlob(data, name, type='text/plain'){ const blob=new Blob([data],{type}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(url),300); }
+function parseCSV(text){ const lines=text.trim().split(/\r?\n/); if(!lines.length) return []; const headers=lines[0].split(',').map(s=>s.trim()); return lines.slice(1).map(l=>{ const vals=l.split(','); const o={}; headers.forEach((h,i)=>o[h]= (vals[i]||'').trim()); return o; }); }
+function unique(arr){ return Array.from(new Set(arr.filter(x=>x!==undefined && x!==null && x!==''))); }
+function sum(arr){ return arr.reduce((a,b)=>a+(+b||0),0); }
+function mean(arr){ return arr.length? sum(arr)/arr.length : 0; }
+function median(arr){ const v=arr.map(x=>+x||0).sort((a,b)=>a-b); if(!v.length) return 0; const m=Math.floor(v.length/2); return v.length%2? v[m] : (v[m-1]+v[m])/2; }
+function fmtINR(n){ n=+n||0; return '₹'+n.toLocaleString('en-IN'); }
+function pct(n){ return (+(n||0)).toFixed(1)+'%'; }
+function ymd(d){ if(!d) return ''; const x=new Date(d); if(isNaN(x)) return d; return x.toISOString().slice(0,10); }
+
+/* ===================== Demo Data ===================== */
+const DEMO = {
+  config: {
+    placement_target: 0.8, // 80%
+    consultancy_target: 2000000, // ₹20L
+    budget_ratio_target: 0.9, // 90% utilization
+    obe_target: 0.75,
+    thresholds: { ok:0.9, warn:0.75 }
+  },
+  placements: [
+    {program:'B.Tech CSE', batch_year:'2024', placed_count:'72', total_count:'90', median_ctc_inr:'520000', internship_pct:'68', dept:'Engineering'},
+    {program:'B.Tech ME',  batch_year:'2024', placed_count:'44', total_count:'70', median_ctc_inr:'380000', internship_pct:'52', dept:'Engineering'},
+    {program:'MBA',        batch_year:'2024', placed_count:'58', total_count:'65', median_ctc_inr:'640000', internship_pct:'85', dept:'Management'},
+    {program:'B.Com',      batch_year:'2024', placed_count:'36', total_count:'80', median_ctc_inr:'320000', internship_pct:'40', dept:'Commerce'},
+    {program:'B.Tech CSE', batch_year:'2025', placed_count:'61', total_count:'88', median_ctc_inr:'610000', internship_pct:'72', dept:'Engineering'}
+  ],
+  research: [
+    {title:'Paper A', type:'SCI', citations:'12', year:'2024', dept:'Engineering', program:'B.Tech CSE', link:'https://example.com/a'},
+    {title:'Paper B', type:'UGC', citations:'4',  year:'2024', dept:'Management', program:'MBA', link:'https://example.com/b'},
+    {title:'Paper C', type:'Scopus', citations:'7', year:'2025', dept:'Engineering', program:'B.Tech ME', link:'https://example.com/c'},
+    {title:'Paper D', type:'SCI', citations:'15', year:'2025', dept:'Commerce', program:'B.Com', link:'https://example.com/d'}
+  ],
+  budget: [
+    {item:'AI Lab', type:'Capex', amount_inr:'1500000', year:'2024', owner:'Dean R&D', project:'Industry Lab', status:'approved', dept:'Engineering'},
+    {item:'Library Subscriptions', type:'Opex', amount_inr:'450000', year:'2024', owner:'Librarian', project:'Digital Library', status:'spent', dept:'Central'},
+    {item:'FDP Series', type:'Opex', amount_inr:'200000', year:'2024', owner:'IQAC', project:'Faculty Dev', status:'planned', dept:'IQAC'},
+    {item:'Prototyping Lab', type:'Capex', amount_inr:'900000', year:'2025', owner:'Dean R&D', project:'Makerspace', status:'spent', dept:'Engineering'}
+  ],
+  consultancy: [
+    {client:'ABC Corp', value_inr:'300000', start_date:'2024-04-01', end_date:'2024-12-31', owner_dept:'Engineering', status:'active'},
+    {client:'CityWorks', value_inr:'1200000', start_date:'2024-05-10', end_date:'2025-01-30', owner_dept:'Management', status:'active'},
+    {client:'EduTrust', value_inr:'800000', start_date:'2025-02-01', end_date:'2025-08-31', owner_dept:'Commerce', status:'pipeline'},
+    {client:'GreenGrid', value_inr:'450000', start_date:'2025-03-15', end_date:'2025-09-15', owner_dept:'Engineering', status:'closed'}
+  ]
+};
+
+/* ===================== Initialize ===================== */
+function init(){
+  // Load persisted state or seed with empty arrays
+  state.config = state.config || DEMO.config;
+  state.placements = state.placements || [];
+  state.research = state.research || [];
+  state.budget = state.budget || [];
+  state.consultancy = state.consultancy || [];
+  state.brand = state.brand || { name:'', logo:'' };
+  if(!state._updatedAt) save();
+
+  // Branding fields
+  $('#orgName').value = state.brand.name || '';
+
+  // Slicers
+  refreshSlicers();
+
+  // KPI & tables
+  renderAll();
+
+  // Bindings
+  $('#saveBrand').addEventListener('click', saveBrand);
+  $('#resetBrand').addEventListener('click', ()=>{ state.brand={name:'',logo:''}; save(); $('#orgName').value=''; alert('Branding cleared.'); });
+
+  $('#applyFilters').addEventListener('click', ()=>{ renderAll(); });
+  $('#clearFilters').addEventListener('click', ()=>{ clearSlicers(); renderAll(); });
+  $('#saveView').addEventListener('click', ()=>{ state.view = getSlicerState(); save(); alert('View saved.'); });
+  $('#loadView').addEventListener('click', ()=>{ if(state.view){ setSlicerState(state.view); renderAll(); } else alert('No saved view yet.'); });
+  $('#printView').addEventListener('click', ()=> window.print());
+  $('#exportFiltered').addEventListener('click', exportFilteredCSVs);
+
+  $('#loadDemo').addEventListener('click', ()=>{ Object.assign(state, JSON.parse(JSON.stringify(DEMO))); save(); refreshSlicers(); renderAll(); });
+  $('#importJSON').addEventListener('click', importJSON);
+  $('#exportJSON').addEventListener('click', ()=>{ const bundle = {config:state.config, placements:state.placements, research:state.research, budget:state.budget, consultancy:state.consultancy, brand:state.brand}; downloadBlob(JSON.stringify(bundle,null,2),'dashboard-data.json','application/json'); });
+  $('#resetAll').addEventListener('click', ()=>{ if(confirm('Reset ALL data & settings?')) resetAll(); });
+
+  // CSV paste parsers
+  $$('[data-parse]').forEach(btn=> btn.addEventListener('click', ()=> parseFromTextarea(btn.dataset.parse)));
+
+  // Table search
+  $('#qResearch').addEventListener('input', renderTables);
+  $('#qConsult').addEventListener('input', renderTables);
+  $('#qBudget').addEventListener('input', renderTables);
+  $('#qPlace').addEventListener('input', renderTables);
+
+  // Export individual tables
+  $$('[data-export-table]').forEach(b=> b.addEventListener('click', ()=> exportTableCSV(b.dataset.exportTable)));
+
+  // Last save label
+  $('#lastSave').textContent = state._updatedAt ? new Date(state._updatedAt).toLocaleString() : '—';
+}
+
+/* ===================== Branding ===================== */
+function saveBrand(){
+  const name = ($('#orgName').value||'').trim();
+  state.brand.name = name; save(); alert('Branding saved. The name appears on printed pages.');
+}
+$('#orgLogo').addEventListener('change', async (e)=>{
+  const f=e.target.files && e.target.files[0]; if(!f) return; const reader=new FileReader(); reader.onload=()=>{ state.brand.logo=reader.result; save(); alert('Logo saved (embedded for print).'); }; reader.readAsDataURL(f);
+});
+
+/* ===================== Filters / Slicers ===================== */
+function refreshSlicers(){
+  const years = unique([ ...(state.placements||[]).map(r=>r.batch_year), ...(state.research||[]).map(r=>r.year), ...(state.budget||[]).map(r=>r.year) ]).sort();
+  const depts = unique([ ...(state.placements||[]).map(r=>r.dept), ...(state.research||[]).map(r=>r.dept), ...(state.budget||[]).map(r=>r.dept), ...(state.consultancy||[]).map(r=>r.owner_dept) ]).sort();
+  const progs = unique([ ...(state.placements||[]).map(r=>r.program), ...(state.research||[]).map(r=>r.program) ]).sort();
+  const statuses = unique([ ...(state.budget||[]).map(r=>r.status), ...(state.consultancy||[]).map(r=>r.status) ]).sort();
+  fillMulti($('#slYear'), years);
+  fillMulti($('#slDept'), depts);
+  fillMulti($('#slProg'), progs);
+  fillMulti($('#slStatus'), statuses);
+}
+function fillMulti(sel, items){ sel.innerHTML=''; items.forEach(v=>{ if(!v) return; const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); }); }
+function getSelected(sel){ return Array.from(sel.selectedOptions).map(o=>o.value); }
+function getSlicerState(){ return { years:getSelected($('#slYear')), depts:getSelected($('#slDept')), progs:getSelected($('#slProg')), stats:getSelected($('#slStatus')) }; }
+function setSlicerState(v){ setMulti($('#slYear'), v.years||[]); setMulti($('#slDept'), v.depts||[]); setMulti($('#slProg'), v.progs||[]); setMulti($('#slStatus'), v.stats||[]); }
+function setMulti(sel, values){ Array.from(sel.options).forEach(o=>{ o.selected = values.includes(o.value); }); }
+function clearSlicers(){ ['slYear','slDept','slProg','slStatus'].forEach(id=>{ const sel=$('#'+id); Array.from(sel.options).forEach(o=>o.selected=false); }); }
+
+function applyFilters(){
+  const s=getSlicerState();
+  const years = s.years.length? s.years : null;
+  const depts = s.depts.length? s.depts : null;
+  const progs = s.progs.length? s.progs : null;
+  const stats = s.stats.length? s.stats : null;
+  function pass(obj){
+    return (!years || (obj.batch_year||obj.year && years.includes(String(obj.batch_year||obj.year))))
+        && (!depts || (obj.dept||obj.owner_dept ? depts.includes(String(obj.dept||obj.owner_dept)) : true))
+        && (!progs || (obj.program ? progs.includes(String(obj.program)) : true))
+        && (!stats || (obj.status ? stats.includes(String(obj.status)) : true));
+  }
+  return {
+    placements: (state.placements||[]).filter(pass),
+    research: (state.research||[]).filter(pass),
+    budget: (state.budget||[]).filter(pass),
+    consultancy: (state.consultancy||[]).filter(pass),
+    config: state.config
+  };
+}
+
+/* ===================== KPIs ===================== */
+function computeKPIs(ds){
+  // Placement % and Median CTC
+  const p=ds.placements, placed=sum(p.map(r=>+r.placed_count||0)), total=sum(p.map(r=>+r.total_count||0));
+  const placementRate = total? (placed/total) : 0;
+  const medCTC = median(p.map(r=>+r.median_ctc_inr||0));
+
+  // Research output (count) and simple YoY by set of years
+  const roCount = ds.research.length;
+
+  // Patents (derived from research.type? Not ideal). We’ll treat research.type==='SCI/Scopus/UGC' as pubs; patents table could be added later if needed.
+
+  // Consultancy inflow YTD
+  const consActive = ds.consultancy.filter(r=>['active','closed'].includes((r.status||'').toLowerCase()));
+  const consVal = sum(consActive.map(r=>+r.value_inr||0));
+
+  // Budget utilization: spent/(approved+spent). Infer: status 'spent' sums to spent; 'approved' sums to approved; planned ignored.
+  const b = ds.budget;
+  const spent = sum(b.filter(r=>(r.status||'').toLowerCase()==='spent').map(r=>+r.amount_inr||0));
+  const approved = sum(b.filter(r=>(r.status||'').toLowerCase()==='approved').map(r=>+r.amount_inr||0));
+  const util = (approved+spent)>0? (spent/(approved+spent)) : 0;
+
+  // OBE mapping proxy: from research/programs — if you later provide an obe dataset, wire it similarly. For now, approximate by internship_pct mean as a proxy of experiential mapping.
+  const obeProxy = mean(p.map(r=>+r.internship_pct||0))/100;
+
+  return { placementRate, medCTC, roCount, consVal, util, obeProxy };
+}
+function statusBadge(ratio, cfg){
+  const th=cfg.thresholds||{ok:0.9, warn:0.75};
+  return ratio>=th.ok? 'status-ok' : (ratio>=th.warn? 'status-warn' : 'status-risk');
+}
+function renderKPIs(ds){
+  const g=$('#kpiGrid'); g.innerHTML='';
+  const k=computeKPIs(ds);
+  const cfg=ds.config||{};
+  const tiles=[
+    {name:'Placement %', value:pct(k.placementRate*100/1), badge:statusBadge(k.placementRate/(cfg.placement_target||0.8), cfg), note:`Target ${(cfg.placement_target*100||80).toFixed(0)}%`},
+    {name:'Median CTC', value:fmtINR(k.medCTC), badge:'status-ok', note:'Across filtered programs'},
+    {name:'Research Output (count)', value:k.roCount, badge:'', note:'Publications in filter'},
+    {name:'Consultancy (YTD)', value:fmtINR(k.consVal), badge:statusBadge(k.consVal/(cfg.consultancy_target||2000000), cfg), note:`Target ${fmtINR(cfg.consultancy_target||2000000)}`},
+    {name:'Budget Utilization', value:pct(k.util*100/1), badge:statusBadge(k.util/(cfg.budget_ratio_target||0.9), cfg), note:`Target ${(cfg.budget_ratio_target*100||90).toFixed(0)}%`},
+    {name:'OBE Mapping (proxy)', value:pct(k.obeProxy*100/1), badge:statusBadge(k.obeProxy/(cfg.obe_target||0.75), cfg), note:`Target ${(cfg.obe_target*100||75).toFixed(0)}%`},
+    {name:'Filters — Years', value:(getSelected($('#slYear')).join(', ')||'All'), badge:'', note:'Applied'},
+    {name:'Filters — Dept', value:(getSelected($('#slDept')).join(', ')||'All'), badge:'', note:'Applied'}
+  ];
+  tiles.forEach(t=>{
+    const d=document.createElement('div'); d.className='kpi';
+    d.innerHTML = `<div class="meta"><span class="badge ${t.badge}">${t.name}</span></div><div class="value">${t.value}</div><div class="small">${t.note||''}</div>`;
+    g.appendChild(d);
+  });
+}
+
+/* ===================== Charts (Canvas) ===================== */
+function drawLineChart(canvas, labels, series, options={}){
+  const ctx=canvas.getContext('2d'); const W=canvas.width=canvas.clientWidth*2; const H=canvas.height=canvas.clientHeight*2; const pad=60; ctx.clearRect(0,0,W,H);
+  ctx.font='24px Arial'; ctx.fillStyle='#142036'; ctx.lineWidth=3; ctx.strokeStyle='#1565ff';
+  const max=Math.max(1, ...series);
+  const xStep=(W-2*pad)/Math.max(1, (labels.length-1));
+  const y=(v)=> H-pad - (v/max)*(H-2*pad);
+  // Axes
+  ctx.strokeStyle='#cfd8e6'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(pad,pad); ctx.lineTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke();
+  // Labels
+  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; labels.forEach((lb,i)=>{ const x=pad+i*xStep; ctx.fillText(lb, x, H-pad+30); });
+  // Line
+  ctx.strokeStyle='#1565ff'; ctx.lineWidth=4; ctx.beginPath(); series.forEach((v,i)=>{ const x=pad+i*xStep; const yy=y(v); if(i===0) ctx.moveTo(x,yy); else ctx.lineTo(x,yy); }); ctx.stroke();
+  // Dots
+  ctx.fillStyle='#1565ff'; series.forEach((v,i)=>{ const x=pad+i*xStep; const yy=y(v); ctx.beginPath(); ctx.arc(x,yy,6,0,Math.PI*2); ctx.fill(); });
+}
+function drawStackedBar(canvas, cats, stacks){ // stacks: {name, values[]}[]
+  const ctx=canvas.getContext('2d'); const W=canvas.width=canvas.clientWidth*2; const H=canvas.height=canvas.clientHeight*2; const pad=60; ctx.clearRect(0,0,W,H);
+  const colors=['#1565ff','#15a085','#ff7a3d','#7d4dff','#f6b73c'];
+  const totals=cats.map((_,i)=> stacks.reduce((a,s)=>a+(+s.values[i]||0),0));
+  const max=Math.max(1, ...totals);
+  const barW=(W-2*pad)/cats.length * 0.6; const step=(W-2*pad)/cats.length;
+  ctx.strokeStyle='#cfd8e6'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(pad,pad); ctx.lineTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke();
+  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; cats.forEach((c,i)=> ctx.fillText(c, pad+i*step, H-pad+30));
+  cats.forEach((c,i)=>{
+    let y=H-pad; stacks.forEach((s,si)=>{ const v=+s.values[i]||0; const h=(v/max)*(H-2*pad); ctx.fillStyle=colors[si%colors.length]; ctx.fillRect(pad+i*step - barW/2, y-h, barW, h); y-=h; });
+  });
+}
+function drawGroupedBar(canvas, cats, series){ // series: {name, values[]}[]
+  const ctx=canvas.getContext('2d'); const W=canvas.width=canvas.clientWidth*2; const H=canvas.height=canvas.clientHeight*2; const pad=60; ctx.clearRect(0,0,W,H);
+  const colors=['#1565ff','#15a085','#ff7a3d','#7d4dff'];
+  const max=Math.max(1, ...series.flatMap(s=>s.values));
+  const groupW=(W-2*pad)/cats.length * 0.7; const step=(W-2*pad)/cats.length; const barW=groupW/series.length;
+  ctx.strokeStyle='#cfd8e6'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(pad,pad); ctx.lineTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke();
+  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; cats.forEach((c,i)=> ctx.fillText(c, pad+i*step, H-pad+30));
+  cats.forEach((c,i)=>{
+    series.forEach((s,si)=>{ const v=+s.values[i]||0; const h=(v/max)*(H-2*pad); const x=pad+i*step - groupW/2 + si*barW; ctx.fillStyle=colors[si%colors.length]; ctx.fillRect(x, H-pad-h, barW, h); });
+  });
+}
+
+/* ===================== Render All ===================== */
+function renderAll(){
+  const ds=applyFilters();
+  renderKPIs(ds);
+  renderCharts(ds);
+  renderTables();
+  save();
+}
+
+function yearsFromResearch(ds){ return unique(ds.research.map(r=>String(r.year))).sort(); }
+function renderCharts(ds){
+  // Research by year (count)
+  const yrs=yearsFromResearch(ds); const counts=yrs.map(y=> ds.research.filter(r=>String(r.year)===y).length );
+  drawLineChart($('#chResearch'), yrs, counts);
+  $('#meta-research').textContent = `Years: ${yrs.join(', ')||'—'}`;
+
+  // Patents proxy: count by type (SCI/Scopus/UGC) per year shown as grouped bars
+  const types=['SCI','Scopus','UGC']; const series=types.map(t=>({name:t, values: yrs.map(y=> ds.research.filter(r=>String(r.year)===y && String(r.type).toLowerCase()===t.toLowerCase()).length )}));
+  drawGroupedBar($('#chPatents'), yrs, series); $('#meta-patents').textContent = types.join(' / ');
+
+  // Consultancy by quarter (sum)
+  const mapQ={}; ds.consultancy.forEach(r=>{ const d=new Date(r.start_date); if(isNaN(d)) return; const y=d.getFullYear(); const q=Math.floor(d.getMonth()/3)+1; const k=`${y}-Q${q}`; mapQ[k]=(mapQ[k]||0)+(+r.value_inr||0); });
+  const keys=Object.keys(mapQ).sort(); const vals=keys.map(k=>mapQ[k]); drawLineChart($('#chConsult'), keys, vals); $('#meta-consult').textContent = `Totals shown: ${fmtINR(sum(vals))}`;
+
+  // Budget planned vs spent (grouped)
+  const bYears=unique(ds.budget.map(r=>String(r.year))).sort();
+  const spent=bYears.map(y=> sum(ds.budget.filter(r=>String(r.year)===y && (r.status||'').toLowerCase()==='spent').map(r=>+r.amount_inr||0)) );
+  const approved=bYears.map(y=> sum(ds.budget.filter(r=>String(r.year)===y && (r.status||'').toLowerCase()==='approved').map(r=>+r.amount_inr||0)) );
+  drawGroupedBar($('#chBudget'), bYears, [ {name:'Approved', values: approved}, {name:'Spent', values: spent} ]);
+  $('#meta-budget').textContent = `Approved: ${fmtINR(sum(approved))} • Spent: ${fmtINR(sum(spent))}`;
+
+  // Placement % by program (stacked: placed vs unplaced)
+  const prog=unique(ds.placements.map(r=>r.program));
+  const placed=prog.map(p=> sum(ds.placements.filter(r=>r.program===p).map(r=>+r.placed_count||0)) );
+  const total=prog.map(p=> sum(ds.placements.filter(r=>r.program===p).map(r=>+r.total_count||0)) );
+  const unplaced=total.map((t,i)=> Math.max(0, t - placed[i]));
+  drawStackedBar($('#chPlacement'), prog, [ {name:'Placed', values: placed}, {name:'Unplaced', values: unplaced} ]);
+  const avg= total.reduce((a,b)=>a+b,0)? placed.reduce((a,b)=>a+b,0)/ total.reduce((a,b)=>a+b,0) : 0; $('#meta-place').textContent = `Avg Placement: ${(avg*100).toFixed(1)}%`;
+}
+
+/* ===================== Tables ===================== */
+function renderTables(){
+  const ds=applyFilters();
+  // Research
+  const qR=($('#qResearch').value||'').toLowerCase();
+  const rowsR=ds.research.filter(r=> JSON.stringify(r).toLowerCase().includes(qR) );
+  fillTable($('#tblResearch tbody'), rowsR, ['title','type','citations','year','dept','program','link'], (tr, r)=>{
+    const a=tr.children[6].querySelector('a'); if(a){ a.href=r.link||'#'; a.target='_blank'; a.rel='noopener'; }
+  });
+  // Consultancy
+  const qC=($('#qConsult').value||'').toLowerCase();
+  const rowsC=ds.consultancy.filter(r=> JSON.stringify(r).toLowerCase().includes(qC) );
+  fillTable($('#tblConsult tbody'), rowsC, ['client','value_inr','start_date','end_date','owner_dept','status']);
+  // Budget
+  const qB=($('#qBudget').value||'').toLowerCase();
+  const rowsB=ds.budget.filter(r=> JSON.stringify(r).toLowerCase().includes(qB) );
+  fillTable($('#tblBudget tbody'), rowsB, ['item','type','amount_inr','year','owner','project','status']);
+  // Placements
+  const qP=($('#qPlace').value||'').toLowerCase();
+  const rowsP=ds.placements.filter(r=> JSON.stringify(r).toLowerCase().includes(qP) ).map(r=>({
+    program:r.program, batch_year:r.batch_year, placed:+r.placed_count||0, total:+r.total_count||0,
+    pct: ((+r.total_count? (+r.placed_count||0)/(+r.total_count):0)*100).toFixed(1)+'%',
+    ctc: fmtINR(+r.median_ctc_inr||0), intern:(+r.internship_pct||0).toFixed(0)+'%'
+  }));
+  fillTable($('#tblPlace tbody'), rowsP, ['program','batch_year','placed','total','pct','ctc','intern']);
+}
+function fillTable(tbody, rows, headers, post){
+  tbody.innerHTML='';
+  rows.forEach(r=>{
+    const tr=document.createElement('tr'); headers.forEach((h, i)=>{
+      const td=document.createElement('td');
+      if(h==='link') { td.innerHTML=`<a href="#" target="_blank" rel="noopener">open</a>`; }
+      else { td.textContent = r[h] ?? ''; }
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr); if(post) post(tr,r);
+  });
+}
+function exportTableCSV(kind){
+  const ds=applyFilters(); let rows=[], headers=[];
+  if(kind==='research'){ rows=ds.research; headers=['title','type','citations','year','dept','program','link']; }
+  if(kind==='consultancy'){ rows=ds.consultancy; headers=['client','value_inr','start_date','end_date','owner_dept','status']; }
+  if(kind==='budget'){ rows=ds.budget; headers=['item','type','amount_inr','year','owner','project','status']; }
+  if(kind==='placements'){ rows=ds.placements; headers=['program','batch_year','placed_count','total_count','median_ctc_inr','internship_pct']; }
+  const csv=toCSV(rows, headers); downloadBlob(csv, `${kind}.csv`, 'text/csv');
+}
+
+/* ===================== Import / Export Data ===================== */
+async function importJSON(){
+  const inp=document.createElement('input'); inp.type='file'; inp.accept='application/json';
+  inp.onchange= async ()=>{ const file=inp.files[0]; if(!file) return; const text=await file.text(); try{
+    const obj=JSON.parse(text);
+    if(obj.config) state.config=obj.config;
+    if(obj.placements) state.placements=obj.placements;
+    if(obj.research) state.research=obj.research;
+    if(obj.budget) state.budget=obj.budget;
+    if(obj.consultancy) state.consultancy=obj.consultancy;
+    if(obj.brand) state.brand=obj.brand;
+    save(); refreshSlicers(); renderAll(); alert('JSON imported.');
+  }catch(e){ alert('Invalid JSON.'); }
+  };
+  inp.click();
+}
+function parseFromTextarea(kind){
+  const id={placements:'csvPlacements', research:'csvResearch', budget:'csvBudget', consultancy:'csvConsult'}[kind];
+  const txt=$('#'+id).value.trim(); if(!txt){ alert('Paste CSV first.'); return; }
+  const rows=parseCSV(txt); if(!rows.length){ alert('No rows found.'); return; }
+  state[kind]=[...(state[kind]||[]), ...rows]; save(); refreshSlicers(); renderAll(); alert(`${rows.length} ${kind} row(s) merged.`);
+}
+
+/* ===================== Export filtered CSV bundle ===================== */
+function exportFilteredCSVs(){
+  const ds=applyFilters();
+  const files=[
+    {name:'placements.csv', rows:ds.placements, headers:['program','batch_year','placed_count','total_count','median_ctc_inr','internship_pct','dept']},
+    {name:'research.csv', rows:ds.research, headers:['title','type','citations','year','dept','program','link']},
+    {name:'budget.csv', rows:ds.budget, headers:['item','type','amount_inr','year','owner','project','status','dept']},
+    {name:'consultancy.csv', rows:ds.consultancy, headers:['client','value_inr','start_date','end_date','owner_dept','status']}
+  ];
+  files.forEach(f=>{ const csv=toCSV(f.rows, f.headers); downloadBlob(csv, f.name, 'text/csv'); });
+}
+
+// Kick off
+init();
+</script>
+</body>
+</html>
