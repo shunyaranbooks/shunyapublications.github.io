@@ -183,7 +183,7 @@ textarea{min-height:110px; resize:vertical}
                 <button class="btn" id="global-import-json">Import JSON</button>
                 <button class="btn" id="global-export-csv">Export CSV (All)</button>
                 <button class="btn danger" id="global-reset">Reset All</button>
-                <!-- NEW: Dashboard shortcut -->
+                <!-- Dashboard shortcut -->
                 <a class="btn" id="open-dashboard" href="/dashboard.html">Dashboard</a>
               </div>
             </div>
@@ -797,8 +797,12 @@ const KEY = 'leadership.app.v3_4'; // versioned localStorage key
 const state = JSON.parse(localStorage.getItem(KEY) || '{}');
 
 function save() {
-  state._updatedAt = new Date().toISOString();
-  localStorage.setItem(KEY, JSON.stringify(state));
+  try{
+    state._updatedAt = new Date().toISOString();
+    localStorage.setItem(KEY, JSON.stringify(state));
+  }catch(e){
+    console.warn('Save failed (maybe storage full):', e);
+  }
   const t1 = $('#lastSave'); if (t1) { try { t1.textContent = new Date(state._updatedAt).toLocaleString(); } catch {} }
   const t2 = $('#lastSave2'); if (t2) { try { t2.textContent = new Date(state._updatedAt).toLocaleString(); } catch {} }
 }
@@ -810,17 +814,36 @@ function downloadBlob(data, name, type='application/json'){
   setTimeout(()=>URL.revokeObjectURL(url), 300);
 }
 function toCSV(rows, headers){
-  const esc = s => `"${String(s??'').replace(/"/g,'""').replace(/\n/g,' ')}"`; const head = headers.map(esc).join(',');
+  const esc = s => `"${String(s??'').replace(/"/g,'""').replace(/\n/g,' ')}"`;
+  const head = headers.map(esc).join(',');
   const body = rows.map(r=>headers.map(h=>esc(r[h])).join(',')).join('\n');
   return head + '\n' + body;
 }
 function escapeHTML(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 
+/* ========= Column map (single source of truth) ========= */
+const COLS = {
+  naac:['crit','artifact','owner','link','status','notes'],
+  nirf:['cat','ind','val','year','src','notes'],
+  comp:['item','body','date','owner','status','notes'],
+  gov:['body','cadence','quorum','decision','evid','owner'],
+  iqac:['art','type','prog','link','owner','ver'],
+  proj:['name','owner','start','end','status','mile'],
+  obe:['course','pos','cos','assess','evid','owner'],
+  rs:['type','title','venue','value','year','evid'],
+  mou:['type','partner','value','start','end','evid'],
+  fw:['name','teach','res','adm','fdp','notes'],
+  stu:['prog','place','ctc','intern','mooc','notes'],
+  risk:['risk','like','imp','mit','owner','status'],
+  bud:['item','type','amt','src','year','owner'],
+  comm:['aud','msg','chan','cad','owner','notes']
+};
+
 /* ========= Leadership PDF Link ========= */
 loadField('pdfLink','/leadership.pdf'); bindField('pdfLink');
-$('#open-pdf').addEventListener('click', ()=> {
-  const url = ($('#pdfLink').value || '/leadership.pdf').trim();
-  $('#open-pdf').setAttribute('href', url);
+$('#open-pdf')?.addEventListener('click', ()=> {
+  const url = ($('#pdfLink')?.value || '/leadership.pdf').trim();
+  $('#open-pdf')?.setAttribute('href', url);
 });
 
 /* ========= Org identity (logo + name) ========= */
@@ -841,14 +864,12 @@ $('#orgName')?.addEventListener('input', updateInstNameCaption);
 
 const orgLogoInp = $('#orgLogo');
 if(state.orgLogoDataUrl && orgLogoInp){ orgLogoInp.dataset.hasImage = '1'; }
-if(orgLogoInp){
-  orgLogoInp.addEventListener('change', async (e)=>{
-    const f = e.target.files && e.target.files[0]; if(!f) return;
-    const reader = new FileReader();
-    reader.onload = () => { state.orgLogoDataUrl = reader.result; save(); alert('Logo saved for prints.'); };
-    reader.readAsDataURL(f);
-  });
-}
+orgLogoInp?.addEventListener('change', async (e)=>{
+  const f = e.target.files && e.target.files[0]; if(!f) return;
+  const reader = new FileReader();
+  reader.onload = () => { state.orgLogoDataUrl = reader.result; save(); alert('Logo saved for prints.'); };
+  reader.readAsDataURL(f);
+});
 
 /* ========= Institution cover image (right preview) ========= */
 const instImageInp = $('#instImage');
@@ -862,17 +883,14 @@ function applyInstPreview(){
     instPreview.removeAttribute('src');
     instPreview.style.display = 'none';
   }
-  // IMPORTANT: after any image change, enforce caption based on current name/image
   updateInstNameCaption();
 }
-if(instImageInp){
-  instImageInp.addEventListener('change', async (e)=>{
-    const f = e.target.files && e.target.files[0]; if(!f) return;
-    const reader = new FileReader();
-    reader.onload = () => { state.instImageDataUrl = reader.result; save(); applyInstPreview(); };
-    reader.readAsDataURL(f);
-  });
-}
+instImageInp?.addEventListener('change', async (e)=>{
+  const f = e.target.files && e.target.files[0]; if(!f) return;
+  const reader = new FileReader();
+  reader.onload = () => { state.instImageDataUrl = reader.result; save(); applyInstPreview(); };
+  reader.readAsDataURL(f);
+});
 applyInstPreview();
 
 /* ========= KPI Dashboard ========= */
@@ -890,7 +908,7 @@ function ensureKpis(){ if(!Array.isArray(state.kpis) || !state.kpis.length){ sta
 function kpiBadgeClass(s){ return s==='risk'?'status-risk':(s==='warn'?'status-warn':'status-ok'); }
 function renderKPIs(){
   ensureKpis();
-  const grid = $('#kpiGrid'); grid.innerHTML='';
+  const grid = $('#kpiGrid'); if(!grid) return; grid.innerHTML='';
   state.kpis.forEach((kpi, idx)=>{
     const card = document.createElement('div'); card.className='kpi'; card.dataset.idx = String(idx);
     card.innerHTML = `
@@ -914,7 +932,7 @@ function renderKPIs(){
   });
 }
 renderKPIs();
-$('#kpiGrid').addEventListener('input', (e)=>{
+$('#kpiGrid')?.addEventListener('input', (e)=>{
   const card = e.target.closest('.kpi'); if(!card) return;
   const idx = +card.dataset.idx; if(isNaN(idx)) return;
   const nameEl = card.querySelector('.kpi-name');
@@ -928,34 +946,21 @@ $('#kpiGrid').addEventListener('input', (e)=>{
   badge.textContent = (statusEl.value||'OK').toUpperCase();
   badge.className = 'badge kpi-badge ' + kpiBadgeClass(statusEl.value);
 });
-$('#kpiGrid').addEventListener('click', (e)=>{
+$('#kpiGrid')?.addEventListener('click', (e)=>{
   const btn = e.target.closest('.btn.danger'); if(!btn) return;
   const card = btn.closest('.kpi'); const idx = +card.dataset.idx;
   if(isNaN(idx)) return;
   state.kpis.splice(idx,1); save(); renderKPIs();
 });
-$('#addKPI').addEventListener('click', ()=>{ ensureKpis(); state.kpis.push({name:'New KPI', value:'0', status:'warn'}); save(); renderKPIs(); });
+$('#addKPI')?.addEventListener('click', ()=>{ ensureKpis(); state.kpis.push({name:'New KPI', value:'0', status:'warn'}); save(); renderKPIs(); });
 
 /* ========= Dynamic Table helpers ========= */
 function addRow(tableId, obj){
-  const tb = $('#'+tableId+' tbody');
+  const table = $('#'+tableId); if(!table) return;
+  const tb = table.querySelector('tbody'); if(!tb) return;
   const tr = document.createElement('tr');
-  const cols = {
-    naac:['crit','artifact','owner','link','status','notes'],
-    nirf:['cat','ind','val','year','src','notes'],
-    comp:['item','body','date','owner','status','notes'],
-    gov:['body','cadence','quorum','decision','evid','owner'],
-    iqac:['art','type','prog','link','owner','ver'],
-    proj:['name','owner','start','end','status','mile'],
-    obe:['course','pos','cos','assess','evid','owner'],
-    rs:['type','title','venue','value','year','evid'],
-    mou:['type','partner','value','start','end','evid'],
-    fw:['name','teach','res','adm','fdp','notes'],
-    stu:['prog','place','ctc','intern','mooc','notes'],
-    risk:['risk','like','imp','mit','owner','status'],
-    bud:['item','type','amt','src','year','owner'],
-    comm:['aud','msg','chan','cad','owner','notes']
-  }[tableId.replace('Table','')];
+  const key = tableId.replace('Table','');
+  const cols = COLS[key] || [];
 
   cols.forEach((c)=>{
     const td=document.createElement('td');
@@ -971,29 +976,15 @@ function addRow(tableId, obj){
     td.appendChild(inp); tr.appendChild(td);
   });
   const tdDel=document.createElement('td');
-  const btn=document.createElement('button'); btn.className='btn danger'; btn.textContent='Delete';
+  const btn=document.createElement('button'); btn.type='button'; btn.className='btn danger'; btn.textContent='Delete';
   btn.addEventListener('click', ()=>{ tr.remove(); syncTableState(tableId); });
   tdDel.appendChild(btn); tr.appendChild(tdDel);
   tb.appendChild(tr);
   syncTableState(tableId);
 }
 function getTableRows(tableId){
-  const headers = {
-    naac:['crit','artifact','owner','link','status','notes'],
-    nirf:['cat','ind','val','year','src','notes'],
-    comp:['item','body','date','owner','status','notes'],
-    gov:['body','cadence','quorum','decision','evid','owner'],
-    iqac:['art','type','prog','link','owner','ver'],
-    proj:['name','owner','start','end','status','mile'],
-    obe:['course','pos','cos','assess','evid','owner'],
-    rs:['type','title','venue','value','year','evid'],
-    mou:['type','partner','value','start','end','evid'],
-    fw:['name','teach','res','adm','fdp','notes'],
-    stu:['prog','place','ctc','intern','mooc','notes'],
-    risk:['risk','like','imp','mit','owner','status'],
-    bud:['item','type','amt','src','year','owner'],
-    comm:['aud','msg','chan','cad','owner','notes']
-  }[tableId.replace('Table','')];
+  const key = tableId.replace('Table','');
+  const headers = COLS[key] || [];
   const rows=[];
   $$('#'+tableId+' tbody tr').forEach(tr=>{
     const cells = tr.querySelectorAll('td'); const obj={};
@@ -1007,7 +998,8 @@ function syncTableState(tableId){
   state[key] = getTableRows(tableId); save();
 }
 function renderTable(tableId, data){
-  const tb = $('#'+tableId+' tbody'); tb.innerHTML='';
+  const tb = $('#'+tableId+' tbody'); if(!tb) return;
+  tb.innerHTML='';
   (data||[]).forEach(obj=>addRow(tableId,obj));
 }
 
@@ -1024,20 +1016,45 @@ function renderTable(tableId, data){
 ['sp-vision','sp-mission','sp-goals','sp-kpis','sp-initiatives','sp-alignment','sp-policies'].forEach(id=>{ loadField(id,''); bindField(id); });
 
 /* ========= Add-row buttons ========= */
-$('#addNaac').addEventListener('click', ()=>addRow('naacTable'));
-$('#addNirf').addEventListener('click', ()=>addRow('nirfTable'));
-$('#addComp').addEventListener('click', ()=>addRow('compTable'));
-$('#addGov').addEventListener('click', ()=>addRow('govTable'));
-$('#addIqac').addEventListener('click', ()=>addRow('iqacTable'));
-$('#addProj').addEventListener('click', ()=>addRow('projTable'));
-$('#addObe').addEventListener('click', ()=>addRow('obeTable'));
-$('#addRs').addEventListener('click', ()=>addRow('rsTable'));
-$('#addMou').addEventListener('click', ()=>addRow('mouTable'));
-$('#addFw').addEventListener('click', ()=>addRow('fwTable'));
-$('#addStu').addEventListener('click', ()=>addRow('stuTable'));
-$('#addRisk').addEventListener('click', ()=>addRow('riskTable'));
-$('#addBud').addEventListener('click', ()=>addRow('budTable'));
-$('#addComm').addEventListener('click', ()=>addRow('commTable'));
+$('#addNaac')?.addEventListener('click', ()=>addRow('naacTable'));
+$('#addNirf')?.addEventListener('click', ()=>addRow('nirfTable'));
+$('#addComp')?.addEventListener('click', ()=>addRow('compTable'));
+$('#addGov')?.addEventListener('click', ()=>addRow('govTable'));
+$('#addIqac')?.addEventListener('click', ()=>addRow('iqacTable'));
+$('#addProj')?.addEventListener('click', ()=>addRow('projTable'));
+$('#addObe')?.addEventListener('click', ()=>addRow('obeTable'));
+$('#addRs')?.addEventListener('click', ()=>addRow('rsTable'));
+$('#addMou')?.addEventListener('click', ()=>addRow('mouTable'));
+$('#addFw')?.addEventListener('click', ()=>addRow('fwTable'));
+$('#addStu')?.addEventListener('click', ()=>addRow('stuTable'));
+$('#addRisk')?.addEventListener('click', ()=>addRow('riskTable'));
+$('#addBud')?.addEventListener('click', ()=>addRow('budTable'));
+$('#addComm')?.addEventListener('click', ()=>addRow('commTable'));
+
+/* ========= PRINT: clone and convert inputs → text so values show ========= */
+function cloneForPrint(srcNode){
+  const clone = srcNode.cloneNode(true);
+  clone.querySelectorAll('input, textarea, select').forEach(el=>{
+    let val = '';
+    if(el.tagName === 'SELECT'){
+      const opt = el.options[el.selectedIndex];
+      val = (opt && (opt.text || opt.value)) || '';
+    }else{
+      val = el.value || '';
+    }
+    const span = document.createElement('div');
+    span.textContent = val;
+    span.style.whiteSpace = 'pre-wrap';
+    span.style.padding = '6px 8px';
+    span.style.border = '1px solid #cfd8e6';
+    span.style.borderRadius = '6px';
+    span.style.background = '#fff';
+    el.replaceWith(span);
+  });
+  // Remove control buttons in printed clone
+  clone.querySelectorAll('button').forEach(b=>b.remove());
+  return clone;
+}
 
 /* ========= Per-tool Export/Print ========= */
 document.body.addEventListener('click', (e)=>{
@@ -1055,13 +1072,13 @@ document.body.addEventListener('click', (e)=>{
 
     if(id==='sp'){
       const obj = {
-        vision: $('#sp-vision').value,
-        mission: $('#sp-mission').value,
-        goals: $('#sp-goals').value,
-        kpis: $('#sp-kpis').value,
-        initiatives: $('#sp-initiatives').value,
-        alignment: $('#sp-alignment').value,
-        policies: $('#sp-policies').value
+        vision: $('#sp-vision')?.value || '',
+        mission: $('#sp-mission')?.value || '',
+        goals: $('#sp-goals')?.value || '',
+        kpis: $('#sp-kpis')?.value || '',
+        initiatives: $('#sp-initiatives')?.value || '',
+        alignment: $('#sp-alignment')?.value || '',
+        policies: $('#sp-policies')?.value || ''
       };
       downloadBlob(JSON.stringify(obj,null,2),'strategic-planning.json'); return;
     }
@@ -1070,18 +1087,18 @@ document.body.addEventListener('click', (e)=>{
       const headerName = (state.orgName || '').trim();
       const txt =
 `${headerName ? 'Organization: '+headerName+'\n' : ''}${state._updatedAt ? 'Generated: '+new Date(state._updatedAt).toLocaleString()+'\n' : ''}
-Minutes: ${$('#mt-title').value}
-Date: ${$('#mt-date').value}
-Attendees: ${$('#mt-att').value}
+Minutes: ${$('#mt-title')?.value || ''}
+Date: ${$('#mt-date')?.value || ''}
+Attendees: ${$('#mt-att')?.value || ''}
 
 Agenda:
-${$('#mt-agenda').value}
+${$('#mt-agenda')?.value || ''}
 
 Decisions:
-${$('#mt-decisions').value}
+${$('#mt-decisions')?.value || ''}
 
 Action Items:
-${$('#mt-actions').value}
+${$('#mt-actions')?.value || ''}
 `;
       downloadBlob(txt,'minutes.txt','text/plain'); return;
     }
@@ -1111,22 +1128,40 @@ ${$('#mt-actions').value}
     const id = btn.dataset.print;
     let node;
 
-    if(id==='kpi'){ node = $('#kpiGrid'); }
-    else if(id==='sp'){ node = $('#planning'); }
-    else if(id==='kanban'){ node = $('#kanban'); }
+    if(id==='kpi'){
+      const src = $('#kpiGrid'); if(!src) return;
+      const wrap = document.createElement('div');
+      wrap.innerHTML = printHeaderHTML() + '<h2>KPIs</h2>';
+      wrap.appendChild(cloneForPrint(src));
+      node = wrap;
+    }
+    else if(id==='sp'){
+      const src = $('#planning'); if(!src) return;
+      const wrap = document.createElement('div');
+      wrap.innerHTML = printHeaderHTML();
+      wrap.appendChild(cloneForPrint(src));
+      node = wrap;
+    }
+    else if(id==='kanban'){
+      const src = $('#kanban'); if(!src) return;
+      const wrap = document.createElement('div');
+      wrap.innerHTML = printHeaderHTML() + '<h2>Action Tracker</h2>';
+      wrap.appendChild(cloneForPrint(src));
+      node = wrap;
+    }
     else if(id==='mt'){
       const wrap = document.createElement('div');
       wrap.innerHTML = `
         ${printHeaderHTML()}
         <h1 style="margin:.2rem 0 8px">Meeting Minutes</h1>
-        <p><b>Title:</b> ${escapeHTML($('#mt-title').value || '—')}</p>
-        <p><b>Date:</b> ${escapeHTML($('#mt-date').value || '—')}</p>
-        <p><b>Attendees:</b> ${escapeHTML($('#mt-att').value || '—')}</p>
-        <h3>Agenda</h3><pre>${escapeHTML($('#mt-agenda').value || '')}</pre>
-        <h3>Decisions</h3><pre>${escapeHTML($('#mt-decisions').value || '')}</pre>
-        <h3>Action Items</h3><pre>${escapeHTML($('#mt-actions').value || '')}</pre>
+        <p><b>Title:</b> ${escapeHTML($('#mt-title')?.value || '—')}</p>
+        <p><b>Date:</b> ${escapeHTML($('#mt-date')?.value || '—')}</p>
+        <p><b>Attendees:</b> ${escapeHTML($('#mt-att')?.value || '—')}</p>
+        <h3>Agenda</h3><pre>${escapeHTML($('#mt-agenda')?.value || '')}</pre>
+        <h3>Decisions</h3><pre>${escapeHTML($('#mt-decisions')?.value || '')}</pre>
+        <h3>Action Items</h3><pre>${escapeHTML($('#mt-actions')?.value || '')}</pre>
       `;
-      printNode(wrap); return;
+      node = wrap;
     }
     else {
       const map = {
@@ -1135,8 +1170,12 @@ ${$('#mt-actions').value}
         mou:'mouTable', fw:'fwTable', stu:'stuTable', risk:'riskTable',
         bud:'budTable', comm:'commTable'
       };
-      node = document.createElement('div');
-      node.innerHTML = `${printHeaderHTML()}${$('#'+map[id]).outerHTML}`;
+      const idTable = map[id]; if(!idTable) return;
+      const src = $('#'+idTable); if(!src) return;
+      const wrap = document.createElement('div');
+      wrap.innerHTML = printHeaderHTML();
+      wrap.appendChild(cloneForPrint(src));
+      node = wrap;
     }
     if(node) printNode(node);
   }
@@ -1158,35 +1197,45 @@ function printHeaderHTML(){
   `;
 }
 function printNode(node){
-  const w=window.open('','_blank','width=1024,height=800');
-  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Print</title>
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>Print</title>
   <style>
   body{font-family:${getComputedStyle(document.body).fontFamily};margin:16px;color:#142036}
   table{width:100%;border-collapse:separate;border-spacing:0 6px}
-  td,th{border:1px solid #cfd8e6;padding:6px;border-radius:8px}
+  td,th{border:1px solid #cfd8e6;padding:6px;border-radius:8px;vertical-align:top}
   h1,h2,h3{margin:.4rem 0}
   pre{white-space:pre-wrap;background:#f7fbff;border:1px solid #dbe7ff;padding:10px;border-radius:8px}
   img{max-width:180px}
-  </style></head><body>${node.outerHTML}</body></html>`);
-  w.document.close(); w.focus(); w.print();
+  </style></head><body>${node.outerHTML}</body></html>`;
+  const w = window.open('','_blank','width=1024,height=800');
+  if(w){
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
+    w.focus();
+    // Delay print slightly to ensure layout
+    setTimeout(()=>{ try{ w.print(); }catch{} }, 150);
+  }else{
+    alert('Popup blocked. Please allow popups for this site to print.');
+  }
 }
 
 /* ========= Kanban ========= */
 function renderKanban(){
   ['todo','doing','done'].forEach(col=>{
-    const ul = $('#'+col); ul.innerHTML='';
+    const ul = $('#'+col); if(!ul) return;
+    ul.innerHTML='';
     (state[col]||[]).forEach((t,i)=>{
       const li=document.createElement('li'); li.className='card';
       li.innerHTML = `<div>${escapeHTML(t)}</div>`;
       const bar=document.createElement('div'); bar.className='row';
       ['todo','doing','done'].forEach(target=>{
         if(target!==col){
-          const b=document.createElement('button'); b.className='btn'; b.textContent='→ '+target;
+          const b=document.createElement('button'); b.type='button'; b.className='btn'; b.textContent='→ '+target;
           b.addEventListener('click',()=> moveTask(col, target, i));
           bar.appendChild(b);
         }
       });
-      const del=document.createElement('button'); del.className='btn danger'; del.textContent='Delete';
+      const del=document.createElement('button'); del.type='button'; del.className='btn danger'; del.textContent='Delete';
       del.addEventListener('click',()=> removeTask(col, i));
       bar.appendChild(del);
       li.appendChild(bar); ul.appendChild(li);
@@ -1202,21 +1251,24 @@ function moveTask(from,to,idx){
 }
 function removeTask(col, idx){ state[col].splice(idx,1); save(); renderKanban(); }
 $$('[data-add]').forEach(btn=>{
-  btn.addEventListener('click',()=>{ const col = btn.dataset.add; const val = $('#'+col+'Input').value; addTask(col,val); $('#'+col+'Input').value=''; });
+  btn.addEventListener('click',()=>{
+    const col = btn.dataset.add; const inp = $('#'+col+'Input'); if(!inp) return;
+    addTask(col, inp.value); inp.value='';
+  });
 });
 renderKanban();
 
 /* ========= Global Import/Export/Reset ========= */
-$('#global-export-json').addEventListener('click',()=>{ downloadBlob(JSON.stringify(state,null,2),'leadership-toolkit.json'); });
-$('#global-import-json').addEventListener('click',()=>{
+$('#global-export-json')?.addEventListener('click',()=>{ downloadBlob(JSON.stringify(state,null,2),'leadership-toolkit.json'); });
+$('#global-import-json')?.addEventListener('click',()=>{
   const inp=document.createElement('input'); inp.type='file'; inp.accept='application/json';
-  inp.onchange=async ()=>{ const file=inp.files[0]; if(!file) return; const text=await file.text();
+  inp.onchange=async ()=>{ const file=inp.files?.[0]; if(!file) return; const text=await file.text();
     try{ const obj=JSON.parse(text); localStorage.setItem(KEY, JSON.stringify(obj)); location.reload(); }
     catch(e){ alert('Invalid JSON'); }
   };
   inp.click();
 });
-$('#global-export-csv').addEventListener('click',()=>{
+$('#global-export-csv')?.addEventListener('click',()=>{
   const packs = {
     kpis:(state.kpis||[]).map(x=>({name:x.name,value:x.value,status:x.status})),
     naac:(state.naac||[]), nirf:(state.nirf||[]), comp:(state.comp||[]),
@@ -1231,12 +1283,12 @@ $('#global-export-csv').addEventListener('click',()=>{
     downloadBlob(csv, `export-${k}.csv`, 'text/csv');
   });
 });
-$('#global-reset').addEventListener('click',()=>{ if(confirm('Reset ALL toolkit data on this device?')){ localStorage.removeItem(KEY); location.reload(); }});
+$('#global-reset')?.addEventListener('click',()=>{ if(confirm('Reset ALL toolkit data on this device?')){ localStorage.removeItem(KEY); location.reload(); }});
 
 /* ========= Last save labels ========= */
 const firstSave = state._updatedAt ? new Date(state._updatedAt).toLocaleString() : '—';
-if($('#lastSave')) $('#lastSave').textContent = firstSave;
-if($('#lastSave2')) $('#lastSave2').textContent = firstSave;
+$('#lastSave') && ($('#lastSave').textContent = firstSave);
+$('#lastSave2') && ($('#lastSave2').textContent = firstSave);
 </script>
 </body>
 </html>
