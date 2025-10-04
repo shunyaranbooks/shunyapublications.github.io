@@ -108,17 +108,16 @@
     .subtitle{color:#2a3b5c;opacity:.95;max-width:68ch}
     .hero-card img{width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)}
 
-    /* Projects grid */
-    .rgrid{display:grid;grid-template-columns:1fr;gap:16px}
-    @media(max-width:980px){.hero{grid-template-columns:1fr}}
+    /* Two-column featured projects */
+    .r2col{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    @media(max-width:980px){.hero{grid-template-columns:1fr}.r2col{grid-template-columns:1fr}}
 
     .rcard{position:relative;overflow:hidden}
     .rcard .pill{position:absolute;top:12px;right:12px;font-size:.75rem;padding:6px 10px;border-radius:999px;background:#f0f6ff;border:1px solid #dbe7ff;color:#1565ff;font-weight:700}
-    .rcard h3{margin:.2rem 0 .4rem;font-size:1.15rem}
+    .rcard h3{margin:.8rem 0 .4rem;font-size:1.15rem}
     .rcard p{margin:.2rem 0}
 
-    /* Action buttons (separate pills) */
-    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:0}
     .actions .btn{flex:1 1 220px; justify-content:center}
 
     footer .footer-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted)}
@@ -160,43 +159,42 @@
     </div>
   </header>
 
-  <!-- PROJECTS -->
+  <!-- FEATURED PROJECTS (Image → Button → Details, two columns) -->
   <section id="projects" class="section">
     <div class="container">
       <div class="stack">
         <div>
-          <p class="eyebrow">Projects</p>
-          <h2 style="font-size:var(--fs-h2); margin:0 0 6px">Current Research</h2>
-        
+          <p class="eyebrow">Featured</p>
+          <h2 style="font-size:var(--fs-h2); margin:0 0 6px">Projects</h2>
         </div>
 
-        <div class="rgrid">
-          <!-- CARD: Spiral Question Ladder -->
+        <div class="r2col">
+          <!-- Column 1: Spiral Question Ladder -->
           <article class="card card-lg rcard" style="background:linear-gradient(180deg, rgba(21,101,255,.06), #fff)">
             <span class="pill">Active</span>
-            <h3 style="margin-top:0">Spiral Question Ladder</h3>
+            <!-- Image -->
+            <figure style="margin:0 0 10px">
+              <img src="images/spiralimg.png" alt="Spiral Question Ladder" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)">
+            </figure>
+            <!-- Actions under image -->
+            <div class="actions">
+              <a class="btn brand" href="/spiral-question-ladder/">Open Project</a>
+              <a class="btn outline" href="/spiral-question-ladder/Spiral_Researcher_Pack.zip">⬇ Researcher Pack</a>
+              <a class="btn soft" href="/spiral-question-ladder/?file=README.md">Online Viewer</a>
+            </div>
+            <!-- Details -->
+            <h3>Spiral Question Ladder</h3>
             <p><b>See Differently. Think Deeper. Redesign Everything.</b> A five-layer inquiry framework for generative thinking: <b>Clarifying → Causal → Ethical → Transformational → Meta</b>.</p>
-
-    <figure style="margin:0 0 10px 20px; float:right; max-width:260px">
-  <a href="https://www.shunyapublications.com/spiral-question-ladder/" target="_self" rel="noopener">
-    <img src="images/spiralimg.png" 
-         alt="Spiral Question Ladder illustration" 
-         style="display:block; width:100%; height:auto; border-radius:12px; border:1px solid var(--line)" 
-         loading="lazy"/>
-  </a>
-</figure>
-
-
 
             <div class="stack" style="gap:10px">
               <div>
                 <b>Method (5 layers)</b>
                 <ol style="margin:.3rem 0 0 1.2rem">
-                  <li><b>Clarifying</b> — Define terms &amp; scope. <i>“What do we mean by X here?”</i></li>
-                  <li><b>Causal</b> — Map mechanisms, incentives, histories. <i>“Why does X exist/persist?”</i></li>
-                  <li><b>Ethical</b> — Surface values &amp; impacts. <i>“Should it be this way? Who benefits/hurts?”</i></li>
-                  <li><b>Transformational</b> — Redesign constraints &amp; formats. <i>“If we started over, what would change?”</i></li>
-                  <li><b>Meta</b> — Examine frames &amp; blind spots. <i>“What are we not asking?”</i></li>
+                  <li><b>Clarifying</b> — Define terms &amp; scope.</li>
+                  <li><b>Causal</b> — Map mechanisms, incentives, histories.</li>
+                  <li><b>Ethical</b> — Surface values &amp; impacts.</li>
+                  <li><b>Transformational</b> — Redesign constraints &amp; formats.</li>
+                  <li><b>Meta</b> — Examine frames &amp; blind spots.</li>
                 </ol>
               </div>
 
@@ -205,26 +203,17 @@
                 <ul style="margin:.3rem 0 0 1.2rem">
                   <li>Interactive <i>Spiral Generator</i> for instant five-layer prompts</li>
                   <li>Researcher Pack: templates, Spiral Map, rubrics (recursion · generativity · friction), facilitation scripts</li>
-                  <li>Online Markdown viewer for the full pack (browse by filename; case-sensitive)</li>
+                  <li>Online Markdown viewer for the full pack</li>
                 </ul>
               </div>
 
               <div>
                 <b>Quick start</b>
                 <ol style="margin:.3rem 0 0 1.2rem">
-                  <li>Pick a topic (e.g., remote work). Run the <i>Spiral Generator</i>.</li>
+                  <li>Pick a topic. Run the <i>Spiral Generator</i>.</li>
                   <li>Spend 2–3 min per layer; capture decisions &amp; uncertainties.</li>
                   <li>Close with a <i>Transformational</i> redesign and a <i>Meta</i> reflection.</li>
                 </ol>
-              </div>
-
-              <div>
-                <b>Use cases</b>
-                <ul style="margin:.3rem 0 0 1.2rem">
-                  <li>Classrooms &amp; seminars — reframe lessons, structure debates</li>
-                  <li>Leadership sprints — decision framing, risk surfacing, premortems</li>
-                  <li>Coaching &amp; research journaling — one spiral a day</li>
-                </ul>
               </div>
 
               <div>
@@ -234,61 +223,58 @@
                   <li>Open license: <span style="font-weight:600">CC BY-SA 4.0</span> — attribute “Spiral Question Ladder — Shunya Publications”.</li>
                 </ul>
               </div>
-
-              <div>
-                <b>Outcomes &amp; measures</b>
-                <ul style="margin:.3rem 0 0 1.2rem">
-                  <li><i>Depth</i>: distinct perspectives surfaced per topic</li>
-                  <li><i>Generativity</i>: redesign options proposed at the Transformational layer</li>
-                  <li><i>Friction</i>: trade‑offs named before decisions</li>
-                  <li><i>Transfer</i>: applying a prior spiral to a new domain</li>
-                </ul>
-              </div>
-
-              <div>
-                <b>Alignment</b>
-                <ul style="margin:.3rem 0 0 1.2rem">
-                  <li>Education: inquiry‑based learning, Socratic seminars, argument mapping</li>
-                  <li>Research: problem framing, positionality statements, limitations</li>
-                  <li>Leadership: strategy sprints, premortems, decision records</li>
-                </ul>
-              </div>
-
-              <div>
-                <b>Project status</b>
-                <ul style="margin:.3rem 0 0 1.2rem">
-                  <li>Version: 1.0 · Maintained by Shunya Publications</li>
-                  <li>Contributions: classroom rubrics &amp; facilitation scripts welcome via email</li>
-                </ul>
-              </div>
-
-              <div>
-                <b>Cite as</b>
-                <p style="margin:.3rem 0 0">Akhtar, M. A. K. (Shunya). <i>Spiral Question Ladder</i>. Shunya Publications. CC BY‑SA 4.0.</p>
-              </div>
-
-              <div class="actions">
-                <a class="btn brand" href="/spiral-question-ladder/index.html">Open Project</a>
-                <a class="btn outline" href="/spiral-question-ladder/Spiral_Researcher_Pack.zip">⬇ Researcher Pack</a>
-                <a class="btn soft" href="/spiral-question-ladder/?file=README.md">Online Viewer</a>
-              </div>
             </div>
           </article>
 
-          <!-- Placeholder for future research cards -->
-          <!--
-          <article class="card rcard">
-            <span class="pill">In prep</span>
-            <h3>Project Title</h3>
-            <p>One-line purpose statement. What this project solves or explores.</p>
+          <!-- Column 2: Duplicate same project as requested -->
+          <article class="card card-lg rcard" style="background:linear-gradient(180deg, rgba(21,101,255,.06), #fff)">
+            <span class="pill">Active</span>
+            <!-- Image -->
+            <figure style="margin:0 0 10px">
+              <img src="images/spiralimg.png" alt="Spiral Question Ladder" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-soft)">
+            </figure>
+            <!-- Actions under image -->
             <div class="actions">
-              <a class="btn brand" href="#">Open Project</a>
-              <a class="btn outline" href="#">⬇ Resources</a>
-              <a class="btn soft" href="#">Online Viewer</a>
+              <a class="btn brand" href="/spiral-question-ladder/">Open Project</a>
+              <a class="btn outline" href="/spiral-question-ladder/Spiral_Researcher_Pack.zip">⬇ Researcher Pack</a>
+              <a class="btn soft" href="/spiral-question-ladder/?file=README.md">Online Viewer</a>
+            </div>
+            <!-- Details -->
+            <h3>Spiral Question Ladder</h3>
+            <p><b>See Differently. Think Deeper. Redesign Everything.</b> A five-layer inquiry framework for generative thinking: <b>Clarifying → Causal → Ethical → Transformational → Meta</b>.</p>
+
+            <div class="stack" style="gap:10px">
+              <div>
+                <b>Method (5 layers)</b>
+                <ol style="margin:.3rem 0 0 1.2rem">
+                  <li><b>Clarifying</b> — Define terms &amp; scope.</li>
+                  <li><b>Causal</b> — Map mechanisms, incentives, histories.</li>
+                  <li><b>Ethical</b> — Surface values &amp; impacts.</li>
+                  <li><b>Transformational</b> — Redesign constraints &amp; formats.</li>
+                  <li><b>Meta</b> — Examine frames &amp; blind spots.</li>
+                </ol>
+              </div>
+
+              <div>
+                <b>What it includes</b>
+                <ul style="margin:.3rem 0 0 1.2rem">
+                  <li>Interactive <i>Spiral Generator</i></li>
+                  <li>Researcher Pack (templates, Spiral Map, rubrics)</li>
+                  <li>Online Markdown viewer</li>
+                </ul>
+              </div>
+
+              <div>
+                <b>Access &amp; license</b>
+                <ul style="margin:.3rem 0 0 1.2rem">
+                  <li>ZIP download with editable PDFs/Docs</li>
+                  <li>Open license: <span style="font-weight:600">CC BY-SA 4.0</span></li>
+                </ul>
+              </div>
             </div>
           </article>
-          -->
         </div>
+
       </div>
     </div>
   </section>
