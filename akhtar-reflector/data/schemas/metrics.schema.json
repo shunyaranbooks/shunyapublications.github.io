@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ReflectorMetrics",
+  "type": "object",
+  "properties": {
+    "window": {
+      "type": "integer"
+    },
+    "tau": {
+      "type": "number"
+    },
+    "alpha": {
+      "type": "number"
+    },
+    "rds_history": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "turns_above_tau": {
+      "type": "integer"
+    },
+    "rds_window": {
+      "type": "number"
+    }
+  }
+}

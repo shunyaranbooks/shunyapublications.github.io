@@ -1,0 +1,1 @@
+Consent template for participants (text-only study, minimal risk).

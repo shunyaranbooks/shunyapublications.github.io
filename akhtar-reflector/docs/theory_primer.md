@@ -1,0 +1,1 @@
+RDS window ≥ τ; RLT requires judge confirmation of meta-recognition.

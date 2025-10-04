@@ -1,0 +1,1 @@
+15–20 min sessions; 3 blinded judges; compute time≥τ; safety stats.

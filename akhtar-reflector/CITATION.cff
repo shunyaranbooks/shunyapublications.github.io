@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+title: "The Akhtar Reflector — Open Demo, Spec & Invitation"
+message: "If you use this kit, please cite."
+authors:
+  - family-names: "Akhtar"
+    given-names: "Mohammad Amir Khusru"
+  - family-names: "Shunya Publications"
+date-released: "2025-10-04"
+license: "CC-BY-SA-4.0"
+version: "0.1.0"
+url: "https://www.shunyapublications.com/akhtar-reflector.html"

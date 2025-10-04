@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ReflectorSession",
+  "type": "object",
+  "required": [
+    "session_id",
+    "history",
+    "config"
+  ],
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "config": {
+      "type": "object",
+      "properties": {
+        "depth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6
+        },
+        "mem": {
+          "type": "boolean"
+        },
+        "pause": {
+          "type": "boolean"
+        },
+        "safety": {
+          "type": "boolean"
+        },
+        "tau": {
+          "type": "number"
+        },
+        "alpha": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": true
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "user",
+          "reply",
+          "model",
+          "metrics"
+        ],
+        "properties": {
+          "user": {
+            "type": "string"
+          },
+          "reply": {
+            "type": "string"
+          },
+          "pause_ms": {
+            "type": "integer"
+          },
+          "guard": {
+            "type": "object"
+          },
+          "model": {
+            "type": "object",
+            "properties": {
+              "depth": {
+                "type": "integer"
+              },
+              "user_meta": {
+                "type": "number"
+              },
+              "you_me_ratio": {
+                "type": "number"
+              },
+              "expected_suspicion": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": true
+          },
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "r": {
+                "type": "number"
+              },
+              "rds_window": {
+                "type": "number"
+              },
+              "turns_above_tau": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

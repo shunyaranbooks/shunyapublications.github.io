@@ -1,0 +1,4 @@
+TAU = 0.75
+ALPHA = 0.7
+MAX_DEPTH = 4
+WINDOW = 6

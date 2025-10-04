@@ -1,0 +1,9 @@
+services:
+  reflector:
+    build: .
+    ports:
+      - "7860:7860"
+    environment:
+      - RESPONDER=llm_local_stub
+      - TAU=0.75
+      - ALPHA=0.7

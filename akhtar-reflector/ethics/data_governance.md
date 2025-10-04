@@ -1,0 +1,1 @@
+Local-first logging; de-identify exports; CC BY-SA applies to code/spec, not personal data.

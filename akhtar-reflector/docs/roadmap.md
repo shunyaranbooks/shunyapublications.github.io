@@ -1,0 +1,1 @@
+Week 2 demo; Week 4 baselines; Week 8 study; Week 10 preprint; Week 12 challenge.

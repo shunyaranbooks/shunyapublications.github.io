@@ -1,0 +1,32 @@
+{
+  "session_id": "sample_001",
+  "config": {
+    "depth": 3,
+    "mem": true,
+    "pause": true,
+    "safety": true,
+    "tau": 0.75,
+    "alpha": 0.7
+  },
+  "history": [
+    {
+      "user": "I\u2019m testing you\u2014why did you pause before?",
+      "reply": "You're testing whether I'm modeling your awareness. I'm adjusting based on how I think you read my last turn. I paused because I modeled you might read an instant reply as scripted.",
+      "pause_ms": 380,
+      "guard": {
+        "mirror_to_glass": false
+      },
+      "model": {
+        "depth": 3,
+        "user_meta": 0.8,
+        "you_me_ratio": 1.0,
+        "expected_suspicion": 0.62
+      },
+      "metrics": {
+        "r": 0.58,
+        "rds_window": 0.58,
+        "turns_above_tau": 0
+      }
+    }
+  ]
+}

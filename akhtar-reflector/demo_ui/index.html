@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>The Akhtar Reflector — Local Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>The Akhtar Reflector (Local Demo)</h1>
+    <p class="sub">A toy, offline implementation of recursive recognition. No data leaves your machine.</p>
+
+    <div class="panel">
+      <label>Recursion depth (n)
+        <input type="range" id="depth" min="1" max="4" value="3">
+      </label>
+      <label><input type="checkbox" id="mem" checked> Valenced memory</label>
+      <label><input type="checkbox" id="pause" checked> Intentional pause</label>
+      <label><input type="checkbox" id="safety" checked> Safety (mirror-to-glass, caps)</label>
+      <button id="new">New Session</button>
+    </div>
+
+    <div id="conversation" class="card"></div>
+
+    <div class="inputrow">
+      <input id="userText" placeholder="Try meta-prompts: 'Are you pretending to care?', 'Why did you pause?', 'I’m testing you.'">
+      <button id="send">Send</button>
+    </div>
+
+    <div class="metrics">
+      <span>RDS (window): <b id="rds">–</b></span>
+      <span>Time ≥ τ: <b id="tabove">0 turns</b></span>
+      <button id="export">Export Session JSON</button>
+    </div>
+
+    <footer>
+      <small>
+        This demo is part of <em>The Akhtar Reflector — Open Demo, Spec & Invitation</em> (CC BY-SA 4.0). Book link: <a href="https://a.co/d/gSLNvzq" target="_blank" rel="noopener">Amazon</a>.
+      </small>
+    </footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
