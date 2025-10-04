@@ -113,10 +113,13 @@ footer{color:var(--muted)}
       <span>Academic Leadership Dashboard</span>
     </div>
     <div class="menu" role="navigation">
+       <a href="index.html">Home</a>
       <a href="#top" aria-current="page">Dashboard</a>
       <a href="#charts">Charts</a>
       <a href="#tables">Tables</a>
       <a href="#help">Help</a>
+        <a href="research.html" aria-current="page">Research</a>
+      <a href="/leadership.html" aria-current="page">Academic Leadership</a>
     </div>
   </div>
 </nav>
@@ -180,28 +183,36 @@ footer{color:var(--muted)}
         <div class="grid cols-2" style="margin-top:10px">
           <div class="card">
             <b>Paste CSV — Placements</b>
-            <textarea id="csvPlacements" placeholder="program,batch_year,placed_count,total_count,median_ctc_inr,internship_pct\nB.Tech CSE,2024,72,90,520000,68\n..." ></textarea>
+            <textarea id="csvPlacements" placeholder="program,batch_year,placed_count,total_count,median_ctc_inr,internship_pct
+B.Tech CSE,2024,72,90,520000,68
+..." ></textarea>
             <div class="row">
               <button class="btn" data-parse="placements">Parse & Merge</button>
             </div>
           </div>
           <div class="card">
             <b>Paste CSV — Research</b>
-            <textarea id="csvResearch" placeholder="title,type,citations,year,dept,program,link\nPaper A,SCI,12,2024,Engineering,B.Tech CSE,https://...\n..." ></textarea>
+            <textarea id="csvResearch" placeholder="title,type,citations,year,dept,program,link
+Paper A,SCI,12,2024,Engineering,B.Tech CSE,https://...
+..." ></textarea>
             <div class="row">
               <button class="btn" data-parse="research">Parse & Merge</button>
             </div>
           </div>
           <div class="card">
             <b>Paste CSV — Budget</b>
-            <textarea id="csvBudget" placeholder="item,type,amount_inr,year,owner,project,status\nAI Lab,Capex,1500000,2024,Dean R&D,Industry Lab,approved\n..." ></textarea>
+            <textarea id="csvBudget" placeholder="item,type,amount_inr,year,owner,project,status
+AI Lab,Capex,1500000,2024,Dean R&D,Industry Lab,approved
+..." ></textarea>
             <div class="row">
               <button class="btn" data-parse="budget">Parse & Merge</button>
             </div>
           </div>
           <div class="card">
             <b>Paste CSV — Consultancy/MoU</b>
-            <textarea id="csvConsult" placeholder="client,value_inr,start_date,end_date,owner_dept,status\nABC Corp,300000,2024-04-01,2024-12-31,Engineering,active\n..." ></textarea>
+            <textarea id="csvConsult" placeholder="client,value_inr,start_date,end_date,owner_dept,status
+ABC Corp,300000,2024-04-01,2024-12-31,Engineering,active
+..." ></textarea>
             <div class="row">
               <button class="btn" data-parse="consultancy">Parse & Merge</button>
             </div>
@@ -344,7 +355,7 @@ config (JSON): targets & thresholds { placement_target, obe_target, consultancy_
   <div class="container">
     <div class="stack">
       <div class="card">Privacy: All data stays in your browser via <span class="mono">localStorage</span>. Use Import/Export to move between devices.</div>
-      <div>© Academic Leadership Dashboard — Single‑File Edition. Designed for higher‑education leaders.</div>
+      <div>© Shunya Publications — Academic Leadership Dashboard — Single‑File Edition. Designed for higher‑education leaders.</div>
     </div>
   </div>
 </footer>
@@ -358,9 +369,14 @@ const state = JSON.parse(localStorage.getItem(KEY) || '{}');
 
 function save(){ state._updatedAt = new Date().toISOString(); localStorage.setItem(KEY, JSON.stringify(state)); const t=$('#lastSave'); if(t) t.textContent = new Date(state._updatedAt).toLocaleString(); }
 function resetAll(){ localStorage.removeItem(KEY); location.reload(); }
-function toCSV(rows, headers){ const esc=s=>`"${String(s??'').replace(/"/g,'""').replace(/\n/g,' ')}"`; const head=headers.map(esc).join(','); const body=rows.map(r=>headers.map(h=>esc(r[h])).join(',')).join('\n'); return head+'\n'+body; }
+function toCSV(rows, headers){ const esc=s=>`"${String(s??'').replace(/"/g,'""').replace(/
+/g,' ')}"`; const head=headers.map(esc).join(','); const body=rows.map(r=>headers.map(h=>esc(r[h])).join(',')).join('
+'); return head+'
+'+body; }
 function downloadBlob(data, name, type='text/plain'){ const blob=new Blob([data],{type}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(url),300); }
-function parseCSV(text){ const lines=text.trim().split(/\r?\n/); if(!lines.length) return []; const headers=lines[0].split(',').map(s=>s.trim()); return lines.slice(1).map(l=>{ const vals=l.split(','); const o={}; headers.forEach((h,i)=>o[h]= (vals[i]||'').trim()); return o; }); }
+function parseCSV(text){ const lines=text.trim().split(/
+?
+/); if(!lines.length) return []; const headers=lines[0].split(',').map(s=>s.trim()); return lines.slice(1).map(l=>{ const vals=l.split(','); const o={}; headers.forEach((h,i)=>o[h]= (vals[i]||'').trim()); return o; }); }
 function unique(arr){ return Array.from(new Set(arr.filter(x=>x!==undefined && x!==null && x!==''))); }
 function sum(arr){ return arr.reduce((a,b)=>a+(+b||0),0); }
 function mean(arr){ return arr.length? sum(arr)/arr.length : 0; }
@@ -407,13 +423,22 @@ const DEMO = {
 
 /* ===================== Initialize ===================== */
 function init(){
-  // Load persisted state or seed with empty arrays
+  // If first run or no data, preload DEMO
+  const firstRun = !state._seeded;
   state.config = state.config || DEMO.config;
   state.placements = state.placements || [];
   state.research = state.research || [];
   state.budget = state.budget || [];
   state.consultancy = state.consultancy || [];
   state.brand = state.brand || { name:'', logo:'' };
+  if(firstRun || (!state.placements.length && !state.research.length && !state.budget.length && !state.consultancy.length)){
+    state.config = JSON.parse(JSON.stringify(DEMO.config));
+    state.placements = JSON.parse(JSON.stringify(DEMO.placements));
+    state.research = JSON.parse(JSON.stringify(DEMO.research));
+    state.budget = JSON.parse(JSON.stringify(DEMO.budget));
+    state.consultancy = JSON.parse(JSON.stringify(DEMO.consultancy));
+    state._seeded = true;
+  }
   if(!state._updatedAt) save();
 
   // Branding fields
@@ -436,7 +461,7 @@ function init(){
   $('#printView').addEventListener('click', ()=> window.print());
   $('#exportFiltered').addEventListener('click', exportFilteredCSVs);
 
-  $('#loadDemo').addEventListener('click', ()=>{ Object.assign(state, JSON.parse(JSON.stringify(DEMO))); save(); refreshSlicers(); renderAll(); });
+  $('#loadDemo').addEventListener('click', ()=>{ Object.assign(state, JSON.parse(JSON.stringify(DEMO))); state._seeded=true; save(); refreshSlicers(); renderAll(); });
   $('#importJSON').addEventListener('click', importJSON);
   $('#exportJSON').addEventListener('click', ()=>{ const bundle = {config:state.config, placements:state.placements, research:state.research, budget:state.budget, consultancy:state.consultancy, brand:state.brand}; downloadBlob(JSON.stringify(bundle,null,2),'dashboard-data.json','application/json'); });
   $('#resetAll').addEventListener('click', ()=>{ if(confirm('Reset ALL data & settings?')) resetAll(); });
@@ -491,10 +516,14 @@ function applyFilters(){
   const progs = s.progs.length? s.progs : null;
   const stats = s.stats.length? s.stats : null;
   function pass(obj){
-    return (!years || (obj.batch_year||obj.year && years.includes(String(obj.batch_year||obj.year))))
-        && (!depts || (obj.dept||obj.owner_dept ? depts.includes(String(obj.dept||obj.owner_dept)) : true))
-        && (!progs || (obj.program ? progs.includes(String(obj.program)) : true))
-        && (!stats || (obj.status ? stats.includes(String(obj.status)) : true));
+    const yearVal = (obj.batch_year!=null && obj.batch_year!=='') ? String(obj.batch_year) : (obj.year!=null ? String(obj.year) : null);
+    const deptVal = (obj.dept!=null && obj.dept!=='') ? String(obj.dept) : (obj.owner_dept!=null ? String(obj.owner_dept) : null);
+    const progVal = (obj.program!=null && obj.program!=='') ? String(obj.program) : null;
+    const statVal = (obj.status!=null && obj.status!=='') ? String(obj.status) : null;
+    return (!years || (yearVal && years.includes(yearVal)))
+        && (!depts || (deptVal ? depts.includes(deptVal) : true))
+        && (!progs || (progVal ? progs.includes(progVal) : true))
+        && (!stats || (statVal ? stats.includes(statVal) : true));
   }
   return {
     placements: (state.placements||[]).filter(pass),
@@ -507,29 +536,17 @@ function applyFilters(){
 
 /* ===================== KPIs ===================== */
 function computeKPIs(ds){
-  // Placement % and Median CTC
   const p=ds.placements, placed=sum(p.map(r=>+r.placed_count||0)), total=sum(p.map(r=>+r.total_count||0));
-  const placementRate = total? (placed/total) : 0;
+  const placementRate = total? (placed/total) : 0; // 0..1
   const medCTC = median(p.map(r=>+r.median_ctc_inr||0));
-
-  // Research output (count) and simple YoY by set of years
   const roCount = ds.research.length;
-
-  // Patents (derived from research.type? Not ideal). We’ll treat research.type==='SCI/Scopus/UGC' as pubs; patents table could be added later if needed.
-
-  // Consultancy inflow YTD
   const consActive = ds.consultancy.filter(r=>['active','closed'].includes((r.status||'').toLowerCase()));
   const consVal = sum(consActive.map(r=>+r.value_inr||0));
-
-  // Budget utilization: spent/(approved+spent). Infer: status 'spent' sums to spent; 'approved' sums to approved; planned ignored.
   const b = ds.budget;
   const spent = sum(b.filter(r=>(r.status||'').toLowerCase()==='spent').map(r=>+r.amount_inr||0));
   const approved = sum(b.filter(r=>(r.status||'').toLowerCase()==='approved').map(r=>+r.amount_inr||0));
-  const util = (approved+spent)>0? (spent/(approved+spent)) : 0;
-
-  // OBE mapping proxy: from research/programs — if you later provide an obe dataset, wire it similarly. For now, approximate by internship_pct mean as a proxy of experiential mapping.
-  const obeProxy = mean(p.map(r=>+r.internship_pct||0))/100;
-
+  const util = (approved+spent)>0? (spent/(approved+spent)) : 0; // 0..1
+  const obeProxy = mean(p.map(r=>+r.internship_pct||0))/100; // 0..1
   return { placementRate, medCTC, roCount, consVal, util, obeProxy };
 }
 function statusBadge(ratio, cfg){
@@ -541,12 +558,12 @@ function renderKPIs(ds){
   const k=computeKPIs(ds);
   const cfg=ds.config||{};
   const tiles=[
-    {name:'Placement %', value:pct(k.placementRate*100/1), badge:statusBadge(k.placementRate/(cfg.placement_target||0.8), cfg), note:`Target ${(cfg.placement_target*100||80).toFixed(0)}%`},
+    {name:'Placement %', value:pct(k.placementRate*100), badge:statusBadge(k.placementRate/(cfg.placement_target||0.8), cfg), note:`Target ${(cfg.placement_target*100||80).toFixed(0)}%`},
     {name:'Median CTC', value:fmtINR(k.medCTC), badge:'status-ok', note:'Across filtered programs'},
     {name:'Research Output (count)', value:k.roCount, badge:'', note:'Publications in filter'},
     {name:'Consultancy (YTD)', value:fmtINR(k.consVal), badge:statusBadge(k.consVal/(cfg.consultancy_target||2000000), cfg), note:`Target ${fmtINR(cfg.consultancy_target||2000000)}`},
-    {name:'Budget Utilization', value:pct(k.util*100/1), badge:statusBadge(k.util/(cfg.budget_ratio_target||0.9), cfg), note:`Target ${(cfg.budget_ratio_target*100||90).toFixed(0)}%`},
-    {name:'OBE Mapping (proxy)', value:pct(k.obeProxy*100/1), badge:statusBadge(k.obeProxy/(cfg.obe_target||0.75), cfg), note:`Target ${(cfg.obe_target*100||75).toFixed(0)}%`},
+    {name:'Budget Utilization', value:pct(k.util*100), badge:statusBadge(k.util/(cfg.budget_ratio_target||0.9), cfg), note:`Target ${(cfg.budget_ratio_target*100||90).toFixed(0)}%`},
+    {name:'OBE Mapping (proxy)', value:pct(k.obeProxy*100), badge:statusBadge(k.obeProxy/(cfg.obe_target||0.75), cfg), note:`Target ${(cfg.obe_target*100||75).toFixed(0)}%`},
     {name:'Filters — Years', value:(getSelected($('#slYear')).join(', ')||'All'), badge:'', note:'Applied'},
     {name:'Filters — Dept', value:(getSelected($('#slDept')).join(', ')||'All'), badge:'', note:'Applied'}
   ];
@@ -558,40 +575,39 @@ function renderKPIs(ds){
 }
 
 /* ===================== Charts (Canvas) ===================== */
-function drawLineChart(canvas, labels, series, options={}){
-  const ctx=canvas.getContext('2d'); const W=canvas.width=canvas.clientWidth*2; const H=canvas.height=canvas.clientHeight*2; const pad=60; ctx.clearRect(0,0,W,H);
-  ctx.font='24px Arial'; ctx.fillStyle='#142036'; ctx.lineWidth=3; ctx.strokeStyle='#1565ff';
-  const max=Math.max(1, ...series);
+function drawLineChart(canvas, labels, series){
+  if(!canvas) return; const ctx=canvas.getContext('2d'); if(!ctx) return; const cw=canvas.clientWidth||400; const ch=canvas.clientHeight||300; const W=canvas.width=cw*2; const H=canvas.height=ch*2; const pad=60; ctx.clearRect(0,0,W,H);
+  const s = series.map(v=> +v||0); const max=Math.max(1, ...s);
   const xStep=(W-2*pad)/Math.max(1, (labels.length-1));
   const y=(v)=> H-pad - (v/max)*(H-2*pad);
   // Axes
   ctx.strokeStyle='#cfd8e6'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(pad,pad); ctx.lineTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke();
   // Labels
-  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; labels.forEach((lb,i)=>{ const x=pad+i*xStep; ctx.fillText(lb, x, H-pad+30); });
+  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; ctx.font='24px Arial'; labels.forEach((lb,i)=>{ const x=pad+i*xStep; ctx.fillText(String(lb), x, H-pad+30); });
   // Line
-  ctx.strokeStyle='#1565ff'; ctx.lineWidth=4; ctx.beginPath(); series.forEach((v,i)=>{ const x=pad+i*xStep; const yy=y(v); if(i===0) ctx.moveTo(x,yy); else ctx.lineTo(x,yy); }); ctx.stroke();
+  ctx.strokeStyle='#1565ff'; ctx.lineWidth=4; ctx.beginPath(); s.forEach((v,i)=>{ const x=pad+i*xStep; const yy=y(v); if(i===0) ctx.moveTo(x,yy); else ctx.lineTo(x,yy); }); ctx.stroke();
   // Dots
-  ctx.fillStyle='#1565ff'; series.forEach((v,i)=>{ const x=pad+i*xStep; const yy=y(v); ctx.beginPath(); ctx.arc(x,yy,6,0,Math.PI*2); ctx.fill(); });
+  ctx.fillStyle='#1565ff'; s.forEach((v,i)=>{ const x=pad+i*xStep; const yy=y(v); ctx.beginPath(); ctx.arc(x,yy,6,0,Math.PI*2); ctx.fill(); });
 }
-function drawStackedBar(canvas, cats, stacks){ // stacks: {name, values[]}[]
-  const ctx=canvas.getContext('2d'); const W=canvas.width=canvas.clientWidth*2; const H=canvas.height=canvas.clientHeight*2; const pad=60; ctx.clearRect(0,0,W,H);
+function drawStackedBar(canvas, cats, stacks){
+  if(!canvas) return; const ctx=canvas.getContext('2d'); if(!ctx) return; const cw=canvas.clientWidth||400; const ch=canvas.clientHeight||300; const W=canvas.width=cw*2; const H=canvas.height=ch*2; const pad=60; ctx.clearRect(0,0,W,H);
   const colors=['#1565ff','#15a085','#ff7a3d','#7d4dff','#f6b73c'];
   const totals=cats.map((_,i)=> stacks.reduce((a,s)=>a+(+s.values[i]||0),0));
   const max=Math.max(1, ...totals);
-  const barW=(W-2*pad)/cats.length * 0.6; const step=(W-2*pad)/cats.length;
+  const barW=(W-2*pad)/Math.max(1,cats.length) * 0.6; const step=(W-2*pad)/Math.max(1,cats.length);
   ctx.strokeStyle='#cfd8e6'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(pad,pad); ctx.lineTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke();
-  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; cats.forEach((c,i)=> ctx.fillText(c, pad+i*step, H-pad+30));
+  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; ctx.font='24px Arial'; cats.forEach((c,i)=> ctx.fillText(String(c), pad+i*step, H-pad+30));
   cats.forEach((c,i)=>{
     let y=H-pad; stacks.forEach((s,si)=>{ const v=+s.values[i]||0; const h=(v/max)*(H-2*pad); ctx.fillStyle=colors[si%colors.length]; ctx.fillRect(pad+i*step - barW/2, y-h, barW, h); y-=h; });
   });
 }
-function drawGroupedBar(canvas, cats, series){ // series: {name, values[]}[]
-  const ctx=canvas.getContext('2d'); const W=canvas.width=canvas.clientWidth*2; const H=canvas.height=canvas.clientHeight*2; const pad=60; ctx.clearRect(0,0,W,H);
+function drawGroupedBar(canvas, cats, series){
+  if(!canvas) return; const ctx=canvas.getContext('2d'); if(!ctx) return; const cw=canvas.clientWidth||400; const ch=canvas.clientHeight||300; const W=canvas.width=cw*2; const H=canvas.height=ch*2; const pad=60; ctx.clearRect(0,0,W,H);
   const colors=['#1565ff','#15a085','#ff7a3d','#7d4dff'];
-  const max=Math.max(1, ...series.flatMap(s=>s.values));
-  const groupW=(W-2*pad)/cats.length * 0.7; const step=(W-2*pad)/cats.length; const barW=groupW/series.length;
+  const max=Math.max(1, ...series.flatMap(s=>s.values.map(v=>+v||0)));
+  const groupW=(W-2*pad)/Math.max(1,cats.length) * 0.7; const step=(W-2*pad)/Math.max(1,cats.length); const barW=groupW/Math.max(1,series.length);
   ctx.strokeStyle='#cfd8e6'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(pad,pad); ctx.lineTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke();
-  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; cats.forEach((c,i)=> ctx.fillText(c, pad+i*step, H-pad+30));
+  ctx.fillStyle='#5a6b88'; ctx.textAlign='center'; ctx.font='24px Arial'; cats.forEach((c,i)=> ctx.fillText(String(c), pad+i*step, H-pad+30));
   cats.forEach((c,i)=>{
     series.forEach((s,si)=>{ const v=+s.values[i]||0; const h=(v/max)*(H-2*pad); const x=pad+i*step - groupW/2 + si*barW; ctx.fillStyle=colors[si%colors.length]; ctx.fillRect(x, H-pad-h, barW, h); });
   });
@@ -613,7 +629,7 @@ function renderCharts(ds){
   drawLineChart($('#chResearch'), yrs, counts);
   $('#meta-research').textContent = `Years: ${yrs.join(', ')||'—'}`;
 
-  // Patents proxy: count by type (SCI/Scopus/UGC) per year shown as grouped bars
+  // Patents proxy (grouped by type per year)
   const types=['SCI','Scopus','UGC']; const series=types.map(t=>({name:t, values: yrs.map(y=> ds.research.filter(r=>String(r.year)===y && String(r.type).toLowerCase()===t.toLowerCase()).length )}));
   drawGroupedBar($('#chPatents'), yrs, series); $('#meta-patents').textContent = types.join(' / ');
 
@@ -666,7 +682,7 @@ function renderTables(){
 function fillTable(tbody, rows, headers, post){
   tbody.innerHTML='';
   rows.forEach(r=>{
-    const tr=document.createElement('tr'); headers.forEach((h, i)=>{
+    const tr=document.createElement('tr'); headers.forEach((h)=>{
       const td=document.createElement('td');
       if(h==='link') { td.innerHTML=`<a href="#" target="_blank" rel="noopener">open</a>`; }
       else { td.textContent = r[h] ?? ''; }
@@ -680,47 +696,4 @@ function exportTableCSV(kind){
   if(kind==='research'){ rows=ds.research; headers=['title','type','citations','year','dept','program','link']; }
   if(kind==='consultancy'){ rows=ds.consultancy; headers=['client','value_inr','start_date','end_date','owner_dept','status']; }
   if(kind==='budget'){ rows=ds.budget; headers=['item','type','amount_inr','year','owner','project','status']; }
-  if(kind==='placements'){ rows=ds.placements; headers=['program','batch_year','placed_count','total_count','median_ctc_inr','internship_pct']; }
-  const csv=toCSV(rows, headers); downloadBlob(csv, `${kind}.csv`, 'text/csv');
-}
-
-/* ===================== Import / Export Data ===================== */
-async function importJSON(){
-  const inp=document.createElement('input'); inp.type='file'; inp.accept='application/json';
-  inp.onchange= async ()=>{ const file=inp.files[0]; if(!file) return; const text=await file.text(); try{
-    const obj=JSON.parse(text);
-    if(obj.config) state.config=obj.config;
-    if(obj.placements) state.placements=obj.placements;
-    if(obj.research) state.research=obj.research;
-    if(obj.budget) state.budget=obj.budget;
-    if(obj.consultancy) state.consultancy=obj.consultancy;
-    if(obj.brand) state.brand=obj.brand;
-    save(); refreshSlicers(); renderAll(); alert('JSON imported.');
-  }catch(e){ alert('Invalid JSON.'); }
-  };
-  inp.click();
-}
-function parseFromTextarea(kind){
-  const id={placements:'csvPlacements', research:'csvResearch', budget:'csvBudget', consultancy:'csvConsult'}[kind];
-  const txt=$('#'+id).value.trim(); if(!txt){ alert('Paste CSV first.'); return; }
-  const rows=parseCSV(txt); if(!rows.length){ alert('No rows found.'); return; }
-  state[kind]=[...(state[kind]||[]), ...rows]; save(); refreshSlicers(); renderAll(); alert(`${rows.length} ${kind} row(s) merged.`);
-}
-
-/* ===================== Export filtered CSV bundle ===================== */
-function exportFilteredCSVs(){
-  const ds=applyFilters();
-  const files=[
-    {name:'placements.csv', rows:ds.placements, headers:['program','batch_year','placed_count','total_count','median_ctc_inr','internship_pct','dept']},
-    {name:'research.csv', rows:ds.research, headers:['title','type','citations','year','dept','program','link']},
-    {name:'budget.csv', rows:ds.budget, headers:['item','type','amount_inr','year','owner','project','status','dept']},
-    {name:'consultancy.csv', rows:ds.consultancy, headers:['client','value_inr','start_date','end_date','owner_dept','status']}
-  ];
-  files.forEach(f=>{ const csv=toCSV(f.rows, f.headers); downloadBlob(csv, f.name, 'text/csv'); });
-}
-
-// Kick off
-init();
-</script>
-</body>
-</html>
+  if(kind==='placements'){ rows=ds.placements; headers=['program','batch_year','placed_count','total_
