@@ -54,11 +54,12 @@ body{
 .status-risk{background:#ffefef;border-color:#ffd3d3;color:#842029}
 .small{font-size:.9rem; color:var(--muted)}
 
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600;cursor:pointer}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600;cursor:pointer}
 .btn:hover{box-shadow:var(--ring)}
 .btn.primary{background:linear-gradient(180deg,#f7fbff,#eaf2ff); border-color:#dbe7ff}
 .btn.danger{background:linear-gradient(180deg,#fff5f5,#ffecec); border-color:#ffd6d6; color:#8b1e1e}
 .btn.ghost{background:#fff; border-style:dashed}
+.btn.sm{padding:6px 8px;font-size:.85rem}
 
 .row{display:flex;flex-wrap:wrap;gap:12px}
 .w-25{flex:1 1 220px}
@@ -70,7 +71,7 @@ body{
 input[type="text"],input[type="number"],input[type="date"],input[type="file"],textarea,select{
   width:100%; padding:10px 12px; border:1px solid var(--line-strong); border-radius:12px; font:inherit; background:#fff
 }
-select[multiple]{min-height:156px} /* make multi-selects clearly visible */
+select[multiple]{min-height:168px}
 textarea{min-height:110px; resize:vertical}
 .table{width:100%; border-collapse:separate; border-spacing:0 8px}
 .table th{font-size:.9rem; color:#374a6b; text-align:left; padding:6px 8px}
@@ -101,9 +102,12 @@ footer{color:var(--muted)}
 .brand-card .title{font-weight:800;font-size:1.1rem}
 .brand-card .sub{color:var(--muted)}
 
+fieldset{border:1px dashed var(--line); border-radius:12px; padding:12px}
+legend{font-weight:700;color:#374a6b}
+
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
 @media print{
-  .nav, #controls, .slicers .btn, #help, #dataTemplates {display:none!important}
+  .nav, #controls, .slicers .btn, #help, #dataTemplates, #configCard {display:none!important}
   body{background:#fff}
   .card{box-shadow:none}
 }
@@ -115,7 +119,7 @@ footer{color:var(--muted)}
 <nav class="nav" aria-label="Global">
   <div class="container inner">
     <div class="brand">
-      <!-- Static logo before title; updates to uploaded logo as well -->
+      <!-- Static logo before title; updates to uploaded/custom logo -->
       <img id="navLogoImg" src="/images/Logosh.png" alt="Logo" class="brand-img" />
       <span>Academic Leadership Dashboard</span>
     </div>
@@ -149,7 +153,9 @@ footer{color:var(--muted)}
       <div class="card card-lg">
         <p class="eyebrow">Start</p>
         <h1 style="margin:.2rem 0; font-size:var(--fs-hero)">Power-BI-style, Single-File Dashboard for Academic Leaders</h1>
-        <p class="lead">Use this offline-ready dashboard to track institutional KPIs, explore trends, and export leadership snapshots. No server, no external libraries—data stays in the browser (<span class="mono">localStorage</span>). Bring your own CSV/JSON or start with the demo data.</p>
+        <p class="lead">Use this offline-ready dashboard to track KPIs, explore trends, and export leadership snapshots. Data stays in the browser (<span class="mono">localStorage</span>). Bring your own CSV/JSON or start with demo data.</p>
+
+        <!-- Branding -->
         <div class="row" id="controls">
           <label class="w-33">Organization Name
             <input id="orgName" type="text" placeholder="e.g., Usha Martin University" />
@@ -157,34 +163,63 @@ footer{color:var(--muted)}
           <label class="w-33">Upload Logo (PNG/JPG/SVG)
             <input id="orgLogo" type="file" accept=".png,.jpg,.jpeg,.svg" />
           </label>
-          <div class="w-33" style="display:flex;gap:8px;align-items:flex-end;justify-content:flex-start">
+          <label class="w-33">Logo URL (optional)
+            <input id="logoUrl" type="text" placeholder="https://example.com/logo.png" />
+          </label>
+          <div class="w-100" style="display:flex;gap:8px;align-items:flex-end;justify-content:flex-start">
             <button class="btn" id="saveBrand">Save Branding</button>
-            <button class="btn ghost" id="resetBrand">Reset</button>
+            <button class="btn ghost" id="clearLogo">Clear Logo</button>
+            <button class="btn ghost" id="resetBrand">Reset Brand</button>
           </div>
         </div>
+
         <hr class="sep"/>
+
+        <!-- Slicers -->
         <div class="row slicers">
           <div class="w-25">
             <label>Year</label>
-            <select id="slYear" multiple size="6"></select>
+            <select id="slYear" multiple size="8"></select>
+            <div class="row">
+              <button class="btn sm" id="yearAdd">Add…</button>
+              <button class="btn sm" id="yearAll">Select All</button>
+              <button class="btn sm" id="yearClr">Clear</button>
+            </div>
           </div>
           <div class="w-25">
             <label>Department</label>
-            <select id="slDept" multiple size="6"></select>
+            <select id="slDept" multiple size="8"></select>
+            <div class="row">
+              <button class="btn sm" id="deptAdd">Add…</button>
+              <button class="btn sm" id="deptAll">Select All</button>
+              <button class="btn sm" id="deptClr">Clear</button>
+            </div>
           </div>
           <div class="w-25">
             <label>Program</label>
-            <select id="slProg" multiple size="6"></select>
+            <select id="slProg" multiple size="8"></select>
+            <div class="row">
+              <button class="btn sm" id="progAdd">Add…</button>
+              <button class="btn sm" id="progAll">Select All</button>
+              <button class="btn sm" id="progClr">Clear</button>
+            </div>
           </div>
           <div class="w-25">
             <label>Status</label>
-            <select id="slStatus" multiple size="6"></select>
+            <select id="slStatus" multiple size="8"></select>
+            <div class="row">
+              <button class="btn sm" id="statAdd">Add…</button>
+              <button class="btn sm" id="statAll">Select All</button>
+              <button class="btn sm" id="statClr">Clear</button>
+            </div>
           </div>
+
           <div class="w-100" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
             <button class="btn" id="applyFilters">Apply Filters</button>
-            <button class="btn" id="clearFilters">Clear</button>
+            <button class="btn" id="clearFilters">Clear All</button>
             <button class="btn" id="saveView">Save View</button>
             <button class="btn" id="loadView">Load View</button>
+            <button class="btn" id="resetSlicerOptions">Reset Options From Data</button>
             <button class="btn" id="printView">Print / PDF</button>
             <button class="btn" id="exportFiltered">Export Filtered CSVs</button>
             <span class="small">Autosave: <b>On</b> (<span class="mono">localStorage</span>) • Last Save: <span id="lastSave">—</span></span>
@@ -194,6 +229,34 @@ footer{color:var(--muted)}
 
       <div class="grid cols-4" id="kpiGrid"></div>
 
+      <!-- Config (editable targets & thresholds) -->
+      <div class="card" id="configCard">
+        <p class="eyebrow">Configuration</p>
+        <div class="row">
+          <fieldset class="w-50">
+            <legend>Targets</legend>
+            <div class="row">
+              <label class="w-33">Placement Target %<input id="cfgPlacement" type="number" min="0" max="100" step="1" placeholder="80" /></label>
+              <label class="w-33">Consultancy Target (₹)<input id="cfgConsult" type="number" min="0" step="10000" placeholder="2000000" /></label>
+              <label class="w-33">Budget Utilization Target %<input id="cfgBudget" type="number" min="0" max="100" step="1" placeholder="90" /></label>
+              <label class="w-33">OBE Target %<input id="cfgOBE" type="number" min="0" max="100" step="1" placeholder="75" /></label>
+            </div>
+          </fieldset>
+          <fieldset class="w-50">
+            <legend>Thresholds (Badges)</legend>
+            <div class="row">
+              <label class="w-33">OK ≥ (ratio)<input id="cfgOk" type="number" min="0" max="1" step="0.01" placeholder="0.90" /></label>
+              <label class="w-33">Warn ≥ (ratio)<input id="cfgWarn" type="number" min="0" max="1" step="0.01" placeholder="0.75" /></label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="row">
+          <label class="w-33"><input id="replaceMode" type="checkbox" /> Replace existing data on import (default merges)</label>
+          <button class="btn" id="saveConfig">Save Config</button>
+          <button class="btn ghost" id="resetConfig">Reset to Defaults</button>
+        </div>
+      </div>
+
       <div class="card">
         <div class="row" style="gap:8px;align-items:center;flex-wrap:wrap">
           <b>Data Manager</b>
@@ -202,7 +265,7 @@ footer{color:var(--muted)}
           <button class="btn" id="importJSON">Import JSON</button>
           <button class="btn" id="exportJSON">Export JSON</button>
           <button class="btn danger" id="resetAll">Reset All Data</button>
-          <span class="small">Accepted: CSV/JSON structures described in Help. Use templates to prepare files; upload below or paste directly.</span>
+          <span class="small">Use templates to prep files; upload or paste below. JSON bundle keys: <span class="mono">{ placements, research, budget, consultancy, config, brand }</span>.</span>
         </div>
 
         <div id="dataTemplates" class="grid cols-2" style="margin-top:10px">
@@ -215,7 +278,7 @@ footer{color:var(--muted)}
             </div>
             <textarea id="csvPlacements" placeholder="program,batch_year,placed_count,total_count,median_ctc_inr,internship_pct,dept
 B.Tech CSE,2024,72,90,520000,68,Engineering"></textarea>
-            <div class="row"><button class="btn" data-parse="placements">Parse & Merge</button></div>
+            <div class="row"><button class="btn" data-parse="placements">Parse &amp; Merge</button></div>
           </div>
 
           <div class="card">
@@ -227,7 +290,7 @@ B.Tech CSE,2024,72,90,520000,68,Engineering"></textarea>
             </div>
             <textarea id="csvResearch" placeholder="title,type,citations,year,dept,program,link
 Paper A,SCI,12,2024,Engineering,B.Tech CSE,https://example.com"></textarea>
-            <div class="row"><button class="btn" data-parse="research">Parse & Merge</button></div>
+            <div class="row"><button class="btn" data-parse="research">Parse &amp; Merge</button></div>
           </div>
 
           <div class="card">
@@ -239,7 +302,7 @@ Paper A,SCI,12,2024,Engineering,B.Tech CSE,https://example.com"></textarea>
             </div>
             <textarea id="csvBudget" placeholder="item,type,amount_inr,year,owner,project,status,dept
 AI Lab,Capex,1500000,2024,Dean R&amp;D,Industry Lab,approved,Engineering"></textarea>
-            <div class="row"><button class="btn" data-parse="budget">Parse & Merge</button></div>
+            <div class="row"><button class="btn" data-parse="budget">Parse &amp; Merge</button></div>
           </div>
 
           <div class="card">
@@ -251,7 +314,7 @@ AI Lab,Capex,1500000,2024,Dean R&amp;D,Industry Lab,approved,Engineering"></text
             </div>
             <textarea id="csvConsult" placeholder="client,value_inr,start_date,end_date,owner_dept,status
 ABC Corp,300000,2024-04-01,2024-12-31,Engineering,active"></textarea>
-            <div class="row"><button class="btn" data-parse="consultancy">Parse & Merge</button></div>
+            <div class="row"><button class="btn" data-parse="consultancy">Parse &amp; Merge</button></div>
           </div>
         </div>
       </div>
@@ -267,7 +330,7 @@ ABC Corp,300000,2024-04-01,2024-12-31,Engineering,active"></textarea>
       <div class="card">
         <p class="eyebrow">Trends</p>
         <h2 style="margin:0 0 6px">Institutional Trends (Dynamic)</h2>
-        <p class="lead">Three core visuals: Research Output by Year, Patents by Status, and Consultancy Inflow by Quarter. All visuals respect slicers and refresh instantly. Hover near the points/bars for values.</p>
+        <p class="lead">Research Output by Year, Patents by Status, and Consultancy Inflow by Quarter honor slicers and refresh instantly.</p>
       </div>
       <div class="grid cols-3">
         <figure class="figure">
@@ -304,7 +367,7 @@ ABC Corp,300000,2024-04-01,2024-12-31,Engineering,active"></textarea>
       <div class="card">
         <p class="eyebrow">Details</p>
         <h2 style="margin:0 0 6px">Drill Tables (Filterable)</h2>
-        <p class="lead">Search within any table to narrow down results. Export the current table as CSV. Links in the Research table open in a new tab.</p>
+        <p class="lead">Search within any table, and export the current table as CSV. Links in Research open in a new tab.</p>
       </div>
 
       <div class="card">
@@ -365,23 +428,21 @@ ABC Corp,300000,2024-04-01,2024-12-31,Engineering,active"></textarea>
       <div class="card card-lg">
         <p class="eyebrow">Help</p>
         <h2 style="margin:0 0 6px">How to Use & Data Schemas</h2>
-        <p class="lead">This single file is your lightweight alternative to Power BI: share it, host it on GitHub Pages, or open from disk. Data never leaves the browser. You can import your own CSVs or a consolidated JSON bundle.</p>
+        <p class="lead">This single file is a lightweight alternative to Power BI: host it or open from disk. All data stays local.</p>
         <ul>
-          <li><b>Global Slicers</b>: Year, Department, Program, Status. Multi-select with Ctrl/Cmd; click Apply.</li>
-          <li><b>KPIs</b>: Calculated live from datasets; thresholds define color badges.</li>
-          <li><b>Charts</b>: Canvas-based, no external libraries. Hover near points for values.</li>
-          <li><b>Tables</b>: Search filters rows instantly; export current view as CSV.</li>
-          <li><b>Branding</b>: Set org name and upload a logo. They’re stored locally and appear in the identity card and print.</li>
-          <li><b>Persistence</b>: All data and settings are saved to <span class="mono">localStorage</span>.</li>
+          <li><b>Slicers</b>: Add custom values, Select All, Clear, or Reset Options From Data.</li>
+          <li><b>KPIs/Charts/Tables</b> update instantly with filters.</li>
+          <li><b>Branding</b>: Set name + logo via upload or URL; prints to PDF.</li>
+          <li><b>Config</b>: Edit targets and thresholds for badges.</li>
+          <li><b>Persistence</b>: Everything saves to <span class="mono">localStorage</span>.</li>
         </ul>
         <b>CSV columns</b>
         <pre class="mono" style="white-space:pre-wrap">placements: program, batch_year, placed_count, total_count, median_ctc_inr, internship_pct, dept
 research: title, type, citations, year, dept, program, link
 budget: item, type (Capex/Opex), amount_inr, year, owner, project, status (planned/approved/spent), dept
 consultancy: client, value_inr, start_date (YYYY-MM-DD), end_date, owner_dept, status (pipeline/active/closed)
-config (JSON): targets & thresholds { placement_target, obe_target, consultancy_target, budget_ratio_target, thresholds: { ok:0.9, warn:0.75 } }
 </pre>
-        <p class="small">Tip: Use <b>Download CSV Templates</b> to get ready-made headers. Bundle everything in JSON as <code>{ placements, research, budget, consultancy, config, brand }</code> and use “Import JSON”.</p>
+        <p class="small">JSON bundle keys: <code>{ placements, research, budget, consultancy, config, brand }</code>.</p>
       </div>
     </div>
   </div>
@@ -403,11 +464,7 @@ const $ = (sel, root=document)=>root.querySelector(sel);
 const $$ = (sel, root=document)=>Array.from(root.querySelectorAll(sel));
 const state = JSON.parse(localStorage.getItem(KEY) || '{}');
 
-function save(){
-  state._updatedAt = new Date().toISOString();
-  localStorage.setItem(KEY, JSON.stringify(state));
-  const t=$('#lastSave'); if(t) t.textContent = new Date(state._updatedAt).toLocaleString();
-}
+function save(){ state._updatedAt = new Date().toISOString(); localStorage.setItem(KEY, JSON.stringify(state)); const t=$('#lastSave'); if(t) t.textContent = new Date(state._updatedAt).toLocaleString(); }
 function resetAll(){ localStorage.removeItem(KEY); location.reload(); }
 
 /* CSV helpers */
@@ -434,7 +491,7 @@ function parseCSV(text){
   if(!norm) return [];
   const lines = norm.split('\n');
   let headers = splitCSVLine(lines[0]);
-  if(headers[0] && headers[0].charCodeAt(0)===0xFEFF){ headers[0]=headers[0].replace(/^\uFEFF/,''); } // strip BOM
+  if(headers[0] && headers[0].charCodeAt(0)===0xFEFF){ headers[0]=headers[0].replace(/^\uFEFF/,''); } // BOM
   const rows=[];
   for(let i=1;i<lines.length;i++){
     const l=lines[i]; if(!l || !l.trim()) continue;
@@ -456,7 +513,6 @@ function downloadBlob(data, name, type='text/plain'){
   const a=document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click();
   setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },300);
 }
-
 function unique(arr){ return Array.from(new Set((arr||[]).filter(x=>x!==undefined && x!==null && x!==''))); }
 function sum(arr){ return (arr||[]).reduce((a,b)=>a+(+b||0),0); }
 function mean(arr){ return (arr&&arr.length)? sum(arr)/arr.length : 0; }
@@ -503,7 +559,6 @@ const DEMO = {
 
 /* ===================== Initialize ===================== */
 function init(){
-  // Seed on first run
   const firstRun = !state._seeded;
   state.config = state.config || JSON.parse(JSON.stringify(DEMO.config));
   state.placements = state.placements || [];
@@ -518,7 +573,7 @@ function init(){
     state.research = JSON.parse(JSON.stringify(DEMO.research));
     state.budget = JSON.parse(JSON.stringify(DEMO.budget));
     state.consultancy = JSON.parse(JSON.stringify(DEMO.consultancy));
-    state.brand = state.brand && (state.brand.name || state.brand.logo) ? state.brand : JSON.parse(JSON.stringify(DEMO.brand));
+    if(!(state.brand.name || state.brand.logo)) state.brand = JSON.parse(JSON.stringify(DEMO.brand));
     state._seeded = true;
   }
   if(!state.brand.name) state.brand.name = 'Your Institution';
@@ -528,43 +583,34 @@ function init(){
   $('#orgName').value = state.brand.name || '';
   renderBrandCard();
 
-  // Live preview brand name while typing
+  // Live brand name preview while typing
   $('#orgName').addEventListener('input', ()=>{
     const nm = ($('#orgName').value||'').trim() || 'Your Institution';
     $('#brandNameText').textContent = nm;
   });
 
-  // Slicers
+  // Slicers from data
   refreshSlicers();
 
   // KPI + charts + tables
   renderAll();
 
-  // ===== Bindings =====
+  // ===== Buttons / Bindings =====
   $('#saveBrand').addEventListener('click', saveBrand);
-  $('#resetBrand').addEventListener('click', ()=>{
-    state.brand={name:'',logo:''}; save();
-    $('#orgName').value=''; renderBrandCard();
-    alert('Branding cleared.');
-  });
+  $('#clearLogo').addEventListener('click', ()=>{ state.brand.logo=''; save(); renderBrandCard(); });
+  $('#resetBrand').addEventListener('click', ()=>{ state.brand={name:'',logo:''}; save(); $('#orgName').value=''; $('#logoUrl').value=''; renderBrandCard(); alert('Branding cleared.'); });
 
-  $('#applyFilters').addEventListener('click', ()=>{ renderAll(); });
+  $('#applyFilters').addEventListener('click', renderAll);
   $('#clearFilters').addEventListener('click', ()=>{ clearSlicers(); renderAll(); });
   $('#saveView').addEventListener('click', ()=>{ state.view = getSlicerState(); save(); alert('View saved.'); });
   $('#loadView').addEventListener('click', ()=>{ if(state.view){ setSlicerState(state.view); renderAll(); } else alert('No saved view yet.'); });
+  $('#resetSlicerOptions').addEventListener('click', ()=>{ refreshSlicers(); alert('Options rebuilt from data.'); });
   $('#printView').addEventListener('click', ()=> window.print());
   $('#exportFiltered').addEventListener('click', exportFilteredCSVs);
 
-  $('#loadDemo').addEventListener('click', ()=>{
-    Object.assign(state, JSON.parse(JSON.stringify(DEMO)));
-    state._seeded=true; save(); refreshSlicers(); renderAll(); renderBrandCard();
-    alert('Demo data loaded.');
-  });
+  $('#loadDemo').addEventListener('click', ()=>{ Object.assign(state, JSON.parse(JSON.stringify(DEMO))); state._seeded=true; save(); refreshSlicers(); renderAll(); renderBrandCard(); alert('Demo data loaded.'); });
   $('#importJSON').addEventListener('click', importJSON);
-  $('#exportJSON').addEventListener('click', ()=>{
-    const bundle = {config:state.config, placements:state.placements, research:state.research, budget:state.budget, consultancy:state.consultancy, brand:state.brand};
-    downloadBlob(JSON.stringify(bundle,null,2),'dashboard-data.json','application/json');
-  });
+  $('#exportJSON').addEventListener('click', ()=>{ const bundle = {config:state.config, placements:state.placements, research:state.research, budget:state.budget, consultancy:state.consultancy, brand:state.brand}; downloadBlob(JSON.stringify(bundle,null,2),'dashboard-data.json','application/json'); });
   $('#resetAll').addEventListener('click', ()=>{ if(confirm('Reset ALL data & settings?')) resetAll(); });
   $('#downloadTemplates').addEventListener('click', downloadAllTemplates);
 
@@ -573,7 +619,6 @@ function init(){
   bindUpload('Research','uplResearch','btnUplResearch','csvResearch','research');
   bindUpload('Budget','uplBudget','btnUplBudget','csvBudget','budget');
   bindUpload('Consultancy','uplConsult','btnUplConsult','csvConsult','consultancy');
-
   $('#tplPlacements').addEventListener('click', ()=> downloadBlob('program,batch_year,placed_count,total_count,median_ctc_inr,internship_pct,dept\r\n','placements_template.csv','text/csv'));
   $('#tplResearch').addEventListener('click', ()=> downloadBlob('title,type,citations,year,dept,program,link\r\n','research_template.csv','text/csv'));
   $('#tplBudget').addEventListener('click', ()=> downloadBlob('item,type,amount_inr,year,owner,project,status,dept\r\n','budget_template.csv','text/csv'));
@@ -591,48 +636,106 @@ function init(){
   // Export individual tables
   $$('[data-export-table]').forEach(b=> b.addEventListener('click', ()=> exportTableCSV(b.dataset.exportTable)));
 
+  // Config
+  populateConfigFields();
+  $('#saveConfig').addEventListener('click', saveConfig);
+  $('#resetConfig').addEventListener('click', ()=>{ state.config = JSON.parse(JSON.stringify(DEMO.config)); save(); populateConfigFields(); renderAll(); alert('Config reset.'); });
+
+  // Per-slicer add/select/clear
+  bindSlicerControls('Year','slYear','yearAdd','yearAll','yearClr');
+  bindSlicerControls('Department','slDept','deptAdd','deptAll','deptClr');
+  bindSlicerControls('Program','slProg','progAdd','progAll','progClr');
+  bindSlicerControls('Status','slStatus','statAdd','statAll','statClr');
+
   // Last save label
   $('#lastSave').textContent = state._updatedAt ? new Date(state._updatedAt).toLocaleString() : '—';
 }
 
 /* ===================== Branding ===================== */
+function preferredLogo(){
+  const url = ($('#logoUrl').value||'').trim();
+  if(url) return url; // external URL
+  const uploaded = state._pendingLogoDataURL;
+  if(uploaded) return uploaded;
+  return state.brand.logo || '/images/Logosh.png';
+}
 function renderBrandCard(){
   const name = (state.brand?.name || 'Your Institution').trim() || 'Your Institution';
-  const logo = (state.brand?.logo && state.brand.logo.startsWith('data:')) ? state.brand.logo : '/images/Logosh.png';
+  const logo = state.brand?.logo ? state.brand.logo : '/images/Logosh.png';
   $('#brandNameText').textContent = name;
   const img = $('#brandLogoImg'); if(img) img.src = logo;
   const navImg = $('#navLogoImg'); if(navImg) navImg.src = logo;
 }
 function saveBrand(){
-  const name = ($('#orgName').value||'').trim();
-  state.brand.name = name || 'Your Institution';
-  save(); renderBrandCard();
-  alert('Branding saved. The identity card and nav logo are updated and will print to PDF.');
+  const name = ($('#orgName').value||'').trim() || 'Your Institution';
+  state.brand.name = name;
+
+  // decide logo: file (if present) > URL (if provided) > keep existing
+  const file = $('#orgLogo').files && $('#orgLogo').files[0];
+  const url = ($('#logoUrl').value||'').trim();
+  if(file){
+    const reader=new FileReader();
+    reader.onload=()=>{ state.brand.logo=reader.result; state._pendingLogoDataURL=''; $('#orgLogo').value=''; save(); renderBrandCard(); alert('Brand and logo saved.'); };
+    reader.readAsDataURL(file);
+  } else if(url){
+    state.brand.logo=url;
+    save(); renderBrandCard(); alert('Brand and logo URL saved.');
+  } else {
+    save(); renderBrandCard(); alert('Brand name saved.');
+  }
 }
 $('#orgLogo').addEventListener('change', async (e)=>{
   const f=e.target.files && e.target.files[0]; if(!f) return;
   const reader=new FileReader();
-  reader.onload=()=>{ state.brand.logo=reader.result; save(); renderBrandCard(); alert('Logo saved (embedded locally for print).'); };
+  reader.onload=()=>{ state._pendingLogoDataURL=reader.result; $('#logoUrl').value=''; alert('Logo loaded (not saved yet). Click “Save Branding”.'); };
   reader.readAsDataURL(f);
 });
 
 /* ===================== Filters / Slicers ===================== */
 function refreshSlicers(){
-  const years = unique([ ...(state.placements||[]).map(r=>r.batch_year), ...(state.research||[]).map(r=>r.year), ...(state.budget||[]).map(r=>r.year) ]).sort();
-  const depts = unique([ ...(state.placements||[]).map(r=>r.dept), ...(state.research||[]).map(r=>r.dept), ...(state.budget||[]).map(r=>r.dept), ...(state.consultancy||[]).map(r=>r.owner_dept) ]).sort();
-  const progs = unique([ ...(state.placements||[]).map(r=>r.program), ...(state.research||[]).map(r=>r.program) ]).sort();
-  const statuses = unique([ ...(state.budget||[]).map(r=>r.status), ...(state.consultancy||[]).map(r=>r.status) ]).sort();
+  const years = unique([ ...(state.placements||[]).map(r=>String(r.batch_year||'').trim()), ...(state.research||[]).map(r=>String(r.year||'').trim()), ...(state.budget||[]).map(r=>String(r.year||'').trim()) ]).filter(Boolean).sort();
+  const depts = unique([ ...(state.placements||[]).map(r=>r.dept), ...(state.research||[]).map(r=>r.dept), ...(state.budget||[]).map(r=>r.dept), ...(state.consultancy||[]).map(r=>r.owner_dept) ]).filter(Boolean).sort();
+  const progs = unique([ ...(state.placements||[]).map(r=>r.program), ...(state.research||[]).map(r=>r.program) ]).filter(Boolean).sort();
+  const statuses = unique([ ...(state.budget||[]).map(r=>r.status), ...(state.consultancy||[]).map(r=>r.status) ]).filter(Boolean).sort();
   fillMulti($('#slYear'), years);
   fillMulti($('#slDept'), depts);
   fillMulti($('#slProg'), progs);
   fillMulti($('#slStatus'), statuses);
 }
-function fillMulti(sel, items){ sel.innerHTML=''; (items||[]).forEach(v=>{ if(!v) return; const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); }); }
+function fillMulti(sel, items){
+  sel.innerHTML='';
+  (items||[]).forEach(v=>{ const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); });
+}
 function getSelected(sel){ return Array.from(sel.selectedOptions||[]).map(o=>o.value); }
 function getSlicerState(){ return { years:getSelected($('#slYear')), depts:getSelected($('#slDept')), progs:getSelected($('#slProg')), stats:getSelected($('#slStatus')) }; }
 function setSlicerState(v){ setMulti($('#slYear'), v.years||[]); setMulti($('#slDept'), v.depts||[]); setMulti($('#slProg'), v.progs||[]); setMulti($('#slStatus'), v.stats||[]); }
 function setMulti(sel, values){ Array.from(sel.options||[]).forEach(o=>{ o.selected = (values||[]).includes(o.value); }); }
 function clearSlicers(){ ['slYear','slDept','slProg','slStatus'].forEach(id=>{ const sel=$('#'+id); Array.from(sel.options||[]).forEach(o=>o.selected=false); }); }
+function addOptions(sel, values){
+  const set = new Set(Array.from(sel.options).map(o=>o.value));
+  let added=false;
+  values.forEach(v=>{ const vv=String(v).trim(); if(!vv) return; if(!set.has(vv)){ const o=document.createElement('option'); o.value=vv; o.textContent=vv; sel.appendChild(o); set.add(vv); added=true; } });
+  if(added) sortSelectOptions(sel);
+}
+function sortSelectOptions(sel){
+  const opts = Array.from(sel.options).map(o=>({v:o.value, s:o.selected}));
+  opts.sort((a,b)=> a.v.localeCompare(b.v, undefined, {numeric:true}));
+  sel.innerHTML='';
+  opts.forEach(x=>{ const o=document.createElement('option'); o.value=x.v; o.textContent=x.v; o.selected=x.s; sel.appendChild(o); });
+}
+function bindSlicerControls(label, selId, addId, allId, clrId){
+  const sel = $('#'+selId);
+  $('#'+addId).addEventListener('click', ()=>{
+    const txt = prompt(`Add ${label} values (comma-separated)`, '');
+    if(!txt) return;
+    const vals = txt.split(',').map(s=>s.trim()).filter(Boolean);
+    addOptions(sel, vals);
+    // select newly added
+    Array.from(sel.options).forEach(o=>{ if(vals.includes(o.value)) o.selected=true; });
+  });
+  $('#'+allId).addEventListener('click', ()=>{ Array.from(sel.options).forEach(o=>o.selected=true); });
+  $('#'+clrId).addEventListener('click', ()=>{ Array.from(sel.options).forEach(o=>o.selected=false); });
+}
 
 function applyFilters(){
   const s=getSlicerState();
@@ -749,13 +852,11 @@ function renderAll(){
 
 function yearsFromResearch(ds){ return unique((ds.research||[]).map(r=>String(r.year))).sort(); }
 function renderCharts(ds){
-  // Research by year (count)
   const yrs = yearsFromResearch(ds);
   const counts = yrs.map(y => ds.research.filter(r => String(r.year) === y).length);
   drawLineChart($('#chResearch'), yrs, counts);
   $('#meta-research').textContent = `Years: ${yrs.join(', ') || '—'}`;
 
-  // Patents proxy (grouped by type per year)
   const types = ['SCI','Scopus','UGC'];
   const series = types.map(t => ({
     name: t,
@@ -764,7 +865,6 @@ function renderCharts(ds){
   drawGroupedBar($('#chPatents'), yrs, series);
   $('#meta-patents').textContent = types.join(' / ');
 
-  // Consultancy by quarter (sum of values)
   const mapQ = {};
   (ds.consultancy || []).forEach(r => {
     const sd = r.start_date || r.end_date;
@@ -780,7 +880,6 @@ function renderCharts(ds){
   drawLineChart($('#chConsult'), qKeys, qVals);
   $('#meta-consult').textContent = qKeys.length ? `Total: ${fmtINR(sum(qVals))} • Periods: ${qKeys.join(', ')}` : 'No data';
 
-  // Budget: Approved vs Spent
   const bYears = unique((ds.budget || []).map(r => String(r.year))).sort();
   const approved = bYears.map(y => sum(ds.budget.filter(r => String(r.year) === y && (r.status || '').toLowerCase() === 'approved').map(r => +r.amount_inr || 0)));
   const spent = bYears.map(y => sum(ds.budget.filter(r => String(r.year) === y && (r.status || '').toLowerCase() === 'spent').map(r => +r.amount_inr || 0)));
@@ -790,7 +889,6 @@ function renderCharts(ds){
   ]);
   $('#meta-budget').textContent = bYears.length ? `Approved: ${fmtINR(sum(approved))} • Spent: ${fmtINR(sum(spent))}` : 'No data';
 
-  // Placement % by program (stacked)
   const progs = unique((ds.placements || []).map(r => r.program)).sort();
   const placed = progs.map(p => sum(ds.placements.filter(r => r.program === p).map(r => +r.placed_count || 0)));
   const total = progs.map(p => sum(ds.placements.filter(r => r.program === p).map(r => +r.total_count || 0)));
@@ -807,24 +905,20 @@ function renderCharts(ds){
 function renderTables(){
   const ds=applyFilters();
 
-  // Research
   const qR=($('#qResearch').value||'').toLowerCase();
   const rowsR=ds.research.filter(r=> JSON.stringify(r).toLowerCase().includes(qR) );
   fillTable($('#tblResearch tbody'), rowsR, ['title','type','citations','year','dept','program','link'], (tr, r)=>{
     const a=tr.children[6].querySelector('a'); if(a){ a.href=r.link||'#'; a.textContent='open'; a.target='_blank'; a.rel='noopener'; }
   });
 
-  // Consultancy
   const qC=($('#qConsult').value||'').toLowerCase();
   const rowsC=ds.consultancy.filter(r=> JSON.stringify(r).toLowerCase().includes(qC) );
   fillTable($('#tblConsult tbody'), rowsC, ['client','value_inr','start_date','end_date','owner_dept','status'], null, (k,v)=> k==='value_inr'? fmtINR(v): v);
 
-  // Budget
   const qB=($('#qBudget').value||'').toLowerCase();
   const rowsB=ds.budget.filter(r=> JSON.stringify(r).toLowerCase().includes(qB) );
   fillTable($('#tblBudget tbody'), rowsB, ['item','type','amount_inr','year','owner','project','status'], null, (k,v)=> k==='amount_inr'? fmtINR(v): v);
 
-  // Placements
   const qP=($('#qPlace').value||'').toLowerCase();
   const rowsP=ds.placements
     .filter(r=> JSON.stringify(r).toLowerCase().includes(qP) )
@@ -889,16 +983,18 @@ function parseFromTextarea(kind){
   const txt=(ta.value||'').trim(); if(!txt){ alert('Paste CSV first or use Upload.'); return; }
   const rows=parseCSV(txt); if(!rows.length){ alert('No rows found.'); return; }
 
-  // Ensure required keys exist (fill as empty if missing)
+  // Ensure keys
   const ensureKeys = (row, keys)=> keys.forEach(k=>{ if(!(k in row)) row[k]=''; });
   if(kind==='placements'){ rows.forEach(r=> ensureKeys(r, ['program','batch_year','placed_count','total_count','median_ctc_inr','internship_pct','dept'])); }
   if(kind==='research'){ rows.forEach(r=> ensureKeys(r, ['title','type','citations','year','dept','program','link'])); }
   if(kind==='budget'){ rows.forEach(r=> ensureKeys(r, ['item','type','amount_inr','year','owner','project','status','dept'])); }
   if(kind==='consultancy'){ rows.forEach(r=> ensureKeys(r, ['client','value_inr','start_date','end_date','owner_dept','status'])); }
 
-  state[kind]=[...(state[kind]||[]), ...rows];
+  const replace = !!$('#replaceMode').checked;
+  state[kind]= replace ? rows : [ ...(state[kind]||[]), ...rows ];
+
   save(); refreshSlicers(); renderAll();
-  alert(`${rows.length} ${kind} row(s) merged.`);
+  alert(`${rows.length} ${kind} row(s) ${replace?'replaced.':'merged.'}`);
 }
 
 /* Upload helper binds a file to a textarea and parses */
@@ -931,6 +1027,33 @@ function exportFilteredCSVs(){
     {name:'consultancy.csv', rows:ds.consultancy, headers:['client','value_inr','start_date','end_date','owner_dept','status']}
   ];
   files.forEach(f=>{ const csv=toCSV(f.rows, f.headers); downloadBlob(csv, f.name, 'text/csv'); });
+}
+
+/* ===================== Config ===================== */
+function populateConfigFields(){
+  const c=state.config||{};
+  $('#cfgPlacement').value = (c.placement_target!=null)? Math.round(c.placement_target*100) : '';
+  $('#cfgConsult').value = (c.consultancy_target!=null)? c.consultancy_target : '';
+  $('#cfgBudget').value = (c.budget_ratio_target!=null)? Math.round(c.budget_ratio_target*100) : '';
+  $('#cfgOBE').value = (c.obe_target!=null)? Math.round(c.obe_target*100) : '';
+  $('#cfgOk').value = (c.thresholds?.ok!=null)? c.thresholds.ok : '';
+  $('#cfgWarn').value = (c.thresholds?.warn!=null)? c.thresholds.warn : '';
+}
+function saveConfig(){
+  const c=state.config||{};
+  const pctOrNull = v => (v===''||v==null)? null : Math.max(0, Math.min(100, Number(v)));
+  const ratioOrNull = v => (v===''||v==null)? null : Math.max(0, Math.min(1, Number(v)));
+
+  const p = pctOrNull($('#cfgPlacement').value); if(p!=null) c.placement_target = p/100;
+  const b = pctOrNull($('#cfgBudget').value); if(b!=null) c.budget_ratio_target = b/100;
+  const o = pctOrNull($('#cfgOBE').value); if(o!=null) c.obe_target = o/100;
+  const cons = $('#cfgConsult').value; if(cons!=='' && cons!=null) c.consultancy_target = Number(cons);
+
+  c.thresholds = c.thresholds || {};
+  const ok = ratioOrNull($('#cfgOk').value); if(ok!=null) c.thresholds.ok = ok;
+  const warn = ratioOrNull($('#cfgWarn').value); if(warn!=null) c.thresholds.warn = warn;
+
+  state.config=c; save(); renderAll(); alert('Config saved.');
 }
 
 // Kick off
