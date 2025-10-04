@@ -80,9 +80,9 @@ textarea{min-height:110px; resize:vertical}
 .brand{display:flex;gap:10px;align-items:center}
 .brand-img{height:40px;width:auto;border-radius:8px;border:1px solid var(--line);background:#fff;object-fit:contain;padding:4px}
 .brand span{font-weight:800}
-.menu a{margin-left:14px;color:var(--muted);font-weight:600;text-decoration:none}
-.menu a:hover{color:var(--text)}
-.menu a[aria-current="page"]{color:var(--text);text-decoration:underline}
+.menu a{margin-left:14px;color:#5a6b88;font-weight:600;text-decoration:none}
+.menu a:hover{color:#142036}
+.menu a[aria-current="page"]{color:#142036;text-decoration:underline}
 
 .kpi{padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff;display:flex;flex-direction:column;gap:6px}
 .kpi .value{font-size:1.4rem; font-weight:800}
@@ -95,7 +95,7 @@ canvas{width:100%; height:300px; display:block}
 .brand-card{display:flex;align-items:center;gap:14px}
 .brand-card img{height:56px;width:56px;object-fit:contain;border:1px solid var(--line);border-radius:12px;background:#fff;padding:6px}
 .brand-card .title{font-weight:800;font-size:1.1rem}
-.brand-card .sub{color:var(--muted)}
+.brand-card .sub{color:#5a6b88}
 
 fieldset{border:1px dashed var(--line); border-radius:12px; padding:12px}
 legend{font-weight:700;color:#374a6b}
@@ -114,7 +114,6 @@ legend{font-weight:700;color:#374a6b}
 <nav class="nav" aria-label="Global">
   <div class="container inner">
     <div class="brand">
-      <!-- Default logo; changes live on upload/URL/save -->
       <img id="navLogoImg" src="/images/Logosh.png" alt="Logo" class="brand-img" />
       <span>Academic Leadership Dashboard</span>
     </div>
@@ -425,7 +424,7 @@ ABC Corp,300000,2024-04-01,2024-12-31,Engineering,active"></textarea>
         <h2 style="margin:0 0 6px">How to Use & Data Schemas</h2>
         <p class="lead">Host it anywhere—or open from disk. Data never leaves your browser.</p>
         <ul>
-          <li><b>Branding</b>: Upload a logo or paste a URL → Save Branding. “Clear Logo” resets to default.</li>
+          <li><b>Branding</b>: Upload logo or paste a URL → Save Branding. “Clear Logo” resets to default; “Reset Brand” clears name+logo.</li>
           <li><b>Slicers</b>: Add custom values, Select All, Clear; “Reset Options From Data” rebuilds lists from the datasets.</li>
           <li><b>Import</b>: Paste CSV then “Parse & Merge”, or upload CSV. Use JSON bundle to import everything.</li>
           <li><b>Export</b>: Export filtered CSVs or the full JSON bundle.</li>
@@ -451,36 +450,39 @@ consultancy: client, value_inr, start_date (YYYY-MM-DD), end_date, owner_dept, s
 </footer>
 
 <script>
-/* ======= Core state ======= */
+"use strict";
+
+/* ======= helpers ======= */
 const KEY='leadership.dashboard.singlefile.v1';
+const DEFAULT_LOGO='/images/Logosh.png';
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
-const state = JSON.parse(localStorage.getItem(KEY)||'{}');
-const DEFAULT_LOGO='/images/Logosh.png';
+const on=(id,ev,fn)=>{ const el=$('#'+id); if(el){ el.addEventListener(ev,fn); } };
+const safeSet=(id,prop,val)=>{ const el=$('#'+id); if(el) el[prop]=val; };
+
+const state = (()=>{ try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch{ return {}; } })();
 
 function save(){
   try{
     state._updatedAt=new Date().toISOString();
     localStorage.setItem(KEY, JSON.stringify(state));
-    const t=$('#lastSave'); if(t) t.textContent=new Date(state._updatedAt).toLocaleString();
-  }catch(e){ console.error('Save failed', e); alert('Save failed. Check storage permissions.'); }
+    safeSet('lastSave','textContent', new Date(state._updatedAt).toLocaleString());
+  }catch(e){ console.error(e); alert('Save failed (storage permission).'); }
 }
 function resetAll(){ localStorage.removeItem(KEY); location.reload(); }
 
-/* ======= CSV helpers (robust quoted parsing) ======= */
+/* ===== CSV utils (robust) ===== */
 function splitCSVLine(line){
-  const out=[]; let cur=''; let inQ=false;
+  const out=[]; let cur='', q=false;
   for(let i=0;i<line.length;i++){
     const ch=line[i];
-    if(inQ){
-      if(ch === '"'){
-        if(i+1<line.length && line[i+1] === '"'){ cur+='"'; i++; }
-        else { inQ=false; }
-      } else { cur+=ch; }
-    } else {
-      if(ch === '"'){ inQ=true; }
-      else if(ch === ','){ out.push(cur); cur=''; }
-      else { cur+=ch; }
+    if(q){
+      if(ch=='"'){ if(i+1<line.length && line[i+1]=='"'){ cur+='"'; i++; } else q=false; }
+      else cur+=ch;
+    }else{
+      if(ch=='"') q=true;
+      else if(ch==','){ out.push(cur); cur=''; }
+      else cur+=ch;
     }
   }
   out.push(cur);
@@ -491,7 +493,7 @@ function parseCSV(text){
   if(!norm) return [];
   const lines=norm.split('\n');
   let headers=splitCSVLine(lines[0]);
-  if(headers[0]?.charCodeAt(0)===0xFEFF){ headers[0]=headers[0].replace(/^\uFEFF/,''); }
+  if(headers[0]?.charCodeAt(0)===0xFEFF) headers[0]=headers[0].replace(/^\uFEFF/,'');
   const rows=[];
   for(let i=1;i<lines.length;i++){
     const L=lines[i]; if(!L || !L.trim()) continue;
@@ -513,6 +515,7 @@ function downloadBlob(data, name, type='text/plain'){
   const a=document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click();
   setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },300);
 }
+
 const unique = arr => Array.from(new Set((arr||[]).filter(v=>v!=='' && v!=null)));
 const sum = arr => (arr||[]).reduce((a,b)=>a+(+b||0),0);
 const mean = arr => (arr&&arr.length)? sum(arr)/arr.length : 0;
@@ -520,7 +523,7 @@ const median = arr => { const v=(arr||[]).map(x=>+x||0).sort((a,b)=>a-b); if(!v.
 const fmtINR = n => '₹'+(+n||0).toLocaleString('en-IN');
 const pct = n => (+(n||0)).toFixed(1)+'%';
 
-/* ======= Demo data ======= */
+/* ===== Demo ===== */
 const DEMO={
   config:{ placement_target:0.8, consultancy_target:2000000, budget_ratio_target:0.9, obe_target:0.75, thresholds:{ok:0.9, warn:0.75} },
   placements:[
@@ -551,8 +554,9 @@ const DEMO={
   brand:{ name:'Your Institution', logo:'' }
 };
 
-/* ======= Init ======= */
+/* ===== Init ===== */
 function init(){
+  // seed state
   const firstRun=!state._seeded;
   state.config = state.config || JSON.parse(JSON.stringify(DEMO.config));
   state.placements = state.placements || [];
@@ -560,7 +564,6 @@ function init(){
   state.budget = state.budget || [];
   state.consultancy = state.consultancy || [];
   state.brand = state.brand || {name:'',logo:''};
-
   if(firstRun || (!state.placements.length && !state.research.length && !state.budget.length && !state.consultancy.length)){
     state.config=JSON.parse(JSON.stringify(DEMO.config));
     state.placements=JSON.parse(JSON.stringify(DEMO.placements));
@@ -573,143 +576,129 @@ function init(){
   if(!state.brand.name) state.brand.name='Your Institution';
   if(!state._updatedAt) save();
 
-  // Branding fields & live preview
-  $('#orgName').value=state.brand.name||'';
-  $('#logoUrl').value='';
+  // Branding fields live preview + fallback
+  safeSet('orgName','value',state.brand.name||'');
+  $("#brandLogoImg").addEventListener('error', ()=>{ $("#brandLogoImg").src = DEFAULT_LOGO; });
+  $("#navLogoImg").addEventListener('error', ()=>{ $("#navLogoImg").src = DEFAULT_LOGO; });
   renderBrandImages(getStoredLogo());
   $('#brandNameText').textContent=state.brand.name||'Your Institution';
+  $('#orgName').addEventListener('input', ()=>{ $('#brandNameText').textContent=($('#orgName').value||'').trim()||'Your Institution'; });
 
-  $('#orgName').addEventListener('input', ()=>{
-    $('#brandNameText').textContent=($('#orgName').value||'').trim()||'Your Institution';
-  });
-
-  // Logo upload: live preview NOW (object URL), also keep DataURL pending for save
-  $('#orgLogo').addEventListener('change', async (e)=>{
+  // Upload file → instant preview, pending save
+  on('orgLogo','change', async (e)=>{
     const f=e.target.files && e.target.files[0]; if(!f) return;
     const objURL=URL.createObjectURL(f);
-    renderBrandImages(objURL); // instant preview everywhere
+    renderBrandImages(objURL);
     const reader=new FileReader();
-    reader.onload=()=>{ state._pendingLogoDataURL=reader.result; $('#logoUrl').value=''; };
+    reader.onload=()=>{ state._pendingLogoDataURL=reader.result; state._pendingLogoURL=''; };
     reader.readAsDataURL(f);
   });
-
-  // Logo URL: live preview NOW; pending until Save
-  $('#logoUrl').addEventListener('input', ()=>{
+  // URL field → instant preview, pending save
+  on('logoUrl','input', ()=>{
     const url=($('#logoUrl').value||'').trim();
-    if(url){ state._pendingLogoURL=url; renderBrandImages(url); }
+    if(url){ state._pendingLogoURL=url; state._pendingLogoDataURL=''; renderBrandImages(url); }
     else { state._pendingLogoURL=''; renderBrandImages(getStoredLogo()); }
   });
 
-  $('#saveBrand').addEventListener('click', saveBrand);
-  $('#clearLogo').addEventListener('click', ()=>{
-    // Clear both stored & pending logos
-    state.brand.logo='';
-    state._pendingLogoDataURL='';
-    state._pendingLogoURL='';
-    $('#orgLogo').value='';
-    $('#logoUrl').value='';
-    save();
-    renderBrandImages(DEFAULT_LOGO);
-    alert('Logo cleared.');
+  on('saveBrand','click', saveBrand);
+  on('clearLogo','click', ()=>{
+    state.brand.logo=''; state._pendingLogoDataURL=''; state._pendingLogoURL='';
+    safeSet('orgLogo','value',''); safeSet('logoUrl','value','');
+    renderBrandImages(DEFAULT_LOGO); save(); alert('Logo cleared.');
   });
-  $('#resetBrand').addEventListener('click', ()=>{
+  on('resetBrand','click', ()=>{
     state.brand={name:'',logo:''};
-    $('#orgName').value='';
-    $('#logoUrl').value='';
-    $('#orgLogo').value='';
-    save();
+    safeSet('orgName','value',''); safeSet('logoUrl','value',''); safeSet('orgLogo','value','');
     $('#brandNameText').textContent='Your Institution';
-    renderBrandImages(DEFAULT_LOGO);
-    alert('Brand reset.');
+    renderBrandImages(DEFAULT_LOGO); save(); alert('Brand reset.');
   });
 
-  // Slicers/options
+  // slicers
   refreshSlicers();
   bindSlicerControls('Year','slYear','yearAdd','yearAll','yearClr');
   bindSlicerControls('Department','slDept','deptAdd','deptAll','deptClr');
   bindSlicerControls('Program','slProg','progAdd','progAll','progClr');
   bindSlicerControls('Status','slStatus','statAdd','statAll','statClr');
 
-  // Actions
-  $('#applyFilters').addEventListener('click', renderAll);
-  $('#clearFilters').addEventListener('click', ()=>{ clearSlicers(); renderAll(); });
-  $('#saveView').addEventListener('click', ()=>{ state.view=getSlicerState(); save(); alert('View saved.'); });
-  $('#loadView').addEventListener('click', ()=>{ if(state.view){ setSlicerState(state.view); renderAll(); } else alert('No saved view yet.'); });
-  $('#resetSlicerOptions').addEventListener('click', ()=>{ refreshSlicers(); alert('Options rebuilt from data.'); });
-  $('#printView').addEventListener('click', ()=>window.print());
-  $('#exportFiltered').addEventListener('click', exportFilteredCSVs);
+  on('applyFilters','click', renderAll);
+  on('clearFilters','click', ()=>{ clearSlicers(); renderAll(); });
+  on('saveView','click', ()=>{ state.view=getSlicerState(); save(); alert('View saved.'); });
+  on('loadView','click', ()=>{ if(state.view){ setSlicerState(state.view); renderAll(); } else alert('No saved view yet.'); });
+  on('resetSlicerOptions','click', ()=>{ refreshSlicers(); alert('Options rebuilt from data.'); });
+  on('printView','click', ()=>window.print());
+  on('exportFiltered','click', exportFilteredCSVs);
 
   // Data manager
-  $('#loadDemo').addEventListener('click', ()=>{
+  on('loadDemo','click', ()=>{
     Object.assign(state, JSON.parse(JSON.stringify(DEMO)));
     state._seeded=true; save();
     refreshSlicers(); renderAll();
-    $('#orgName').value=state.brand.name;
+    safeSet('orgName','value',state.brand.name||'');
     renderBrandImages(getStoredLogo());
     alert('Demo data loaded.');
   });
-  $('#importJSON').addEventListener('click', importJSON);
-  $('#exportJSON').addEventListener('click', ()=>{
+  on('importJSON','click', importJSON);
+  on('exportJSON','click', ()=>{
     const bundle={config:state.config,placements:state.placements,research:state.research,budget:state.budget,consultancy:state.consultancy,brand:state.brand};
     downloadBlob(JSON.stringify(bundle,null,2),'dashboard-data.json','application/json');
   });
-  $('#resetAll').addEventListener('click', ()=>{ if(confirm('Reset ALL data & settings?')) resetAll(); });
-  $('#downloadTemplates').addEventListener('click', downloadAllTemplates);
+  on('resetAll','click', ()=>{ if(confirm('Reset ALL data & settings?')) resetAll(); });
+  on('downloadTemplates','click', downloadAllTemplates);
 
-  // Upload helpers + templates
+  // uploads + templates
   bindUpload('Placements','uplPlacements','btnUplPlacements','csvPlacements','placements');
   bindUpload('Research','uplResearch','btnUplResearch','csvResearch','research');
   bindUpload('Budget','uplBudget','btnUplBudget','csvBudget','budget');
   bindUpload('Consultancy','uplConsult','btnUplConsult','csvConsult','consultancy');
 
-  $('#tplPlacements').addEventListener('click', ()=> downloadBlob('program,batch_year,placed_count,total_count,median_ctc_inr,internship_pct,dept\r\n','placements_template.csv','text/csv'));
-  $('#tplResearch').addEventListener('click', ()=> downloadBlob('title,type,citations,year,dept,program,link\r\n','research_template.csv','text/csv'));
-  $('#tplBudget').addEventListener('click', ()=> downloadBlob('item,type,amount_inr,year,owner,project,status,dept\r\n','budget_template.csv','text/csv'));
-  $('#tplConsult').addEventListener('click', ()=> downloadBlob('client,value_inr,start_date,end_date,owner_dept,status\r\n','consultancy_template.csv','text/csv'));
+  on('tplPlacements','click', ()=> downloadBlob('program,batch_year,placed_count,total_count,median_ctc_inr,internship_pct,dept\r\n','placements_template.csv','text/csv'));
+  on('tplResearch','click', ()=> downloadBlob('title,type,citations,year,dept,program,link\r\n','research_template.csv','text/csv'));
+  on('tplBudget','click', ()=> downloadBlob('item,type,amount_inr,year,owner,project,status,dept\r\n','budget_template.csv','text/csv'));
+  on('tplConsult','click', ()=> downloadBlob('client,value_inr,start_date,end_date,owner_dept,status\r\n','consultancy_template.csv','text/csv'));
 
-  // Parse & merge buttons
+  // parse & merge buttons
   $$('[data-parse]').forEach(btn=> btn.addEventListener('click', ()=> parseFromTextarea(btn.dataset.parse)));
 
-  // Table search
-  $('#qResearch').addEventListener('input', renderTables);
-  $('#qConsult').addEventListener('input', renderTables);
-  $('#qBudget').addEventListener('input', renderTables);
-  $('#qPlace').addEventListener('input', renderTables);
+  // table searches
+  on('qResearch','input', renderTables);
+  on('qConsult','input', renderTables);
+  on('qBudget','input', renderTables);
+  on('qPlace','input', renderTables);
 
-  // Export single table
+  // single table export
   $$('[data-export-table]').forEach(b=> b.addEventListener('click', ()=> exportTableCSV(b.dataset.exportTable)));
 
-  // First render
+  // config
+  populateConfigFields();
+  on('saveConfig','click', saveConfig);
+  on('resetConfig','click', ()=>{ state.config=JSON.parse(JSON.stringify(DEMO.config)); save(); populateConfigFields(); renderAll(); alert('Config reset.'); });
+
+  // first render
   renderAll();
-  $('#lastSave')?.textContent = state._updatedAt ? new Date(state._updatedAt).toLocaleString() : '—';
+  safeSet('lastSave','textContent', state._updatedAt ? new Date(state._updatedAt).toLocaleString() : '—');
 }
 
-/* ======= Branding helpers ======= */
+/* ===== Branding ===== */
 function getStoredLogo(){ return state.brand?.logo ? state.brand.logo : DEFAULT_LOGO; }
 function renderBrandImages(src){
-  $('#brandLogoImg').src = src || DEFAULT_LOGO;
-  $('#navLogoImg').src = src || DEFAULT_LOGO;
+  const url = src || DEFAULT_LOGO;
+  const nav = $('#navLogoImg'); if(nav) nav.src=url;
+  const card = $('#brandLogoImg'); if(card) card.src=url;
 }
 function saveBrand(){
-  // name
   const name=($('#orgName').value||'').trim()||'Your Institution';
   state.brand.name=name;
   $('#brandNameText').textContent=name;
 
-  // logo precedence: pending file dataURL > pending URL > keep existing
-  if(state._pendingLogoDataURL){
-    state.brand.logo=state._pendingLogoDataURL;
-    state._pendingLogoDataURL='';
-  } else if(state._pendingLogoURL){
-    state.brand.logo=state._pendingLogoURL;
-    state._pendingLogoURL='';
-  }
+  if(state._pendingLogoDataURL){ state.brand.logo=state._pendingLogoDataURL; state._pendingLogoDataURL=''; }
+  else if(state._pendingLogoURL){ state.brand.logo=state._pendingLogoURL; state._pendingLogoURL=''; }
+
   save();
   renderBrandImages(getStoredLogo());
   alert('Branding saved.');
 }
 
-/* ======= Slicers & filtering ======= */
+/* ===== Slicers ===== */
 function refreshSlicers(){
   const years=unique([...(state.placements||[]).map(r=>String(r.batch_year||'').trim()),
                       ...(state.research||[]).map(r=>String(r.year||'').trim()),
@@ -727,32 +716,33 @@ function refreshSlicers(){
   fillMulti($('#slProg'),progs);
   fillMulti($('#slStatus'),stats);
 }
-function fillMulti(sel, items){ sel.innerHTML=''; (items||[]).forEach(v=>{ const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); }); }
-function getSelected(sel){ return Array.from(sel.selectedOptions||[]).map(o=>o.value); }
+function fillMulti(sel, items){ if(!sel) return; sel.innerHTML=''; (items||[]).forEach(v=>{ const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); }); }
+function getSelected(sel){ return Array.from(sel?.selectedOptions||[]).map(o=>o.value); }
 function getSlicerState(){ return {years:getSelected($('#slYear')), depts:getSelected($('#slDept')), progs:getSelected($('#slProg')), stats:getSelected($('#slStatus'))}; }
 function setSlicerState(v){ setMulti($('#slYear'),v.years||[]); setMulti($('#slDept'),v.depts||[]); setMulti($('#slProg'),v.progs||[]); setMulti($('#slStatus'),v.stats||[]); }
-function setMulti(sel, values){ Array.from(sel.options||[]).forEach(o=>o.selected=(values||[]).includes(o.value)); }
-function clearSlicers(){ ['slYear','slDept','slProg','slStatus'].forEach(id=>{ const sel=$('#'+id); Array.from(sel.options||[]).forEach(o=>o.selected=false); }); }
-
+function setMulti(sel, values){ if(!sel) return; Array.from(sel.options||[]).forEach(o=>o.selected=(values||[]).includes(o.value)); }
+function clearSlicers(){ ['slYear','slDept','slProg','slStatus'].forEach(id=>{ const sel=$('#'+id); Array.from(sel?.options||[]).forEach(o=>o.selected=false); }); }
 function addOptions(sel, values){
+  if(!sel) return;
   const set=new Set(Array.from(sel.options).map(o=>o.value));
   let added=false;
   (values||[]).forEach(v=>{ const vv=String(v).trim(); if(!vv) return; if(!set.has(vv)){ const o=document.createElement('option'); o.value=vv; o.textContent=vv; sel.appendChild(o); set.add(vv); added=true; } });
-  if(added){ const opts=Array.from(sel.options).map(o=>({v:o.value,s:o.selected})).sort((a,b)=>a.v.localeCompare(b.v,undefined,{numeric:true}));
-    sel.innerHTML=''; opts.forEach(x=>{ const o=document.createElement('option'); o.value=x.v; o.textContent=x.v; o.selected=x.s; sel.appendChild(o); }); }
+  if(added){
+    const opts=Array.from(sel.options).map(o=>({v:o.value,s:o.selected})).sort((a,b)=>a.v.localeCompare(b.v,undefined,{numeric:true}));
+    sel.innerHTML=''; opts.forEach(x=>{ const o=document.createElement('option'); o.value=x.v; o.textContent=x.v; o.selected=x.s; sel.appendChild(o); });
+  }
 }
 function bindSlicerControls(label, selId, addId, allId, clrId){
   const sel=$('#'+selId);
-  $('#'+addId).addEventListener('click', ()=>{
+  on(addId,'click', ()=>{
     const txt=prompt(`Add ${label} values (comma-separated)`, ''); if(!txt) return;
     const vals=txt.split(',').map(s=>s.trim()).filter(Boolean);
     addOptions(sel, vals);
     Array.from(sel.options).forEach(o=>{ if(vals.includes(o.value)) o.selected=true; });
   });
-  $('#'+allId).addEventListener('click', ()=>{ Array.from(sel.options).forEach(o=>o.selected=true); });
-  $('#'+clrId).addEventListener('click', ()=>{ Array.from(sel.options).forEach(o=>o.selected=false); });
+  on(allId,'click', ()=>{ Array.from(sel?.options||[]).forEach(o=>o.selected=true); });
+  on(clrId,'click', ()=>{ Array.from(sel?.options||[]).forEach(o=>o.selected=false); });
 }
-
 function applyFilters(){
   const s=getSlicerState();
   const years=s.years.length? s.years:null;
@@ -778,7 +768,7 @@ function applyFilters(){
   };
 }
 
-/* ======= KPIs ======= */
+/* ===== KPIs ===== */
 function computeKPIs(ds){
   const p=ds.placements, placed=sum(p.map(r=>+r.placed_count||0)), total=sum(p.map(r=>+r.total_count||0));
   const placementRate= total? (placed/total):0;
@@ -795,7 +785,7 @@ function computeKPIs(ds){
 }
 function statusBadge(ratio, cfg){ const th=cfg.thresholds||{ok:0.9,warn:0.75}; return ratio>=th.ok?'status-ok':(ratio>=th.warn?'status-warn':'status-risk'); }
 function renderKPIs(ds){
-  const g=$('#kpiGrid'); g.innerHTML='';
+  const g=$('#kpiGrid'); if(!g) return; g.innerHTML='';
   const k=computeKPIs(ds); const cfg=ds.config||{};
   const tiles=[
     {name:'Placement %', value:pct(k.placementRate*100), badge:statusBadge(k.placementRate/(cfg.placement_target||0.8), cfg), note:`Target ${(cfg.placement_target*100||80).toFixed(0)}%`},
@@ -810,7 +800,7 @@ function renderKPIs(ds){
   tiles.forEach(t=>{ const d=document.createElement('div'); d.className='kpi'; d.innerHTML=`<div class="meta"><span class="badge ${t.badge}">${t.name}</span></div><div class="value">${t.value}</div><div class="small">${t.note||''}</div>`; g.appendChild(d); });
 }
 
-/* ======= Charts (Canvas) ======= */
+/* ===== Charts ===== */
 function drawLineChart(canvas, labels, series){
   if(!canvas) return; const ctx=canvas.getContext('2d'); if(!ctx) return;
   const cw=canvas.clientWidth||400, ch=canvas.clientHeight||300, W=canvas.width=cw*2, H=canvas.height=ch*2, pad=60;
@@ -846,7 +836,7 @@ function drawGroupedBar(canvas, cats, series){
   (cats||[]).forEach((c,i)=>{ (series||[]).forEach((s,si)=>{ const v=+s.values[i]||0; const h=(v/max)*(H-2*pad); const x=pad+i*step - groupW/2 + si*barW; ctx.fillStyle=colors[si%colors.length]; ctx.fillRect(x, H-pad-h, barW, h); }); });
 }
 
-/* ======= Render ======= */
+/* ===== Render ===== */
 function renderAll(){
   const ds=applyFilters();
   renderKPIs(ds);
@@ -859,12 +849,12 @@ function renderCharts(ds){
   const yrs=yearsFromResearch(ds);
   const counts=yrs.map(y=> ds.research.filter(r=>String(r.year)===y).length);
   drawLineChart($('#chResearch'), yrs, counts);
-  $('#meta-research').textContent = `Years: ${yrs.join(', ')||'—'}`;
+  safeSet('meta-research','textContent', `Years: ${yrs.join(', ')||'—'}`);
 
   const types=['SCI','Scopus','UGC'];
   const series=types.map(t=>({name:t, values:yrs.map(y=> ds.research.filter(r=>String(r.year)===y && String(r.type).toLowerCase()===t.toLowerCase()).length)}));
   drawGroupedBar($('#chPatents'), yrs, series);
-  $('#meta-patents').textContent = types.join(' / ');
+  safeSet('meta-patents','textContent', types.join(' / '));
 
   const mapQ={}; (ds.consultancy||[]).forEach(r=>{
     const d=new Date(r.start_date||r.end_date); if(isNaN(d)) return;
@@ -873,13 +863,13 @@ function renderCharts(ds){
   });
   const qKeys=Object.keys(mapQ).sort(), qVals=qKeys.map(k=>mapQ[k]);
   drawLineChart($('#chConsult'), qKeys, qVals);
-  $('#meta-consult').textContent = qKeys.length? `Total: ${fmtINR(sum(qVals))} • Periods: ${qKeys.join(', ')}`:'No data';
+  safeSet('meta-consult','textContent', qKeys.length? `Total: ${fmtINR(sum(qVals))} • Periods: ${qKeys.join(', ')}`:'No data');
 
   const bYears=unique((ds.budget||[]).map(r=>String(r.year))).sort();
   const approved=bYears.map(y=> sum(ds.budget.filter(r=>String(r.year)===y && (r.status||'').toLowerCase()==='approved').map(r=>+r.amount_inr||0)));
   const spent=bYears.map(y=> sum(ds.budget.filter(r=>String(r.year)===y && (r.status||'').toLowerCase()==='spent').map(r=>+r.amount_inr||0)));
   drawGroupedBar($('#chBudget'), bYears, [{name:'Approved',values:approved},{name:'Spent',values:spent}]);
-  $('#meta-budget').textContent = bYears.length? `Approved: ${fmtINR(sum(approved))} • Spent: ${fmtINR(sum(spent))}`:'No data';
+  safeSet('meta-budget','textContent', bYears.length? `Approved: ${fmtINR(sum(approved))} • Spent: ${fmtINR(sum(spent))}`:'No data');
 
   const progs=unique((ds.placements||[]).map(r=>r.program)).sort();
   const placed=progs.map(p=> sum(ds.placements.filter(r=>r.program===p).map(r=>+r.placed_count||0)));
@@ -887,10 +877,10 @@ function renderCharts(ds){
   const unplaced=total.map((t,i)=> Math.max(0,t-placed[i]));
   drawStackedBar($('#chPlacement'), progs, [{name:'Placed',values:placed},{name:'Unplaced',values:unplaced}]);
   const avg = total.reduce((a,b)=>a+b,0)? (placed.reduce((a,b)=>a+b,0) / total.reduce((a,b)=>a+b,0)):0;
-  $('#meta-place').textContent = progs.length? `Avg Placement: ${(avg*100).toFixed(1)}%`:'No data';
+  safeSet('meta-place','textContent', progs.length? `Avg Placement: ${(avg*100).toFixed(1)}%`:'No data');
 }
 
-/* ======= Tables ======= */
+/* ===== Tables ===== */
 function renderTables(){
   const ds=applyFilters();
 
@@ -916,7 +906,7 @@ function renderTables(){
   fillTable($('#tblPlace tbody'), rowsP, ['program','batch_year','placed','total','pct','ctc','intern']);
 }
 function fillTable(tbody, rows, headers, post, fmt){
-  tbody.innerHTML='';
+  if(!tbody) return; tbody.innerHTML='';
   (rows||[]).forEach(r=>{
     const tr=document.createElement('tr');
     (headers||[]).forEach(h=>{
@@ -937,11 +927,11 @@ function exportTableCSV(kind){
   const csv=toCSV(rows, headers); downloadBlob(csv, `${kind}.csv`, 'text/csv');
 }
 
-/* ======= Import / Export ======= */
+/* ===== Import/Export ===== */
 function importJSON(){
   const inp=document.createElement('input'); inp.type='file'; inp.accept='application/json';
   inp.onchange=async ()=>{
-    const f=inp.files[0]; if(!f) return;
+    const f=inp.files?.[0]; if(!f) return;
     try{
       const obj=JSON.parse(await f.text());
       if(obj.config) state.config=obj.config;
@@ -951,7 +941,7 @@ function importJSON(){
       if(obj.consultancy) state.consultancy=obj.consultancy;
       if(obj.brand) state.brand=obj.brand;
       save(); refreshSlicers(); renderAll(); renderBrandImages(getStoredLogo());
-      $('#orgName').value=state.brand.name||'';
+      safeSet('orgName','value',state.brand.name||'');
       alert('JSON imported.');
     }catch(e){ console.error(e); alert('Invalid JSON.'); }
   };
@@ -967,15 +957,15 @@ function parseFromTextarea(kind){
   if(kind==='research'){ rows.forEach(r=>ensure(r,['title','type','citations','year','dept','program','link'])); }
   if(kind==='budget'){ rows.forEach(r=>ensure(r,['item','type','amount_inr','year','owner','project','status','dept'])); }
   if(kind==='consultancy'){ rows.forEach(r=>ensure(r,['client','value_inr','start_date','end_date','owner_dept','status'])); }
-  const replace=!!$('#replaceMode').checked;
+  const replace=!!$('#replaceMode')?.checked;
   state[kind]= replace ? rows : [ ...(state[kind]||[]), ...rows ];
   save(); refreshSlicers(); renderAll();
   alert(`${rows.length} ${kind} row(s) ${replace?'replaced.':'merged.'}`);
 }
 function bindUpload(label, inputId, btnId, textAreaId, kind){
-  $('#'+btnId).addEventListener('click', async ()=>{
+  on(btnId,'click', async ()=>{
     const inp=$('#'+inputId);
-    if(!inp.files || !inp.files[0]){ alert(`Choose a ${label} CSV file first.`); return; }
+    if(!inp?.files || !inp.files[0]){ alert(`Choose a ${label} CSV file first.`); return; }
     const text=await inp.files[0].text();
     $('#'+textAreaId).value=text;
     parseFromTextarea(kind);
@@ -998,15 +988,15 @@ function exportFilteredCSVs(){
   ].forEach(f=> downloadBlob(toCSV(f.rows,f.headers), f.name, 'text/csv'));
 }
 
-/* ======= Config ======= */
+/* ===== Config ===== */
 function populateConfigFields(){
   const c=state.config||{};
-  $('#cfgPlacement').value = (c.placement_target!=null)? Math.round(c.placement_target*100) : '';
-  $('#cfgConsult').value = (c.consultancy_target!=null)? c.consultancy_target : '';
-  $('#cfgBudget').value = (c.budget_ratio_target!=null)? Math.round(c.budget_ratio_target*100) : '';
-  $('#cfgOBE').value = (c.obe_target!=null)? Math.round(c.obe_target*100) : '';
-  $('#cfgOk').value = (c.thresholds?.ok!=null)? c.thresholds.ok : '';
-  $('#cfgWarn').value = (c.thresholds?.warn!=null)? c.thresholds.warn : '';
+  safeSet('cfgPlacement','value', (c.placement_target!=null)? Math.round(c.placement_target*100) : '');
+  safeSet('cfgConsult','value', (c.consultancy_target!=null)? c.consultancy_target : '');
+  safeSet('cfgBudget','value', (c.budget_ratio_target!=null)? Math.round(c.budget_ratio_target*100) : '');
+  safeSet('cfgOBE','value', (c.obe_target!=null)? Math.round(c.obe_target*100) : '');
+  safeSet('cfgOk','value', (c.thresholds?.ok!=null)? c.thresholds.ok : '');
+  safeSet('cfgWarn','value', (c.thresholds?.warn!=null)? c.thresholds.warn : '');
 }
 function saveConfig(){
   const c=state.config||{};
@@ -1022,11 +1012,8 @@ function saveConfig(){
   state.config=c; save(); renderAll(); alert('Config saved.');
 }
 
-/* Boot */
-document.addEventListener('DOMContentLoaded', ()=>{
-  init();
-  populateConfigFields();
-});
+/* ===== Boot ===== */
+document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
