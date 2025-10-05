@@ -49,7 +49,7 @@ body{
 .small{font-size:.9rem; color:#5a6b88}
 .mono{font-family:ui-monospace,Menlo,Consolas,monospace}
 
-.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:#text;font-weight:600;cursor:pointer}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600;cursor:pointer}
 .btn:hover{box-shadow:var(--ring)}
 .btn.ghost{background:#fff; border-style:dashed}
 .btn.danger{background:linear-gradient(180deg,#fff5f5,#ffecec); border-color:#ffd6d6; color:#8b1e1e}
@@ -175,7 +175,7 @@ legend{font-weight:700;color:#374a6b}
             <div class="row">
               <button class="btn sm" id="yearAdd">Add…</button>
               <button class="btn sm" id="yearAll">Select All</button>
-              <button class="btn sm" id="yearClr">Clear</button>
+              <button class="btn sm" id="yearClr">Delete</button>
             </div>
           </div>
           <div class="w-25">
@@ -184,7 +184,7 @@ legend{font-weight:700;color:#374a6b}
             <div class="row">
               <button class="btn sm" id="deptAdd">Add…</button>
               <button class="btn sm" id="deptAll">Select All</button>
-              <button class="btn sm" id="deptClr">Clear</button>
+              <button class="btn sm" id="deptClr">Delete</button>
             </div>
           </div>
           <div class="w-25">
@@ -193,7 +193,7 @@ legend{font-weight:700;color:#374a6b}
             <div class="row">
               <button class="btn sm" id="progAdd">Add…</button>
               <button class="btn sm" id="progAll">Select All</button>
-              <button class="btn sm" id="progClr">Clear</button>
+              <button class="btn sm" id="progClr">Delete</button>
             </div>
           </div>
           <div class="w-25">
@@ -202,7 +202,7 @@ legend{font-weight:700;color:#374a6b}
             <div class="row">
               <button class="btn sm" id="statAdd">Add…</button>
               <button class="btn sm" id="statAll">Select All</button>
-              <button class="btn sm" id="statClr">Clear</button>
+              <button class="btn sm" id="statClr">Delete</button>
             </div>
           </div>
 
@@ -448,7 +448,7 @@ Management,MBA,2024,82"></textarea>
         <p class="lead">Data never leaves your browser. Import with CSV or JSON bundle.</p>
         <ul>
           <li><b>Branding</b>: Upload logo (or URL) → Save Branding. “Clear Logo” resets to default; “Reset Brand” clears both.</li>
-          <li><b>Slicers</b>: Add custom values, Select All, Clear; “Reset Options From Data” rebuilds the lists.</li>
+          <li><b>Slicers</b>: Add custom values, Select All, <b>Delete</b>; “Reset Options From Data” rebuilds the lists.</li>
           <li><b>OBE</b>: Provide real OBE mapping % by dept/program/year in its dataset (no more proxy needed).</li>
         </ul>
         <b>CSV columns</b>
@@ -600,7 +600,7 @@ function init(){
   if(!state.brand.name) state.brand.name='Your Institution';
   if(!state._updatedAt) save();
 
-  // branding fields & live preview
+  // branding
   safeSet('orgName','value',state.brand.name||'');
   $("#brandLogoImg").addEventListener('error', ()=>{ $("#brandLogoImg").src = DEFAULT_LOGO; });
   $("#navLogoImg").addEventListener('error', ()=>{ $("#navLogoImg").src = DEFAULT_LOGO; });
@@ -608,7 +608,6 @@ function init(){
   $('#brandNameText').textContent=state.brand.name||'Your Institution';
   $('#orgName').addEventListener('input', ()=>{ $('#brandNameText').textContent=($('#orgName').value||'').trim()||'Your Institution'; });
 
-  // logo file → preview
   on('orgLogo','change', async (e)=>{
     const f=e.target.files && e.target.files[0]; if(!f) return;
     const objURL=URL.createObjectURL(f); renderBrandImages(objURL);
@@ -631,17 +630,14 @@ function init(){
   bindSlicerControls('Status','slStatus','statAdd','statAll','statClr');
 
   on('applyFilters','click', ()=>{ renderAll(); toast('Filters applied'); });
-
-  // CHANGED: top "Clear All" now clears slicers + table searches
-  on('clearFilters','click', ()=>{ clearAllFilters(); });
-
+  on('clearFilters','click', ()=>{ clearSlicers(); renderAll(); toast('Filters cleared'); });
   on('saveView','click', ()=>{ state.view=getSlicerState(); save(); toast('View saved'); });
   on('loadView','click', ()=>{ if(state.view){ setSlicerState(state.view); renderAll(); toast('View loaded'); } else toast('No saved view'); });
   on('resetSlicerOptions','click', ()=>{ refreshSlicers(); renderAll(); toast('Options rebuilt'); });
   on('printView','click', ()=>window.print());
   on('exportFiltered','click', exportFilteredCSVs);
 
-  // Data manager
+  // data manager
   on('loadDemo','click', ()=>{
     Object.assign(state, JSON.parse(JSON.stringify(DEMO)));
     state._seeded=true; save();
@@ -672,7 +668,7 @@ function init(){
   on('tplConsult','click', ()=> downloadBlob('client,value_inr,start_date,end_date,owner_dept,status\r\n','consultancy_template.csv','text/csv'));
   on('tplOBE','click', ()=> downloadBlob('dept,program,year,obe_mapped_pct\r\n','obe_template.csv','text/csv'));
 
-  // parse & merge buttons
+  // parse & merge
   $$('[data-parse]').forEach(btn=> btn.addEventListener('click', ()=> parseFromTextarea(btn.dataset.parse)));
 
   // table searches
@@ -747,6 +743,15 @@ function addOptions(sel, values){
     sel.innerHTML=''; opts.forEach(x=>{ const o=document.createElement('option'); o.value=x.v; o.textContent=x.v; o.selected=x.s; sel.appendChild(o); });
   }
 }
+function deleteSelectedOptions(sel){
+  if(!sel) return 0;
+  const opts=Array.from(sel.options);
+  const before=opts.length;
+  for(let i=opts.length-1;i>=0;i--){
+    if(opts[i].selected) sel.removeChild(opts[i]);
+  }
+  return before - sel.options.length;
+}
 function bindSlicerControls(label, selId, addId, allId, clrId){
   const sel=$('#'+selId);
   on(addId,'click', ()=>{
@@ -757,7 +762,12 @@ function bindSlicerControls(label, selId, addId, allId, clrId){
     renderAll(); toast(`${label} added`);
   });
   on(allId,'click', ()=>{ Array.from(sel?.options||[]).forEach(o=>o.selected=true); renderAll(); toast(`${label}: all selected`); });
-  on(clrId,'click', ()=>{ Array.from(sel?.options||[]).forEach(o=>o.selected=false); renderAll(); toast(`${label}: cleared`); });
+  // DELETE selected options instead of clearing selection
+  on(clrId,'click', ()=>{
+    const removed=deleteSelectedOptions(sel);
+    renderAll();
+    toast(removed ? `${label}: deleted ${removed}` : `Select ${label} to delete`);
+  });
 }
 function applyFilters(){
   const s=getSlicerState();
@@ -785,14 +795,6 @@ function applyFilters(){
   };
 }
 
-// NEW: clear everything user-filtering on top bar
-function clearAllFilters(){
-  clearSlicers();
-  ['qResearch','qConsult','qBudget','qPlace','qOBE'].forEach(id=>{ const el=$('#'+id); if(el) el.value=''; });
-  renderAll();
-  toast('All filters & searches cleared');
-}
-
 /* ===== KPIs ===== */
 function computeKPIs(ds){
   const p=ds.placements, placed=sum(p.map(r=>+r.placed_count||0)), total=sum(p.map(r=>+r.total_count||0));
@@ -806,7 +808,6 @@ function computeKPIs(ds){
   const approved=sum(b.filter(r=>(r.status||'').toLowerCase()==='approved').map(r=>+r.amount_inr||0));
   const util=(approved+spent)>0? (spent/(approved+spent)):0;
 
-  // OBE Mapping
   const obeRows = ds.obe||[];
   let obeRatio = 0;
   if(obeRows.length){
@@ -1054,6 +1055,9 @@ function saveConfig(){
   const warn=ratioOrNull($('#cfgWarn').value); if(warn!=null) c.thresholds.warn=warn;
   state.config=c; save(); renderAll(); toast('Config saved');
 }
+
+/* ===== Branding helpers ===== */
+function getStoredLogo(){ return state.brand?.logo ? state.brand.logo : DEFAULT_LOGO; }
 
 /* ===== Boot ===== */
 document.addEventListener('DOMContentLoaded', init);
