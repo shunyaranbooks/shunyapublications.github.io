@@ -49,7 +49,7 @@ body{
 .small{font-size:.9rem; color:#5a6b88}
 .mono{font-family:ui-monospace,Menlo,Consolas,monospace}
 
-.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:var(--text);font-weight:600;cursor:pointer}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f6fbff);box-shadow:var(--shadow);color:#text;font-weight:600;cursor:pointer}
 .btn:hover{box-shadow:var(--ring)}
 .btn.ghost{background:#fff; border-style:dashed}
 .btn.danger{background:linear-gradient(180deg,#fff5f5,#ffecec); border-color:#ffd6d6; color:#8b1e1e}
@@ -476,7 +476,7 @@ obe: dept, program, year, obe_mapped_pct
 "use strict";
 
 /* ======= helpers & state ======= */
-const KEY='leadership.dashboard.singlefile.v2';   // bump key to avoid stale state
+const KEY='leadership.dashboard.singlefile.v2';
 const DEFAULT_LOGO='/images/Logosh.png';
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
@@ -631,7 +631,10 @@ function init(){
   bindSlicerControls('Status','slStatus','statAdd','statAll','statClr');
 
   on('applyFilters','click', ()=>{ renderAll(); toast('Filters applied'); });
-  on('clearFilters','click', ()=>{ clearSlicers(); renderAll(); toast('Filters cleared'); });
+
+  // CHANGED: top "Clear All" now clears slicers + table searches
+  on('clearFilters','click', ()=>{ clearAllFilters(); });
+
   on('saveView','click', ()=>{ state.view=getSlicerState(); save(); toast('View saved'); });
   on('loadView','click', ()=>{ if(state.view){ setSlicerState(state.view); renderAll(); toast('View loaded'); } else toast('No saved view'); });
   on('resetSlicerOptions','click', ()=>{ refreshSlicers(); renderAll(); toast('Options rebuilt'); });
@@ -782,6 +785,14 @@ function applyFilters(){
   };
 }
 
+// NEW: clear everything user-filtering on top bar
+function clearAllFilters(){
+  clearSlicers();
+  ['qResearch','qConsult','qBudget','qPlace','qOBE'].forEach(id=>{ const el=$('#'+id); if(el) el.value=''; });
+  renderAll();
+  toast('All filters & searches cleared');
+}
+
 /* ===== KPIs ===== */
 function computeKPIs(ds){
   const p=ds.placements, placed=sum(p.map(r=>+r.placed_count||0)), total=sum(p.map(r=>+r.total_count||0));
@@ -795,14 +806,13 @@ function computeKPIs(ds){
   const approved=sum(b.filter(r=>(r.status||'').toLowerCase()==='approved').map(r=>+r.amount_inr||0));
   const util=(approved+spent)>0? (spent/(approved+spent)):0;
 
-  // OBE Mapping (real dataset first; fall back to internship proxy if no rows)
+  // OBE Mapping
   const obeRows = ds.obe||[];
   let obeRatio = 0;
   if(obeRows.length){
     const vals = obeRows.map(r => +r.obe_mapped_pct || 0);
-    obeRatio = mean(vals)/100; // 0..1
+    obeRatio = mean(vals)/100;
   }else{
-    // fallback proxy like before (internship%)
     obeRatio = mean(p.map(r=>+r.internship_pct||0))/100;
   }
   return {placementRate, medCTC, roCount, consVal, util, obeRatio};
@@ -1044,9 +1054,6 @@ function saveConfig(){
   const warn=ratioOrNull($('#cfgWarn').value); if(warn!=null) c.thresholds.warn=warn;
   state.config=c; save(); renderAll(); toast('Config saved');
 }
-
-/* ===== Branding helpers ===== */
-function getStoredLogo(){ return state.brand?.logo ? state.brand.logo : DEFAULT_LOGO; }
 
 /* ===== Boot ===== */
 document.addEventListener('DOMContentLoaded', init);
