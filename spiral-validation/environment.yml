@@ -1,11 +1,10 @@
-name: spiral-validation-pages
+name: spiral-validation
 channels:
   - conda-forge
 dependencies:
   - python=3.10
-  - pandas
-  - numpy
-  - matplotlib
-  - scikit-learn
+  - pandas=2.2.2
+  - numpy=1.26.4
+  - matplotlib=3.8.4
+  - ipykernel
   - jupyterlab
-  - pip
