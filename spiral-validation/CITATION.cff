@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this kit, please cite it."
+title: "Spiral Validation Kit"
+version: "1.0.0"
+date-released: 2025-10-06
+authors:
+  - family-names: Akhtar
+    given-names: Mohammad Amir Khusru
+    alias: Shunya
+repository-code: "https://github.com/shunyaranbooks/shunyapublications.github.io"
+license: MIT
