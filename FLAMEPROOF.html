@@ -1,0 +1,62 @@
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
+
+export default function FlameAuditTool() {
+  const [stressLevel, setStressLevel] = useState(0);
+  const [breath, setBreath] = useState(0);
+  const [clarity, setClarity] = useState(0);
+  const [result, setResult] = useState("");
+
+  const calculateFlameScore = () => {
+    const score = (stressLevel * 0.5 + breath * 0.3 + clarity * 0.2);
+    let message = "";
+    if (score < 30) message = "🟢 Cool Zone: The fire listens to you.";
+    else if (score < 70) message = "🟠 Warm Zone: Adjust breath or speak one small truth.";
+    else message = "🔴 Hot Zone: Step back, lengthen the exhale, name the edge.";
+    setResult(message);
+  };
+
+  return (
+    <div className="max-w-xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-4 text-center">🔥 Flame Audit</h1>
+      <p className="text-sm text-gray-500 mb-4 text-center">
+        A micro-tool inspired by <em>FLAMEPROOF — How to Stop Believing You Burn</em>.
+      </p>
+
+      <Card className="p-4 mb-4">
+        <CardContent className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium">Stress Level (0–100)</label>
+            <Input type="number" value={stressLevel} onChange={(e) => setStressLevel(Number(e.target.value))} />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Breath Depth (0–100)</label>
+            <Input type="number" value={breath} onChange={(e) => setBreath(Number(e.target.value))} />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Clarity / Calmness (0–100)</label>
+            <Input type="number" value={clarity} onChange={(e) => setClarity(Number(e.target.value))} />
+          </div>
+
+          <Button className="w-full mt-2" onClick={calculateFlameScore}>Run Flame Audit</Button>
+        </CardContent>
+      </Card>
+
+      {result && (
+        <div className="text-center">
+          <h2 className="text-xl font-semibold mb-2">Result</h2>
+          <p className="text-lg">{result}</p>
+        </div>
+      )}
+
+      <div className="mt-6 text-center text-sm text-gray-500">
+        <p>Tip: If you’re in the 🔴 zone, pause and breathe out longer than you breathe in. Then name one small truth aloud.</p>
+      </div>
+    </div>
+  );
+}
