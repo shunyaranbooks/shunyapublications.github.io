@@ -1,62 +1,89 @@
-import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Progress } from "@/components/ui/progress";
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Flame Audit</title>
+<style>
+  :root{--bg:#0f172a;--fg:#e5e7eb;--muted:#94a3b8;--card:#111827;--accent:#f97316;--ring:#22d3ee;}
+  *{box-sizing:border-box} body{margin:0;background:radial-gradient(1200px 600px at 20% -10%,#1f2937,transparent),
+                               radial-gradient(900px 500px at 110% 0%,#0b1020,transparent),var(--bg);
+       color:var(--fg);font:16px/1.5 system-ui,Segoe UI,Roboto,Helvetica,Arial}
+  .wrap{max-width:720px;margin:40px auto;padding:0 16px}
+  .title{display:flex;align-items:center;gap:.5rem;font-size:2.25rem;font-weight:800}
+  .subtitle{color:var(--muted);margin-top:.25rem;margin-bottom:1.5rem}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+        border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:18px 16px; box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  label{display:block;font-size:.9rem;margin:.25rem 0 .25rem .25rem}
+  input[type=number]{width:100%;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.15);
+                     background:#0b1020;color:var(--fg); outline:none}
+  input:focus{border-color:var(--ring); box-shadow:0 0 0 3px rgba(34,211,238,.25)}
+  .grid{display:grid;grid-template-columns:1fr;gap:14px}
+  @media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+  .btn{width:100%;margin-top:8px;padding:12px 16px;border:0;border-radius:12px;
+       background:linear-gradient(90deg,#fb923c,#ef4444); color:white;font-weight:700;cursor:pointer}
+  .btn:active{transform:translateY(1px)}
+  .result{margin-top:18px;padding:14px;border-radius:14px;background:#0b1222;border:1px solid rgba(255,255,255,.08)}
+  .tip{color:var(--muted);font-size:.9rem;margin-top:14px;text-align:center}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-weight:700;margin-left:.3rem}
+  .cool{background:rgba(34,197,94,.15);color:#86efac}
+  .warm{background:rgba(234,179,8,.15);color:#fde68a}
+  .hot{background:rgba(239,68,68,.15);color:#fecaca}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="title">🔥 Flame Audit</div>
+    <div class="subtitle">A micro-tool inspired by <em>FLAMEPROOF — How to Stop Believing You Burn</em>.</div>
 
-export default function FlameAuditTool() {
-  const [stressLevel, setStressLevel] = useState(0);
-  const [breath, setBreath] = useState(0);
-  const [clarity, setClarity] = useState(0);
-  const [result, setResult] = useState("");
-
-  const calculateFlameScore = () => {
-    const score = (stressLevel * 0.5 + breath * 0.3 + clarity * 0.2);
-    let message = "";
-    if (score < 30) message = "🟢 Cool Zone: The fire listens to you.";
-    else if (score < 70) message = "🟠 Warm Zone: Adjust breath or speak one small truth.";
-    else message = "🔴 Hot Zone: Step back, lengthen the exhale, name the edge.";
-    setResult(message);
-  };
-
-  return (
-    <div className="max-w-xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4 text-center">🔥 Flame Audit</h1>
-      <p className="text-sm text-gray-500 mb-4 text-center">
-        A micro-tool inspired by <em>FLAMEPROOF — How to Stop Believing You Burn</em>.
-      </p>
-
-      <Card className="p-4 mb-4">
-        <CardContent className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium">Stress Level (0–100)</label>
-            <Input type="number" value={stressLevel} onChange={(e) => setStressLevel(Number(e.target.value))} />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Breath Depth (0–100)</label>
-            <Input type="number" value={breath} onChange={(e) => setBreath(Number(e.target.value))} />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Clarity / Calmness (0–100)</label>
-            <Input type="number" value={clarity} onChange={(e) => setClarity(Number(e.target.value))} />
-          </div>
-
-          <Button className="w-full mt-2" onClick={calculateFlameScore}>Run Flame Audit</Button>
-        </CardContent>
-      </Card>
-
-      {result && (
-        <div className="text-center">
-          <h2 className="text-xl font-semibold mb-2">Result</h2>
-          <p className="text-lg">{result}</p>
+    <div class="card">
+      <div class="grid">
+        <div>
+          <label>Stress Level (0–100)</label>
+          <input id="stress" type="number" min="0" max="100" placeholder="e.g., 65" />
         </div>
-      )}
-
-      <div className="mt-6 text-center text-sm text-gray-500">
-        <p>Tip: If you’re in the 🔴 zone, pause and breathe out longer than you breathe in. Then name one small truth aloud.</p>
+        <div>
+          <label>Breath Depth (0–100)</label>
+          <input id="breath" type="number" min="0" max="100" placeholder="e.g., 40" />
+        </div>
+        <div>
+          <label>Clarity / Calmness (0–100)</label>
+          <input id="clarity" type="number" min="0" max="100" placeholder="e.g., 30" />
+        </div>
       </div>
+      <button class="btn" id="run">Run Flame Audit</button>
+      <div id="out" class="result" style="display:none"></div>
     </div>
-  );
-}
+
+    <div class="tip">
+      Tip: In the <span class="pill hot">🔴 Hot</span> zone, pause and breathe out longer than you breathe in.
+      Then name one small truth aloud.
+    </div>
+  </div>
+
+<script>
+  const stressEl = document.getElementById('stress');
+  const breathEl = document.getElementById('breath');
+  const clarityEl = document.getElementById('clarity');
+  const outEl    = document.getElementById('out');
+
+  function clamp(n){ n = Number(n); if (isNaN(n)) return 0; return Math.max(0, Math.min(100, n)); }
+
+  document.getElementById('run').addEventListener('click', () => {
+    const stress  = clamp(stressEl.value);
+    const breath  = clamp(breathEl.value);
+    const clarity = clamp(clarityEl.value);
+
+    const score = (stress * 0.5) + (breath * 0.3) + (clarity * 0.2);
+    let zone, badge, cls;
+
+    if (score < 30){ zone = "Cool Zone: The fire listens to you."; badge = "🟢 Cool"; cls = "pill cool"; }
+    else if (score < 70){ zone = "Warm Zone: Adjust breath or speak one small truth."; badge = "🟠 Warm"; cls = "pill warm"; }
+    else { zone = "Hot Zone: Step back, lengthen the exhale, name the edge."; badge = "🔴 Hot"; cls = "pill hot"; }
+
+    outEl.style.display = "block";
+    outEl.innerHTML = `<strong>Result</strong> <span class="${cls}">${badge}</span><br>${zone}`;
+  });
+</script>
+</body>
+</html>
