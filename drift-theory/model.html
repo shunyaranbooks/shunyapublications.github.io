@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drift Theory | Mathematical Model</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    window.MathJax = {
+      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
+      svg: {fontCache: 'global'}
+    };
+  </script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+<body>
+  <div class="page-gradient"></div>
+
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-mark">Δ</span>
+      <div class="logo-text">
+        <span class="logo-title">Drift Theory</span>
+        <span class="logo-subtitle">Mathematical Model</span>
+      </div>
+    </div>
+    <nav class="nav">
+      <ul class="nav-links nav-static">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="model.html" class="active">Mathematical Model</a></li>
+        <li><a href="comparison.html">Physics Comparison</a></li>
+        <li><a href="wormholes.html">Wormholes & Attractors</a></li>
+        <li><a href="outlook.html">Discussion & Outlook</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="content">
+    <article class="paper">
+      <h1>Drift Theory: Mathematical Model</h1>
+
+      <section>
+        <h2>2. Configuration Space of Experiential Frames</h2>
+        <h3>2.1 Experiential manifold</h3>
+        <p>
+          Let $\mathcal{X}$ denote a high-dimensional manifold representing the space of experiential frames.
+          A point $x \in \mathcal{X}$ encodes a coarse-grained description of what it is like for a subject to inhabit
+          a given moment, including:
+        </p>
+        <ul>
+          <li>perceptual interpretation of the environment,</li>
+          <li>autobiographical memory configuration (what is taken as past),</li>
+          <li>relational and affective context (who matters, in what way),</li>
+          <li>implicit expectations and predictions about near-future events.</li>
+        </ul>
+        <p>
+          Formally, one may write
+          $$x = (q, m, r),$$
+          where $q$ represents coarse physical context (e.g. location, posture, visible surroundings),
+          $m$ represents memory and self-narrative, and $r$ represents relational and emotional ties.
+        </p>
+        <p>
+          The manifold $\mathcal{X}$ is equipped with a metric
+          $$d : \mathcal{X} \times \mathcal{X} \to \mathbb{R}_{\ge 0}$$
+          capturing how different two experiential frames are. Components of $d$ may weight physical similarity,
+          memory differences, and relational differences differently.
+        </p>
+
+        <h3>2.2 Trajectory of subjective experience</h3>
+        <p>
+          A subject's lived reality over time is modeled as a continuous trajectory
+          $$\gamma: \mathbb{R} \to \mathcal{X}, \quad t \mapsto X(t).$$
+          Here, $t$ denotes subjective time, and $X(t)$ is the experiential frame at time $t$.
+          The continuity of $\gamma$ formalizes the intuition that experience usually changes smoothly:
+          there are no instantaneous jumps between radically incompatible frames under ordinary conditions.
+        </p>
+      </section>
+
+      <section>
+        <h2>3. Drift Dynamics in Experience-Space</h2>
+        <p>
+          To describe how $X(t)$ evolves, Drift Theory introduces a stochastic dynamical equation combining
+          structural constraints, emotional modulation, and random fluctuations.
+        </p>
+
+        <h3>3.1 Structural continuity potential</h3>
+        <p>
+          Let $\Phi: \mathcal{X} \to \mathbb{R}$ be a continuity potential. Intuitively, $\Phi$ penalizes frames
+          that are hard to reach from the current one without violating basic physical and cognitive consistency
+          (e.g. abrupt violation of physical laws, discontinuous memory changes with no narrative bridge).
+          The gradient $\nabla \Phi(x)$ encodes directions in which experiential change is "costly" or "implausible",
+          encouraging the trajectory to follow smoother evolution.
+        </p>
+
+        <h3>3.2 Affective and relational potential</h3>
+        <p>
+          Let $E(t) \in \mathbb{R}^k$ represent the subject's emotional state vector at time $t$, with components
+          corresponding to affective dimensions such as fear, joy, shame, attachment, guilt, or love. Define
+          the emotional intensity as
+          $$e(t) = \lVert E(t) \rVert.$$
+        </p>
+        <p>
+          Let $C$ denote a set of relatively stable commitment parameters, encoding long-term attachments, values,
+          and promises (e.g. commitment to a partner, moral principles). These shape how the subject evaluates frames
+          in terms of coherence with those commitments.
+        </p>
+        <p>
+          Define an affective–relational potential
+          $$\Psi: \mathcal{X} \times \mathcal{C} \to \mathbb{R}, \quad (x, C) \mapsto \Psi(x; C),$$
+          lower for frames that align with commitments and emotionally preferred outcomes, higher for frames that
+          represent betrayals or ruptures of those commitments.
+        </p>
+
+        <h3>3.3 Drift equation</h3>
+        <p>
+          The dynamics of $X_t = X(t)$ are modeled as a Langevin-type stochastic differential equation (SDE):
+        </p>
+        <p class="equation">
+          $$
+          dX_t = -\nabla \Phi(X_t)\,dt
+                 - \alpha e(t) \nabla \Psi(X_t;C)\,dt
+                 + \sqrt{2D (1 + \kappa e(t))}\, dW_t.
+          $$
+        </p>
+        <p>
+          Here:
+        </p>
+        <ul>
+          <li>$\alpha > 0$ controls the strength with which emotional intensity biases drift along $-\nabla \Psi$;</li>
+          <li>$D > 0$ is a baseline diffusion coefficient capturing everyday micro-variability in experience;</li>
+          <li>$\kappa \ge 0$ governs how emotion amplifies experiential variability;</li>
+          <li>$W_t$ is a Wiener process on $\mathcal{X}$ (Brownian noise).</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>6. Probability Distributions over Experiential Versions</h2>
+        <p>
+          In addition to a single realized trajectory, Drift Theory can consider a probability distribution
+          $\rho(x,t)$ over $\mathcal{X}$, representing the density of possible experiential frames at time $t$
+          given the stochastic dynamics. The SDE for $X_t$ induces a corresponding Fokker–Planck equation:
+        </p>
+        <p class="equation">
+          $$
+          \frac{\partial \rho}{\partial t}(x,t)
+          = \nabla \cdot \Big[
+            \rho(x,t) \, \nabla (\Phi(x) + \alpha e(t) \Psi(x;C))
+          \Big]
+          + D (1 + \kappa e(t)) \, \Delta \rho(x,t).
+          $$
+        </p>
+        <p>
+          This equation describes how probability mass flows across $\mathcal{X}$ over time as a function of
+          baseline continuity constraints ($\Phi$), emotional and commitment influences ($\Psi$), and diffusion
+          modulated by emotional intensity.
+        </p>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>Mathematical model · Drift Theory HTML edition</p>
+  </footer>
+</body>
+</html>

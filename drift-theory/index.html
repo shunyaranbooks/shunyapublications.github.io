@@ -1,1 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drift Theory | Subjective Multiverse Dynamics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Drift Theory: a state-space model for how subjective experience drifts through nearby versions of reality, shaped by emotion and commitment.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    // mobile nav toggle
+    function toggleNav() {
+      document.querySelector('.nav-links').classList.toggle('nav-open');
+    }
+  </script>
+  <!-- MathJax for equations -->
+  <script>
+    window.MathJax = {
+      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
+      svg: {fontCache: 'global'}
+    };
+  </script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+<body>
+  <div class="page-gradient"></div>
 
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-mark">Δ</span>
+      <div class="logo-text">
+        <span class="logo-title">Drift Theory</span>
+        <span class="logo-subtitle">Subjective Multiverse Dynamics</span>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" onclick="toggleNav()">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="model.html">Mathematical Model</a></li>
+        <li><a href="comparison.html">Physics Comparison</a></li>
+        <li><a href="wormholes.html">Wormholes & Attractors</a></li>
+        <li><a href="outlook.html">Discussion & Outlook</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="hero-layout">
+    <section class="hero-text">
+      <div class="badge">Concept Paper · Draft</div>
+      <h1>Drift Theory:<br><span class="accent">A State-Space Model of Subjective Multiverse Experience</span></h1>
+      <p class="hero-lead">
+        A formal framework for describing how lived experience moves through a map of nearby versions of reality, 
+        governed by continuity, emotion, and long-term commitments.
+      </p>
+
+      <div class="hero-actions">
+        <a href="model.html" class="btn primary">Read the Model</a>
+        <a href="comparison.html" class="btn ghost">See Physics Comparison</a>
+      </div>
+
+      <div class="hero-metadata">
+        <div>
+          <span class="meta-label">Author</span>
+          <span class="meta-value">Dr. Mohammad Amir Khusru Akhtar (Shunya)</span>
+        </div>
+        <div>
+          <span class="meta-label">Scope</span>
+          <span class="meta-value">Phenomenological · Interdisciplinary · Dynamical</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero-panel">
+      <div class="card glass hero-card">
+        <h2>Core Idea</h2>
+        <p>
+          Let $\mathcal{X}$ be a manifold of experiential frames. A life is a continuous curve
+          $\gamma(t): \mathbb{R} \to \mathcal{X}$, shaped by three forces:
+        </p>
+        <ul class="key-list">
+          <li><span>Continuity</span> – structural and physical plausibility ($\Phi$).</li>
+          <li><span>Emotion</span> – intensity and direction of affect ($E(t), e(t)$, $\Psi$).</li>
+          <li><span>Commitment</span> – long-term relational and ethical basins ($C$, $V$).</li>
+        </ul>
+        <p class="equation-caption">
+          The drift SDE:
+        </p>
+        <p class="equation">
+          $dX_t = -\nabla \Phi(X_t)\,dt - \alpha e(t) \nabla \Psi(X_t;C)\,dt
+          + \sqrt{2D(1+\kappa e(t))}\,dW_t.$
+        </p>
+      </div>
+
+      <div class="card glass hero-card secondary">
+        <h3>Structure of the Site</h3>
+        <ol class="step-list">
+          <li><strong>Mathematical Model</strong> – configuration space, trajectories, potentials.</li>
+          <li><strong>Physics Comparison</strong> – QM, Many-Worlds, GR, and compatibility.</li>
+          <li><strong>Wormholes & Attractors</strong> – emotional curvature and relational basins.</li>
+          <li><strong>Discussion & Outlook</strong> – empirical, clinical, and philosophical directions.</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <section class="strip strip-three">
+    <div class="strip-item">
+      <h3>Configuration Space</h3>
+      <p>
+        Frames $x = (q, m, r)$ encode coarse physical context $q$, memory $m$, and relational–affective ties $r$.
+        The metric $d(x,y)$ measures how far two versions of experience are.
+      </p>
+    </div>
+    <div class="strip-item">
+      <h3>Drift & Wormholes</h3>
+      <p>
+        Under mild affect, $X(t)$ drifts locally. Under strong affect, curvature increases and the trajectory
+        bends into new experiential regions: emotional wormholes.
+      </p>
+    </div>
+    <div class="strip-item">
+      <h3>Attractor Basins</h3>
+      <p>
+        Combined potentials $U(x;C) = \lambda_{phys}\Phi(x) + \lambda_{rel}V(x;C)$ form basins representing
+        stable patterns: relationships, identities, and values revisited across versions.
+      </p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>Drift Theory · Draft concept paper · HTML edition for GitHub Pages</p>
+    <p>Designed for the repository <code>shunyapublications.github.io</code> and related projects.</p>
+  </footer>
+</body>
+</html>

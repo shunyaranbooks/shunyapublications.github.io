@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drift Theory | Physics Comparison</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    window.MathJax = {
+      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
+      svg: {fontCache: 'global'}
+    };
+  </script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+<body>
+  <div class="page-gradient"></div>
+
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-mark">Δ</span>
+      <div class="logo-text">
+        <span class="logo-title">Drift Theory</span>
+        <span class="logo-subtitle">Physics Comparison</span>
+      </div>
+    </div>
+    <nav class="nav">
+      <ul class="nav-links nav-static">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="model.html">Mathematical Model</a></li>
+        <li><a href="comparison.html" class="active">Physics Comparison</a></li>
+        <li><a href="wormholes.html">Wormholes & Attractors</a></li>
+        <li><a href="outlook.html">Discussion & Outlook</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="content">
+    <article class="paper">
+      <h1>Relation to Existing Physical Theories</h1>
+
+      <section>
+        <h2>Quantum Mechanics</h2>
+        <p>
+          In standard quantum mechanics, a system is described by a state vector $\lvert \Psi(t) \rangle$ in a Hilbert space.
+          Its evolution obeys the Schrödinger equation:
+        </p>
+        <p class="equation">
+          $$
+          i\hbar \frac{d}{dt} \lvert \Psi(t) \rangle = \hat{H} \lvert \Psi(t) \rangle.
+          $$
+        </p>
+        <p>
+          Drift Theory does not modify this equation. Instead, it introduces a separate experiential manifold
+          $\mathcal{X}$ and a trajectory $X(t)$ governed by
+        </p>
+        <p class="equation">
+          $$
+          dX_t = -\nabla \Phi(X_t)\,dt
+                 - \alpha e(t) \nabla \Psi(X_t;C)\,dt
+                 + \sqrt{2D(1+\kappa e(t))}\,dW_t.
+          $$
+        </p>
+        <p>
+          The two descriptions operate at different levels: the Hilbert-space dynamics of $\lvert \Psi(t) \rangle$ describe
+          physical evolution, while the drift dynamics of $X(t)$ describe the structure of lived experience.
+        </p>
+      </section>
+
+      <section>
+        <h2>Many-Worlds Interpretation</h2>
+        <p>
+          In the Everett interpretation, the universal wavefunction branches into many non-interacting "worlds".
+          Drift Theory can be viewed as a coarse-grained mapping from such branches into an experiential manifold
+          $\mathcal{X}$, where each point $x$ represents a macro-level experiential version.
+        </p>
+        <p>
+          The novelty of Drift Theory lies in modeling a <em>continuous</em> path through nearby experiential versions,
+          rather than emphasizing discrete branching alone. Emotional intensity and commitments bias which nearby
+          coarse-grained region is most likely to be inhabited over time.
+        </p>
+      </section>
+
+      <section>
+        <h2>General Relativity and Wormholes</h2>
+        <p>
+          General relativity describes spacetime geometry using a metric tensor $g_{\mu\nu}$, satisfying Einstein's field
+          equations
+        </p>
+        <p class="equation">
+          $$
+          G_{\mu\nu} = 8\pi G \, T_{\mu\nu}.
+          $$
+        </p>
+        <p>
+          Spacetime wormholes, when they exist as solutions, are geometric structures in this metric. Drift Theory uses
+          the term "wormhole" for a different object: a high-curvature segment of the experiential trajectory $X(t)$ in
+          $\mathcal{X}$ during periods of strong affect.
+        </p>
+        <p class="equation">
+          $$
+          e(t) > e_c, \quad
+          \max_{t \in [t_1, t_2]} \frac{\lVert \ddot{X}(t) \rVert}{\lVert \dot{X}(t) \rVert} > K_c.
+          $$
+        </p>
+        <p>
+          Physical wormholes and experiential wormholes live in different spaces: spacetime vs. experiential configuration
+          space. There is no formal conflict as long as this distinction is maintained.
+        </p>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>Compatibility discussion · Drift Theory HTML edition</p>
+  </footer>
+</body>
+</html>

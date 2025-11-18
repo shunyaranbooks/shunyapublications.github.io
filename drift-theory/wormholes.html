@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drift Theory | Wormholes & Attractors</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    window.MathJax = {
+      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
+      svg: {fontCache: 'global'}
+    };
+  </script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+<body>
+  <div class="page-gradient"></div>
+
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-mark">Δ</span>
+      <div class="logo-text">
+        <span class="logo-title">Drift Theory</span>
+        <span class="logo-subtitle">Wormholes & Attractors</span>
+      </div>
+    </div>
+    <nav class="nav">
+      <ul class="nav-links nav-static">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="model.html">Mathematical Model</a></li>
+        <li><a href="comparison.html">Physics Comparison</a></li>
+        <li><a href="wormholes.html" class="active">Wormholes & Attractors</a></li>
+        <li><a href="outlook.html">Discussion & Outlook</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="content">
+    <article class="paper">
+      <h1>Emotional Wormholes and Relational Attractors</h1>
+
+      <section>
+        <h2>4. Emotional Wormholes as High-Curvature Transitions</h2>
+        <p>
+          In popular multiverse narratives, a "wormhole" is a sudden transition to a very different version of reality.
+          Drift Theory reinterprets this idea within experiential state-space: a wormhole is a rapid reconfiguration of
+          $X(t)$ driven by strong affect.
+        </p>
+        <p>
+          Define velocity and acceleration:
+        </p>
+        <p class="equation">
+          $$
+          \dot{X}(t) = \frac{dX}{dt}(t), \quad
+          \ddot{X}(t) = \frac{d^2X}{dt^2}(t),
+          $$
+        </p>
+        <p>
+          assuming sufficient smoothness. An interval $[t_1, t_2]$ is an emotional wormhole segment if:
+        </p>
+        <ul>
+          <li>
+            Emotional intensity exceeds a critical threshold
+            $$e(t) > e_c \quad \text{for } t \in [t_1, t_2],$$
+          </li>
+          <li>
+            The trajectory exhibits high curvature in $\mathcal{X}$:
+            $$
+              \max_{t \in [t_1, t_2]} \frac{\lVert \ddot{X}(t) \rVert}{\lVert \dot{X}(t) \rVert} > K_c.
+            $$
+          </li>
+        </ul>
+        <p>
+          After such an event, external physical details may remain almost unchanged, but the subject's meaning-structure,
+          self-understanding, and relational stance can be significantly different.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. Relational Attractors and Stability Basins</h2>
+        <p>
+          Drift Theory also aims to capture the intuition that certain patterns—especially long-term relationships and
+          repeated choices—seem to persist across many local variations of life.
+        </p>
+        <p>
+          Let $V: \mathcal{X} \times \mathcal{C} \to \mathbb{R}$ be a relational stability potential. For a given
+          set of commitments $C$, define $V(x;C)$ such that $V$ is low when the frame $x$ reflects honored commitments
+          (continuing a chosen relationship, living consistently with values), and high when commitments are violated.
+        </p>
+        <p>
+          Define a combined energy-like function
+        </p>
+        <p class="equation">
+          $$
+          U(x;C) = \lambda_{phys} \, \Phi(x) + \lambda_{rel} \, V(x;C),
+          $$
+        </p>
+        <p>
+          with weights $\lambda_{phys}, \lambda_{rel} \ge 0$ expressing the relative importance of continuity versus
+          relational stability.
+        </p>
+        <p>
+          In a simplified deterministic limit (neglecting noise and treating emotion intensity as slowly varying), the
+          drift can be approximated by
+        </p>
+        <p class="equation">
+          $$
+          \dot{X}(t) = -\nabla U(X(t); C).
+          $$
+        </p>
+        <p>
+          Regions where $U(x;C)$ is locally minimal form attractor basins: sets of frames that the trajectory tends to
+          visit and revisit. Many slightly different experiential frames can share the feature of "being with the same
+          partner in a relationship of mutual commitment," even as external details change.
+        </p>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>Wormholes and attractors · Drift Theory HTML edition</p>
+  </footer>
+</body>
+</html>
