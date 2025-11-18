@@ -320,7 +320,6 @@
 
       // Use slider dt as base step
       const dtSlider = parseFloat(speedSlider.value);
-      // We may subdivide the real time to keep stability if dtReal is large
       let accumulator = dtReal;
       const maxStep = dtSlider;
       while (accumulator > 0) {
@@ -368,7 +367,18 @@
       resetState();
     });
 
-    // Legend styling hooks (optional, for CSS)
+    // ---- INITIALIZE & START ANIMATION ----
+    // set initial label values
+    emotionValue.textContent = parseFloat(emotionSlider.value).toFixed(1);
+    alphaValue.textContent   = parseFloat(alphaSlider.value).toFixed(1);
+    kappaValue.textContent   = parseFloat(kappaSlider.value).toFixed(1);
+    speedValue.textContent   = parseFloat(speedSlider.value).toFixed(3);
+
+    // initial draw
+    resetState();
+
+    // start animation loop
+    requestAnimationFrame(animate);
   </script>
 </body>
 </html>
