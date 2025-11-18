@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drift Theory | Interactive Simulation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="page-gradient"></div>
+
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-mark">Δ</span>
+      <div class="logo-text">
+        <span class="logo-title">Drift Theory</span>
+        <span class="logo-subtitle">Interactive Simulation</span>
+      </div>
+    </div>
+    <nav class="nav">
+      <ul class="nav-links nav-static">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="model.html">Mathematical Model</a></li>
+        <li><a href="comparison.html">Physics Comparison</a></li>
+        <li><a href="wormholes.html">Wormholes & Attractors</a></li>
+        <li><a href="outlook.html">Discussion & Outlook</a></li>
+        <li><a href="simulation.html" class="active">Simulation</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="content">
+    <article class="paper">
+      <h1>Interactive Drift Simulation</h1>
+
+      <p class="lead">
+        This page shows a simple 2D toy simulation of Drift Theory. Each point on the canvas is one
+        <em>experiential frame</em>. The moving dot is your current state <strong>X(t)</strong>.
+        Its path is shaped by:
+      </p>
+
+      <ul>
+        <li><strong>Continuity</strong>: pulls the state back toward the center (plausible, smooth change).</li>
+        <li><strong>Emotion</strong>: bends the path toward or away from the attractor (the commitment point).</li>
+        <li><strong>Noise</strong>: random fluctuations, which grow with emotional intensity.</li>
+      </ul>
+
+      <section class="sim-layout">
+        <div class="sim-panel">
+          <canvas id="simCanvas" width="640" height="420"></canvas>
+        </div>
+
+        <div class="sim-controls">
+          <h2>Controls</h2>
+
+          <div class="control-group">
+            <label for="emotionSlider">
+              Emotion intensity <span id="emotionValue">1.0</span>
+            </label>
+            <input type="range" id="emotionSlider" min="0" max="3" step="0.1" value="1">
+            <p class="control-note">
+              Higher emotion bends the path more strongly toward the attractor and increases volatility.
+            </p>
+          </div>
+
+          <div class="control-group">
+            <label for="alphaSlider">
+              Attractor strength α <span id="alphaValue">0.8</span>
+            </label>
+            <input type="range" id="alphaSlider" min="0" max="2" step="0.1" value="0.8">
+            <p class="control-note">
+              How strongly commitments (the attractor) pull your trajectory.
+            </p>
+          </div>
+
+          <div class="control-group">
+            <label for="kappaSlider">
+              Emotion–noise coupling κ <span id="kappaValue">0.7</span>
+            </label>
+            <input type="range" id="kappaSlider" min="0" max="2" step="0.1" value="0.7">
+            <p class="control-note">
+              How much emotions amplify randomness in your path.
+            </p>
+          </div>
+
+          <div class="control-group">
+            <label for="speedSlider">
+              Simulation speed (Δt) <span id="speedValue">0.02</span>
+            </label>
+            <input type="range" id="speedSlider" min="0.005" max="0.05" step="0.005" value="0.02">
+            <p class="control-note">
+              Smaller values ≈ finer steps; larger values ≈ faster but rougher.
+            </p>
+          </div>
+
+          <div class="control-buttons">
+            <button id="toggleButton" class="btn-primary">Start</button>
+            <button id="resetButton" class="btn-secondary">Reset</button>
+          </div>
+
+          <div class="control-group">
+            <h3>Legend</h3>
+            <ul>
+              <li><span class="legend-box legend-current"></span> Current state X(t)</li>
+              <li><span class="legend-box legend-path"></span> Recent trajectory</li>
+              <li><span class="legend-box legend-attractor"></span> Attractor (commitment basin)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>What This Simulation Represents</h2>
+        <p>
+          We collapse the full high-dimensional space of experience into a simple 2D toy model. The horizontal axis can
+          be read as a coarse “physical/mundane” dimension, and the vertical axis as a coarse “relational/meaning”
+          dimension. The attractor point represents a stable commitment (for example, staying in a relationship or
+          honoring a promise).
+        </p>
+        <p>
+          Mathematically, we approximate the Drift Theory equation in discrete time:
+        </p>
+        <p class="math-inline">
+          X(t + Δt) ≈ X(t)
+          − ∇Φ(X(t)) Δt
+          − α · e · ∇Ψ(X(t); C) Δt
+          + √(2 D (1 + κ e)) · ξ,
+        </p>
+        <p>
+          where:
+        </p>
+        <ul>
+          <li><strong>Φ</strong> is a continuity potential pulling X(t) toward the center.</li>
+          <li><strong>Ψ</strong> is an attractor potential pulling X(t) toward the commitment point C.</li>
+          <li><strong>e</strong> is the emotion slider, <strong>α</strong> and <strong>κ</strong> are the other sliders.</li>
+          <li><strong>ξ</strong> is a random 2D “kick” drawn from a Gaussian distribution.</li>
+        </ul>
+        <p>
+          This is not a full empirical model, but a visual intuition for how smooth drift, emotional curvature, and
+          attractor basins can interact to shape a life-trajectory in experience-space.
+        </p>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>Interactive simulation · Drift Theory HTML edition</p>
+  </footer>
+
+  <script>
+    // ---- Basic setup ----
+    const canvas = document.getElementById('simCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const emotionSlider = document.getElementById('emotionSlider');
+    const alphaSlider = document.getElementById('alphaSlider');
+    const kappaSlider = document.getElementById('kappaSlider');
+    const speedSlider = document.getElementById('speedSlider');
+
+    const emotionValue = document.getElementById('emotionValue');
+    const alphaValue = document.getElementById('alphaValue');
+    const kappaValue = document.getElementById('kappaValue');
+    const speedValue = document.getElementById('speedValue');
+
+    const toggleButton = document.getElementById('toggleButton');
+    const resetButton = document.getElementById('resetButton');
+
+    // Simulation state
+    let running = false;
+    let lastTimestamp = null;
+
+    // Toy model parameters
+    let X = { x: 0, y: 0 };        // current position in "experience space"
+    const D = 0.03;                // baseline diffusion
+    const attractor = { x: 1.5, y: 1.0 }; // "commitment" point (C)
+
+    // Coordinate mapping
+    const scale = 80; // pixels per unit
+    const center = { x: canvas.width / 2, y: canvas.height / 2 };
+
+    // For trajectory trail
+    const trail = [];
+    const maxTrailLength = 1000;
+
+    // ---- Helper: Gaussian random (Box-Muller) ----
+    function gaussianRandom() {
+      let u = 0, v = 0;
+      while (u === 0) u = Math.random();
+      while (v === 0) v = Math.random();
+      return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    }
+
+    // ---- Dynamics ----
+    function stepSimulation(dt) {
+      const e = parseFloat(emotionSlider.value);
+      const alpha = parseFloat(alphaSlider.value);
+      const kappa = parseFloat(kappaSlider.value);
+
+      // Current position
+      let x = X.x;
+      let y = X.y;
+
+      // Φ(x, y) = 0.5 (x^2 + y^2)  => gradΦ = (x, y)
+      const gradPhiX = x;
+      const gradPhiY = y;
+
+      // Ψ(x, y; C) = 0.5 ((x - Cx)^2 + (y - Cy)^2) => gradΨ = (x - Cx, y - Cy)
+      const dxC = x - attractor.x;
+      const dyC = y - attractor.y;
+      const gradPsiX = dxC;
+      const gradPsiY = dyC;
+
+      // Drift terms
+      const driftX = -gradPhiX - alpha * e * gradPsiX;
+      const driftY = -gradPhiY - alpha * e * gradPsiY;
+
+      // Noise scale
+      const noiseScale = Math.sqrt(2 * D * (1 + kappa * e));
+
+      // Random kicks
+      const noiseX = noiseScale * gaussianRandom();
+      const noiseY = noiseScale * gaussianRandom();
+
+      // Euler–Maruyama update
+      x += driftX * dt + noiseX * Math.sqrt(dt);
+      y += driftY * dt + noiseY * Math.sqrt(dt);
+
+      // Soft confinement to avoid flying off-screen
+      const r = Math.sqrt(x * x + y * y);
+      if (r > 4) {
+        x *= 0.9;
+        y *= 0.9;
+      }
+
+      X.x = x;
+      X.y = y;
+
+      trail.push({ x, y });
+      if (trail.length > maxTrailLength) {
+        trail.shift();
+      }
+    }
+
+    // ---- Drawing ----
+    function toCanvasCoords(pt) {
+      return {
+        x: center.x + pt.x * scale,
+        y: center.y - pt.y * scale
+      };
+    }
+
+    function draw() {
+      // Fade old frame to create a trailing effect
+      ctx.fillStyle = "rgba(7, 12, 24, 0.35)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Axes
+      ctx.save();
+      ctx.strokeStyle = "rgba(180, 200, 255, 0.2)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, center.y);
+      ctx.lineTo(canvas.width, center.y);
+      ctx.moveTo(center.x, 0);
+      ctx.lineTo(center.x, canvas.height);
+      ctx.stroke();
+      ctx.restore();
+
+      // Attractor
+      const A = toCanvasCoords(attractor);
+      ctx.save();
+      ctx.fillStyle = "rgba(255, 180, 80, 0.9)";
+      ctx.beginPath();
+      ctx.arc(A.x, A.y, 7, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.restore();
+
+      // Trajectory
+      if (trail.length > 1) {
+        ctx.save();
+        ctx.beginPath();
+        const first = toCanvasCoords(trail[0]);
+        ctx.moveTo(first.x, first.y);
+        for (let i = 1; i < trail.length; i++) {
+          const p = toCanvasCoords(trail[i]);
+          ctx.lineTo(p.x, p.y);
+        }
+        ctx.strokeStyle = "rgba(120, 200, 255, 0.65)";
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Current point
+      const C = toCanvasCoords(X);
+      ctx.save();
+      ctx.fillStyle = "rgba(120, 255, 180, 1.0)";
+      ctx.beginPath();
+      ctx.arc(C.x, C.y, 6, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // ---- Animation loop ----
+    function animate(timestamp) {
+      if (!running) {
+        draw();
+        requestAnimationFrame(animate);
+        return;
+      }
+
+      if (lastTimestamp == null) {
+        lastTimestamp = timestamp;
+      }
+      const dtReal = (timestamp - lastTimestamp) / 1000; // seconds
+      lastTimestamp = timestamp;
+
+      // Use slider dt as base step
+      const dtSlider = parseFloat(speedSlider.value);
+      // We may subdivide the real time to keep stability if dtReal is large
+      let accumulator = dtReal;
+      const maxStep = dtSlider;
+      while (accumulator > 0) {
+        const step = Math.min(accumulator, maxStep);
+        stepSimulation(step);
+        accumulator -= step;
+      }
+
+      draw();
+      requestAnimationFrame(animate);
+    }
+
+    // ---- UI wiring ----
+    function resetState() {
+      X = { x: 0, y: 0 };
+      trail.length = 0;
+      draw();
+    }
+
+    emotionSlider.addEventListener('input', () => {
+      emotionValue.textContent = parseFloat(emotionSlider.value).toFixed(1);
+    });
+
+    alphaSlider.addEventListener('input', () => {
+      alphaValue.textContent = parseFloat(alphaSlider.value).toFixed(1);
+    });
+
+    kappaSlider.addEventListener('input', () => {
+      kappaValue.textContent = parseFloat(kappaSlider.value).toFixed(1);
+    });
+
+    speedSlider.addEventListener('input', () => {
+      speedValue.textContent = parseFloat(speedSlider.value).toFixed(3);
+    });
+
+    toggleButton.addEventListener('click', () => {
+      running = !running;
+      toggleButton.textContent = running ? 'Pause' : 'Start';
+      if (running) {
+        lastTimestamp = null;
+      }
+    });
+
+    resetButton.addEventListener('click', () => {
+      resetState();
+    });
+
+    // Legend styling hooks (optional, for CSS)
+  </script>
+</body>
+</html>
